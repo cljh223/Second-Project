@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kilha.www.dao.MapDAO">
+
+	<resultMap type="Address" id="bbsAttachResultMap">
+		<result property="addressPost" column="address_post"/>
+		<result property="addressDetail1" column="address_detail1"/>
+		<result property="addressDetail2" column="address_detail2"/>
+		<result property="addressDetail3" column="address_detail3"/>
+		<result property="addressDetail4" column="address_detail4"/>
+		<result property="shopCode" column="shop_code"/>
+	</resultMap>
+	
+	<resultMap type="Shop" id="ShopMap">
+		<id property="shopCode" column="shop_code"/>
+		<result property="shopName" column="shop_name"/>
+		<result property="shopNumber" column="shop_number"/>
+		<result property="shopRep" column="shop_rep"/>
+		<result property="shopTel" column="shop_tel"/>
+		<result property="stateCode" column="state_code"/>
+		<collection property="addressSet" javaType="java.util.List" resultMap="bbsAttachResultMap"/>
+	</resultMap>
+
+	<select id="shopSelect" resultMap="ShopMap"> 
+		select 
+			s.shop_name
+			, a.address_detail1
+			, a.address_detail2
+			, a.address_detail3
+			, a.address_detail4
+		from address a INNER JOIN shop s
+		on
+			a.shop_code = s.shop_code
+	</select>
+	
+</mapper>
