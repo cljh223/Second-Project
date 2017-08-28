@@ -88,38 +88,7 @@ function bootpopup(options) {
     
     // Body
     var body = $('<div class="modal-body"></div>').appendTo(content);
-    var form = $('<form><div class="col-sm-12">'+
-                '<section class="panel">'+
-                    '<div class="panel-body">'+
-                    ' <table class="table  table-hover general-table">'+
-                    '<thead>'+
-                    '<tr>'+
-                        '<th> Company</th>'+
-                       '<th class="hidden-phone">Descrition</th>'+
-                        '<th>Profit</th>'+
-                        '<th>Status</th>'+
-                        '<th>Progress</th>'+
-                    '</tr>'+
-                    '</thead>'+
-                    '<tbody>'+
-                    '<tr>'+
-                        '<td><a href="#">Graphics</a></td>'+
-                        '<td class="hidden-phone">Lorem Ipsum dorolo imit</td>'+
-                        '<td>1320.00$ </td>'+
-                        '<td><span class="label label-info label-mini">Due</span></td>'+
-                        '<td>'+
-                            '<div class="progress progress-striped progress-xs">'+
-                                '<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">'+
-                                    '<span class="sr-only">40% Complete (success)</span>'+
-                                '</div>'+
-                            '</div>'+
-                        '</td>'+
-                    '</tr>'+
-                    '</tbody>'+
-                    '</thead>'+
-                    '</div>'+
-                '</section>'+
-            '</div></form>', { id: this.formid, class: "form-horizontal", onsubmit: "return false;" }).appendTo(body);
+    var form = $({ id: this.formid, class: "form-horizontal", onsubmit: "return false;" }).appendTo(body);
 
     // Iterate over entries
     for(var i in opts.content) {
