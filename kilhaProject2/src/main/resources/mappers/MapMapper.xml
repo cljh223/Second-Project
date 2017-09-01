@@ -5,7 +5,7 @@
   
 <mapper namespace="com.kilha.www.dao.MapDAO">
 
-	<resultMap type="Address" id="bbsAttachResultMap">
+	<resultMap type="Address" id="AddressMap">
 		<result property="addressPost" column="address_post"/>
 		<result property="addressDetail1" column="address_detail1"/>
 		<result property="addressDetail2" column="address_detail2"/>
@@ -21,10 +21,10 @@
 		<result property="shopRep" column="shop_rep"/>
 		<result property="shopTel" column="shop_tel"/>
 		<result property="stateCode" column="state_code"/>
-		<collection property="addressSet" javaType="java.util.List" resultMap="bbsAttachResultMap"/>
+		<collection property="addressSet" javaType="java.util.List" resultMap="AddressMap"/>
 	</resultMap>
 
-	<select id="shopSelect" resultMap="ShopMap"> 
+	<select id="markerSelect" resultMap="ShopMap"> 
 		select 
 			s.shop_name
 			, a.address_detail1
@@ -35,5 +35,56 @@
 		on
 			a.shop_code = s.shop_code
 	</select>
+	
+	<select id="shopSelect" parameterType="String" resultMap="ShopMap">
+		select shop_code, shop_name, shop_rep, shop_tel
+		from shop
+		where shop_name like '%' || #{searchText} || '%'
+		order by shop_code
+	</select>
+	
+	<resultMap type="Warehouse" id="WarehouseList">
+		<id property="warehouseCode" column="warehouse_code"/>
+		<result property="warehouseName" column="warehouse_name"/>
+		<result property="warehouseType" column="warehouse_type"/>
+	</resultMap>
+	
+	<select id="warehouseSelect" parameterType="String" resultMap="WarehouseList">
+		select warehouse_code, warehouse_name, warehouse_type
+			from warehouse
+			where warehouse_name like '%' || #{searchText} || '%'
+			order by warehouse_code
+	</select>	
+	
+	<resultMap type="Staff" id="StaffList">
+		<id property="staffCode" column="staff_code"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="staffDepartment" column="staff_department"/>
+	</resultMap>
+	
+	<select id="staffSelect" parameterType="String" resultMap="StaffList">
+		select staff_code, staff_name, staff_department
+			from staff
+			where staff_name like '%' || #{searchText} || '%'
+			order by staff_code
+	</select>	
+	
+	<resultMap type="Product" id="ProductList">
+		<id property="productCode" column="product_code"/>
+		<result property="productName" column="product_name"/>
+		<result property="productUnitPrice" column="product_unit_price"/>
+		<result property="productReleasePrice" column="product_release_price"/>
+		<result property="productImage" column="product_image"/>
+		<result property="productUnit" column="product_unit"/>
+		<result property="productSalesPrice" column="product_sales_price"/>
+	</resultMap>
+	
+	<select id="productSelect" parameterType="String" resultMap="ProductList">
+		select product_code, product_name, product_unit_price, product_release_price, product_sales_price
+			from product
+			where product_name like '%' || #{searchText} || '%'
+			order by product_code
+	</select>	
+	
 	
 </mapper>

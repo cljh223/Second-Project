@@ -1,6 +1,8 @@
 package com.kilha.www.vo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,17 +38,17 @@ public class Product implements Serializable {
 	private Integer productSalesPrice;
 
 	/** 경쟁사 납품 정보 테이블 목록. */
-	private Set<Competitorsupply> competitorsupplySet;
+	private List<Competitorsupply> competitorsupplySet;
 
 	/** 납품목록테이블 목록. */
-	private Set<Supply> supplySet;
+	private List<Supply> supplySet;
 
 	/**
 	 * 생성자.
 	 */
 	public Product() {
-		this.competitorsupplySet = new HashSet<Competitorsupply>();
-		this.supplySet = new HashSet<Supply>();
+		this.competitorsupplySet = new ArrayList<Competitorsupply>();
+		this.supplySet = new ArrayList<Supply>();
 	}
 
 	/**
@@ -188,7 +190,7 @@ public class Product implements Serializable {
 	 * @param competitorsupplySet
 	 *            경쟁사 납품 정보 테이블 목록
 	 */
-	public void setCompetitorsupplySet(Set<Competitorsupply> competitorsupplySet) {
+	public void setCompetitorsupplySet(List<Competitorsupply> competitorsupplySet) {
 		this.competitorsupplySet = competitorsupplySet;
 	}
 
@@ -207,7 +209,7 @@ public class Product implements Serializable {
 	 * 
 	 * @return 경쟁사 납품 정보 테이블 목록
 	 */
-	public Set<Competitorsupply> getCompetitorsupplySet() {
+	public List<Competitorsupply> getCompetitorsupplySet() {
 		return this.competitorsupplySet;
 	}
 
@@ -217,7 +219,7 @@ public class Product implements Serializable {
 	 * @param supplySet
 	 *            납품목록테이블 목록
 	 */
-	public void setSupplySet(Set<Supply> supplySet) {
+	public void setSupplySet(List<Supply> supplySet) {
 		this.supplySet = supplySet;
 	}
 
@@ -236,7 +238,7 @@ public class Product implements Serializable {
 	 * 
 	 * @return 납품목록테이블 목록
 	 */
-	public Set<Supply> getSupplySet() {
+	public List<Supply> getSupplySet() {
 		return this.supplySet;
 	}
 

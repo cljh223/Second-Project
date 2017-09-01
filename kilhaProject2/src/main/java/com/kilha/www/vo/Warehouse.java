@@ -1,7 +1,11 @@
 package com.kilha.www.vo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.apache.ibatis.type.IntegerTypeHandler;
 
 /**
  * 창고 테이블 모델 클래스.
@@ -15,22 +19,18 @@ public class Warehouse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** 창고코드. */
-	private String warehouseCode;
+	private Integer warehouseCode;
 
 	/** 창고명. */
 	private String warehouseName;
 
 	/** 창고종류. */
-	private Integer warehouseType;
-
-	/** 영업프로세스테이블 목록. */
-	private Set<Process> processSet;
+	private String warehouseType;
 
 	/**
 	 * 생성자.
 	 */
 	public Warehouse() {
-		this.processSet = new HashSet<Process>();
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class Warehouse implements Serializable {
 	 * @param warehouseCode
 	 *            창고코드
 	 */
-	public void setWarehouseCode(String warehouseCode) {
+	public void setWarehouseCode(Integer warehouseCode) {
 		this.warehouseCode = warehouseCode;
 	}
 
@@ -48,7 +48,7 @@ public class Warehouse implements Serializable {
 	 * 
 	 * @return 창고코드
 	 */
-	public String getWarehouseCode() {
+	public Integer getWarehouseCode() {
 		return this.warehouseCode;
 	}
 
@@ -77,7 +77,7 @@ public class Warehouse implements Serializable {
 	 * @param warehouseType
 	 *            창고종류
 	 */
-	public void setWarehouseType(Integer warehouseType) {
+	public void setWarehouseType(String warehouseType) {
 		this.warehouseType = warehouseType;
 	}
 
@@ -86,38 +86,10 @@ public class Warehouse implements Serializable {
 	 * 
 	 * @return 창고종류
 	 */
-	public Integer getWarehouseType() {
+	public String getWarehouseType() {
 		return this.warehouseType;
 	}
 
-	/**
-	 * 영업프로세스테이블 목록을 설정합니다..
-	 * 
-	 * @param processSet
-	 *            영업프로세스테이블 목록
-	 */
-	public void setProcessSet(Set<Process> processSet) {
-		this.processSet = processSet;
-	}
-
-	/**
-	 * 영업프로세스테이블를 추가합니다..
-	 * 
-	 * @param process
-	 *            영업프로세스테이블
-	 */
-	public void addProcess(Process process) {
-		this.processSet.add(process);
-	}
-
-	/**
-	 * 영업프로세스테이블 목록을 가져옵니다..
-	 * 
-	 * @return 영업프로세스테이블 목록
-	 */
-	public Set<Process> getProcessSet() {
-		return this.processSet;
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -155,4 +127,10 @@ public class Warehouse implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Warehouse [warehouseCode=" + warehouseCode + ", warehouseName=" + warehouseName + ", warehouseType="
+				+ warehouseType + "]";
+	}
+	
 }

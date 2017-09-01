@@ -4,7 +4,6 @@
 DROP TABLE supply CASCADE CONSTRAINTS;
 DROP TABLE process CASCADE CONSTRAINTS;
 DROP TABLE staff CASCADE CONSTRAINTS;
-DROP TABLE department CASCADE CONSTRAINTS;
 DROP TABLE warehouse CASCADE CONSTRAINTS;
 DROP TABLE kpi CASCADE CONSTRAINTS;
 DROP TABLE address CASCADE CONSTRAINTS;
@@ -15,30 +14,38 @@ DROP TABLE kpiDivision CASCADE CONSTRAINTS;
 DROP TABLE competitor CASCADE CONSTRAINTS;
 DROP TABLE product CASCADE CONSTRAINTS;
 DROP SEQUENCE shop_code_SEQ;
-
+DROP SEQUENCE warehouse_code_num_SEQ;
+DROP SEQUENCE staff_code_SEQ;
 
 
 /* Create Tables */
 
-CREATE TABLE department
-(
-	dep_code number(5,0) NOT NULL,
-	dep_name varchar2(30) NOT NULL UNIQUE,
-	PRIMARY KEY (dep_code)
-);
-
-
 CREATE TABLE warehouse
 (
-	warehouse_code varchar2(7) NOT NULL,
+	warehouse_code number NOT NULL,
 	warehouse_name varchar2(60) NOT NULL,
 	-- 0 : 물류창고
 	-- 1 : 공장
 	-- 2 : 외주공장
-	warehouse_type number(1) NOT NULL,
+	warehouse_type VARCHAR2(15) NOT NULL,
 	PRIMARY KEY (warehouse_code)
 );
 
+CREATE SEQUENCE warehouse_code_num_SEQ;
+
+INSERT INTO warehouse VALUES
+(
+	warehouse_code_num_SEQ.NEXTVAL
+	, '성산공장'
+	, '공장'
+);
+
+INSERT INTO warehouse VALUES
+(
+	warehouse_code_num_SEQ.NEXTVAL
+	, '잠실창고'
+	, '물류창고'
+);
 
 CREATE TABLE state
 (
@@ -179,7 +186,7 @@ CREATE TABLE process
 	process_state number(1) NOT NULL,
 	shop_code number(10,0) NOT NULL,
 	staff_code number(5,0) NOT NULL,
-	warehouse_code varchar2(7) NOT NULL,
+	warehouse_code number NOT NULL,
 	PRIMARY KEY (process_code)
 );
 
@@ -196,6 +203,28 @@ CREATE TABLE product
 	product_unit varchar2(30) NOT NULL,
 	product_sales_price number(10,0) NOT NULL,
 	PRIMARY KEY (product_code)
+);
+
+INSERT INTO product VALUES
+(
+	'my00001'
+	, '진라면'
+	, 20000
+	, 30000
+	, 'aaa'
+	, 'box'
+	, '40000'
+);
+
+INSERT INTO product VALUES
+(
+	'my00002'
+	, '진짬뽕'
+	, 25000
+	, 35000
+	, 'bbb'
+	, 'box'
+	, '45000'
 );
 
 
@@ -272,19 +301,43 @@ CREATE TABLE staff
 (
 	staff_code number(5,0) NOT NULL,
 	staff_name varchar2(15) NOT NULL,
-	dep_code number(5,0) NOT NULL,
+	staff_department varchar2(50) NOT NULL,
 	PRIMARY KEY (staff_code)
+);
+
+CREATE SEQUENCE staff_code_SEQ;
+
+insert into staff values
+(
+	staff_code_SEQ.NEXTVAL
+	, '정우석'
+	, '생산부'
+);
+
+insert into staff values
+(
+	staff_code_SEQ.NEXTVAL
+	, '조준석'
+	, '영업부'
+);
+
+insert into staff values
+(
+	staff_code_SEQ.NEXTVAL
+	, '이지은'
+	, '영업부'
+);
+
+insert into staff values
+(
+	staff_code_SEQ.NEXTVAL
+	, '김태연'
+	, '영업부'
 );
 
 
 
 /* Create Foreign Keys */
-
-ALTER TABLE staff
-	ADD FOREIGN KEY (dep_code)
-	REFERENCES department (dep_code)
-;
-
 
 ALTER TABLE process
 	ADD FOREIGN KEY (warehouse_code)

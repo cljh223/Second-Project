@@ -19,9 +19,8 @@ public class Staff implements Serializable {
 
 	/** 직원이름. */
 	private String staffName;
-
-	/** 부서테이블. */
-	private Department department;
+	
+	private String staffDepartment;
 
 	/** 영업프로세스테이블 목록. */
 	private Set<Process> processSet;
@@ -70,24 +69,17 @@ public class Staff implements Serializable {
 	public String getStaffName() {
 		return this.staffName;
 	}
-
-	/**
-	 * 부서테이블을 설정합니다..
-	 * 
-	 * @param department
-	 *            부서테이블
-	 */
-	public void setDepartment(Department department) {
-		this.department = department;
+	
+	public String getStaffDepartment() {
+		return staffDepartment;
 	}
 
-	/**
-	 * 부서테이블을 가져옵니다..
-	 * 
-	 * @return 부서테이블
-	 */
-	public Department getDepartment() {
-		return this.department;
+	public void setStaffDepartment(String staffDepartment) {
+		this.staffDepartment = staffDepartment;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	/**
@@ -153,6 +145,12 @@ public class Staff implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Staff [staffCode=" + staffCode + ", staffName=" + staffName + ", staffDepartment=" + staffDepartment
+				+ ", processSet=" + processSet + "]";
 	}
 
 }

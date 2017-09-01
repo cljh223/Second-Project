@@ -6,6 +6,9 @@
   <typeAliases>
   	<typeAlias type="com.kilha.www.vo.Shop" alias="Shop"/>
   	<typeAlias type="com.kilha.www.vo.Address" alias="Address"/>
+  	<typeAlias type="com.kilha.www.vo.Warehouse" alias="Warehouse"/>
+  	<typeAlias type="com.kilha.www.vo.Staff" alias="Staff"/>
+  	<typeAlias type="com.kilha.www.vo.Product" alias="Product"/>
   </typeAliases>
   <mappers>
     <mapper resource="mappers/MapMapper.xml"/>

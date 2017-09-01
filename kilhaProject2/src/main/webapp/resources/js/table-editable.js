@@ -24,6 +24,7 @@ var EditableTable = function () {
                 jqTds[3].innerHTML = '<input type="text" class="form-control small" value="' + aData[3] + '">';
                 jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
                 jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
+                
             }
 
             function saveRow(oTable, nRow) {
@@ -133,5 +134,4 @@ var EditableTable = function () {
         }
 
     };
-
 }();
