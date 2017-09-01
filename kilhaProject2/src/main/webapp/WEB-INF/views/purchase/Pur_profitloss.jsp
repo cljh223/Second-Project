@@ -25,6 +25,10 @@
 <link href="js/css3clock/css/style.css" rel="stylesheet">
 <!--Morris Chart CSS -->
 <link rel="stylesheet" href="js/morris-chart/morris.css">
+ <!--iron slider-->
+    <link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.skinFlat.css" rel="stylesheet"/>
+
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
@@ -267,35 +271,6 @@
 
 				<!--mini statistics end-->
 				<div class="row">
-				
-				<div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
-                        Bar Chart
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                    </header>
-                    <div class="panel-body">
-                        <div class="chartJS">
-                            <canvas id="bar-chart-js" height="250" width="800" ></canvas>
-
-
-                        </div>
-
-
-
-                    </div>
-                </section>
-            </div>
-				
-				
-				
-				
-				
-				
 					<div class="col-md-12">
 						<!--earning graph start-->
 						<section class="panel">
@@ -338,13 +313,15 @@
 										id="editable-sample">
 										<thead>
 											<tr>
+												<th>거래일</th>
 												<th>상품명</th>
-												<th>상품코드</th>
-												<th>잔여수량</th>
-												<th>평균단가</th>
-												<th>현재가격</th>
+												<th>매매타입</th>
+												<th>수량</th>
+												<th>단가</th>
+												<th>총액</th>
 												<th>수익금</th>
-												<th>수익률</th>											
+												<th>수익률</th>
+												<th>잔여재고량</th>
 												<th>잔여가치</th>
 											</tr>
 										</thead>
@@ -402,6 +379,34 @@
 						</section>
 						<!--earning graph end-->
 					</div>
+
+
+			<div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        누적수익률
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header>
+                    <div class="panel-body">
+
+                        <table class="table slider-table">
+                            <tbody><tr>
+                                <td>
+                                    <span class="irs irs-with-grid" id="irs-1"><span class="irs"><span class="irs-line"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span><span class="irs-min" style="display: block;">$0</span><span class="irs-max" style="display: block;">$5000</span><span class="irs-from" style="left: 229.6px; display: block;">$1000</span><span class="irs-to" style="left: 951.4px; display: block;">$4000</span><span class="irs-single" style="left: 568.5px; display: none;">$1000 — $4000</span><span class="irs-diapason" style="left: 248.6px; width: 721.8px;"></span><span class="irs-slider from last" style="left: 241px;"></span><span class="irs-slider to" style="left: 962px;"></span></span><span class="irs-grid"><span class="irs-grid-pol small" style="left: 0px;"></span><span class="irs-grid-pol small" style="left: 60px;"></span><span class="irs-grid-pol small" style="left: 121px;"></span><span class="irs-grid-pol small" style="left: 182px;"></span><span class="irs-grid-pol small" style="left: 243px;"></span><span class="irs-grid-pol small" style="left: 304px;"></span><span class="irs-grid-pol small" style="left: 365px;"></span><span class="irs-grid-pol small" style="left: 426px;"></span><span class="irs-grid-pol small" style="left: 487px;"></span><span class="irs-grid-pol small" style="left: 548px;"></span><span class="irs-grid-pol small" style="left: 609px;"></span><span class="irs-grid-pol small" style="left: 670px;"></span><span class="irs-grid-pol small" style="left: 731px;"></span><span class="irs-grid-pol small" style="left: 792px;"></span><span class="irs-grid-pol small" style="left: 853px;"></span><span class="irs-grid-pol small" style="left: 914px;"></span><span class="irs-grid-pol small" style="left: 975px;"></span><span class="irs-grid-pol small" style="left: 1036px;"></span><span class="irs-grid-pol small" style="left: 1097px;"></span><span class="irs-grid-pol small" style="left: 1158px;"></span><span class="irs-grid-pol small" style="left: 1218px;"></span><span class="irs-grid-pol" style="left: 0px;"></span><span class="irs-grid-text" style="left: 0px; text-align: left;">0</span><span class="irs-grid-pol" style="left: 304px;"></span><span class="irs-grid-text" style="left: 254px;">1250</span><span class="irs-grid-pol" style="left: 609px;"></span><span class="irs-grid-text" style="left: 559px;">2500</span><span class="irs-grid-pol" style="left: 914px;"></span><span class="irs-grid-text" style="left: 864px;">3750</span><span class="irs-grid-pol" style="left: 1218px;"></span><span class="irs-grid-text" style="left: 1118px; text-align: right;">5000</span></span></span><input id="range_1" type="text" name="range_1" value="1000;4000" style="display: none;">
+                                </td>
+                            </tr>
+                            
+                        </tbody></table>
+
+
+                    </div>
+                </section>
+            </div>
+				
 
 
 				</div>
@@ -702,6 +707,7 @@
 
 	<!-- Editable_ -->
 	<!--Core js-->
+	<script src="js/jquery.js"></script>
 	<script src="js/jquery-1.10.2.min.js"></script>
 	<script src="js/jquery-migrate.js"></script>
 
@@ -720,6 +726,9 @@
 	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+
+	<script src="js/ion.rangeSlider-1.8.2/js/ion-rangeSlider/ion.rangeSlider.min.js" type="text/javascript"></script>
+	
 
 	<script type="text/javascript"
 		src="js/data-tables/jquery.dataTables.js"></script>
@@ -746,25 +755,7 @@
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
-	<!-- <chart need> -->
-	<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="js/jquery.scrollTo.min.js"></script>
-<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
-<!--Easy Pie Chart-->
-<script src="js/easypiechart/jquery.easypiechart.js"></script>
-<!--Sparkline Chart-->
-<script src="js/sparkline/jquery.sparkline.js"></script>
-<!--jQuery Flot Chart-->
-<script src="js/flot-chart/jquery.flot.js"></script>
-<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-<script src="js/flot-chart/jquery.flot.resize.js"></script>
-<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-<!--Chart JS-->
-<script src="js/chart-js/Chart.js"></script>
-<script src="js/chartjs.init.js"></script>
-<!--common script init for all pages-->
-<script src="js/scripts.js"></script>
+
 
 
 
@@ -774,10 +765,81 @@
         EditableTable.init();
     });
     
- 
-    
 </script>
+<script>
+    $(document).ready(function(){
+        $("#range_1").ionRangeSlider({
+        min: 0,
+        max: 5000,
+        from: 1000,
+        to: 4000,
+        type: 'double',
+        step: 1,
+        prefix: "$",
+        prettify: false,
+        hasGrid: true
+    });
+        $("#range_2").ionRangeSlider();
 
+        $("#range_5").ionRangeSlider({
+        min: 0,
+        max: 10,
+        type: 'single',
+        step: 0.1,
+        postfix: " mm",
+        prettify: false,
+        hasGrid: true
+    });
+        $("#range_6").ionRangeSlider({
+        min: -50,
+        max: 50,
+        from: 0,
+        type: 'single',
+        step: 1,
+        postfix: "°",
+        prettify: false,
+        hasGrid: true
+    });
+
+        $("#range_4").ionRangeSlider({
+        type: "single",
+        step: 100,
+        postfix: " light years",
+        from: 55000,
+        hideMinMax: true,
+        hideFromTo: false
+    });
+        $("#range_3").ionRangeSlider({
+        type: "double",
+        postfix: " miles",
+        step: 10000,
+        from: 25000000,
+        to: 35000000,
+        onChange: function(obj){
+            var t = "";
+            for(var prop in obj) {
+                t += prop + ": " + obj[prop] + "\r\n";
+            }
+            $("#result").html(t);
+        },
+        onLoad: function(obj) {
+            //
+        }
+    });
+
+        $("#updateLast").on("click", function(){
+
+        $("#range_3").ionRangeSlider("update", {
+            min: Math.round(10000 + Math.random() * 40000),
+            max: Math.round(200000 + Math.random() * 100000),
+            step: 1,
+            from: Math.round(40000 + Math.random() * 40000),
+            to: Math.round(150000 + Math.random() * 80000)
+        });
+
+    });
+    });
+</script>
 
 
 
