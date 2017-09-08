@@ -15,6 +15,7 @@ DROP TABLE product CASCADE CONSTRAINTS;
 DROP SEQUENCE shop_code_SEQ;
 DROP SEQUENCE warehouse_code_num_SEQ;
 DROP SEQUENCE staff_code_SEQ;
+DROP SEQUENCE supply_num_seq;
 
 
 /* Create Tables */
@@ -229,10 +230,10 @@ CREATE TABLE supply
 	-- 알파벳 두글자 + 숫자 다섯자리
 	process_code varchar2(7) NOT NULL,
 	supply_volume number(10,0) NOT NULL,
-	supply_price number(10,0) NOT NULL,
-	PRIMARY KEY (product_code, process_code)
+	supply_price number(10,0) NOT NULL
 );
 
+CREATE SEQUENCE supply_num_seq;
 
 CREATE TABLE kpi
 (

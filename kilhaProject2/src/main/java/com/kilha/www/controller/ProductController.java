@@ -23,7 +23,7 @@ public class ProductController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "fac", method = RequestMethod.GET)
 	public String home(Model model) {
 		FactoryVO factory = repo.selectFactory1(1);
 		List<ProductVO> dailyList = repo.DailyProduct();
@@ -33,7 +33,7 @@ public class ProductController {
 		model.addAttribute("operating", result);
 		return "product/test";
 	}
-	//2°øÀå µ¥ÀÌÅÍ Çü¼ºÈÄ 2°øÀå °¡µ¿·ü °è»ê
+	//2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	
 	@RequestMapping(value="fac1", method = RequestMethod.GET)
 	public String fac1(Model model){

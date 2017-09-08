@@ -107,8 +107,8 @@
 	
 	<insert id="supplyAdd" parameterType="Map">
 		INSERT INTO supply VALUES
-		(
-			#{productCode}
+		(	supply_num_seq.NEXTVAL
+			, #{productCode}
 			, #{processCode}
 			, #{supplyVolume}
 			, #{supplyPrice}
@@ -116,6 +116,7 @@
 	</insert>
 	
 	<resultMap type="Supply" id="SupplyMap">
+		<id property="supplyNum" column="supply_num"/>
 		<result property="productCode" column="product_code"/>
 		<result property="processCode" column="process_code"/>
 		<result property="supplyVolume" column="supply_volume"/>

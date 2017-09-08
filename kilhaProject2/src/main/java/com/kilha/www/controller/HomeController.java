@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kilha.www.dao.MapRep;
 import com.kilha.www.util.AddressChange;
 import com.kilha.www.vo.Address;
-import com.kilha.www.vo.Process;
 import com.kilha.www.vo.Product;
 import com.kilha.www.vo.Shop;
 import com.kilha.www.vo.Staff;
@@ -36,7 +35,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "sales", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		List<Shop> shopList = rep.markerSelect();
 		List<List<Address>> addressList = new ArrayList<>();
@@ -103,13 +102,13 @@ public class HomeController {
 		processMap.put("processName", processName);
 		String processCode = "";
 		switch (processName) {
-			case "寃ъ쟻":
+			case "견적":
 				processCode = "em"+count;
 				break;
-			case "�닔二�" :
+			case "수주" :
 				processCode = "co"+count;
 				break;
-			case "異쒓퀬" :
+			case "출고" :
 				processCode = "re"+count;
 			default:
 				break;
@@ -126,9 +125,9 @@ public class HomeController {
 				supplyMap.put("supplyPrice", supplyPrice[i]);
 				result = rep.supplyAdd(supplyMap);
 			}
-			if(result) message = "�벑濡앸릺�뿀�뒿�땲�떎.";
+			if(result) message = "등록되었습니다.";
 		}else{
-			message = "�떎�뙣�뻽�뒿�땲�떎.";
+			message = "에러입니다.";
 		}
 		return message;
 	}
