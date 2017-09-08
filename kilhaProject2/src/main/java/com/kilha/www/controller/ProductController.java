@@ -8,8 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kilha.www.dao.*;
-import com.kilha.www.vo.*;
+import com.kilha.www.dao.FactoryRepository;
+import com.kilha.www.vo.product.FactoryVO;
+import com.kilha.www.vo.sal.ProductVO;
 
 /**
  * Handles requests for the application home page.

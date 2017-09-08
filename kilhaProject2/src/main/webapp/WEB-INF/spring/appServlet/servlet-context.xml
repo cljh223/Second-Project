@@ -41,6 +41,16 @@
 	
 	<context:component-scan base-package="com.kilha.www" />
 	
+	<beans:bean id="LoginInterceptor" class="com.kilha.www.util.LoginInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/first"/>
+			<mapping path="/seventh"/>
+			<mapping path="/nineth"/>
+			
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>

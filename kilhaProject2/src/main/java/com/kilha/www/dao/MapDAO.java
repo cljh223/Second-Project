@@ -3,16 +3,15 @@ package com.kilha.www.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.kilha.www.vo.Process;
-import com.kilha.www.vo.Product;
-import com.kilha.www.vo.Shop;
-import com.kilha.www.vo.Staff;
-import com.kilha.www.vo.SupplyVo;
-import com.kilha.www.vo.Warehouse;
+import com.kilha.www.vo.common.Product;
+import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.SupplyVo;
 
 public interface MapDAO {
 	public List<Shop> markerSelect();
-	public List<Warehouse> warehouseSelect(String searchText);
+	public List<Stock> warehouseSelect(String searchText);
 	public List<Staff> staffSelect(String searchText);
 	public List<Shop> shopSelect(String searchText);
 	public List<Product> productSelect(String searchText);

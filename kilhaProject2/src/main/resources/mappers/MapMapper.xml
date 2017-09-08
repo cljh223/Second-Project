@@ -57,13 +57,7 @@
 			order by warehouse_code
 	</select>	
 	
-	<resultMap type="Staff" id="StaffList">
-		<id property="staffCode" column="staff_code"/>
-		<result property="staffName" column="staff_name"/>
-		<result property="staffDepartment" column="staff_department"/>
-	</resultMap>
-	
-	<select id="staffSelect" parameterType="String" resultMap="StaffList">
+	<select id="staffSelect" parameterType="String" resultType="Staff">
 		select staff_code, staff_name, staff_department
 			from staff
 			where staff_name like '%' || #{searchText} || '%'

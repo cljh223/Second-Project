@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kilha.www.dao.LogisticsDAO">
+	<select id="loginCheck" parameterType="map" resultType="Staff">
+		select * from staff
+		where
+			staff_code = #{staff_code}
+		and
+			staff_password = #{staff_password}
+	
+	</select>
+
+	<insert id="ordering" parameterType="Shipping">
+		insert into shipping
+		values(
+			seq_shipping_orderNum.nextval
+			, #{dept}
+			, #{goods}
+			, #{quantity}
+			, #{office}
+			, #{deliverydate}
+			, #{status}
+			, #{staff_code}
+			, ''
+			, ''
+		)
+	</insert>
+	
+	<select id="myOrderList" parameterType="int" resultType="Shipping">
+		select
+			s.orderNum
+			, s.goods
+			, s.quantity
+			, s.office
+			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
+			, s.status
+			, w.warehouse_name 
+		from
+			shipping s, warehouse w
+		where
+			s.warehouse_code = w.warehouse_code
+		and
+			s.staff_code = #{userid}
+		order by
+			s.deliverydate asc
+	</select>
+	
+	<select id="selectOne" parameterType="Integer" resultType="Shipping">
+		select 
+			s.dept
+			, s.staff_code
+			, s.goods
+			, s.quantity
+			, s.office 
+			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
+			, w.warehouse_name
+		from shipping s, warehouse w
+		where
+			s.warehouse_code = w.warehouse_code
+		and
+			orderNum = #{orderNum}
+	</select>
+	
+	<select id="resultList" parameterType="String" resultType="Shipping">
+		select 
+			orderNum
+			, goods
+			, quantity
+			, office 
+			, to_char(deliverydate, 'YYYY-MM-DD') as deliverydate
+			, status
+		from shipping 
+		where
+			status = #{status}
+		order by
+			deliverydate asc
+	</select>
+	
+	<update id="updateList" parameterType="map">
+		update shipping
+		set
+			status = #{changeStatus}
+		where
+			orderNum = #{orderNum}
+	</update>
+	
+	<delete id="deleteList" parameterType="int">
+		delete from shipping
+		where
+			orderNum = #{orderNum}
+	</delete>
+	
+</mapper>
+

@@ -1,14 +1,15 @@
 package com.kilha.www.dao;
 import java.util.List;
 
-import com.kilha.www.vo.*;
+import com.kilha.www.vo.product.FactoryVO;
+import com.kilha.www.vo.sal.ProductVO;
 
 public interface FactoryDAO {
 	
-	//°øÀå ±âº» Á¤º¸ select
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ select
 	public FactoryVO factory1(int a);
 	
 	
-	//¾îÁ¦ ±âÁØ ÀÏ ´ÜÀ§ »ý»ê Á¤º¸ Ãâ·Â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public List<ProductVO> Dailyproduct();
 }

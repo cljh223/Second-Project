@@ -57,7 +57,12 @@
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
-
+<style>
+#loginForm {
+	width: "250px";
+	float: right;
+}
+</style>
 <script language="javascript"
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -120,15 +125,15 @@
 	function staffStringFunction(resp) {
 		var staffString = '';
 		for (var i = 0; i < resp.length; i++) {
-			staffString += '<tr id="'+resp[i].staffName+'">';
+			staffString += '<tr id="'+resp[i].staff_name+'">';
 			staffString += '<td><a href="#">'
-			staffString += resp[i].staffCode;
+			staffString += resp[i].staff_code;
 			staffString += '</a></td>'
 			staffString += '<td class="hidden-phone">'
-			staffString += resp[i].staffName;
+			staffString += resp[i].staff_name;
 			staffString += '</td>'
 			staffString += '<td>'
-			staffString += resp[i].staffDepartment;
+			staffString += resp[i].staff_department;
 			staffString += '</td>';
 			staffString += '<td><span class="label label-info label-mini">Due</span></td>';
 			staffString += '<td>';
@@ -351,14 +356,12 @@
 					+ '<div class="invoice-header">'
 					+ '<div class="invoice-title col-md-3 col-xs-2">'
 					+ '<h3>estimate</h3>';
-		}
-		else if (processName == '수주') {
+		} else if (processName == '수주') {
 			NowEstimateText += '<div class="panel-body invoice">'
 					+ '<div class="invoice-header">'
 					+ '<div class="invoice-title col-md-3 col-xs-2">'
 					+ '<h3>contract</h3>';
-		}
-		else if (processName == '출고') {
+		} else if (processName == '출고') {
 			NowEstimateText += '<div class="panel-body invoice">'
 					+ '<div class="invoice-header">'
 					+ '<div class="invoice-title col-md-3 col-xs-2">'
@@ -713,28 +716,22 @@
 			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<ul class="nav pull-right top-menu">
-					<li><input type="text" class="form-control search"
-						placeholder=" Search"></li>
-					<!-- user login dropdown start-->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <img alt=""
-							src="images/avatar1_small.jpg"> <span class="username">John
-								Doe</span> <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu extended logout">
-							<li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-							<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-							<li><a href="login.html"><i class="fa fa-key"></i> Log
-									Out</a></li>
-						</ul></li>
-					<!-- user login dropdown end -->
-					<li>
-						<div class="toggle-right-box">
-							<div class="fa fa-bars"></div>
-						</div>
-					</li>
-				</ul>
+				<table id="loginForm">
+					<tr>
+						<td><input type="text" class="form-control search"
+							placeholder=" Search"></td>
+						<td>&nbsp</td>
+						<!-- user login dropdown start-->
+						<td><%@include file="../logistics/login.jsp"%></td>
+						<!-- user login dropdown end -->
+						<td>&nbsp</td>
+						<td>
+							<div class="toggle-right-box">
+								<div class="fa fa-bars"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
 				<!--search & user info end-->
 			</div>
 		</header>
@@ -761,7 +758,20 @@
 								<li><a href="Pur_store">상품재고</a></li>
 							</ul></li>
 
-
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>Logistics</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">log-01, 02, 07</a></li>
+								<li><a href="second">log-03, 11</a></li>
+								<li><a href="third">log-04</a></li>
+								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="fifth">log-06(List)</a></li>
+								<li><a href="sixth">log-06(Timetable)</a></li>
+								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="eighth">log-09, 10</a></li>
+								<li><a href="nineth">log-13</a></li>
+							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-laptop"></i> <span>Layouts</span>
@@ -1022,7 +1032,7 @@
 								</div>
 								<!-- /btn-group -->
 								<div class="btn-group">
-									<button data-toggle="dropdown" id = "releaseBtn"
+									<button data-toggle="dropdown" id="releaseBtn"
 										class="btn btn-default dropdown-toggle" type="button">
 										출고 <span class="caret"></span>
 									</button>
@@ -1541,19 +1551,14 @@
 						var eqValue = $(
 								"input[name=productCode]:eq(" + idx + ")")
 								.val();
-						console.log(eqValue);
 						productCode.push(eqValue);
 					});
-			for (var i = 0; i < productCode.length; i++) {
-				console.log(productCode[i]);
-			}
 			$("input[name=supplyVolume]").each(
 					function(idx) {
 						var value = $(this).val();
 						var eqValue = $(
 								"input[name=supplyVolume]:eq(" + idx + ")")
 								.val();
-						console.log(eqValue);
 						supplyVolume.push(eqValue);
 					});
 			$("input[name=supplyPrice]").each(
@@ -1562,7 +1567,6 @@
 						var eqValue = $(
 								"input[name=supplyPrice]:eq(" + idx + ")")
 								.val();
-						console.log(eqValue);
 						supplyPrice.push(eqValue);
 					});
 			var processDate = {

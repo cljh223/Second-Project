@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kilha.www.dao.LogisticsRepository;
 import com.kilha.www.dao.MapRep;
 import com.kilha.www.util.AddressChange;
-import com.kilha.www.vo.Address;
-import com.kilha.www.vo.Product;
-import com.kilha.www.vo.Shop;
-import com.kilha.www.vo.Staff;
-import com.kilha.www.vo.SupplyVo;
-import com.kilha.www.vo.Warehouse;
+import com.kilha.www.vo.common.Product;
+import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Address;
+import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.SupplyVo;
 
 /**
  * Handles requests for the application home page.
@@ -30,6 +33,9 @@ public class HomeController {
 	
 	@Autowired
 	MapRep rep;
+	
+	@Autowired
+	LogisticsRepository repo;
 	
 	private int count = 1;
 	/**
@@ -51,7 +57,7 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "popupWarehouse", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<Warehouse> popupWarehouse(
+	public List<Stock> popupWarehouse(
 			@RequestParam(value = "searchText", defaultValue = "") String searchText
 			){
 		return rep.warehouseSelect(searchText);
@@ -61,7 +67,9 @@ public class HomeController {
 	@RequestMapping(value = "popupStaff", method = {RequestMethod.POST, RequestMethod.GET})
 	public List<Staff> popupStaff(
 			@RequestParam(value = "searchText", defaultValue = "") String searchText){
-		return rep.staffSelect(searchText);
+		List<Staff> list = rep.staffSelect(searchText);
+		System.out.println(list);
+		return list;
 	}
 	
 	@ResponseBody
@@ -152,6 +160,75 @@ public class HomeController {
 		estimateMap.put("processName", processName);
 		supplyVoList = rep.popupAllEstimateView(estimateMap);
 		return supplyVoList;
+	}
+	
+	@RequestMapping(value = "/first", method = RequestMethod.GET)
+	public String first() {
+		return "logistics/log-01, 02, 07";
+	}
+	
+	@RequestMapping(value = "/second", method = RequestMethod.GET)
+	public String second() {
+		return "logistics/log-03, 11";
+	}
+	
+	@RequestMapping(value = "/third", method = RequestMethod.GET)
+	public String third() {
+		return "logistics/log-04";
+	}
+	
+	@RequestMapping(value = "/fourth", method = RequestMethod.GET)
+	public String fourth() {
+		return "logistics/log-05, 12";
+	}
+	
+	@RequestMapping(value = "/fifth", method = RequestMethod.GET)
+	public String fifth() {
+		return "logistics/log-06(List)";
+	}
+	
+	@RequestMapping(value = "/sixth", method = RequestMethod.GET)
+	public String sixth() {
+		return "logistics/log-06(Timetable)";
+	}
+	
+	@RequestMapping(value = "/seventh", method = RequestMethod.GET)
+	public String seventh(String num, Model model) {
+		model.addAttribute("num", num);
+		return "logistics/log-08, 13";
+	}
+	
+	@RequestMapping(value = "/eighth", method = RequestMethod.GET)
+	public String eighth() {
+		return "logistics/log-09, 10";
+	}
+	
+	@RequestMapping(value = "/nineth", method = RequestMethod.GET)
+	public String nineth() {
+		return "logistics/log-13";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		return "logistics/loginPage";
+	}
+	
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public String login(int staff_code, String staff_password, HttpSession session){
+		Staff staff = repo.loginCheck(staff_code, staff_password);
+		if (staff != null) {
+			session.setAttribute("userid", staff.getStaff_code());
+			session.setAttribute("userpw", staff.getStaff_password());
+			session.setAttribute("username", staff.getStaff_name());
+			return "redirect:/";
+		}
+		return "redirect:/login";
+	}
+	
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }

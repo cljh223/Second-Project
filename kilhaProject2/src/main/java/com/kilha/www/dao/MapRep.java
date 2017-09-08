@@ -7,12 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kilha.www.vo.Process;
-import com.kilha.www.vo.Product;
-import com.kilha.www.vo.Shop;
-import com.kilha.www.vo.Staff;
-import com.kilha.www.vo.SupplyVo;
-import com.kilha.www.vo.Warehouse;
+import com.kilha.www.vo.common.Product;
+import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.SupplyVo;
 
 @Repository
 public class MapRep {
@@ -25,7 +24,7 @@ public class MapRep {
 		return dao.markerSelect();
 	}
 
-	public List<Warehouse> warehouseSelect(String searchText) {
+	public List<Stock> warehouseSelect(String searchText) {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.warehouseSelect(searchText);

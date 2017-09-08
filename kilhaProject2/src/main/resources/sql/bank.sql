@@ -266,6 +266,7 @@ insert into staff values
 	staff_code_SEQ.NEXTVAL
 	, '정우석'
 	, '생산부'
+	, '111'
 );
 
 insert into staff values
@@ -273,6 +274,7 @@ insert into staff values
 	staff_code_SEQ.NEXTVAL
 	, '조준석'
 	, '영업부'
+	, '111'
 );
 
 insert into staff values
@@ -280,6 +282,7 @@ insert into staff values
 	staff_code_SEQ.NEXTVAL
 	, '이지은'
 	, '영업부'
+	, '111'
 );
 
 insert into staff values
@@ -287,6 +290,7 @@ insert into staff values
 	staff_code_SEQ.NEXTVAL
 	, '김태연'
 	, '영업부'
+	, '111'
 );
 
 

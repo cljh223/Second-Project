@@ -3,21 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <typeAliases>
-  	<typeAlias type="com.kilha.www.vo.Shop" alias="Shop"/>
-  	<typeAlias type="com.kilha.www.vo.Address" alias="Address"/>
-  	<typeAlias type="com.kilha.www.vo.Warehouse" alias="Warehouse"/>
-  	<typeAlias type="com.kilha.www.vo.Staff" alias="Staff"/>
-  	<typeAlias type="com.kilha.www.vo.Product" alias="Product"/>
-  	<typeAlias type="com.kilha.www.vo.Supply" alias="Supply"/>
-  	<typeAlias type="com.kilha.www.vo.Process" alias="Process"/>
-  	<typeAlias type="com.kilha.www.vo.SupplyVo" alias="SupplyVo"/>
-  	<typeAlias type="com.kilha.www.vo.SupplyListVo" alias="SupplyListVo"/>
-  	<typeAlias type="com.kilha.www.vo.ProductVO" alias="ProductVO"/>
-  	<typeAlias type="com.kilha.www.vo.FactoryVO" alias="FactoryVO"/>
-  </typeAliases>
-  <mappers>
-    <mapper resource="mappers/MapMapper.xml"/>
-    <mapper resource="mappers/ProductMapper.xml"/>
-  </mappers>
+	<typeAliases>
+		<typeAlias type="com.kilha.www.vo.sal.Shop" alias="Shop" />
+		<typeAlias type="com.kilha.www.vo.sal.Address" alias="Address" />
+		<typeAlias type="com.kilha.www.vo.logistics.Warehouse" alias="Warehouse" />
+		<typeAlias type="com.kilha.www.vo.logistics.Stock" alias="Stock" />
+		<typeAlias type="com.kilha.www.vo.common.Staff" alias="Staff" />
+		<typeAlias type="com.kilha.www.vo.common.Product" alias="Product" />
+		<typeAlias type="com.kilha.www.vo.sal.Supply" alias="Supply" />
+		<typeAlias type="com.kilha.www.vo.sal.Process" alias="Process" />
+		<typeAlias type="com.kilha.www.vo.sal.SupplyVo" alias="SupplyVo" />
+		<typeAlias type="com.kilha.www.vo.sal.SupplyListVo" alias="SupplyListVo" />
+		<typeAlias type="com.kilha.www.vo.sal.ProductVO" alias="ProductVO" />
+		<typeAlias type="com.kilha.www.vo.product.FactoryVO" alias="FactoryVO" />
+		<typeAlias type="com.kilha.www.vo.logistics.Shipping" alias="Shipping" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/MapMapper.xml" />
+		<mapper resource="mappers/ProductMapper.xml" />
+		<mapper resource="mappers/LogisticsMapper.xml"/>
+	</mappers>
 </configuration>

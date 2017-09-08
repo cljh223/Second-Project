@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.kilha.www.vo.Address;
+import com.kilha.www.vo.sal.Address;
 
 public class AddressChange {
 	public List<HashMap<String, String>> search(List<List<Address>> list) {
