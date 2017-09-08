@@ -36,7 +36,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "sales", method = RequestMethod.GET)
 	public String home(Model model) {
 		List<Shop> shopList = rep.markerSelect();
 		List<List<Address>> addressList = new ArrayList<>();
@@ -103,13 +103,13 @@ public class HomeController {
 		processMap.put("processName", processName);
 		String processCode = "";
 		switch (processName) {
-			case "견적":
+			case "寃ъ쟻":
 				processCode = "em"+count;
 				break;
-			case "수주" :
+			case "�닔二�" :
 				processCode = "co"+count;
 				break;
-			case "출고" :
+			case "異쒓퀬" :
 				processCode = "re"+count;
 			default:
 				break;
@@ -126,9 +126,9 @@ public class HomeController {
 				supplyMap.put("supplyPrice", supplyPrice[i]);
 				result = rep.supplyAdd(supplyMap);
 			}
-			if(result) message = "등록되었습니다.";
+			if(result) message = "�벑濡앸릺�뿀�뒿�땲�떎.";
 		}else{
-			message = "실패했습니다.";
+			message = "�떎�뙣�뻽�뒿�땲�떎.";
 		}
 		return message;
 	}
