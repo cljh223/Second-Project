@@ -167,7 +167,7 @@ public class Pur_Controller {
 		//재고테이블에 넣는것
 		
 		//새로운 평균가격 계산하기
-		int CurrAvgPrice = Integer.parseInt(findrm.getRmavgprice());
+		double CurrAvgPrice = Double.parseDouble(findrm.getRmavgprice());
 		int CurrStock = Integer.parseInt(findrm.getRmstock());
 		double NewPrice = Double.parseDouble(tr.getPrice());		
 		int NewStock = Integer.parseInt(tr.getQuantity());
