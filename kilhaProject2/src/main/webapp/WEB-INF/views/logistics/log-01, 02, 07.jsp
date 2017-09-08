@@ -673,7 +673,7 @@
 	<script src="js/scripts.js?version=1"></script>
 
 	<!--script for this page only-->
-	<script src="js/table-editable.js"></script>
+	<script src="js/table-editable2.js"></script>
 
 	<!-- END JAVASCRIPTS -->
 

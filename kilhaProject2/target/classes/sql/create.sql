@@ -2,8 +2,6 @@
 /* Drop Tables */
 
 DROP TABLE address CASCADE CONSTRAINTS;
-DROP TABLE competitorSupply CASCADE CONSTRAINTS;
-DROP TABLE competitor CASCADE CONSTRAINTS;
 DROP TABLE dailyproduct CASCADE CONSTRAINTS;
 DROP TABLE factory CASCADE CONSTRAINTS;
 DROP TABLE Inmotion CASCADE CONSTRAINTS;
@@ -12,6 +10,11 @@ DROP TABLE kpiDivision CASCADE CONSTRAINTS;
 DROP TABLE supply CASCADE CONSTRAINTS;
 DROP TABLE process CASCADE CONSTRAINTS;
 DROP TABLE product CASCADE CONSTRAINTS;
+DROP TABLE Pur_taskrecords_detail CASCADE CONSTRAINTS;
+DROP TABLE Pur_taskrecords CASCADE CONSTRAINTS;
+DROP TABLE Pur_traderecords CASCADE CONSTRAINTS;
+DROP TABLE Pur_rawmaterials CASCADE CONSTRAINTS;
+DROP TABLE Pur_RM_daily_price CASCADE CONSTRAINTS;
 DROP TABLE ramen CASCADE CONSTRAINTS;
 DROP TABLE Shipping CASCADE CONSTRAINTS;
 DROP TABLE shop CASCADE CONSTRAINTS;
@@ -28,39 +31,16 @@ DROP SEQUENCE seq_truck_code;
 
 
 
-
 /* Create Tables */
 
 CREATE TABLE address
 (
-	address_post varchar2(7) NOT NULL,
+	address_post varchar2(20) NOT NULL,
 	address_detail1 varchar2(50) NOT NULL,
 	address_detail2 varchar2(50) NOT NULL,
 	address_detail3 varchar2(50) NOT NULL,
 	address_detail4 varchar2(50),
 	shop_code number(10,0) NOT NULL
-);
-
-
-CREATE TABLE competitor
-(
-	competitor_code number(5,0) NOT NULL,
-	competitor_name varchar2(90) NOT NULL,
-	PRIMARY KEY (competitor_code)
-);
-
-
-CREATE TABLE competitorSupply
-(
-	-- 자사 또는 경쟁사 구분 코드 알파벳 2자리 + 
-	-- 숫자 다섯자리
-	product_code varchar2(8) NOT NULL,
-	shop_code number(10,0) NOT NULL,
-	competitor_code number(5,0) NOT NULL,
-	competitorSupply_date date NOT NULL,
-	competitorSupply_volume number(10,0) NOT NULL,
-	competitorSupply_supply_price number(10,0),
-	PRIMARY KEY (product_code, shop_code, competitor_code)
 );
 
 
@@ -170,6 +150,102 @@ CREATE TABLE product
 );
 
 
+CREATE TABLE Pur_rawmaterials
+(
+	-- RM=rawmaterial
+	RMcode varchar2(100) NOT NULL,
+	-- 원자재이름
+	-- 
+	RMname varchar2(100) NOT NULL,
+	-- 원자재 재고수량
+	RMstock number(7,0) NOT NULL,
+	-- 원재료평균구매가격
+	RMavgprice number(10,4) NOT NULL,
+	PRIMARY KEY (RMcode)
+);
+
+
+CREATE TABLE Pur_RM_daily_price
+(
+	-- 원자재이름
+	-- 
+	RMname varchar2(500) NOT NULL,
+	-- 해당 날짜의 원자재 가격
+	-- 
+	RMdate date NOT NULL,
+	-- 시장개시가격
+	-- 
+	RMopen number(10,4) NOT NULL,
+	-- 해당날짜의 가장 높았던 가격
+	RMhigh number(10,4) NOT NULL,
+	-- 해당일의 가장 낮은가격
+	-- 
+	RMlow number(10,4) NOT NULL,
+	-- 해당일 장종료 가격
+	RMclose number(10,4) NOT NULL,
+	-- 해당일의 거래량
+	RMvolume number(4,0) NOT NULL
+);
+
+
+CREATE TABLE Pur_taskrecords
+(
+	taskcode varchar2(300) NOT NULL,
+	-- 신청날짜
+	-- 
+	requestdate date NOT NULL,
+	-- 업무확인
+	acceptdate date,
+	-- 업무끝(수량을 보냈을때)
+	enddate date,
+	-- 기타요청사랑
+	etc varchar2(4000),
+	-- RM=rawmaterial
+	RMcode varchar2(100) NOT NULL,
+	staff_code number(5,0) NOT NULL,
+	PRIMARY KEY (taskcode)
+);
+
+
+CREATE TABLE Pur_taskrecords_detail
+(
+	taskcode varchar2(300) NOT NULL,
+	-- 구매요청원자재이름
+	-- 
+	RMname varchar2(200) NOT NULL,
+	-- 원재료 주문수량
+	quantity number(5,0) NOT NULL,
+	-- 원자재가격
+	price number(10,4) NOT NULL,
+	-- 주문총액
+	total number(10,4) NOT NULL
+);
+
+
+CREATE TABLE Pur_traderecords
+(
+	-- deal date
+	-- 
+	dealdate date,
+	-- raw material name
+	-- 
+	RMname varchar2(100),
+	-- RM=rawmaterial
+	RMcode varchar2(100) NOT NULL,
+	-- buy, sell
+	-- 
+	dealtype varchar2(100),
+	-- 거래량
+	quantity number(10),
+	-- raw material price
+	price number(15,4),
+	-- 거래총금액
+	totalprice number(15,4),
+	profits number(15,4),
+	profitrates number(10,4)
+);
+
+
 CREATE TABLE ramen
 (
 	-- 해당 라면 상품을 식별하는 고유 번호
@@ -220,6 +296,8 @@ CREATE TABLE Staff
 	staff_name varchar2(15) NOT NULL,
 	staff_department varchar2(50) NOT NULL,
 	staff_password varchar2(15) NOT NULL,
+	staff_tel varchar2(30),
+	staff_email varchar2(50),
 	PRIMARY KEY (staff_code)
 );
 
@@ -276,12 +354,6 @@ CREATE TABLE warehouse
 
 /* Create Foreign Keys */
 
-ALTER TABLE competitorSupply
-	ADD FOREIGN KEY (competitor_code)
-	REFERENCES competitor (competitor_code)
-;
-
-
 ALTER TABLE kpi
 	ADD FOREIGN KEY (kpiDivision_code)
 	REFERENCES kpiDivision (kpiDivision_code)
@@ -294,15 +366,27 @@ ALTER TABLE supply
 ;
 
 
-ALTER TABLE competitorSupply
+ALTER TABLE supply
 	ADD FOREIGN KEY (product_code)
 	REFERENCES product (product_code)
 ;
 
 
-ALTER TABLE supply
-	ADD FOREIGN KEY (product_code)
-	REFERENCES product (product_code)
+ALTER TABLE Pur_taskrecords
+	ADD FOREIGN KEY (RMcode)
+	REFERENCES Pur_rawmaterials (RMcode)
+;
+
+
+ALTER TABLE Pur_traderecords
+	ADD FOREIGN KEY (RMcode)
+	REFERENCES Pur_rawmaterials (RMcode)
+;
+
+
+ALTER TABLE Pur_taskrecords_detail
+	ADD FOREIGN KEY (taskcode)
+	REFERENCES Pur_taskrecords (taskcode)
 ;
 
 
@@ -318,12 +402,6 @@ ALTER TABLE address
 ;
 
 
-ALTER TABLE competitorSupply
-	ADD FOREIGN KEY (shop_code)
-	REFERENCES shop (shop_code)
-;
-
-
 ALTER TABLE kpi
 	ADD FOREIGN KEY (shop_code)
 	REFERENCES shop (shop_code)
@@ -337,6 +415,12 @@ ALTER TABLE process
 
 
 ALTER TABLE process
+	ADD FOREIGN KEY (staff_code)
+	REFERENCES Staff (staff_code)
+;
+
+
+ALTER TABLE Pur_taskrecords
 	ADD FOREIGN KEY (staff_code)
 	REFERENCES Staff (staff_code)
 ;
@@ -366,15 +450,17 @@ ALTER TABLE process
 ;
 
 
+ALTER TABLE Shipping
+	ADD FOREIGN KEY (warehouse_code)
+	REFERENCES warehouse (warehouse_code)
+;
+
+
 ALTER TABLE Stock
 	ADD FOREIGN KEY (warehouse_code)
 	REFERENCES warehouse (warehouse_code)
 ;
 
-ALTER TABLE Shipping
-	ADD FOREIGN KEY (warehouse_code)
-	REFERENCES warehouse (warehouse_code)
-;
 
 
 CREATE SEQUENCE warehouse_code_num_SEQ;
@@ -391,5 +477,6 @@ CREATE SEQUENCE staff_code_SEQ;
 create sequence seq_shipping_orderNum;
 
 create sequence seq_truck_code; 
+
 
 

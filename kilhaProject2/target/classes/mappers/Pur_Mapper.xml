@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kilha.www.dao.Pur_DAO">
+
+
+	<!-- 원재료 목록 뽑기 (팝업창) -->
+	<select id="rmList" resultType="RawMaterials"> 
+		select 
+			rmcode
+			, rmname
+			, rmstock
+		from Pur_rawmaterials
+	</select>
+	
+	<!-- 원재료 가격정보 뽑기(차트그릴때) -->
+	<select id="rmChart"  parameterType="String" resultType="RM_daily_price"> 
+		select to_char(rmdate, 'yyyy-mm-dd') as rmdate, rmopen, rmhigh, rmlow, rmclose, rmvolume
+        from Pur_rm_daily_price
+		where rmname=#{rmname}
+        order by rmdate asc
+	</select>
+	
+	<!-- 팝업창 검색데이터 불러오기 -->
+	<select id="popupsearch" parameterType="String" resultType="RawMaterials">
+		select rmcode, rmname, rmstock
+		from Pur_rawmaterials
+		where rmname like '%' || #{searchText} || '%'
+	</select>
+
+	
+	<!-- 거래내역테이블 BUY 입력 -->
+	 <insert id="AddTradeRecords" parameterType="TradeRecords">
+	INSERT INTO Pur_traderecords 
+	(dealdate, RMname, RMcode, dealtype, quantity, price, totalprice, profits, profitrates)
+	VALUES
+	(#{dealdate}, #{rmname}, #{rmcode}, #{dealtype}, #{quantity}, #{price}, #{totalprice}, 0, 0)
+</insert>
+	
+	<!-- 재료정보하나 이름으로 가지고오기 -->
+	<select id="selectRM" parameterType="String" resultType="RawMaterials">
+		select *
+		from Pur_rawmaterials
+		where rmname=#{rmname}
+	</select>
+	
+	<!-- 재료테이블에 가격 및 수량 업데이트 -->
+	<update id="AddRawMaterials" parameterType="Map">
+	update Pur_rawmaterials set
+	rmstock = rmstock+#{NewStock},
+	rmavgprice = #{NewAvgPrice}
+	where rmcode = #{rmcode}
+	</update>
+	
+</mapper>

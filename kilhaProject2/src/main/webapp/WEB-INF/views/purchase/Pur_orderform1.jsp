@@ -302,7 +302,7 @@
             <!-- page start-->
             
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <section class="panel">
                         <header class="panel-heading">
                             	invoice작성-step1
@@ -317,8 +317,16 @@
                                 <form class="cmxform form-horizontal " id="commentForm" method="get" action="">
                                     <div class="form-group ">
                                         <label for="cname" class="control-label col-lg-3">신청부서</label>
+                                        
+                                        
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="cname" name="name" minlength="2" type="text" required />
+                                            <select class=" form-control" id="cname" name="name" >
+	                                        	<option value="">생산부</option>
+	                                        	<option value="">생산부서</option>
+	                                        	<option value="">물류부서</option>
+	                                        	<option value="">영업부서</option>
+	                                        </select>
+                                        
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -330,11 +338,17 @@
                                     <div class="form-group ">
                                         <label for="curl" class="control-label col-lg-3">주문일자</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control " id="curl" type="url" name="url" />
+                                            <input class="form-control " id="curl" type="date" name="url" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="curl" class="control-label col-lg-3">이메일</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control " id="curl" type="url" name="url" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="curl" class="control-label col-lg-3">전화번호</label>
                                         <div class="col-lg-6">
                                             <input class="form-control " id="curl" type="url" name="url" />
                                         </div>
@@ -358,7 +372,136 @@
                         </div>
                     </section>
                 </div>
+                <div class="col-lg-6">
+                <section class="panel">
+                    <header class="panel-heading">
+                            	주문품목작성
+                            <span class="tools pull-right">
+                                <a class="fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="fa fa-cog" href="javascript:;"></a>
+                                <a class="fa fa-times" href="javascript:;"></a>
+                             </span>
+                        </header>
+                    <div class="panel-body">
+                        <table class="table  table-hover general-table">
+                            <thead>
+                            <tr>
+                                <th> 상품이름</th>
+                                <th class="hidden-phone">주문수량</th>
+                                <th>현재가</th>
+                                <th>총액</th>
+                                <th>재고량</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a href="#">Graphics</a></td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
+                                <td>1320.00$ </td>
+                                <td><span class="label label-info label-mini">Due</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        ThemeBucket
+                                    </a>
+                                </td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
+                                <td>556.00$ </td>
+                                <td><span class="label label-warning label-mini">Due</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-danger">
+                                            <span class="sr-only">70% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        XYZ
+                                    </a>
+                                </td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
+                                <td>13240.00$ </td>
+                                <td><span class="label label-success label-mini">Paid</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 55%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-warning">
+                                            <span class="sr-only">55% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        BCSE
+                                    </a>
+                                </td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
+                                <td>3455.50$ </td>
+                                <td><span class="label label-danger label-mini">Paid</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-info">
+                                            <span class="sr-only">90% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">AVC Ltd</a></td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
+                                <td>110.00$ </td>
+                                <td><span class="label label-primary label-mini">Due</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">60% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        Themeforest
+                                    </a>
+                                </td>
+                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
+                                <td>456.00$ </td>
+                                <td><span class="label label-warning label-mini">Due</span></td>
+                                <td>
+                                    <div class="progress progress-striped progress-xs">
+                                        <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-danger">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+								
+				
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
             </div>
+                
+                
+                
+            </div>
+            
+            
+            
             
             <!-- page end-->
         </section>

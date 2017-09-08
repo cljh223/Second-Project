@@ -29,21 +29,53 @@
 <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
 
 <!-- search CSS -->
-  
-    <link rel="stylesheet" href="css/bootstrap-switch.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-fileupload/bootstrap-fileupload.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-datepicker/css/datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-timepicker/css/timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="css/bootstrap-switch.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/jquery-multi-select/css/multi-select.css" />
-    <link rel="stylesheet" type="text/css" href="js/jquery-tags-input/jquery.tagsinput.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-datetimepicker/css/datetimepicker.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-multi-select/css/multi-select.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-tags-input/jquery.tagsinput.css" />
+
+<link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
+
+<!--icheck-->
+<link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/purple.css" rel="stylesheet">
+
+<link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/purple.css" rel="stylesheet">
+
+<link href="js/iCheck/skins/flat/grey.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/purple.css" rel="stylesheet">
+
 
 
 <!-- Custom styles for this template -->
@@ -65,19 +97,9 @@
 	href="https://cdn.anychart.com/css/7.14.3/anychart-ui.min.css" />
 <script src="resources/jquery-3.2.1.min.js"></script>
 <script src="resources/jquery-ui.min.js"></script>
-<script type="text/javascript">
 
 
 
-
-$(function(){
-	$('#registBtn').on('click',function(){
-		location.href = "loaddata";
-	});
-});
-
-
-</script>
 </head>
 
 <body>
@@ -261,51 +283,43 @@ $(function(){
 		</header>
 		<!--header end-->
 		<!--sidebar start-->
-<aside>
-    <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
-                        <span>구매부서</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
-                    </ul>
-                </li>
-        
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
-                    </a>
-                </li>
-            </ul>            </div>
-        <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--sidebar end-->
+		<aside>
+			<div id="sidebar" class="nav-collapse">
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active" href="index.html"> <i
+								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>구매부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li><a href="login.html"> <i class="fa fa-user"></i> <span>Login
+									Page</span>
+						</a></li>
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+		<!--sidebar end-->
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
 				<!-- page start-->
 
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-9">
 						<section class="panel">
 							<header class="panel-heading">
 								Editable Table <span class="tools pull-right"> <a
@@ -314,9 +328,16 @@ $(function(){
 									href="javascript:;" class="fa fa-times"></a>
 								</span>
 							</header>
+
+
+
+
+
+
+
 							<div class="panel-body"></div>
 
-							<div id="container2" style="height: 700px;">
+							<div id="container2" style="height: 650px;">
 								<script>
 
 anychart.onDocumentReady(function () {
@@ -324,7 +345,7 @@ anychart.onDocumentReady(function () {
     var dataTable = anychart.data.table();
     // The data used in this sample can be obtained from the CDN
     // https://cdn.anychart.com/csv-data/csco-daily.js
-    dataTable.addData(get_csco_daily_data());
+    dataTable.addData(${chartdata});
 
     // map loaded data for the ohlc series
     var mapping = dataTable.mapAs({
@@ -361,7 +382,7 @@ anychart.onDocumentReady(function () {
     bBandsIndicator.lowerSeries().stroke('1.5 #7bc0f7');
 
     var indicatorPlot = chart.plot(1);
-    indicatorPlot.height('25%');
+    indicatorPlot.height('20%');
 
     // create BBands %B indicator with period = 30, deviation = 3
     var bBandsBIndicator = indicatorPlot.bbandsB(mapping, 30, 3);
@@ -371,7 +392,7 @@ anychart.onDocumentReady(function () {
     chart.scroller().candlestick(mapping);
 
     // set chart selected date/time range
-    chart.selectRange('1995-10-24', '1996-07-02');
+    chart.selectRange('2016-01-06', "'" + ${latest} + "'");
     // set container id for the chart
     chart.container('container2');
     // initiate chart drawing
@@ -397,421 +418,416 @@ anychart.onDocumentReady(function () {
 
 
 					</div>
-				
-				<div class="col-lg-4">
-	
-			<section class="panel">
-                <header class="panel-heading tab-bg-dark-navy-blue ">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a data-toggle="tab" href="#home" aria-expanded="true">buy</a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#about" aria-expanded="	">sell</a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#profile" aria-expanded="false">revise</a>
-                        </li>
-                       
-                    </ul>
-                </header>
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane">
-  
-                            <div id="container2" style="height: 300px;">
+					<div class="row">
+						<div class="col-lg-3">
+							<section class="panel" style="height: 729px;">
+								<header class="panel-heading">
+									Editable Table <span class="tools pull-right"> <a
+										href="javascript:;" class="fa fa-chevron-down"></a> <a
+										href="javascript:;" class="fa fa-cog"></a> <a
+										href="javascript:;" class="fa fa-times"></a>
+									</span>
+								</header>
+								<div class="panel-body profile-information">
+									<div class="col-md-3">
+										<div class="profile-pic text-center">
+											<img src="images/${rmname}.jpg" id="rmImage" alt="" />
+										</div>
+										<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rmname}</h3>
+										<select id="RMsearch" class="populate " style="width: 200px">
+											<optgroup label="면재료(noodle)">
+												<option value="wheat">재료선택</option>
+												<option value="wheat">밀가루</option>
+												<option value="potatostarch">감자전분</option>
+												<option value="palmoil">팜오일</option>
+											</optgroup>
+											<optgroup label="후레이크재료(flake)">
+												<option value="anchovy">말린멸치</option>
+												<option value="carrot">당근</option>
+												<option value="driedbeef">말린소고기</option>
+												<option value="garlic">마늘</option>
+												<option value="onion">대파</option>
+												<option value="redpepperpowder">고추가루</option>
+												<option value="salt">소금</option>
+												<option value="seaweed">말린미역</option>
+												<option value="sugar">설탕</option>
+												<option value="mushroom">말린버섯</option>
+											</optgroup>
+
+										</select>
+
+
+									</div>
+								</div>
 								
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn btn-default btn-lg" style="background:#ff471a; width:150px;"> 매 수 </button>
-								
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn btn-default btn-lg" style="background:#66c2ff; width:150px;"> 매 도 </button>
 								
 								
-								<div class="col-lg-4">
-								<label class="col-lg-2 col-sm-2 control-label">Search </label>
-								
-								
-                                    <select id="e3" style="width:300px" class="populate  select2-offscreen" tabindex="-1" title="">
-                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                            <option value="AK">Alaska</option>
-                                            <option value="HI">Hawaii</option>
-                                        </optgroup>
-                                        <optgroup label="Pacific Time Zone">
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
-                                        </optgroup>
-                                        <optgroup label="Mountain Time Zone">
-                                            <option value="AZ">Arizona</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="WY">Wyoming</option>
-                                        </optgroup>
-                                        <optgroup label="Central Time Zone">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="WI">Wisconsin</option>
-                                        </optgroup>
-                                        <optgroup label="Eastern Time Zone">
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="NH">New Hampshire</option><option value="NJ">New Jersey</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option>
-                                            <option value="VT">Vermont</option><option value="VA">Virginia</option>
-                                            <option value="WV">West Virginia</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                	
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3"></label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 200px;">
+													<div class="input-group input-small">
+														<input id="buybutton" type="button" class="btn btn-round btn-danger" style="width:80px;" value="BUY" >
+														<input id="sellbutton" class="btn btn-round btn-info" type="button" style="width:80px;" value="SELL" >
+													
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
 									
-							</div>
-                            
-                            
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">수량</label>
-                                        <div class="col-lg-4">
-                                            <div id="spinner1">
-                                                <div class="input-group input-small">
-                                                    <input type="text" class="spinner-input form-control" maxlength="10">
-                                                    <div class="spinner-buttons input-group-btn btn-group-vertical">
-                                                        <button type="button" class="btn spinner-up btn-xs btn-default">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </button>
-                                                        <button type="button" class="btn spinner-down btn-xs btn-default">
-                                                            <i class="fa fa-angle-down"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             <span class="help-block">
-                                                basic example
-                                             </span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">가격</label>
-                                        <div class="col-lg-4">
-                                            <div id="spinner1">
-                                                <div class="input-group input-small">
-                                                    <input type="text" class="spinner-input form-control" maxlength="10">
-                                                    <div class="spinner-buttons input-group-btn btn-group-vertical">
-                                                        <button type="button" class="btn spinner-up btn-xs btn-default">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </button>
-                                                        <button type="button" class="btn spinner-down btn-xs btn-default">
-                                                            <i class="fa fa-angle-down"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             <span class="help-block">
-                                                basic example
-                                             </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">총액</label>
-                                        <div class="col-lg-4">
-                                            <div id="spinner1">
-                                                <div class="input-group input-small">
-                                                    <input type="text" class="spinner-input form-control" maxlength="10" readonly="">
-                                                    
-                                                </div>
-                                            </div>
-                                             <span class="help-block">
-                                                basic example
-                                             </span>
-                                        </div>
-                                    </div>
-                                    
-                                <div class="col-lg-4">
-                                <button type="button" class="btn btn-info "><i class="fa fa-refresh"></i> 결정</button>
-                                <button type="button" class="btn btn-info "><i class="fa fa-refresh"></i> 취소</button>
-                                </div>
-                                
-  
-                        </div>
-                        <div id="buy" class="tab-pane active">buy</div>
-                        <div id="sell" class="tab-pane">sell</div>
-                        <div id="revise" class="tab-pane">revise</div>
-                    </div>
-                </div>         
-            </section>
-		</div>
-		</div>
-					</section>
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3">거래</label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 150px;">
+													<div class="input-group input-small">
+														<input type="text" id="dealtype" style="background-color: WhiteSmoke;"
+															readonly="">
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								
+								
+								
+								
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3">날짜</label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 150px;">
+													<div class="input-group input-small">
+														<input type="text" id="today" style="background-color: WhiteSmoke;"
+															readonly="">
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3">수량(kg)</label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 150px">
+													<div class="input-group input-small">
+														<input type="text" id="quantity"style="background-color: White;">
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3">가격(￦)</label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 150px">
+													<div class="input-group input-small">
+														<input type="text" id="price" value=${todayprice} style="background-color: WhiteSmoke;"
+															readonly="">
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3">총액(￦)</label>
+											<div class="col-lg-4">
+												<div id="spinner1" style="width: 150px">
+													<div class="input-group input-small">
+														<input type="text" id="totalprice" style="background-color: WhiteSmoke;"
+															readonly="">
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="panel-body" style="height: 50px">
+										<div class="form-group">
+											<label class="control-label col-md-3"></label>
+											<div class="col-lg-4">
+											<button type="button" id="confirmbtn" style="width: 162px; height:30px;">
+												<i class="fa fa-gavel"></i> Confirm
+											</button>
+											</div>
+										</div>
+									</div>
+	
+								
+							</section>
+							
+
+						</div>
+
+
+
+
+
+					</div>
+
 				
-				<!-- page end-->
-			</section>
+			
+
+			<!-- page end-->
 		</section>
-		<!--main content end-->
-		<!--right sidebar start-->
-		<div class="right-sidebar">
-			<div class="search-row">
-				<input type="text" placeholder="Search" class="form-control">
-			</div>
-			<div class="right-stat-bar">
-				<ul class="right-side-accordion">
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head red-bg active clearfix"> <span
-							class="pull-left">work progress (5)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row side-mini-stat clearfix">
-									<div class="side-graph-info">
-										<h4>Target sell</h4>
-										<p>25%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="target-sell"></div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info">
-										<h4>product delivery</h4>
-										<p>55%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="p-delivery">
-											<div class="sparkline" data-type="bar" data-resize="true"
-												data-height="30" data-width="90%" data-bar-color="#39b7ab"
-												data-bar-width="5"
-												data-data="[200,135,667,333,526,996,564,123,890,564,455]">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info payment-info">
-										<h4>payment collection</h4>
-										<p>25%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="p-collection">
-											<span class="pc-epie-chart" data-percent="45"> <span
-												class="percent"></span>
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info">
-										<h4>delivery pending</h4>
-										<p>44%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="d-pending"></div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="col-md-12">
-										<h4>total progress</h4>
-										<p>50%, Deadline 12 june 13</p>
-										<div class="progress progress-xs mtop10">
-											<div style="width: 50%" aria-valuemax="100" aria-valuemin="0"
-												aria-valuenow="20" role="progressbar"
-												class="progress-bar progress-bar-info">
-												<span class="sr-only">50% Complete</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head terques-bg active clearfix"> <span
-							class="pull-left">contact online (5)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Jonathan Smith</a>
-										</h4>
-										<p>Work for fun</p>
-									</div>
-									<div class="user-status text-danger">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Anjelina Joe</a>
-										</h4>
-										<p>Available</p>
-									</div>
-									<div class="user-status text-success">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/chat-avatar2.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">John Doe</a>
-										</h4>
-										<p>Away from Desk</p>
-									</div>
-									<div class="user-status text-warning">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Mark Henry</a>
-										</h4>
-										<p>working</p>
-									</div>
-									<div class="user-status text-info">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Shila Jones</a>
-										</h4>
-										<p>Work for fun</p>
-									</div>
-									<div class="user-status text-danger">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<p class="text-center">
-									<a href="#" class="view-btn">View all Contacts</a>
-								</p>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head purple-bg active"> <span
-							class="pull-left"> recent activity (3)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">just now</p>
-										<p>
-											<a href="#">Jim Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">2 min ago</p>
-										<p>
-											<a href="#">Jane Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">1 day ago</p>
-										<p>
-											<a href="#">Jim Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head yellow-bg active"> <span
-							class="pull-left"> shipment status</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="col-md-12">
-									<div class="prog-row">
-										<p>Full sleeve baby wear (SL: 17665)</p>
-										<div class="progress progress-xs mtop10">
-											<div class="progress-bar progress-bar-success"
-												role="progressbar" aria-valuenow="20" aria-valuemin="0"
-												aria-valuemax="100" style="width: 40%">
-												<span class="sr-only">40% Complete</span>
-											</div>
-										</div>
-									</div>
-									<div class="prog-row">
-										<p>Full sleeve baby wear (SL: 17665)</p>
-										<div class="progress progress-xs mtop10">
-											<div class="progress-bar progress-bar-info"
-												role="progressbar" aria-valuenow="20" aria-valuemin="0"
-												aria-valuemax="100" style="width: 70%">
-												<span class="sr-only">70% Completed</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-				</ul>
-			</div>
+	</section>
+	<!--main content end-->
+	<!--right sidebar start-->
+	<div class="right-sidebar">
+		<div class="search-row">
+			<input type="text" placeholder="Search" class="form-control">
 		</div>
-		<!--right sidebar end-->
+		<div class="right-stat-bar">
+			<ul class="right-side-accordion">
+				<li class="widget-collapsible"><a href="#"
+					class="head widget-head red-bg active clearfix"> <span
+						class="pull-left">work progress (5)</span> <span
+						class="pull-right widget-collapse"><i class="ico-minus"></i></span>
+				</a>
+					<ul class="widget-container">
+						<li>
+							<div class="prog-row side-mini-stat clearfix">
+								<div class="side-graph-info">
+									<h4>Target sell</h4>
+									<p>25%, Deadline 12 june 13</p>
+								</div>
+								<div class="side-mini-graph">
+									<div class="target-sell"></div>
+								</div>
+							</div>
+							<div class="prog-row side-mini-stat">
+								<div class="side-graph-info">
+									<h4>product delivery</h4>
+									<p>55%, Deadline 12 june 13</p>
+								</div>
+								<div class="side-mini-graph">
+									<div class="p-delivery">
+										<div class="sparkline" data-type="bar" data-resize="true"
+											data-height="30" data-width="90%" data-bar-color="#39b7ab"
+											data-bar-width="5"
+											data-data="[200,135,667,333,526,996,564,123,890,564,455]">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="prog-row side-mini-stat">
+								<div class="side-graph-info payment-info">
+									<h4>payment collection</h4>
+									<p>25%, Deadline 12 june 13</p>
+								</div>
+								<div class="side-mini-graph">
+									<div class="p-collection">
+										<span class="pc-epie-chart" data-percent="45"> <span
+											class="percent"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="prog-row side-mini-stat">
+								<div class="side-graph-info">
+									<h4>delivery pending</h4>
+									<p>44%, Deadline 12 june 13</p>
+								</div>
+								<div class="side-mini-graph">
+									<div class="d-pending"></div>
+								</div>
+							</div>
+							<div class="prog-row side-mini-stat">
+								<div class="col-md-12">
+									<h4>total progress</h4>
+									<p>50%, Deadline 12 june 13</p>
+									<div class="progress progress-xs mtop10">
+										<div style="width: 50%" aria-valuemax="100" aria-valuemin="0"
+											aria-valuenow="20" role="progressbar"
+											class="progress-bar progress-bar-info">
+											<span class="sr-only">50% Complete</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul></li>
+				<li class="widget-collapsible"><a href="#"
+					class="head widget-head terques-bg active clearfix"> <span
+						class="pull-left">contact online (5)</span> <span
+						class="pull-right widget-collapse"><i class="ico-minus"></i></span>
+				</a>
+					<ul class="widget-container">
+						<li>
+							<div class="prog-row">
+								<div class="user-thumb">
+									<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
+								</div>
+								<div class="user-details">
+									<h4>
+										<a href="#">Jonathan Smith</a>
+									</h4>
+									<p>Work for fun</p>
+								</div>
+								<div class="user-status text-danger">
+									<i class="fa fa-comments-o"></i>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb">
+									<a href="#"><img src="images/avatar1.jpg" alt=""></a>
+								</div>
+								<div class="user-details">
+									<h4>
+										<a href="#">Anjelina Joe</a>
+									</h4>
+									<p>Available</p>
+								</div>
+								<div class="user-status text-success">
+									<i class="fa fa-comments-o"></i>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb">
+									<a href="#"><img src="images/chat-avatar2.jpg" alt=""></a>
+								</div>
+								<div class="user-details">
+									<h4>
+										<a href="#">John Doe</a>
+									</h4>
+									<p>Away from Desk</p>
+								</div>
+								<div class="user-status text-warning">
+									<i class="fa fa-comments-o"></i>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb">
+									<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
+								</div>
+								<div class="user-details">
+									<h4>
+										<a href="#">Mark Henry</a>
+									</h4>
+									<p>working</p>
+								</div>
+								<div class="user-status text-info">
+									<i class="fa fa-comments-o"></i>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb">
+									<a href="#"><img src="images/avatar1.jpg" alt=""></a>
+								</div>
+								<div class="user-details">
+									<h4>
+										<a href="#">Shila Jones</a>
+									</h4>
+									<p>Work for fun</p>
+								</div>
+								<div class="user-status text-danger">
+									<i class="fa fa-comments-o"></i>
+								</div>
+							</div>
+							<p class="text-center">
+								<a href="#" class="view-btn">View all Contacts</a>
+							</p>
+						</li>
+					</ul></li>
+				<li class="widget-collapsible"><a href="#"
+					class="head widget-head purple-bg active"> <span
+						class="pull-left"> recent activity (3)</span> <span
+						class="pull-right widget-collapse"><i class="ico-minus"></i></span>
+				</a>
+					<ul class="widget-container">
+						<li>
+							<div class="prog-row">
+								<div class="user-thumb rsn-activity">
+									<i class="fa fa-clock-o"></i>
+								</div>
+								<div class="rsn-details ">
+									<p class="text-muted">just now</p>
+									<p>
+										<a href="#">Jim Doe </a>Purchased new equipments for zonal
+										office setup
+									</p>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb rsn-activity">
+									<i class="fa fa-clock-o"></i>
+								</div>
+								<div class="rsn-details ">
+									<p class="text-muted">2 min ago</p>
+									<p>
+										<a href="#">Jane Doe </a>Purchased new equipments for zonal
+										office setup
+									</p>
+								</div>
+							</div>
+							<div class="prog-row">
+								<div class="user-thumb rsn-activity">
+									<i class="fa fa-clock-o"></i>
+								</div>
+								<div class="rsn-details ">
+									<p class="text-muted">1 day ago</p>
+									<p>
+										<a href="#">Jim Doe </a>Purchased new equipments for zonal
+										office setup
+									</p>
+								</div>
+							</div>
+						</li>
+					</ul></li>
+				<li class="widget-collapsible"><a href="#"
+					class="head widget-head yellow-bg active"> <span
+						class="pull-left"> shipment status</span> <span
+						class="pull-right widget-collapse"><i class="ico-minus"></i></span>
+				</a>
+					<ul class="widget-container">
+						<li>
+							<div class="col-md-12">
+								<div class="prog-row">
+									<p>Full sleeve baby wear (SL: 17665)</p>
+									<div class="progress progress-xs mtop10">
+										<div class="progress-bar progress-bar-success"
+											role="progressbar" aria-valuenow="20" aria-valuemin="0"
+											aria-valuemax="100" style="width: 40%">
+											<span class="sr-only">40% Complete</span>
+										</div>
+									</div>
+								</div>
+								<div class="prog-row">
+									<p>Full sleeve baby wear (SL: 17665)</p>
+									<div class="progress progress-xs mtop10">
+										<div class="progress-bar progress-bar-info" role="progressbar"
+											aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+											style="width: 70%">
+											<span class="sr-only">70% Completed</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul></li>
+			</ul>
+		</div>
+	</div>
+	<!--right sidebar end-->
 
 	</section>
 
@@ -840,60 +856,156 @@ anychart.onDocumentReady(function () {
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
+	<!-- icheck -->
+	<script src="js/iCheck/jquery.icheck.js"></script>
+	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+
 	<script type="text/javascript"
 		src="js/data-tables/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
-	
+
 	<script type="text/javascript" src="js/fuelux/js/spinner.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 
-<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-daterangepicker/moment.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 
-<script type="text/javascript" src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
-<script type="text/javascript" src="js/jquery-multi-select/js/jquery.quicksearch.js"></script>
+	<script type="text/javascript"
+		src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
+	<script type="text/javascript"
+		src="js/jquery-multi-select/js/jquery.quicksearch.js"></script>
 
-<script type="text/javascript" src="js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
-<script src="js/jquery-tags-input/jquery.tagsinput.js"></script>
+	<script src="js/jquery-tags-input/jquery.tagsinput.js"></script>
 
-<script src="js/select2/select2.js"></script>
-<script src="js/select-init.js"></script>
+	<script src="js/select2/select2.js"></script>
+	<script src="js/select-init.js"></script>
 
 
-<!--common script init for all pages-->
-<script src="js/scripts.js"></script>
+	<!--common script init for all pages-->
+	<script src="js/scripts.js"></script>
 
-<script src="js/toggle-init.js"></script>
+	<script src="js/toggle-init.js"></script>
 
-<script src="js/advanced-form.js"></script>
-<!--Easy Pie Chart-->
-<script src="js/easypiechart/jquery.easypiechart.js"></script>
-<!--Sparkline Chart-->
-<script src="js/sparkline/jquery.sparkline.js"></script>
-<!--jQuery Flot Chart-->
-<script src="js/flot-chart/jquery.flot.js"></script>
-<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-<script src="js/flot-chart/jquery.flot.resize.js"></script>
-<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-	
+	<script src="js/advanced-form.js"></script>
+	<!--Easy Pie Chart-->
+	<script src="js/easypiechart/jquery.easypiechart.js"></script>
+	<!--Sparkline Chart-->
+	<script src="js/sparkline/jquery.sparkline.js"></script>
+	<!--jQuery Flot Chart-->
+	<script src="js/flot-chart/jquery.flot.js"></script>
+	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+	<script src="js/flot-chart/jquery.flot.resize.js"></script>
+	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+
 	<!--script for this page only-->
-	<script src="js/table-editable.js"></script>
 
+	<!--icheck init -->
+	<script src="js/icheck-init.js"></script>
 	<!-- END JAVASCRIPTS -->
-	<script>
-    jQuery(document).ready(function() {
-        EditableTable.init();
-    });
+	<script type="text/javascript">
+	
+
+    
+	$(function() {
+		
+		//날짜가져오기
+		  var now = new Date();
+	      var year= now.getFullYear();
+	      var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	      var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	              
+	      var chan_val = year + '-' + mon + '-' + day;
+	      $('#today').val(chan_val);
+		
+	   //총합계산하기
+	   
+	   
+	   	  var stringPrice = $('#price').val();
+	   	  var stringQuantity="";
+	    $('#quantity').on('keyup', function() {
+		   stringQuantity= $('#quantity').val();
+	   	  var numberPrice = parseInt(stringPrice);
+	   	  var numberQuantity = parseInt(stringQuantity);
+	   		  
+	   	  var numberTotal = numberPrice*numberQuantity;
+	   	  var stringTotal = numberTotal.toString();
+	   	  
+	   	  $('#totalprice').val(stringTotal);
+		      
+	   
+		      });
+	   	  
+	   	  
+
+		//재료 바꾸기
+		$('#RMsearch').change(function(){
+			var RM = $(this).val();
+			location.href = '${pageContext.request.contextPath}/chartdata?rmname='+RM;
+		});
+		
+		
+		//거래완료버튼
+		$('#confirmbtn').on('click', function(){
+			var rmname = "${rmname}";
+			var dealtype = $('#dealtype').val();
+			var dealdate = $('#today').val();
+			var quantity = $('#quantity').val();
+			var price = $('#price').val();
+			var totalprice= $('#totalprice').val();
+			location.href = 'dealconfirm?dealtype='+dealtype+
+							'&dealdate='+dealdate+
+							'&quantity='+quantity+
+							'&price='+price+
+							'&totalprice='+totalprice+
+							'&rmname='+rmname;
+
+		});	
+		
+		//구매버튼액션
+		$('#buybutton').on('click', function(){
+			$('#buybutton').css('background-color', 'red');
+			$('#buybutton').css('color', 'white');
+			$('#sellbutton').css('background-color', 'white');
+			$('#sellbutton').css('color', 'black');
+			var type = $('#buybutton').val();
+			$('#dealtype').val(type);
+		});	
+		
+		//판매버튼액션
+		$('#sellbutton').on('click', function(){
+			$('#sellbutton').css('background-color', '#0000cc');
+			$('#sellbutton').css('color', 'white');
+			$('#buybutton').css('background-color', 'white');
+			$('#buybutton').css('color', 'black');
+			var type = $('#sellbutton').val();
+			$('#dealtype').val(type);
+		});	
+			
+		
+	});
+    
+
 </script>
 
 </body>

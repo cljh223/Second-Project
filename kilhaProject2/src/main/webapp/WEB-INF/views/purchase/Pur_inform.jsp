@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,8 @@
 <meta name="description" content="">
 <meta name="author" content="ThemeBucket">
 
-<meta http-equiv=”X-UA-Compatible” content=”IE=EmulateIE9”>
-<meta http-equiv=”X-UA-Compatible” content=”IE=9”>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 
 <link rel="shortcut icon" href="images/favicon.png">
 <title>BucketAdmin</title>
@@ -28,20 +29,29 @@
 
 <!-- search tool -->
 <link rel="stylesheet" href="css/bootstrap-switch.css" />
-	
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-fileupload/bootstrap-fileupload.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-datepicker/css/datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-timepicker/css/timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link rel="stylesheet" type="text/css" href="js/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/jquery-multi-select/css/multi-select.css" />
-    <link rel="stylesheet" type="text/css" href="js/jquery-tags-input/jquery.tagsinput.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/bootstrap-datetimepicker/css/datetimepicker.css" />
 
-    <link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-multi-select/css/multi-select.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/jquery-tags-input/jquery.tagsinput.css" />
+
+<link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
 
 
 
@@ -60,6 +70,13 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+<script src="js/bootstrap-bootpopup/bootpopup.js"></script>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script language="javascript"
+	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </head>
 <body>
 	<section id="container">
@@ -241,179 +258,98 @@
 		</header>
 		<!--header end-->
 		<!--sidebar start-->
-<aside>
-    <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
-                        <span>구매부서</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
-                    </ul>
-                </li>
-        
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
-                    </a>
-                </li>
-            </ul>            </div>
-        <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--sidebar end-->
+		<aside>
+			<div id="sidebar" class="nav-collapse">
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active" href="index.html"> <i
+								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>구매부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li><a href="login.html"> <i class="fa fa-user"></i> <span>Login
+									Page</span>
+						</a></li>
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+		<!--sidebar end-->
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
 
 				<!--mini statistics start-->
 				<div class="row">
-				
-				<div class="col-lg-12">
-                <section class="panel">
-                    <div class="panel-body">
-                    
-                    <div class="form-group">
-                                <label class="col-lg-2 col-sm-2 control-label">검색 </label>
-                                <div class="col-lg-6">
-                                    <select id="e1" class="populate  select2-offscreen" style="width: 300px" tabindex="-1" title="">
-                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                            <option value="AK">Alaska</option>
-                                            <option value="HI">Hawaii</option>
-                                        </optgroup>
-                                        <optgroup label="Pacific Time Zone">
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
-                                        </optgroup>
-                                        <optgroup label="Mountain Time Zone">
-                                            <option value="AZ">Arizona</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="WY">Wyoming</option>
-                                        </optgroup>
-                                        <optgroup label="Central Time Zone">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="WI">Wisconsin</option>
-                                        </optgroup>
-                                        <optgroup label="Eastern Time Zone">
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="NH">New Hampshire</option><option value="NJ">New Jersey</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option>
-                                            <option value="VT">Vermont</option><option value="VA">Virginia</option>
-                                            <option value="WV">West Virginia</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                            </div>
-                    
-                    </div>
-                </section>
-            </div>
-				
-				
-				
-					<div class="col-md-12">
+
+					<div class="col-md-9">
 						<section class="panel">
-							<div class="panel-body profile-information">
-								<div class="col-md-3">
-									<div class="profile-pic text-center">
-										<img src="images/wheat.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="profile-desk">
-										<h1>밀가루</h1>
-										<span class="text-muted">Product Manager</span> <br>
-										<p>밀가루는 밀의 낟알을 분쇄하여 만든 가루이다. 영어로 '곡물 가루'를 뜻하는 단어인 flour는
-											보통 특별한 언급이 없으면 밀가루를 뜻한다. 옥수수, 쌀, 콩 등의 밀이 아닌 곡물로 만든 가루도
-											'밀가루'라고 칭할 때가 있다. 다당류 탄수화물로 이루어진 높은 비율의 전분을 함유하고 있다.</p>
-										<br>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="profile-statistics">
-										<h1>5000kg</h1>
-										<p>현재보유량</p>
-										<h1>1500kg</h1>
-										<p>필요주문량</p>
-
-										<br> <a href="#" class="btn btn-primary">구매</a> <a
-											href="#" class="btn btn-primary">판매</a>
-
-
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-				<!--mini statistics end-->
-				<div class="row">
-					<div class="col-md-8">
-						<!--earning graph start-->
-						<section class="panel">
-							<header class="panel-heading">
+						<header class="panel-heading">
 								Editable Table <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
 								</span>
 							</header>
+							<div class="panel-body profile-information">
+								<div class="col-md-3">
+									<div class="profile-pic text-center">
+										<img src="images/wheat.jpg" id="rmImage" alt="" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="profile-desk">
+										
+									<a data-toggle="modal" href="#myModal2">
+										<h1 id="rmType">
+											<span id="rmTypeSpan" >밀가루</span> &nbsp;
+											<img src="images/search.png"
+												id="SearchImg" style="width: 50px; height: 50px;">
+										</h1>
+									</a>	
+										<br>
+										<p>밀가루는 밀의 낟알을 분쇄하여 만든 가루이다. 영어로 '곡물 가루'를 뜻하는 단어인 flour는
+											보통 특별한 언급이 없으면 밀가루를 뜻한다. 옥수수, 쌀, 콩 등의 밀이 아닌 곡물로 만든 가루도
+											'밀가루'라고 칭할 때가 있다. 다당류 탄수화물로 이루어진 높은 비율의 전분을 함유하고 있다.</p>
+										<br>
+									</div>
+								</div>
+
+								<div class="profile-statistics">
+									<h1>5000kg</h1>
+									<p>현재보유량</p>
+									<h1>1500kg</h1>
+									<p>필요주문량</p>
+
+									<br> <a href="#" class="btn btn-primary" id="buybutton">구매</a> <a
+										href="#" class="btn btn-primary" id="sellbutton">판매</a>
+
+
+								</div>
+
+							</div>
+
+
+							<!--earning graph start-->
+
+
 							<div class="panel-body">
 								<div class="adv-table editable-table ">
 									<div class="clearfix">
-										<div class="btn-group">
-											<button id="editable-sample_new" class="btn btn-primary">
-												품목신청<i class="fa fa-plus"></i>
-											</button>
-										</div>
+
 										<div class="btn-group pull-right">
 											<button class="btn btn-default dropdown-toggle"
 												data-toggle="dropdown">
@@ -491,13 +427,56 @@
 									</table>
 								</div>
 							</div>
-						</section>
-						<!--earning graph end-->
-					</div>
 
-					<div class="col-md-4">
+							<!--earning graph end-->
+
+							
+							
+							<div class="panel-body">
+                        <a class="btn btn-success" data-toggle="modal" href="#myModal2">
+                            Datepicker in Modal
+                        </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" id="modalclose2" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">재료정보</h4>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="modal-body">
+                                        
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" id="modalclose1" type="button">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal -->
+                    </div>
+
+
+
+
+
+
+						</section>
+					</div>
+					<div class="col-md-3">
 						<!--widget graph start-->
 						<section class="panel">
+						<header class="panel-heading">
+								Editable Table <span class="tools pull-right"> <a
+									href="javascript:;" class="fa fa-chevron-down"></a> <a
+									href="javascript:;" class="fa fa-cog"></a> <a
+									href="javascript:;" class="fa fa-times"></a>
+								</span>
+							</header>
 
 							<div class="prf-box">
 								<h3 class="prf-border-head">&nbsp;&nbsp;&nbsp;&nbsp;재고/필요주문량</h3>
@@ -570,8 +549,8 @@
 									<div class="col-md-5">고추가루</div>
 									<div class="col-md-5">
 										<div class="progress ">
-											<div style="width: 100%" aria-valuemax="100" aria-valuemin="0"
-												aria-valuenow="40" role="progressbar"
+											<div style="width: 100%" aria-valuemax="100"
+												aria-valuemin="0" aria-valuenow="40" role="progressbar"
 												class="progress-bar progress-bar-warning">
 												<span class="sr-only">100% Complete (success)</span>
 											</div>
@@ -592,7 +571,13 @@
 
 						<!--widget weather end-->
 					</div>
+
+					<!--mini statistics end-->
+
+
+
 				</div>
+
 				<!--mini statistics start-->
 
 				<!--mini statistics end-->
@@ -853,7 +838,8 @@
 	<script src="bs3/js/bootstrap.min.js"></script>
 	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+	<script class="include" type="text/javascript"
+		src="js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/jquery.scrollTo.min.js"></script>
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
@@ -941,57 +927,192 @@
 
 	<!-- search -->
 	<script type="text/javascript" src="js/fuelux/js/spinner.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 
-<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-daterangepicker/moment.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 
-<script type="text/javascript" src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
-<script type="text/javascript" src="js/jquery-multi-select/js/jquery.quicksearch.js"></script>
+	<script type="text/javascript"
+		src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
+	<script type="text/javascript"
+		src="js/jquery-multi-select/js/jquery.quicksearch.js"></script>
 
-<script type="text/javascript" src="js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+	<script type="text/javascript"
+		src="js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
-<script src="js/jquery-tags-input/jquery.tagsinput.js"></script>
+	<script src="js/jquery-tags-input/jquery.tagsinput.js"></script>
 
-<script src="js/select2/select2.js"></script>
-<script src="js/select-init.js"></script>
+	<script src="js/select2/select2.js"></script>
+	<script src="js/select-init.js"></script>
 
 
-<!--common script init for all pages-->
-<script src="js/scripts.js"></script>
+	<!--common script init for all pages-->
+	<script src="js/scripts.js"></script>
 
-<script src="js/toggle-init.js"></script>
+	<script src="js/toggle-init.js"></script>
 
-<script src="js/advanced-form.js"></script>
-<!--Easy Pie Chart-->
-<script src="js/easypiechart/jquery.easypiechart.js"></script>
-<!--Sparkline Chart-->
-<script src="js/sparkline/jquery.sparkline.js"></script>
-<!--jQuery Flot Chart-->
-<script src="js/flot-chart/jquery.flot.js"></script>
-<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-<script src="js/flot-chart/jquery.flot.resize.js"></script>
-<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-	
+	<script src="js/advanced-form.js"></script>
+	<!--Easy Pie Chart-->
+	<script src="js/easypiechart/jquery.easypiechart.js"></script>
+	<!--Sparkline Chart-->
+	<script src="js/sparkline/jquery.sparkline.js"></script>
+	<!--jQuery Flot Chart-->
+	<script src="js/flot-chart/jquery.flot.js"></script>
+	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+	<script src="js/flot-chart/jquery.flot.resize.js"></script>
+	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+
 
 
 	<!-- END JAVASCRIPTS -->
-	<script>
-    jQuery(document).ready(function() {
+	<script type="text/javascript"> 
+    
+	
+	jQuery(document).ready(function() {
         EditableTable.init();
     });
     
- 
-    
+	//버튼클릭시 발생하는 이벤트
+	$(function() {
+		   
+		   $('#SearchImg').on('click', RMBootFunction);
+		   $('#buybutton').on('click', buyFunction);
+		   $('#sellbutton').on('click', sellFunction);
+   
+		});
+	//구매버튼클릭
+	function buyFunction(){
+	var rmname = $('#rmTypeSpan').text();
+	location.href = 'chartdata?rmname='+rmname+'&dealtype=buy';	
+	
+	
+	}	    
+ 	//판매버튼클릭
+	function sellFunction(){
+	var rmname = $('#rmTypeSpan').text();
+	location.href = 'chartdata?rmname='+rmname+'&dealtype=sell';		
+		
+	}	
+	
+	
+
+	// 디비에서 재료 정보를 가져오는 메소드
+	function RMBootFunction() {
+	   $.ajax({
+	      url : 'RMinform',
+	      method : 'POST',
+	      dataType : 'json',
+	      success : RMBootString,
+	      error : function() {
+	         alert('에러입니다.');
+	      }
+	   });
+	}
+	
+
+	// 재료테이블 전체를 팝업창에 띄우는 메소드. 검색창에 입력할 때 마다 테이블의 내용을 불러온다.
+	function RMBootString(resp) {	
+	   var rmInform = '<form><div class="row">'
+	         + '<div class="col-lg-6">'
+	         + '<div class="dataTables_filter" id="editable-sample_filter">'
+	         + '<label>Search: <input type="text" id = "searchText1"'
+	         +'aria-controls="editable-sample"'
+	         +'class="form-control medium"></label>'
+	         + '</div>'
+	         + '</div>'
+	         + '</div><div class="col-sm-12">'
+	         + '<section class="panel">'
+	         + '<div class="panel-body">'
+	         + '<table id = "searchTable" class="table  table-hover general-table">'
+	         + '<thead><tr>'
+	         + '<th>재료코드</th><th class="hidden-phone">재료명</th>'
+	         + '<th>재고수량</th></tr>'
+	         + '</thead><tbody id = "rmTable">'
+	         + RMStringFunction(resp);
+	   $('.modal-body').html(rmInform);
+	   
+	     $('#searchText1').on('keyup', function() {
+	      var rmname = $('#searchText1').val();
+	      var searchText = {
+	         'searchText' : rmname
+	      }
+	      $.ajax({
+	         url : 'popupRMsearch',
+	         method : 'get',
+	         data : searchText,
+	         dataType : 'json',
+	         success : function(respp) {
+	            var searchResult = RMStringFunction(respp);
+	            $('#rmTable').html(searchResult);
+	            trRMFunction();
+	         },
+	         error : function() {
+	            alert('에러입니다.');
+	         }
+	      });
+	   });
+	   trRMFunction();  
+	}
+	
+	function trRMFunction() {
+		   $('tr').on('click', function() {
+		      var rmname = $(this).attr('id');
+		      $('#rmTypeSpan').text(rmname);
+		      $("#rmImage").attr("src","images/"+rmname+".jpg");	     
+		      $('#modalclose1').trigger("click");
+		      $('#modalclose2').trigger("click");
+		   });
+		}
+	
+
+
+// 재료테이블의 내용을 만드는 메소드
+function RMStringFunction(resp) {
+   var RMString = '';
+   for (var i = 0; i < resp.length; i++) {
+	   RMString += '<tr id="'+resp[i].rmname+'">';
+	   RMString += '<td><a href="#">'
+	   RMString += resp[i].rmcode;
+	   RMString += '</a></td>'
+	   RMString += '<td>'
+	   RMString += resp[i].rmname;
+	   RMString += '</td>';
+	   RMString += '<td>'
+	   RMString += resp[i].rmstock;
+	   RMString += '</td>';
+	   RMString += '<td><span class="label label-info label-mini">Due</span></td>';
+	   RMString += '<td>';
+	   RMString += '<div class="progress progress-striped progress-xs">';
+	   RMString += '<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">';
+	   RMString += '<span class="sr-only">40% Complete (success)</span>';
+	   RMString += '</div>' + '</div>' + '</td>';
+	   RMString += '</tr>';
+   }
+   RMString += '</tbody>' + '</thead>';
+   RMString += '</div>' + '</section>';
+   RMString += '</div></form>';
+
+   return RMString;
+}
+
+
+	
 </script>
-
-
 
 
 
