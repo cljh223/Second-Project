@@ -1,36 +1,36 @@
 package com.kilha.www.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kilha.www.vo.Process;
 import com.kilha.www.vo.Product;
 import com.kilha.www.vo.Shop;
 import com.kilha.www.vo.Staff;
+import com.kilha.www.vo.SupplyVo;
 import com.kilha.www.vo.Warehouse;
 
 @Repository
-public class MapRep implements MapDAO {
+public class MapRep {
 	@Autowired
 	SqlSession sqlSession;
 
-	@Override
 	public List<Shop> markerSelect() {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.markerSelect();
 	}
 
-	@Override
 	public List<Warehouse> warehouseSelect(String searchText) {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.warehouseSelect(searchText);
 	}
 
-	@Override
 	public List<Staff> staffSelect(String searchText) {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
@@ -49,5 +49,35 @@ public class MapRep implements MapDAO {
 		return dao.productSelect(searchText);
 	}
 	
+	public boolean processAdd(Map<String, String>processMap){
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		if(dao.processAdd(processMap)>0){
+			return true;
+		}
+		return false;
+	}
+	
+	public String shopNameSelect(int shopCode){
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.shopNameSelect(shopCode);
+	}
+	
+	public boolean supplyAdd(Map supplyMap){
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		if(dao.supplyAdd(supplyMap)>0){
+			return true;
+		}
+		return false;
+	}
+	
+	public SupplyVo popupNowEstimate(Map estimateMap){
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.popupNowEstimate(estimateMap);
+	}
+
+	public List<SupplyVo> popupAllEstimateView(Map estimateMap) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.popupAllEstimateView(estimateMap);
+	}
 	
 }

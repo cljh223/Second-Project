@@ -9,7 +9,6 @@ DROP TABLE kpi CASCADE CONSTRAINTS;
 DROP TABLE address CASCADE CONSTRAINTS;
 DROP TABLE competitorSupply CASCADE CONSTRAINTS;
 DROP TABLE shop CASCADE CONSTRAINTS;
-DROP TABLE state CASCADE CONSTRAINTS;
 DROP TABLE kpiDivision CASCADE CONSTRAINTS;
 DROP TABLE competitor CASCADE CONSTRAINTS;
 DROP TABLE product CASCADE CONSTRAINTS;
@@ -47,48 +46,6 @@ INSERT INTO warehouse VALUES
 	, '물류창고'
 );
 
-CREATE TABLE state
-(
-	-- 0 : 미거래
-	-- 1 : 견적
-	-- 2 : 수주
-	-- 3 : 출고
-	-- 4 : 수금
-	state_code number(1) NOT NULL,
-	state_name varchar2(30) NOT NULL,
-	PRIMARY KEY (state_code)
-);
-
-insert into state values
-(
-	0
-	, '미거래'
-);
-
-insert into state values
-(
-	1
-	, '견적'
-);
-
-insert into state values
-(
-	2
-	, '수주'
-);
-
-insert into state values
-(
-	3
-	, '출고'
-);
-
-insert into state values
-(
-	4
-	, '수금'
-);
-
 CREATE TABLE kpiDivision
 (
 	-- 0 : 판매액
@@ -107,12 +64,7 @@ CREATE TABLE shop
 	shop_number varchar2(15) NOT NULL UNIQUE,
 	shop_rep varchar2(15) NOT NULL,
 	shop_tel varchar2(15) NOT NULL,
-	-- 0 : 미거래
-	-- 1 : 견적
-	-- 2 : 수주
-	-- 3 : 출고
-	-- 4 : 수금
-	state_code number(1) NOT NULL UNIQUE,
+	shop_state varchar2(6) NOT NULL,
 	PRIMARY KEY (shop_code)
 );
 
@@ -272,6 +224,7 @@ CREATE TABLE supply
 (
 	-- 자사 또는 경쟁사 구분 코드 알파벳 2자리 + 
 	-- 숫자 다섯자리
+	supply_num number(10) PRIMARY KEY,
 	product_code varchar2(8) NOT NULL,
 	-- 알파벳 두글자 + 숫자 다섯자리
 	process_code varchar2(7) NOT NULL,
@@ -342,12 +295,6 @@ insert into staff values
 ALTER TABLE process
 	ADD FOREIGN KEY (warehouse_code)
 	REFERENCES warehouse (warehouse_code)
-;
-
-
-ALTER TABLE shop
-	ADD FOREIGN KEY (state_code)
-	REFERENCES state (state_code)
 ;
 
 

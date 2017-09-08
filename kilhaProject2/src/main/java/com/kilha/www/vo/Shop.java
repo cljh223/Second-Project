@@ -30,7 +30,7 @@ public class Shop implements Serializable {
 	private String shopTel;
 
 	/** 매장 상태 테이블. */
-	private Integer stateCode;
+	private String shopState;
 
 	/** 경쟁사 납품 정보 테이블 목록. */
 	/*private Set<Competitorsupply> competitorsupplySet;
@@ -91,6 +91,14 @@ public class Shop implements Serializable {
 	public String getShopName() {
 		return this.shopName;
 	}
+	
+	public String getShopState() {
+		return shopState;
+	}
+
+	public void setShopState(String shopState) {
+		this.shopState = shopState;
+	}
 
 	/**
 	 * 사업자등록번호을 설정합니다..
@@ -147,15 +155,6 @@ public class Shop implements Serializable {
 	 */
 	public String getShopTel() {
 		return this.shopTel;
-	}
-
-
-	public Integer getStateCode() {
-		return stateCode;
-	}
-
-	public void setStateCode(Integer stateCode) {
-		this.stateCode = stateCode;
 	}
 
 	/**
@@ -293,7 +292,7 @@ public class Shop implements Serializable {
 	@Override
 	public String toString() {
 		return "Shop [shopCode=" + shopCode + ", shopName=" + shopName + ", shopNumber=" + shopNumber + ", shopRep="
-				+ shopRep + ", shopTel=" + shopTel + ", stateCode=" + stateCode + ", addressSet=" + addressSet + "]";
+				+ shopRep + ", shopTel=" + shopTel + ", shopState=" + shopState + ", addressSet=" + addressSet + "]";
 	}
 
 }

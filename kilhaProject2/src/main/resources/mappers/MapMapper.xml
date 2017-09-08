@@ -20,13 +20,14 @@
 		<result property="shopNumber" column="shop_number"/>
 		<result property="shopRep" column="shop_rep"/>
 		<result property="shopTel" column="shop_tel"/>
-		<result property="stateCode" column="state_code"/>
+		<result property="shopState" column="shop_state"/>
 		<collection property="addressSet" javaType="java.util.List" resultMap="AddressMap"/>
 	</resultMap>
 
 	<select id="markerSelect" resultMap="ShopMap"> 
 		select 
-			s.shop_name
+			s. shop_code
+			, s.shop_name
 			, a.address_detail1
 			, a.address_detail2
 			, a.address_detail3
@@ -80,11 +81,158 @@
 	</resultMap>
 	
 	<select id="productSelect" parameterType="String" resultMap="ProductList">
-		select product_code, product_name, product_unit_price, product_release_price, product_sales_price
+		select product_code, product_name, product_unit, product_unit_price, product_release_price, product_sales_price
 			from product
 			where product_name like '%' || #{searchText} || '%'
 			order by product_code
 	</select>	
 	
+	<select id="shopNameSelect" parameterType="int" resultType="String">
+		SELECT shop_name from shop where shop_code = #{shopCode}
+	</select>
 	
+	<insert id="processAdd" parameterType="Map">
+		INSERT INTO process values
+		(
+			#{processCode}
+			, SYSDATE
+			, #{processTerm}
+			, #{processEndDate}
+			, 0
+			, #{shopCode}
+			, (SELECT staff_code from staff where #{staffName}=staff_name)
+			, (SELECT warehouse_code from warehouse where #{warehouseName}=warehouse_name)
+		)
+	</insert>
+	
+	<insert id="supplyAdd" parameterType="Map">
+		INSERT INTO supply VALUES
+		(
+			#{productCode}
+			, #{processCode}
+			, #{supplyVolume}
+			, #{supplyPrice}
+		)
+	</insert>
+	
+	<resultMap type="Supply" id="SupplyMap">
+		<result property="productCode" column="product_code"/>
+		<result property="processCode" column="process_code"/>
+		<result property="supplyVolume" column="supply_volume"/>
+		<result property="supplyPrice" column="supply_price"/>
+	</resultMap>
+	
+	<resultMap type="SupplyListVo" id="SupplyListVoMap">
+		<result property="productCode" column="product_code"/>
+		<result property="processCode" column="process_code"/>
+		<result property="supplyVolume" column="supply_volume"/>
+		<result property="supplyPrice" column="supply_price"/>
+		<result property="productName" column="product_name"/>
+		<result property="productUnit" column="product_unit"/>
+	</resultMap>
+	
+	<resultMap type="Process" id="ProcessMap">
+		<id property="processCode" column="process_code"/>
+		<result property="processInsertDate" column="process_insert_date"/>
+		<result property="processTerm" column="process_term"/>
+		<result property="processEndDate" column="process_end_date"/>
+		<result property="processState" column="process_state"/>
+		<collection property="supplySet" javaType="java.util.List" resultMap="SupplyMap"/>
+	</resultMap>
+	
+	<resultMap type="SupplyVo" id="SupplyVoMap">
+		<result property="shopName" column="shop_name"/>
+		<result property="addressDetail1" column="address_detail1"/>
+		<result property="addressDetail2" column="address_detail2"/>
+		<result property="addressDetail3" column="address_detail3"/>
+		<result property="addressDetail4" column="address_detail4"/>
+		<result property="shopTel" column="shop_tel"/>
+		<result property="productUnit" column="product_unit"/>
+		<result property="processTerm" column="process_term"/>
+		<result property="processEndDate" column="process_end_date"/>
+		<result property="processInsertDate" column="process_insert_date"/>
+		<collection property="supplyList" javaType="java.util.List" resultMap="SupplyListVoMap"/>
+	</resultMap>
+	
+	<select id="popupNowEstimate" parameterType="Map" resultMap="SupplyVoMap">
+		SELECT s.shop_name, a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4,
+			s.shop_tel, d.product_unit, l.supply_price, l.supply_volume, p.process_term, d.product_code,
+			p.process_end_date, p.process_insert_date, d.product_name
+			FROM process p INNER JOIN shop s ON s.shop_code = #{shopCode} 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if> 
+			AND p.SHOP_CODE = s.SHOP_CODE
+			INNER JOIN address a ON a.shop_code = s.shop_code AND a.shop_code = #{shopCode}
+			INNER JOIN supply l ON l.process_code = p.process_code 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			INNER JOIN product d ON d.product_code = l.product_code 
+			WHERE p.process_insert_date = (select max(process_insert_date) as process_insert_date from process p INNER JOIN shop s ON s.shop_code = #{shopCode} 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			AND p.SHOP_CODE = s.SHOP_CODE
+			INNER JOIN address a ON a.shop_code = s.shop_code AND a.shop_code = #{shopCode}
+			INNER JOIN supply l ON l.process_code = p.process_code 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			INNER JOIN product d ON d.product_code = l.product_code)
+	</select>
+	
+	<select id="popupAllEstimateView" parameterType="Map" resultMap="SupplyVoMap">
+		SELECT s.shop_name, a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4,
+			s.shop_tel, d.product_unit, l.supply_price, l.supply_volume, p.process_term, d.product_code,
+			p.process_end_date, p.process_insert_date, d.product_name, p.process_state
+			FROM process p INNER JOIN shop s ON s.shop_code = #{shopCode} 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			AND p.SHOP_CODE = s.SHOP_CODE
+			INNER JOIN address a ON a.shop_code = s.shop_code AND a.shop_code = #{shopCode}
+			INNER JOIN supply l ON l.process_code = p.process_code 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			INNER JOIN product d ON d.product_code = l.product_code
+			
+	</select>
 </mapper>
