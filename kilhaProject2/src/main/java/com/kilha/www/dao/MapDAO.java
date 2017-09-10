@@ -20,4 +20,5 @@ public interface MapDAO {
 	public int supplyAdd(Map supplyMap);
 	public SupplyVo popupNowEstimate(Map estimateMap);
 	public List<SupplyVo> popupAllEstimateView(Map estimateMap);
+	public List<SupplyVo> processInitialize(Map processListMap);
 }

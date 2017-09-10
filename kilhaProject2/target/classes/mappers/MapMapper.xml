@@ -228,6 +228,34 @@
 				AND SUBSTR(p.process_code,0,2) = 're'
 			</if>
 			INNER JOIN product d ON d.product_code = l.product_code
-			
+	</select>
+	
+	<select id="processInitialize" parameterType="Map"  resultMap="SupplyVoMap">
+		SELECT s.shop_name, a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4,
+			s.shop_tel, d.product_unit, l.supply_price, l.supply_volume, p.process_term, d.product_code,
+			p.process_end_date, p.process_insert_date, d.product_name, p.process_state
+			FROM process p INNER JOIN shop s ON s.shop_name = #{shopName} 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			AND p.SHOP_CODE = s.SHOP_CODE
+			INNER JOIN address a ON a.shop_code = s.shop_code AND a.shop_name = #{shopName}
+			INNER JOIN supply l ON l.process_code = p.process_code 
+			<if test="processName=='견적'">
+				AND SUBSTR(p.process_code,0,2) = 'em'
+			</if>
+			<if test="processName=='수주'">
+				AND SUBSTR(p.process_code,0,2) = 'co'
+			</if>
+			<if test="processName=='출고'">
+				AND SUBSTR(p.process_code,0,2) = 're'
+			</if>
+			INNER JOIN product d ON d.product_code = l.product_code
 	</select>
 </mapper>

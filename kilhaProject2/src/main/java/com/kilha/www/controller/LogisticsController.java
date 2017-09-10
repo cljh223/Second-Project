@@ -86,5 +86,49 @@ public class LogisticsController {
 		return "redirect:/reUpdateList";
 	}
 	
+	@RequestMapping(value = "/first", method = RequestMethod.GET)
+	public String first() {
+		return "logistics/log-01, 02, 07";
+	}
 	
+	@RequestMapping(value = "/second", method = RequestMethod.GET)
+	public String second() {
+		return "logistics/log-03, 11";
+	}
+	
+	@RequestMapping(value = "/third", method = RequestMethod.GET)
+	public String third() {
+		return "logistics/log-04";
+	}
+	
+	@RequestMapping(value = "/fourth", method = RequestMethod.GET)
+	public String fourth() {
+		return "logistics/log-05, 12";
+	}
+	
+	@RequestMapping(value = "/fifth", method = RequestMethod.GET)
+	public String fifth() {
+		return "logistics/log-06(List)";
+	}
+	
+	@RequestMapping(value = "/sixth", method = RequestMethod.GET)
+	public String sixth() {
+		return "logistics/log-06(Timetable)";
+	}
+	
+	@RequestMapping(value = "/seventh", method = RequestMethod.GET)
+	public String seventh(String num, Model model) {
+		model.addAttribute("num", num);
+		return "logistics/log-08, 13";
+	}
+	
+	@RequestMapping(value = "/eighth", method = RequestMethod.GET)
+	public String eighth() {
+		return "logistics/log-09, 10";
+	}
+	
+	@RequestMapping(value = "/nineth", method = RequestMethod.GET)
+	public String nineth() {
+		return "logistics/log-13";
+	}
 }

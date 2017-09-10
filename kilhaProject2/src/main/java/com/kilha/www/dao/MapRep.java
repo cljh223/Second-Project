@@ -78,5 +78,11 @@ public class MapRep {
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.popupAllEstimateView(estimateMap);
 	}
+
+	public List<SupplyVo> processInitialize(Map processListMap) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.processInitialize(processListMap);
+	}
 	
 }
