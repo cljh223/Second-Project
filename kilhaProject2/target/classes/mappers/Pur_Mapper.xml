@@ -15,6 +15,15 @@
 		from Pur_rawmaterials
 	</select>
 	
+	<!-- 거래기록 목록 리스트 -->
+	
+	<select id="trList" resultType="TradeRecords"> 
+		select *
+		from Pur_traderecords
+		order by dealdate asc
+	</select>
+	
+	
 	<!-- 원재료 가격정보 뽑기(차트그릴때) -->
 	<select id="rmChart"  parameterType="String" resultType="RM_daily_price"> 
 		select to_char(rmdate, 'yyyy-mm-dd') as rmdate, rmopen, rmhigh, rmlow, rmclose, rmvolume

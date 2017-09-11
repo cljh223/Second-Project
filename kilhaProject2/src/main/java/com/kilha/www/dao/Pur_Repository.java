@@ -53,6 +53,13 @@ public class Pur_Repository {
 		return dao.AddRawMaterials(rmupdateMap);
 	}
 
+
+
+	public List<TradeRecords> trList() {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.trList();
+	}
+
 	//재고테이블 입력
 	
 

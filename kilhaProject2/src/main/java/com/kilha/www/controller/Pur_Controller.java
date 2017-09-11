@@ -118,9 +118,18 @@ public class Pur_Controller {
 	
 	
 	@RequestMapping(value = "Pur_profitloss", method = RequestMethod.GET)
-	public String Pur_profitloss() {
+	public String Pur_profitloss(TradeRecords tr, Model model) {
+		System.out.println("거래기록페이지가는곳");
+		List<TradeRecords> trList;
+		trList= rep.trList();	
+		System.out.println(trList);
+		model.addAttribute("trList",trList);
+		
 		return "purchase/Pur_profitloss";
 	}
+	
+	//거래기록 띄우기
+	
 	
 	@RequestMapping(value = "Pur_store", method = RequestMethod.GET)
 	public String Pur_store() {

@@ -22,5 +22,7 @@ public interface Pur_DAO {
 	public RawMaterials selectRM(String rmname);
 
 	public int AddRawMaterials(Map rmupdateMap);
+
+	public List<TradeRecords> trList();
 	
 }

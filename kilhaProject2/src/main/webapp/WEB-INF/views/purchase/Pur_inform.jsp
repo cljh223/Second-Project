@@ -329,7 +329,7 @@
 								</div>
 
 								<div class="profile-statistics">
-									<h1>5000kg</h1>
+									<h1><span id="RMstock"></span>kg</h1>
 									<p>현재보유량</p>
 									<h1>1500kg</h1>
 									<p>필요주문량</p>
@@ -433,9 +433,7 @@
 							
 							
 							<div class="panel-body">
-                        <a class="btn btn-success" data-toggle="modal" href="#myModal2">
-                            Datepicker in Modal
-                        </a>
+                        
                         <!-- Modal -->
                         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -1072,6 +1070,8 @@
 	function trRMFunction() {
 		   $('tr').on('click', function() {
 		      var rmname = $(this).attr('id');
+		      var rmstock = $(':nth-child(3)',this).text();
+		      $('#RMstock').text(rmstock);
 		      $('#rmTypeSpan').text(rmname);
 		      $("#rmImage").attr("src","images/"+rmname+".jpg");	     
 		      $('#modalclose1').trigger("click");
@@ -1092,7 +1092,7 @@ function RMStringFunction(resp) {
 	   RMString += '<td>'
 	   RMString += resp[i].rmname;
 	   RMString += '</td>';
-	   RMString += '<td>'
+	   RMString += '<td value="'+resp[i].rmstock+'">';
 	   RMString += resp[i].rmstock;
 	   RMString += '</td>';
 	   RMString += '<td><span class="label label-info label-mini">Due</span></td>';

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -314,6 +315,7 @@
 										<thead>
 											<tr>
 												<th>거래일</th>
+												<th>상품코드</th>
 												<th>상품명</th>
 												<th>매매타입</th>
 												<th>수량</th>
@@ -321,56 +323,23 @@
 												<th>총액</th>
 												<th>수익금</th>
 												<th>수익률</th>
-												<th>잔여재고량</th>
-												<th>잔여가치</th>
+												
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="">
-												<td>pd-wheat-01</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2000kg</td>
-												<td class="center">2017-08-28</td>
-												<td><a class="edit" href="javascript:;">승인대기</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-02</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2500kg</td>
-												<td class="center">2017-08-25</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-03</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1500kg</td>
-												<td class="center">2017-08-21</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-04</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>3000kg</td>
-												<td class="center">2017-08-15</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-05</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1000kg</td>
-												<td class="center">2017-08-11</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
+										<c:forEach var="traderecords" items="${trList}" varStatus="stat">
+										<tr>
+										<td>${traderecords.dealdate}</td>
+										<td>${traderecords.rmcode}</td>
+										<td>${traderecords.rmname}</td>
+										<td>${traderecords.dealtype}</td>
+										<td>${traderecords.quantity}</td>
+										<td>${traderecords.price}</td>
+										<td>${traderecords.totalprice}</td>
+										<td>수익금</td>
+										<td>수익률</td>
+										</tr>
+										</c:forEach>
 
 										</tbody>
 									</table>
