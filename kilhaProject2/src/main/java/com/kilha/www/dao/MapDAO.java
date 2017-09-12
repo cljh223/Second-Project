@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Process;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.SupplyVo;
 
@@ -21,4 +22,5 @@ public interface MapDAO {
 	public SupplyVo popupNowEstimate(Map estimateMap);
 	public List<SupplyVo> popupAllEstimateView(Map estimateMap);
 	public List<SupplyVo> processInitialize(Map processListMap);
+	public Process processCodeSelect(String processCode);
 }

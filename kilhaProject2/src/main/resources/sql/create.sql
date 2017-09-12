@@ -28,7 +28,7 @@ DROP SEQUENCE staff_code_SEQ;
 DROP SEQUENCE supply_num_seq;
 DROP SEQUENCE seq_shipping_orderNum;
 DROP SEQUENCE seq_truck_code;
-
+DROP SEQUENCE process_code_seq;
 
 
 /* Create Tables */
@@ -478,5 +478,7 @@ create sequence seq_shipping_orderNum;
 
 create sequence seq_truck_code; 
 
-
+CREATE SEQUENCE process_code_seq
+START WITH 1
+INCREMENT BY 1;
 

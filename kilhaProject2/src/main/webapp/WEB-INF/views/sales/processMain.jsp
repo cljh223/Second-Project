@@ -22,6 +22,8 @@
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
 
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]>
     <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,29 +34,14 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 <script type="text/javascript">
-	function processInitializeFunction(resp) {
-		$('#processListForm').html();
-	}
-
-	function processInitialize() {
-		$.ajax({
-			url : "processInitialize",
-			method : "get",
-			dataType : "json",
-			success : processInitializeFunction,
-			error : function() {
-				alert('에러입니다.');
-			}
-		});
-		processInitialize
-	}
-
 	$(function() {
 		processInitialize();
+		searchProcess();
 		$('.panel .tools .fa-chevron-up').parents(".panel").children(
 				".panel-body").slideUp(200);
 	});
 </script>
+
 </head>
 
 <body>
@@ -302,49 +289,41 @@
 								</span>
 							</header>
 							<div class="panel-body">
-								<table class="table  table-hover general-table">
-									<thead>
-										<tr>
-											<th>Company</th>
-											<th class="hidden-phone">Descrition</th>
-											<th>Profit</th>
-											<th>Status</th>
-											<th>Progress</th>
-										</tr>
-									</thead>
-									<tbody id = "processListForm">
-										<tr>
-											<td><a href="#">Graphics</a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-											<td>1320.00$</td>
-											<td><span class="label label-info label-mini">Due</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 40%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-success">
-														<span class="sr-only">40% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+								<div class="adv-table">
+									<div class="dataTables_filter" id="editable-sample_filter">
+										' <label>Search: <input type="text" id="searchText"
+											aria-controls="editable-sample" class="form-control medium"></label>
+									</div>
+									<table class="display table table-bordered table-striped"
+										id="dynamic-table">
+										<thead>
+											<tr>
+												<th>주문번호</th>
+												<th>거래처명</th>
+												<th>담당자</th>
+												<th>납입기한</th>
+												<th>금액</th>
+												<th>종결여부</th>
+											</tr>
+										</thead>
+										<tbody id="processListForm">
+
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</section>
 					</div>
 					<div class="col-sm-6">
 						<section class="panel">
 							<header class="panel-heading">
-								General Table <span class="tools pull-right"> <a
+								상세보기 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-up"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
 								</span>
 							</header>
-							<div class="panel-body processSearchForm">
-								
-							</div>
+							<div class="panel-body processSearchForm"></div>
 						</section>
 					</div>
 				</div>
@@ -601,6 +580,7 @@
 	<script src="js/jquery.scrollTo.min.js"></script>
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
+
 	<!--Easy Pie Chart-->
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
@@ -611,11 +591,237 @@
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
+	<!--dynamic table-->
+	<script type="text/javascript" language="javascript"
+		src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
+	<script type="text/javascript">
+		function searchProcess(){
+			$('#searchText').on('keyup', function() {
+				var searchProcessText = $(this).val();
+				var searchText = {
+					'searchProcessText' : searchProcessText
+				}
+				$.ajax({
+					url : 'processInitialize',
+					method : 'get',
+					data : searchText,
+					dataType : 'json',
+					success : processInitializeFunction
+					,error : function() {
+						alert('에러입니다.');
+					}
+				});
+			});
+		}
+	
+		function processCodeClick(resp) {
+			$('#processListForm>tr')
+					.on(
+							'click',
+							function() {
+								var index = 0;
+								var processCode = $(this).attr('id');
+								for (var i = 0; i < resp.length; i++) {
+									if (resp[i].processCode == processCode) {
+										index = i;
+										break;
+									}
+								}
+								var processPrintText = '<div class="row">'
+										+ '<div class="col-lg-12">'
+										+ '<section class="panel">';
+								if (resp[index].processCode.substring(0, 2) == 'em') {
+									processPrintText += '<div class="panel-body invoice">'
+											+ '<div class="invoice-header">'
+											+ '<div class="invoice-title col-md-3 col-xs-2">'
+											+ '<h3>estimate</h3>';
+								} else if (resp[index].processCode.substring(0,
+										2) == 'co') {
+									processPrintText += '<div class="panel-body invoice">'
+											+ '<div class="invoice-header">'
+											+ '<div class="invoice-title col-md-3 col-xs-2">'
+											+ '<h3>contract</h3>';
+								} else if (resp[index].processCode.substring(0,
+										2) == 're') {
+									processPrintText += '<div class="panel-body invoice">'
+											+ '<div class="invoice-header">'
+											+ '<div class="invoice-title col-md-3 col-xs-2">'
+											+ '<h3>release</h3>';
+								}
+								processPrintText += '</div>'
+										+ '<div class="invoice-info col-md-9 col-xs-10">'
+										+ '<div class="pull-right">'
+										+ '<div class="col-md-6 col-sm-6 pull-left">'
+										+ '<p>121 King Street, Melbourne <br>'
+										+ 'Victoria 3000 Australia</p>'
+										+ '</div>'
+										+ '<div class="col-md-6 col-sm-6 pull-right">'
+										+ '<p>Phone: +61 3 8376 6284 <br>'
+										+ 'Email : info@envato.com</p>'
+										+ '</div>'
+										+ '</div>'
+										+ '</div>'
+										+ '</div>'
+										+ '<div class="row invoice-to">'
+										+ '<div class="col-md-4 col-sm-4 pull-left">'
+										+ '<h4>Invoice To:</h4>' + '<h2>'
+										+ resp[index].shopName + '</h2><br>'
+										+ '<p>' + resp[index].addressDetail1
+										+ ' ' + resp[index].addressDetail2
+										+ '<br>' + resp[index].addressDetail3
+										+ ' ';
+								if (resp.shopDetail4 != null) {
+									processPrintText += resp[index].addressDetail4
+								}
+								processPrintText += '<br>'
+										+ resp[index].shopTel
+										+ '<br>'
+										+ '</p>'
+										+ '</div>'
+										+ '<div class="col-md-4 col-sm-5 pull-right">'
+										+ '<div class="row">'
+										+ '<div class="col-md-4 col-sm-5 inv-label"></div>'
+										+ '<div class="col-md-8 col-sm-7"></div>'
+										+ '</div>'
+										+ '<div class="row">'
+										+ '<div class="col-md-4 col-sm-5 inv-label">입력날짜</div>'
+										+ '<div class="col-md-8 col-sm-7">'
+										+ resp[index].processInsertDate
+										+ '</div>'
+										+ '</div>'
+										+ '<br>'
+										+ '<div class="row">'
+										+ '<div class="col-md-4 col-sm-5 inv-label">마감날짜</div>'
+										+ '<div class="col-md-8 col-sm-7">'
+										+ resp[index].processTerm
+										+ '</div>'
+										+ '</div>'
+										+ '<br>'
+										+ '<div class="row">'
+										+ '<div class="col-md-12 inv-label">'
+										+ '<h3>납품종료일 #</h3>'
+										+ '</div>'
+										+ '<div class="col-md-12">'
+										+ '<h4 class="amnt-value">'
+										+ resp[index].processEndDate
+										+ '</h4>'
+										+ '</div>'
+										+ '</div>'
+										+ '</div>'
+										+ '</div>'
+										+ '<table class="table table-invoice" >'
+										+ '<thead>'
+										+ '<tr>'
+										+ '<th>#</th>'
+										+ '<th>Item Description</th>'
+										+ '<th class="text-center">Unit Cost</th>'
+										+ '<th class="text-center">Total</th>'
+										+ '<th class="text-center">Quantity</th>'
+										+ '</tr>' + '</thead>' + '<tbody>';
+								$
+										.each(
+												resp[index].supplyList,
+												function(i, item) {
+													processPrintText += '<tr>'
+															+ '<td>'
+															+ i
+															+ '</td>'
+															+ '<td>'
+															+ '<h4>'
+															+ item.productName
+															+ '</h4>'
+															+ '<p>단위 : '
+															+ item.productUnit
+															+ '</p>'
+															+ '</td>'
+															+ '<td class="text-center">'
+															+ item.supplyPrice
+															+ '</td>'
+															+ '<td class="text-center">'
+															+ item.supplyVolume
+															+ '</td>'
+															+ '<td class="text-center">'
+															+ item.supplyPrice
+															* item.supplyVolume
+															+ '</td>' + '</tr>'
+												});
+								+'</tbody>'
+										+ '</table>'
+										+ '<div class="row">'
+										+ '<div class="col-md-8 col-xs-7 payment-method">'
+										+ '<h3 class="inv-label itatic">Thank you for your business</h3>'
+										+ '</div>'
+										+ '<div class="col-md-4 col-xs-5 invoice-block pull-right">'
+										+ '<ul class="unstyled amounts">'
+										+ '<li class="grand-total">Grand Total : $7145</li>'
+										+ '</ul>'
+										+ '</div>'
+										+ '</div>'
+										+ '<div class="text-center invoice-btn">'
+										+ '</div>' + '</div>' + '</section>'
+										+ '</div>' + '</div>';
+								$('.processSearchForm').html(processPrintText);
+							});
+		}
 
+		function processInitializeFunction(resp) {
+			var processString = '';
+			var salAmount = 0;
+			for (var i = 0; i < resp.length; i++) {
+				processString += '<tr id="'+resp[i].processCode+'">';
+				processString += '<td>'
+				processString += resp[i].processCode;
+				processString += '</td>'
+				processString += '<td class="hidden-phone">'
+				processString += resp[i].shopName;
+				processString += '</td>'
+				processString += '<td>'
+				processString += resp[i].staffName;
+				processString += '</td>';
+				processString += '<td>';
+				processString += resp[i].processTerm
+				processString += '</td>';
+				for (var j = 0; j < resp[i].supplyList.length; j++) {
+					salAmount = salAmount
+							+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
+				}
+				processString += '<td>';
+				processString += salAmount;
+				processString += '</td>'
+				processString += '<td>';
+				if (resp[i].processState == 0) {
+					processString += '진행중';
+				} else {
+					processString += '종료';
+				}
+				processString += '</td>';
+				processString += '</tr>';
+			}
 
+			$('#processListForm').html(processString);
+			processCodeClick(resp);
+		}
 
+		function processInitialize() {
+			var processInitializeJson = {
+				'shopName' : '',
+				'processName' : ''
+			}
+			$.ajax({
+				url : "processInitialize",
+				method : "get",
+				data : processInitializeJson,
+				dataType : "json",
+				success : processInitializeFunction,
+				error : function() {
+					alert('에러입니다.');
+				}
+			});
+		}
+	</script>
 </body>
 </html>

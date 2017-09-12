@@ -1,4 +1,4 @@
-package com.kilha.www.vo.sal;
+package com.kilha.www.vo.product;
 
 public class ProductVO {
 	private String product_num;

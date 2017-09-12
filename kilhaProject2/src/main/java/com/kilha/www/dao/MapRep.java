@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Process;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.SupplyVo;
 
@@ -83,6 +84,12 @@ public class MapRep {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.processInitialize(processListMap);
+	}
+
+	public Process processCodeSelect(String processCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.processCodeSelect(processCode);
 	}
 	
 }

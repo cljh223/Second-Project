@@ -2,7 +2,7 @@ package com.kilha.www.dao;
 import java.util.List;
 
 import com.kilha.www.vo.product.FactoryVO;
-import com.kilha.www.vo.sal.ProductVO;
+import com.kilha.www.vo.product.ProductVO;
 
 public interface FactoryDAO {
 	

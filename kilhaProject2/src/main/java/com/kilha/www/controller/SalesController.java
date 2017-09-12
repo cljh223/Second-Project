@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +28,13 @@ import com.kilha.www.vo.sal.SupplyVo;
  */
 @Controller
 public class SalesController {
-	
+
 	@Autowired
 	MapRep rep;
-	
+
 	@Autowired
 	LogisticsRepository repo;
-	
-	private int count = 1;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -45,8 +42,8 @@ public class SalesController {
 	public String home(Model model) {
 		List<Shop> shopList = rep.markerSelect();
 		List<List<Address>> addressList = new ArrayList<>();
-		List<Integer>shopCodelist = new ArrayList<>();
-		for(int i = 0; i<shopList.size(); i++){
+		List<Integer> shopCodelist = new ArrayList<>();
+		for (int i = 0; i < shopList.size(); i++) {
 			addressList.add(shopList.get(i).getAddressSet());
 			shopCodelist.add(shopList.get(i).getShopCode());
 		}
@@ -54,52 +51,44 @@ public class SalesController {
 		model.addAttribute("addressList", new AddressChange().search(addressList));
 		return "sales/selIndex";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "popupWarehouse", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<Stock> popupWarehouse(
-			@RequestParam(value = "searchText", defaultValue = "") String searchText
-			){
+	@RequestMapping(value = "popupWarehouse", method = { RequestMethod.POST, RequestMethod.GET })
+	public List<Stock> popupWarehouse(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		return rep.warehouseSelect(searchText);
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "popupStaff", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<Staff> popupStaff(
-			@RequestParam(value = "searchText", defaultValue = "") String searchText){
+	@RequestMapping(value = "popupStaff", method = { RequestMethod.POST, RequestMethod.GET })
+	public List<Staff> popupStaff(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		List<Staff> list = rep.staffSelect(searchText);
 		System.out.println(list);
 		return list;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "popupShop", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<Shop> popupShop(
-			@RequestParam(value = "searchText", defaultValue = "") String searchText){
+	@RequestMapping(value = "popupShop", method = { RequestMethod.POST, RequestMethod.GET })
+	public List<Shop> popupShop(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		return rep.shopSelect(searchText);
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "popupProduct", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<Product> popupProduct(
-			@RequestParam(value = "searchText", defaultValue = "") String searchText){
+	@RequestMapping(value = "popupProduct", method = { RequestMethod.POST, RequestMethod.GET })
+	public List<Product> popupProduct(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		return rep.productSelect(searchText);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "shopNameSelect", method = RequestMethod.GET)
-	public String shopNameSelect(int shopCode){
+	public String shopNameSelect(int shopCode) {
 		return rep.shopNameSelect(shopCode);
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "processAdd", method = RequestMethod.POST)
-	public String processAdd(
-			String shopName, String staffName, String warehouseName
-			, String processTerm,String processEndDate
-			, String shopCode, String processName
-			, String[] productCode, int[] supplyVolume
-			, int[] supplyPrice
-			){
+	public String processAdd(String shopName, String staffName, String warehouseName, String processTerm,
+			String processEndDate, String shopCode, String processName, String[] productCode, int[] supplyVolume,
+			int[] supplyPrice) {
 		Map<String, String> processMap = new HashMap<>();
 		String message = "";
 		processMap.put("staffName", staffName);
@@ -110,39 +99,40 @@ public class SalesController {
 		processMap.put("processName", processName);
 		String processCode = "";
 		switch (processName) {
-			case "견적":
-				processCode = "em"+count;
-				break;
-			case "수주" :
-				processCode = "co"+count;
-				break;
-			case "출고" :
-				processCode = "re"+count;
-			default:
-				break;
+		case "견적":
+			processCode = "em";
+			break;
+		case "수주":
+			processCode = "co";
+			break;
+		case "출고":
+			processCode = "re";
+		default:
+			break;
 		}
-		count++;
 		processMap.put("processCode", processCode);
 		Map supplyMap = new HashMap<>();
 		boolean result = false;
-		if(rep.processAdd(processMap)){
-			for(int i = 0; i<productCode.length; i++){
-				supplyMap.put("processCode", processCode);
+		if (rep.processAdd(processMap)) {
+			String processCodeLast = rep.processCodeSelect(processCode).getProcessCode();
+			for (int i = 0; i < productCode.length; i++) {
+				supplyMap.put("processCodeLast", processCodeLast);
 				supplyMap.put("productCode", productCode[i]);
 				supplyMap.put("supplyVolume", supplyVolume[i]);
 				supplyMap.put("supplyPrice", supplyPrice[i]);
 				result = rep.supplyAdd(supplyMap);
 			}
-			if(result) message = "등록되었습니다.";
-		}else{
+			if (result)
+				message = "등록되었습니다.";
+		} else {
 			message = "에러입니다.";
 		}
 		return message;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "popupNowEstimate", method = RequestMethod.POST)
-	public SupplyVo popupNowEstimate(int shopCode, String processName){
+	public SupplyVo popupNowEstimate(int shopCode, String processName) {
 		SupplyVo supplyVo = null;
 		Map estimateMap = new HashMap<>();
 		estimateMap.put("shopCode", shopCode);
@@ -150,10 +140,10 @@ public class SalesController {
 		supplyVo = rep.popupNowEstimate(estimateMap);
 		return supplyVo;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("popupAllEstimateView")
-	public List<SupplyVo> popupAllEstimateView(int shopCode, String processName){
+	public List<SupplyVo> popupAllEstimateView(int shopCode, String processName) {
 		List<SupplyVo> supplyVoList = null;
 		Map estimateMap = new HashMap<>();
 		estimateMap.put("shopCode", shopCode);
@@ -161,19 +151,24 @@ public class SalesController {
 		supplyVoList = rep.popupAllEstimateView(estimateMap);
 		return supplyVoList;
 	}
-	
+
 	@RequestMapping("processMain")
-	public String processMain(){
+	public String processMain() {
 		return "sales/processMain";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("processInitialize")
 	public List<SupplyVo> processInitialize(
-			@RequestParam(value = "processName", defaultValue = "") String processName, 
-			@RequestParam(value = "shopName", defaultValue = "") String shopName){
+			@RequestParam(value = "processName", defaultValue = "") String processName,
+			@RequestParam(value = "shopName", defaultValue = "") String shopName,
+			@RequestParam(value = "searchProcessText", defaultValue = "") String searchProcessText) {
 		Map processListMap = new HashMap<>();
-		return rep.processInitialize(processListMap);
+		processListMap.put("processName", processName);
+		processListMap.put("searchProcessText", searchProcessText);
+		List<SupplyVo> list = rep.processInitialize(processListMap);
+		System.out.println(list);
+		return list;
 	}
-	
+
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kilha.www.vo.product.FactoryVO;
-import com.kilha.www.vo.sal.ProductVO;
+import com.kilha.www.vo.product.ProductVO;
 
 @Repository
 public class FactoryRepository {

@@ -47,165 +47,73 @@ public class Process implements Serializable {
 	/** ��ǰ������̺� ���. */
 	private List<Supply> supplySet;
 
-	/**
-	 * ������.
-	 */
 	public Process() {
-		this.supplySet = new ArrayList<Supply>();
+		super();
 	}
 
-	/**
-	 * ���μ��� �ڵ��� �����մϴ�..
-	 * 
-	 * @param processCode
-	 *            ���μ��� �ڵ�
-	 */
+	public String getProcessCode() {
+		return processCode;
+	}
+
 	public void setProcessCode(String processCode) {
 		this.processCode = processCode;
 	}
 
-	/**
-	 * ���μ��� �ڵ��� �����ɴϴ�..
-	 * 
-	 * @return ���μ��� �ڵ�
-	 */
-	public String getProcessCode() {
-		return this.processCode;
+	public Date getProcessInsertDate() {
+		return processInsertDate;
 	}
 
-	/**
-	 * �Է³�¥�� �����մϴ�..
-	 * 
-	 * @param processInsertDate
-	 *            �Է³�¥
-	 */
 	public void setProcessInsertDate(Date processInsertDate) {
 		this.processInsertDate = processInsertDate;
 	}
 
-	/**
-	 * �Է³�¥�� �����ɴϴ�..
-	 * 
-	 * @return �Է³�¥
-	 */
-	public Date getProcessInsertDate() {
-		return this.processInsertDate;
+	public Date getProcessTerm() {
+		return processTerm;
 	}
 
-	/**
-	 * ��ȿ�Ⱓ�� �����մϴ�..
-	 * 
-	 * @param processTerm
-	 *            ��ȿ�Ⱓ
-	 */
 	public void setProcessTerm(Date processTerm) {
 		this.processTerm = processTerm;
 	}
 
-	/**
-	 * ��ȿ�Ⱓ�� �����ɴϴ�..
-	 * 
-	 * @return ��ȿ�Ⱓ
-	 */
-	public Date getProcessTerm() {
-		return this.processTerm;
+	public Date getProcessEndDate() {
+		return processEndDate;
 	}
 
-	/**
-	 * ��ǰ �������� �����մϴ�..
-	 * 
-	 * @param processEndDate
-	 *            ��ǰ ������
-	 */
 	public void setProcessEndDate(Date processEndDate) {
 		this.processEndDate = processEndDate;
 	}
 
-	/**
-	 * ��ǰ �������� �����ɴϴ�..
-	 * 
-	 * @return ��ǰ ������
-	 */
-	public Date getProcessEndDate() {
-		return this.processEndDate;
+	public Integer getProcessState() {
+		return processState;
 	}
 
-	/**
-	 * ���Ῡ���� �����մϴ�..
-	 * 
-	 * @param processState
-	 *            ���Ῡ��
-	 */
 	public void setProcessState(Integer processState) {
 		this.processState = processState;
 	}
 
-	/**
-	 * ���Ῡ���� �����ɴϴ�..
-	 * 
-	 * @return ���Ῡ��
-	 */
-	public Integer getProcessState() {
-		return this.processState;
+	public Shop getShop() {
+		return shop;
 	}
 
-	/**
-	 * �������̺��� �����մϴ�..
-	 * 
-	 * @param shop
-	 *            �������̺�
-	 */
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
 
-	/**
-	 * �������̺��� �����ɴϴ�..
-	 * 
-	 * @return �������̺�
-	 */
-	public Shop getShop() {
-		return this.shop;
+	public Staff getStaff() {
+		return staff;
 	}
 
-	/**
-	 * �������̺��� �����մϴ�..
-	 * 
-	 * @param staff
-	 *            �������̺�
-	 */
 	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
 
-	/**
-	 * �������̺��� �����ɴϴ�..
-	 * 
-	 * @return �������̺�
-	 */
-	public Staff getStaff() {
-		return this.staff;
+	public Warehouse getWarehouse() {
+		return warehouse;
 	}
 
-	/**
-	 * â�� ���̺��� �����մϴ�..
-	 * 
-	 * @param warehouse
-	 *            â�� ���̺�
-	 */
 	public void setWarehouse(Warehouse warehouse) {
 		this.warehouse = warehouse;
 	}
-
-	/**
-	 * â�� ���̺��� �����ɴϴ�..
-	 * 
-	 * @return â�� ���̺�
-	 */
-	public Warehouse getWarehouse() {
-		return this.warehouse;
-	}
-	
 
 	public List<Supply> getSupplySet() {
 		return supplySet;
@@ -215,50 +123,89 @@ public class Process implements Serializable {
 		this.supplySet = supplySet;
 	}
 
-	/**
-	 * ��ǰ������̺� �߰��մϴ�..
-	 * 
-	 * @param supply
-	 *            ��ǰ������̺�
-	 */
-	public void addSupply(Supply supply) {
-		this.supplySet.add(supply);
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((processCode == null) ? 0 : processCode.hashCode());
+		result = prime * result + ((processEndDate == null) ? 0 : processEndDate.hashCode());
+		result = prime * result + ((processInsertDate == null) ? 0 : processInsertDate.hashCode());
+		result = prime * result + ((processState == null) ? 0 : processState.hashCode());
+		result = prime * result + ((processTerm == null) ? 0 : processTerm.hashCode());
+		result = prime * result + ((shop == null) ? 0 : shop.hashCode());
+		result = prime * result + ((staff == null) ? 0 : staff.hashCode());
+		result = prime * result + ((supplySet == null) ? 0 : supplySet.hashCode());
+		result = prime * result + ((warehouse == null) ? 0 : warehouse.hashCode());
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Process other = (Process) obj;
 		if (processCode == null) {
-			if (other.processCode != null) {
+			if (other.processCode != null)
 				return false;
-			}
-		} else if (!processCode.equals(other.processCode)) {
+		} else if (!processCode.equals(other.processCode))
 			return false;
-		}
+		if (processEndDate == null) {
+			if (other.processEndDate != null)
+				return false;
+		} else if (!processEndDate.equals(other.processEndDate))
+			return false;
+		if (processInsertDate == null) {
+			if (other.processInsertDate != null)
+				return false;
+		} else if (!processInsertDate.equals(other.processInsertDate))
+			return false;
+		if (processState == null) {
+			if (other.processState != null)
+				return false;
+		} else if (!processState.equals(other.processState))
+			return false;
+		if (processTerm == null) {
+			if (other.processTerm != null)
+				return false;
+		} else if (!processTerm.equals(other.processTerm))
+			return false;
+		if (shop == null) {
+			if (other.shop != null)
+				return false;
+		} else if (!shop.equals(other.shop))
+			return false;
+		if (staff == null) {
+			if (other.staff != null)
+				return false;
+		} else if (!staff.equals(other.staff))
+			return false;
+		if (supplySet == null) {
+			if (other.supplySet != null)
+				return false;
+		} else if (!supplySet.equals(other.supplySet))
+			return false;
+		if (warehouse == null) {
+			if (other.warehouse != null)
+				return false;
+		} else if (!warehouse.equals(other.warehouse))
+			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Process [processCode=" + processCode + ", processInsertDate=" + processInsertDate + ", processTerm="
+				+ processTerm + ", processEndDate=" + processEndDate + ", processState=" + processState + ", shop="
+				+ shop + ", staff=" + staff + ", warehouse=" + warehouse + ", supplySet=" + supplySet + "]";
+	}
+
+	
 }
