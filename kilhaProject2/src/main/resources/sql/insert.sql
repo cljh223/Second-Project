@@ -20,6 +20,9 @@ insert into shop values
 	, '조준석'
 	, '02-909-0031'
 	, 1
+	, 'cljh223@naver.com'
+	, 'cljh223@naver.com'
+	, '대형 마트'
 );
 
 insert into shop values
@@ -30,6 +33,9 @@ insert into shop values
 	, '정우석'
 	, '03-4563-1235'
 	, 2
+	, 'cljh223@naver.com'
+	, 'cljh223@naver.com'
+	, '대형 마트'
 );
 
 insert into shop values
@@ -40,6 +46,9 @@ insert into shop values
 	, '은지쏭'
 	, '02-4532-7856'
 	, 0
+	, 'cljh223@naver.com'
+	, 'cljh223@naver.com'
+	, '대형 마트'
 );
 
 INSERT INTO product VALUES
@@ -132,6 +141,54 @@ insert into staff values
 	, '111'
 	, ''
 	, ''
+);
+
+insert into kpiDivision values
+(
+	0
+	, '판매액'
+);
+
+insert into kpiDivision values
+(
+	1
+	, '매출액'
+);
+
+insert into kpiDivision values
+(
+	2
+	, '매출 총 이익'
+);
+
+insert into kpi values
+(
+	1
+	, 50000000
+	, '2017-10-01'
+	, '2017-10-30'
+	, '2'
+	, '0'
+);
+
+insert into kpi values
+(
+	2
+	, 5000000000
+	, '2017-10-01'
+	, '2017-10-30'
+	, '2'
+	, '1'
+);
+
+insert into kpi values
+(
+	3
+	, 8000000000
+	, '2017-10-01'
+	, '2017-10-30'
+	, '2'
+	, '2'
 );
 
 insert into Truck 

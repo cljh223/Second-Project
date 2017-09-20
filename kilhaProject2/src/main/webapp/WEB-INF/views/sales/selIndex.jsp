@@ -49,6 +49,10 @@
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
+<link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.css"
+	rel="stylesheet" />
+<link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.skinFlat.css"
+	rel="stylesheet" />
 
 <!--clock css-->
 <link href="js/css3clock/css/style.css" rel="stylesheet">
@@ -62,12 +66,31 @@
 	width: "250px";
 	float: right;
 }
+
+#chartdiv {
+	width: 100%;
+	height: 500px;
+}
 </style>
+<!-- Resources -->
+
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+
+<script
+	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+
+<script src="https://www.amcharts.com/lib/3/themes/patterns.js"></script>
 <script language="javascript"
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript">
-	var map, markerLayer, processName;
+	var map, markerLayer;
 
 	// 티맵 레이어를 만드는 메소드
 	function addMarkerLayer() {
@@ -513,11 +536,12 @@
 						});
 	}
 
+	//영업 메인 초기 화면, 티맵 불러오기
 	function initialize() {
 		map = new Tmap.Map({
 			div : "map",
 			width : '100%',
-			height : '400px'
+			height : '600px'
 		});
 		map.addControl(new Tmap.Control.MousePosition());
 		var lonList = new Array();
@@ -535,23 +559,16 @@
 
 	$(function() {
 		initialize();
+		$('.contacts').on('click', contactsViewFunction);
+		$('.overview').on('click', overviewIntiFunction);
+		$('.settings').on('click', processViewFunction);
+		$('.job-history').on('click', updateViewFunction);
 		$('#staffName').on('click', staffBootFunction);
 		$('#warehouseName').on('click', warehouseBootFunction);
 		$('#productSelectbutton').on('click', productBootFunction);
+		//fa-chevron-up 클래스를 눌렀을때 창을 접어둔다.
 		$('.panel .tools .fa-chevron-up').parents(".panel").children(
 				".panel-body").slideUp(200);
-		$('#estimateBtn').on('click', function() {
-			processName = '견적';
-		});
-		$('#contractBtn').on('click', function() {
-			processName = '수주';
-		});
-		$('#releaseBtn').on('click', function() {
-			processName = '출고';
-		});
-		$('.estimateAdd').on('click', estimateAddFunction);
-		$('.contractAdd').on('click', estimateAddFunction);
-		$('.releaseAdd').on('click', estimateAddFunction);
 		$('#processSaveBtn').on('click', processAddFunction);
 		$('.nowEstimateSearch').on('click', nowEstimateSearchFunction);
 		$('.nowContractSearch').on('click', nowEstimateSearchFunction);
@@ -559,6 +576,24 @@
 		$('.allEstimateView').on('click', allEstimateViewFunction);
 		$('.allContractView').on('click', allEstimateViewFunction);
 		$('.allReleaseView').on('click', allEstimateViewFunction);
+		$('#processFormAddBtn').on('click', estimateAddFunction);
+		$('#견적').on('click', function() {
+			$('.current').removeClass("current");
+			$('#견적 >a').addClass("current");
+			processViewFunction();
+		});
+		$('#수주').on('click', function() {
+			$('.current').removeClass("current");
+			$('#수주 >a').addClass("current");
+			processViewFunction();
+		});
+		$('#출고').on('click', function() {
+			$('.current').removeClass("current");
+			$('#출고 >a').addClass("current");
+			processViewFunction();
+		});
+		$(".range_2").ionRangeSlider();
+		$('.mtop10').on('click', kpiSettingFunction);
 
 	});
 </script>
@@ -779,7 +814,7 @@
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
+								<li><a href="KPIMain">KPI 조회</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -790,78 +825,15 @@
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-
-				<!--mini statistics start-->
 				<div class="row">
-					<div class="col-md-6">
-						<section class="panel">
-							<header class="panel-heading">
-								Line Chart <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> <a
-									href="javascript:;" class="fa fa-cog"></a> <a
-									href="javascript:;" class="fa fa-times"></a>
-								</span>
-							</header>
-							<div class="panel-body">
-								<div class="chart">
-									<div id="chart" style="position: relative;"></div>
-								</div>
-							</div>
-						</section>
-					</div>
-					<div class="col-md-3">
-
-						<section class="panel">
-							<div class="panel-body">
-								<div class="top-stats-panel">
-									<h4 class="widget-h">Top Advertise</h4>
-									<div class="sm-pie"></div>
-								</div>
-							</div>
-						</section>
-					</div>
-					<div class="col-md-3">
-						<section class="panel">
-							<div class="panel-body">
-								<div class="top-stats-panel">
-									<h4 class="widget-h">Daily Sales</h4>
-									<div class="bar-stats">
-										<ul class="progress-stat-bar clearfix">
-											<li data-percent="50%"><span
-												class="progress-stat-percent pink"></span></li>
-											<li data-percent="90%"><span
-												class="progress-stat-percent"></span></li>
-											<li data-percent="70%"><span
-												class="progress-stat-percent yellow-b"></span></li>
-										</ul>
-										<ul class="bar-legend">
-											<li><span class="bar-legend-pointer pink"></span> New
-												York</li>
-											<li><span class="bar-legend-pointer green"></span> Los
-												Angels</li>
-											<li><span class="bar-legend-pointer yellow-b"></span>
-												Dallas</li>
-										</ul>
-										<div class="daily-sales-info">
-											<span class="sales-count">1200 </span> <span
-												class="sales-label">Products Sold</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-				<!--mini statistics end-->
-				<div class="row">
-					<div class="col-md-8" style="width: 100%">
+					<div class="col-md-8" style="width: 100%; height: 650px";>
 						<section class="panel" style="height: 450px">
 							<header class="panel-heading">
 								Earning Graph <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
-							<div class="panel-body" id="map" style="height: 400px"></div>
+							<div class="panel-body" id="map" style="height: 580px"></div>
 						</section>
 					</div>
 				</div>
@@ -875,102 +847,319 @@
 								</span>
 							</header>
 							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12">
+										<section class="panel">
+											<div class="panel-body profile-information">
+												<div class="col-md-3">
+													<div class="profile-pic text-center">
+														<img src="images/lock_thumb.jpg" alt="" />
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="profile-desk"></div>
+												</div>
+												<div class="col-md-3">
+													<div class="profile-statistics"></div>
+												</div>
+											</div>
+										</section>
+									</div>
+									<div class="col-md-12">
+										<section class="panel">
+											<header class="panel-heading tab-bg-dark-navy-blue">
+												<ul class="nav nav-tabs nav-justified ">
+													<li class="contacts"><a data-toggle="tab"
+														href="#contacts" class="contact-map"> Contacts </a></li>
+													<li class="overview"><a data-toggle="tab"
+														href="#overview"> Overview </a></li>
+													<li class="settings"><a data-toggle="tab"
+														href="#settings"> Settings </a></li>
+													<li class="job-history"><a data-toggle="tab"
+														href="#job-history"> Job History </a></li>
+												</ul>
+											</header>
+											<div class="panel-body">
+												<div class="tab-content tasi-tab ">
+													<div id="contacts" class="tab-pane">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="prf-contacts">
+																	<h2>
+																		<span><i class="fa fa-map-marker"></i></span> location
+																	</h2>
+																	<div class="location-info"></div>
+																	<h2>
+																		<span><i class="fa fa-phone"></i></span> contacts
+																	</h2>
+																	<div class="location-info contact-info"></div>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="panel-body" id="map-canvas"></div>
+															</div>
+														</div>
+													</div>
+													<div id="overview" class="tab-pane">
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="btn-group">
+																	<button data-toggle="dropdown"
+																		class="btn btn-default dropdown-toggle" type="button"
+																		aria-expanded="false">
+																		Date <span class="caret"></span>
+																	</button>
+																	<ul role="menu" class="dropdown-menu yearMenu">
 
-								<!-- modal -->
-								<div class="modal fade" id="myModal4" tabindex="-1"
-									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Datepicker in Modal</h4>
+																	</ul>
+																</div>
+																<button type="button" class="btn btn-default">Default</button>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-4">
+																<div class="prf-box prf-kpi">
+																	<h3 class="prf-border-head">work in progress</h3>
+																	<div class=" wk-progress salesClass"></div>
+																	<div class=" wk-progress earnClass">
+																		<div class="col-md-5">Graphics River</div>
+																		<div class="col-md-5">
+																			<div class="progress ">
+																				<div style="width: 57%" aria-valuemax="100"
+																					aria-valuemin="0" aria-valuenow="40"
+																					role="progressbar"
+																					class="progress-bar progress-bar-success">
+																					<span class="sr-only">57% Complete (success)</span>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-2">57%</div>
+																	</div>
+																	<div class=" wk-progress realEarnClass">
+																		<div class="col-md-5">Code Canyon</div>
+																		<div class="col-md-5">
+																			<div class="progress ">
+																				<div style="width: 20%" aria-valuemax="100"
+																					aria-valuemin="0" aria-valuenow="40"
+																					role="progressbar"
+																					class="progress-bar progress-bar-info">
+																					<span class="sr-only">20% Complete (success)</span>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-2">20%</div>
+																	</div>
+																</div>
+																<div class="prf-box">
+																	<h3 class="prf-border-head">performance status</h3>
+																	<div class=" wk-progress pf-status">
+																		<div class="col-md-8 col-xs-8 ">sales</div>
+																		<div class="col-md-4 col-xs-4 salesText"></div>
+																	</div>
+																	<div class=" wk-progress pf-status ">
+																		<div class="col-md-8 col-xs-8">earn</div>
+																		<div class="col-md-4 col-xs-4 earnText"></div>
+																	</div>
+																	<div class=" wk-progress pf-status ">
+																		<div class="col-md-8 col-xs-8">Total Earn</div>
+																		<div class="col-md-4 col-xs-4 allEarnText">
+																			<strong>235452344$</strong>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-lg-8">
+																<div id="chartdiv"></div>
+															</div>
+
+														</div>
+													</div>
+													<div id="job-history" class="tab-pane ">
+														<div class="row">
+															<div class="col-sm-6">
+																<section class="panel">
+																	<header class="panel-heading"> Horizontal
+																		Forms </header>
+																	<div class="panel-body">
+																		<div class="position-center">
+																			<form class="form-horizontal" role="form">
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">매장명</label>
+																					<div class="col-lg-10">
+																						<input type="text" class="form-control"
+																							id="shopNameUpdate" value="" placeholder="매장명">
+																						<p class="help-block">매장명을 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">사업자등록번호</label>
+																					<div class="col-lg-10">
+																						<input type="text" class="form-control"
+																							id="shopNumberUpdate" value=""
+																							placeholder="사업자등록번호">
+																						<p class="help-block">사업자등록번호를 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">대표자명</label>
+																					<div class="col-lg-10">
+																						<input type="text" class="form-control"
+																							id="shopRepUpdate" value="" placeholder="대표자명">
+																						<p class="help-block">대표자명을 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">전화번호</label>
+																					<div class="col-lg-10">
+																						<input type="tel" class="form-control"
+																							id="shopTelUpdate" value="" placeholder="전화번호">
+																						<p class="help-block">전화번호를 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">이메일</label>
+																					<div class="col-lg-10">
+																						<input type="email" class="form-control"
+																							id="shopEmailUpdate" value="" placeholder="이메일">
+																						<p class="help-block">이메일을 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">SNS</label>
+																					<div class="col-lg-10">
+																						<input type="text" class="form-control"
+																							id="shopSNSUpdate" value="" placeholder="SNS">
+																						<p class="help-block">SNS를 입력하세요</p>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputEmail1"
+																						class="col-lg-2 col-sm-2 control-label">주소</label>
+																					<div class="col-lg-10">
+																						<input type="text" class="form-control"
+																							id="addressUpdate" value="" readonly="readonly">
+																						<p class="help-block">
+																							<input type="button" class="form-control"
+																								onClick="goPopup();" value="주소 검색" /> 주소를 검색하세요
+																						</p>
+																					</div>
+																				</div>
+																				<button type="submit" class="btn btn-info">Submit</button>
+																				<button type="reset" class="btn btn-info">reset</button>
+																			</form>
+																		</div>
+																	</div>
+																</section>
+															</div>
+															<div class="col-sm-6">
+																<section class="panel">
+																	<header class="panel-heading"> Horizontal
+																		Forms </header>
+																	<div class="panel-body">
+																		<div class="position-center">
+																			<select class="form-control m-bot15">
+																			</select>
+																		</div>
+																		<table class="table slider-table">
+																			<tr>
+																				<td><input id="salesKpi" class="range_2"
+																					type="text" name="salesKpi" value="1000;100000"
+																					data-type="double" data-step="500"
+																					data-postfix=" &euro;" data-from="30000"
+																					data-to="90000" data-hasgrid="true" /></td>
+																			</tr>
+																			<tr>
+																				<td><input id="earnKpi" class="range_2"
+																					type="text" name="earnKpi" value="1000;100000"
+																					data-type="double" data-step="500"
+																					data-postfix=" &euro;" data-from="30000"
+																					data-to="90000" data-hasgrid="true" /></td>
+																			</tr>
+																			<tr>
+																				<td><input id="AllearnKpi" class="range_2"
+																					type="text" name="AllearnKpi" value="1000;100000"
+																					data-type="double" data-step="500"
+																					data-postfix=" &euro;" data-from="30000"
+																					data-to="90000" data-hasgrid="true" /></td>
+																			</tr>
+																			<tr>
+																				<td class="text-center ">
+																					<button class="btn btn-info btn-sm mtop10"
+																						id="updateLast">Update this slider</button>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</section>
+															</div>
+														</div>
+													</div>
+
+													<div id="settings" class="tab-pane ">
+														<div class="row">
+															<div class="col-md-12">
+																<ul class="breadcrumbs-alt">
+																	<li id="견적" data-processName="견적"><a
+																		class="current">견적</a></li>
+																	<li id="수주" data-processName="수주"><a class="">수주</a></li>
+																	<li id="출고" data-processName="출고"><a class="">출고</a></li>
+																</ul>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-12">
+																<section class="panel">
+																	<div class="panel-body">
+																		<div class="adv-table">
+																			<button type="button" id="processFormAddBtn"
+																				class="btn btn-round btn-primary">등록</button>
+																			<div class="dataTables_filter"
+																				id="editable-sample_filter">
+																				<label>Search: <input type="text"
+																					id="searchText4" aria-controls="editable-sample"
+																					class="form-control medium"></label>
+																			</div>
+																			<table
+																				class="display table table-bordered table-striped"
+																				id="dynamic-table">
+																				<thead>
+																					<tr>
+																						<th>주문번호</th>
+																						<th>거래처명</th>
+																						<th>담당자</th>
+																						<th>납입기한</th>
+																						<th>금액</th>
+																						<th>종결여부</th>
+																					</tr>
+																				</thead>
+																				<tbody id="processListForm">
+
+																				</tbody>
+																			</table>
+																		</div>
+																	</div>
+																</section>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
-											<div class="modal-body"></div>
-											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default"
-													type="button">Close</button>
-												'<a href="invoice_print.html" target="_blank"
-													class="btn btn-primary btn-lg"><i class="fa fa-print"></i>
-													Print </a>'
-											</div>
-										</div>
+										</section>
 									</div>
 								</div>
-								<div class="modal fade" id="myModal5" tabindex="-1"
-									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Datepicker in Modal</h4>
-											</div>
-											<div class="modal-body"></div>
-											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default"
-													type="button">Close</button>
-												'<a href="invoice_print.html" target="_blank"
-													class="btn btn-primary btn-lg"><i class="fa fa-print"></i>
-													Print </a>'
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- modal end -->
-
-								<div class="btn-group">
-									<button data-toggle="dropdown" id="estimateBtn"
-										class="btn btn-default dropdown-toggle" type="button">
-										견적 <span class="caret"></span>
-									</button>
-									<ul role="menu" class="dropdown-menu">
-										<li class="estimateAdd"><a>견적서 작성</a></li>
-										<li class="nowEstimateSearch"><a data-toggle="modal"
-											href="#myModal4">현재 견적서 조회</a></li>
-										<li class="allEstimateView"><a data-toggle="modal"
-											href="#myModal5">전체 견적서 보기</a></li>
-									</ul>
-								</div>
-								<!-- /btn-group -->
-
-								<div class="btn-group">
-									<button data-toggle="dropdown" id="contractBtn"
-										class="btn btn-default dropdown-toggle" type="button">
-										수주 <span class="caret"></span>
-									</button>
-									<ul role="menu" class="dropdown-menu">
-										<li class="contractAdd"><a>수주서 작성</a></li>
-										<li class="nowContractSearch"><a data-toggle="modal"
-											href="#myModal4">현재 수주서 조회</a></li>
-										<li class="allContractView "><a data-toggle="modal"
-											href="#myModal5">전체 수주서 보기</a></li>
-									</ul>
-								</div>
-								<!-- /btn-group -->
-								<div class="btn-group">
-									<button data-toggle="dropdown" id="releaseBtn"
-										class="btn btn-default dropdown-toggle" type="button">
-										출고 <span class="caret"></span>
-									</button>
-									<ul role="menu" class="dropdown-menu">
-										<li class="releaseAdd"><a>출고서 작성</a></li>
-										<li class="nowReleaseSearch"><a data-toggle="modal"
-											href="#myModal4">현재 출고서 조회</a></li>
-										<li class="allReleaseView"><a data-toggle="modal"
-											href="#myModal5">전체 출고서 보기</a></li>
-									</ul>
-								</div>
-								<!-- /btn-group -->
 							</div>
 						</section>
-
 					</div>
 				</div>
-
 				<form class="cmxform form-horizontal" id="supplyForm" method="POST">
-					<div class="row">
-						<div class="col-lg-4">
+					<div id="processFormDiv" class="row" style="display: none">
+						<div class="col-sm-12">
 							<section class="panel">
 								<header class="panel-heading">
 									Advanced Form validations <span class="tools pull-right">
@@ -1036,7 +1225,25 @@
 											</div>
 										</div>
 									</div>
-
+									<div class="modal fade" id="myModal4" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-hidden="true">&times;</button>
+													<h4 class="modal-title">Datepicker in Modal</h4>
+												</div>
+												<div class="modal-body"></div>
+												<div class="modal-footer">
+													<button data-dismiss="modal" class="btn btn-default"
+														type="button">Close</button>
+													<button type="button" id="button3" class="btn btn-primary">OK</button>
+												</div>
+											</div>
+										</div>
+									</div>
 									<!-- modal -->
 									<div class="form">
 										<div class="form-group ">
@@ -1082,18 +1289,6 @@
 											</div>
 										</div>
 									</div>
-								</div>
-							</section>
-						</div>
-
-						<div class="col-lg-8">
-							<section class="panel">
-								<header class="panel-heading">
-									General Table <span class="tools pull-right"> <a
-										href="javascript:;" class="fa fa-chevron-up processForm"></a>
-									</span>
-								</header>
-								<div class="panel-body">
 									<div class="dataTables_filter" id="editable-sample_filter">
 										<a data-toggle="modal" href="#myModal3"><button
 												type="button" id="productSelectbutton" class="btn btn-info ">
@@ -1112,8 +1307,6 @@
 											</tr>
 										</thead>
 										<tbody id="supplyProductTable">
-
-
 										</tbody>
 									</table>
 									<div class="form-group">
@@ -1132,249 +1325,161 @@
 		</section>
 
 		<!--main content end-->
-		<!--right sidebar start-->
-		<div class="right-sidebar">
-			<div class="search-row">
-				<input type="text" placeholder="Search" class="form-control">
-			</div>
-			<div class="right-stat-bar">
-				<ul class="right-side-accordion">
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head red-bg active clearfix"> <span
-							class="pull-left">work progress (5)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row side-mini-stat clearfix">
-									<div class="side-graph-info">
-										<h4>Target sell</h4>
-										<p>25%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="target-sell"></div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info">
-										<h4>product delivery</h4>
-										<p>55%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="p-delivery">
-											<div class="sparkline" data-type="bar" data-resize="true"
-												data-height="30" data-width="90%" data-bar-color="#39b7ab"
-												data-bar-width="5"
-												data-data="[200,135,667,333,526,996,564,123,890,564,455]">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info payment-info">
-										<h4>payment collection</h4>
-										<p>25%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="p-collection">
-											<span class="pc-epie-chart" data-percent="45"> <span
-												class="percent"></span>
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="side-graph-info">
-										<h4>delivery pending</h4>
-										<p>44%, Deadline 12 june 13</p>
-									</div>
-									<div class="side-mini-graph">
-										<div class="d-pending"></div>
-									</div>
-								</div>
-								<div class="prog-row side-mini-stat">
-									<div class="col-md-12">
-										<h4>total progress</h4>
-										<p>50%, Deadline 12 june 13</p>
-										<div class="progress progress-xs mtop10">
-											<div style="width: 50%" aria-valuemax="100" aria-valuemin="0"
-												aria-valuenow="20" role="progressbar"
-												class="progress-bar progress-bar-info">
-												<span class="sr-only">50% Complete</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head terques-bg active clearfix"> <span
-							class="pull-left">contact online (5)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Jonathan Smith</a>
-										</h4>
-										<p>Work for fun</p>
-									</div>
-									<div class="user-status text-danger">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Anjelina Joe</a>
-										</h4>
-										<p>Available</p>
-									</div>
-									<div class="user-status text-success">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/chat-avatar2.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">John Doe</a>
-										</h4>
-										<p>Away from Desk</p>
-									</div>
-									<div class="user-status text-warning">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1_small.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Mark Henry</a>
-										</h4>
-										<p>working</p>
-									</div>
-									<div class="user-status text-info">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb">
-										<a href="#"><img src="images/avatar1.jpg" alt=""></a>
-									</div>
-									<div class="user-details">
-										<h4>
-											<a href="#">Shila Jones</a>
-										</h4>
-										<p>Work for fun</p>
-									</div>
-									<div class="user-status text-danger">
-										<i class="fa fa-comments-o"></i>
-									</div>
-								</div>
-								<p class="text-center">
-									<a href="#" class="view-btn">View all Contacts</a>
-								</p>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head purple-bg active"> <span
-							class="pull-left"> recent activity (3)</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">just now</p>
-										<p>
-											<a href="#">Jim Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">2 min ago</p>
-										<p>
-											<a href="#">Jane Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-								<div class="prog-row">
-									<div class="user-thumb rsn-activity">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<div class="rsn-details ">
-										<p class="text-muted">1 day ago</p>
-										<p>
-											<a href="#">Jim Doe </a>Purchased new equipments for zonal
-											office setup
-										</p>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-					<li class="widget-collapsible"><a href="#"
-						class="head widget-head yellow-bg active"> <span
-							class="pull-left"> shipment status</span> <span
-							class="pull-right widget-collapse"><i class="ico-minus"></i></span>
-					</a>
-						<ul class="widget-container">
-							<li>
-								<div class="col-md-12">
-									<div class="prog-row">
-										<p>Full sleeve baby wear (SL: 17665)</p>
-										<div class="progress progress-xs mtop10">
-											<div class="progress-bar progress-bar-success"
-												role="progressbar" aria-valuenow="20" aria-valuemin="0"
-												aria-valuemax="100" style="width: 40%">
-												<span class="sr-only">40% Complete</span>
-											</div>
-										</div>
-									</div>
-									<div class="prog-row">
-										<p>Full sleeve baby wear (SL: 17665)</p>
-										<div class="progress progress-xs mtop10">
-											<div class="progress-bar progress-bar-info"
-												role="progressbar" aria-valuenow="20" aria-valuemin="0"
-												aria-valuemax="100" style="width: 70%">
-												<span class="sr-only">70% Completed</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-				</ul>
-			</div>
 
-		</div>
-		<!--right sidebar end-->
 	</section>
 	<script type="text/javascript">
+		function goPopup() {
+			// 주소검색을 수행할 팝업 페이지를 호출합니다.
+			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+			var pop = window.open("jusoPopuo", "pop",
+					"width=570,height=420, scrollbars=yes, resizable=yes");
+
+			// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+			//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+		}
+		function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail,
+				roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn,
+				bdMgtSn, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm,
+				rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo) {
+			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+			document.form.roadAddrPart1.value = roadAddrPart1;
+			document.form.roadAddrPart2.value = roadAddrPart2;
+			document.form.addrDetail.value = addrDetail;
+			document.form.zipNo.value = zipNo;
+		}
+
 		var shopCode;
 		var processName;
 
+		function processViewFunctionSuccess(resp) {
+			var salAmount = 0;
+			var processLocationText = '';
+			for (var i = 0; i < resp.length; i++) {
+				processLocationText += '<a data-toggle="modal" href="#myModal4"><tr id="'+resp[i].processCode+'">';
+				processLocationText += '<td>'
+				processLocationText += resp[i].processCode;
+				processLocationText += '</td>'
+				processLocationText += '<td class="hidden-phone">'
+				processLocationText += resp[i].shopName;
+				processLocationText += '</td>'
+				processLocationText += '<td>'
+				processLocationText += resp[i].staffName;
+				processLocationText += '</td>';
+				processLocationText += '<td>';
+				processLocationText += resp[i].processTerm
+				processLocationText += '</td>';
+				for (var j = 0; j < resp[i].supplyList.length; j++) {
+					salAmount = salAmount
+							+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
+				}
+				processLocationText += '<td>';
+				processLocationText += salAmount;
+				processLocationText += '</td>'
+				processLocationText += '<td>';
+				if (resp[i].processState == 0) {
+					processLocationText += '진행중';
+				} else {
+					processLocationText += '종료';
+				}
+				processLocationText += '</td>';
+				processLocationText += '</tr></a>';
+			}
+
+			$('#processListForm').html(processLocationText);
+			$('#processListForm tr').on('click', nowEstimateSearchFunction);
+
+		}
+
+		//settings 버튼 눌렀을 때 이벤트
+		function processViewFunction() {
+
+			var shopCodeText = $('.settings').attr('data-shopCode');
+			alert(shopCodeText);
+			var processText = $('.current').parents().attr('data-processName');
+			var searchText = $('#searchText4').val();
+			var processCode = {
+				"shopCode" : shopCodeText,
+				"processName" : processText,
+				"searchText" : searchText
+			};
+
+			$.ajax({
+				url : 'processViewFunction',
+				method : 'get',
+				data : processCode,
+				dataType : 'json',
+				success : processViewFunctionSuccess,
+				error : function() {
+					alert('에러입니다.');
+				}
+			});
+		}
+
+		function contactsViewFunctionSuccess(resp) {
+			var contactsLocationText = '<p>Postal Address<br>'
+					+ resp.addressPost + '</p>' + '<p>' + resp.addressDetail1
+					+ ' ' + resp.addressDetail2 + ' ' + ' '
+					+ resp.addressDetail3;
+			if (resp.addressDetail4 != '') {
+				contactsLocationText += resp.addressDetail4;
+			}
+			contactsLocationText += '</p>'
+
+			$('.location-info').html(contactsLocationText);
+
+			var contactsContactText = '<p>Phone : <br>' + resp.shopTel
+					+ '<br></p>' + '<p>Email :' + resp.shopEmail + '</br></p>'
+					+ '<p>SNS : ' + resp.shopSNS + '</p>'
+			$('.contact-info').html(contactsContactText);
+		}
+
+		// contacts메뉴 클릭시 이벤트
+		function contactsViewFunction() {
+			var shopCodeText = $(this).attr('data-shopCode');
+			alert(shopCodeText);
+			var shopCode = {
+				"shopCode" : shopCodeText
+			};
+
+			$.ajax({
+				url : 'contactsViewFunction',
+				method : 'get',
+				data : shopCode,
+				dataType : 'json',
+				success : contactsViewFunctionSuccess,
+				error : function() {
+					alert('에러입니다.');
+				}
+			});
+		}
+
+		function shopDetailFunction(resp) {
+			var shopDetailHearderText = '<h1 id ="shopNameText" data-shopName = "'+resp[0][0].shopName+'">'
+					+ resp[0][0].shopName
+					+ '</h1>'
+					+ '<span class="text-muted">대형마트</span></br>'
+					+ '<p>대표 : '
+					+ resp[0][0].shopRep
+					+ '</p></br>'
+					+ '<p>거래상황 : '
+					+ resp[0][0].processState
+					+ '</p></br>'
+					+ '<p>거래기간 : '
+					+ resp[1]
+					+ '</p></br>'
+					+ '<p>최근거래 : '
+					+ resp[3]
+					+ ' '
+					+ resp[2] + '</p></br>';
+			$('.profile-desk').html(shopDetailHearderText);
+
+			var shopDetailEarnText = '<h1>' + resp[4] + '</h1>'
+					+ '<p>This Month Sales</p>' + '<h1>' + resp[5] + '</h1>'
+					+ '<p>This Monthh Earn</p>'
+			$('.profile-statistics').html(shopDetailEarnText);
+		}
+
+		// 마커 클릭시 이벤트
 		function chan() {
 			$('div>button[data-type = "marker"]').on(
 					'click',
@@ -1389,17 +1494,19 @@
 							el.slideDown(200);
 						}
 						shopCode = $(this).attr("data-source");
+						$('.overview').attr('data-shopCode', shopCode);
+						$('.job-history').attr('data-shopCode', shopCode);
+						$('.contacts').attr('data-shopCode', shopCode);
+						$('.settings').attr('data-shopCode', shopCode);
 						var shopCodeJson = {
 							"shopCode" : shopCode
 						};
 						$.ajax({
-							url : 'shopNameSelect',
+							url : 'shopDetailSelect',
 							method : 'get',
 							data : shopCodeJson,
-							dataType : 'text',
-							success : function(resp) {
-								$('#shopName').val(resp);
-							},
+							dataType : 'json',
+							success : shopDetailFunction,
 							error : function() {
 								alert('에러');
 							}
@@ -1409,9 +1516,10 @@
 
 		// 디비에서 견적서 프로세스 문서 정보를 가져오는 메소드
 		function nowEstimateSearchFunction() {
+			var processCode = $(this).attr('id');
+			alert(processCode);
 			var estimateJson = {
-				"shopCode" : shopCode,
-				"processName" : processName
+				"processCode" : processCode
 			};
 			$.ajax({
 				url : 'popupNowEstimate',
@@ -1444,7 +1552,7 @@
 		}
 
 		function estimateAddFunction() {
-
+			$('#processFormDiv').removeAttr('style');
 			var el = $('.panel .tools .processForm').parents(".panel")
 					.children(".panel-body");
 			if ($('.panel .tools .processForm').hasClass("fa-chevron-up")) {
@@ -1452,13 +1560,19 @@
 						.addClass("fa-chevron-down");
 				el.slideDown(200);
 			}
+			var shopText = $('#shopNameText').attr('data-shopName');
+			alert(shopText);
+			$('#shopName').val(shopText);
+			processViewFunction;
 		}
 
+		//process 저장하는 메소드
 		function processAddFunction() {
 			var staffName = $('#staffName').val();
 			var warehouseName = $('#warehouseName').val();
 			var processTerm = $('#processTerm').val();
 			var processEndDate = $('#processEndDate').val();
+			var processName = $('.current').parents().attr('data-processName');
 			var productCode = new Array();
 			var supplyVolume = new Array();
 			var supplyPrice = new Array();
@@ -1510,7 +1624,340 @@
 					alert('에러');
 				}
 			});
+		}
 
+		function kpiSelectFunction() {
+			$('.monthMenu>li').on('click', function() {
+				var timeCode = $(this).attr('id');
+				var shopCode = $('.settings').attr('data-shopCode');
+				$.ajax({
+					url : 'kpiSelectFunction',
+					method : 'post',
+					data : {
+						'timeCode' : timeCode,
+						'shopCode' : shopCode
+					},
+					dataType : 'json',
+					success : kpiSelectTxtFunction,
+					error : function() {
+						alert('에러다');
+					}
+				});
+			});
+		}
+
+		var chart;
+		var chartData;
+
+		function zoomChart() {
+			chart.zoomToIndexes(chart.dataProvider.length - 20,
+					chart.dataProvider.length - 1);
+		}
+
+		function overviewTextFunction(resp) {
+			var yearBtn = '';
+			$.each(resp.yearList, function(index, item) {
+				yearBtn += '<li class='+item+'><a>' + item + '</a></li>'
+			});
+			$('.yearMenu').html(yearBtn);
+
+			$('.yearMenu li')
+					.on(
+							'click',
+							function() {
+								var date = $(this).attr('class');
+								var shopCode = $('.settings').attr(
+										'data-shopCode');
+								$
+										.ajax({
+											url : 'chartSelect',
+											method : 'post',
+											data : {
+												'date' : date,
+												"shopCode" : shopCode
+											},
+											dataType : 'json',
+											success : function(resp) {
+												var subChartData = [];
+												var firstDate = new Date();
+												var year = firstDate.getYear() - 100;
+												firstDate.setDate(firstDate
+														.getDay()
+														- firstDate.getDay());
+												var earnList = resp.earnList[0];
+												var salesList = resp.salesList[0];
+												var views = 8700;
+
+												for (var i = 1; i < resp.earnList.length; i++) {
+													var newDate = new Date(
+															firstDate);
+													newDate.setDate(newDate
+															.getDate()
+															+ i);
+
+													earnList = resp.earnList[i];
+													salesList = resp.salesList[i];
+													views += Math.round((Math
+															.random() < 0.5 ? 1
+															: -1)
+															* Math.random()
+															* 10);
+
+													subChartData.push({
+														date : newDate,
+														earnList : earnList,
+														salesList : salesList,
+														views : views
+													});
+												}
+
+												chartData = subChartData
+												alert(chartData);
+												chart = AmCharts
+														.makeChart(
+																"chartdiv",
+																{
+																	"type" : "serial",
+																	"theme" : "none",
+																	"legend" : {
+																		"useGraphSettings" : true
+																	},
+																	"dataProvider" : chartData,
+																	"synchronizeGrid" : true,
+																	"valueAxes" : [
+																			{
+																				"id" : "v1",
+																				"axisColor" : "#FF6600",
+																				"axisThickness" : 2,
+																				"axisAlpha" : 1,
+																				"position" : "left"
+																			},
+																			{
+																				"id" : "v2",
+																				"axisColor" : "#FCD202",
+																				"axisThickness" : 2,
+																				"axisAlpha" : 1,
+																				"position" : "right"
+																			},
+																			{
+																				"id" : "v3",
+																				"axisColor" : "#B0DE09",
+																				"axisThickness" : 2,
+																				"gridAlpha" : 0,
+																				"offset" : 50,
+																				"axisAlpha" : 1,
+																				"position" : "left"
+																			} ],
+																	"graphs" : [
+																			{
+																				"valueAxis" : "v1",
+																				"lineColor" : "#FF6600",
+																				"bullet" : "round",
+																				"bulletBorderThickness" : 1,
+																				"hideBulletsCount" : 30,
+																				"title" : "red line",
+																				"valueField" : "earnList",
+																				"fillAlphas" : 0
+																			},
+																			{
+																				"valueAxis" : "v2",
+																				"lineColor" : "#FCD202",
+																				"bullet" : "square",
+																				"bulletBorderThickness" : 1,
+																				"hideBulletsCount" : 30,
+																				"title" : "yellow line",
+																				"valueField" : "salesList",
+																				"fillAlphas" : 0
+																			},
+																			{
+																				"valueAxis" : "v3",
+																				"lineColor" : "#B0DE09",
+																				"bullet" : "triangleUp",
+																				"bulletBorderThickness" : 1,
+																				"hideBulletsCount" : 30,
+																				"title" : "green line",
+																				"valueField" : "views",
+																				"fillAlphas" : 0
+																			} ],
+																	"chartScrollbar" : {},
+																	"chartCursor" : {
+																		"cursorPosition" : "mouse"
+																	},
+																	"categoryField" : "date",
+																	"categoryAxis" : {
+																		"parseDates" : true,
+																		"axisColor" : "#DADADA",
+																		"minorGridEnabled" : true
+																	},
+																	"export" : {
+																		"enabled" : true,
+																		"position" : "bottom-right"
+																	}
+																});
+												chart.addListener(
+														"dataUpdated",
+														zoomChart);
+												zoomChart();
+
+												$
+														.ajax({
+															url : 'kpiSelect',
+															method : 'post',
+															data : {
+																'date' : date,
+																"shopCode" : shopCode
+															},
+															dataType : 'json',
+															success : function(
+																	respp) {
+																var sales = respp.salse.kpiSet[0].kpiAmount;
+																var earn = respp.earn.kpiSet[0].kpiAmount;
+																var allEarn = respp.allEarn.kpiSet[0].kpiAmount;
+																var sumSales = respp.sumSales;
+																var sumEarn = respp.sumEarn;
+																var salesPercent = sumSales
+																		/ sales
+																		* 100;
+																var earnPercent = sumEarn
+																		/ earn
+																		* 100;
+																kpisalesPercentBarText = '<div class="col-md-5">판매액</div>'
+																		+ '<div class="col-md-5">'
+																		+ '<div class="progress  ">'
+																		+ '<div style="width:'
+																		+ salesPercent
+																		+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+																		+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+																		+ '<span class="sr-only">'
+																		+ salesPercent
+																		+ '% Complete (success)</span>'
+																		+ '</div></div></div><div class="col-md-2">'
+																		+ salesPercent
+																		+ '%</div>'
+
+																$('.salesClass')
+																		.html(
+																				kpisalesPercentBarText);
+
+																kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
+																		+ '<div class="col-md-5">'
+																		+ '<div class="progress  ">'
+																		+ '<div style="width:'
+																		+ earnPercent
+																		+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+																		+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+																		+ '<span class="sr-only">'
+																		+ earnPercent
+																		+ '% Complete (success)</span>'
+																		+ '</div></div></div><div class="col-md-2">'
+																		+ earnPercent
+																		+ '%</div>'
+
+																$('.earnClass')
+																		.html(
+																				kpiEarnPercentBarText);
+
+																kpiSalesText = '<strong>'
+																		+ sumSales
+																		+ '</strong>';
+																$('.salesText')
+																		.html(
+																				kpiSalesText);
+
+																kpiEarnText = '<strong>'
+																		+ sumEarn
+																		+ '</strong>';
+																$('.earnText')
+																		.html(
+																				kpiEarnText);
+															}
+														});
+											},
+											error : function() {
+												alert('에러입니다.');
+											}
+										});
+							});
+		}
+		function overviewIntiFunction() {
+			var shopCode = $('.settings').attr('data-shopCode');
+			$.ajax({
+				url : 'overviewIntiFunction',
+				method : 'post',
+				data : {
+					'shopCode' : shopCode
+				},
+				dataType : 'json',
+				success : overviewTextFunction,
+				error : function() {
+					alert('チョイジンシツ바보');
+				}
+			});
+		}
+
+		function updateViewFunction() {
+			var shopCode = $('.settings').attr('data-shopCode');
+			$.ajax({
+				url : "updateViewFunction",
+				method : "post",
+				data : {
+					'shopCode' : shopCode
+				},
+				dataType : 'json',
+				success : function(resp) {
+					$('#shopNameUpdate').val(resp.shopName);
+					$('#shopNumberUpdate').val(resp.shopNumber);
+					$('#shopRepUpdate').val(resp.shopRep);
+					$('#shopTelUpdate').val(resp.shopTel);
+					$('#shopEmailUpdate').val(resp.shopEmail);
+					$('#shopSNSUpdate').val(resp.shopSNS);
+					$('#addressUpdate').val();
+					
+					var d = new Date();
+					var year = d.getFullYear();
+					var month = d.getMonth()+2;
+					var bot15Text = '';
+					for(var i = 0; i<12; i++){
+						if(month<=12){
+							bot15Text += '<option>'+year+'-'+(month)+'</option>';
+							month = month+1;
+						}else{
+							year = year+1;
+							month = 1;
+							i = i-1;
+						}
+					}
+
+					$('.m-bot15').html(bot15Text);
+				},
+				error : function() {
+					alert('에러야');
+				}
+			});
+		}
+		
+		function kpiSettingFunction(){
+			var shopCode = $('.settings').attr('data-shopCode');
+			var salesKpi = $('#salesKpi').val();
+			var earnKpi = $('#earnKpi').val();
+			var AllearnKpi = $('#AllearnKpi').val();
+			var salesEnd = salesKpi.split(';');
+			var earnKpiEnd = earnKpi.split(';');
+			var AllearnKpiEnd = AllearnKpi.split(';');
+			alert(salesEnd[1]);
+			var kpiJson = new Array;
+			kpiJson.push(salesEnd[1]);
+			kpiJson.push(earnKpiEnd[1]);
+			kpiJson.push(AllearnKpiEnd[1]);
+			alert(kpiJson);
+			$.ajax({
+				url : 'kpiSettingFunction'
+				, method : 'post'
+				, data : {'shopCode' : shopCode, 'kpiJson' : kpiJson}
+				, success : function(){
+					alert('등록되었습니다.');
+				}
+			});
 		}
 	</script>
 	<!-- Placed js at the end of the document so the pages load faster -->
@@ -1575,6 +2022,7 @@
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
 	<script src="js/toggle-init.js"></script>
+	<script src="js/fullcalendar/fullcalendar.min.js"></script>
 	<script src="js/advanced-form.js?version=1"></script>
 	<!--clock init-->
 	<script src="js/css3clock/js/css3clock.js"></script>
@@ -1600,9 +2048,12 @@
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
 	<!--script for this page-->
+	<script
+		src="js/ion.rangeSlider-1.8.2/js/ion-rangeSlider/ion.rangeSlider.min.js"
+		type="text/javascript"></script>
+	<script src="js/external-dragging-calendar.js"></script>
 	<script src="js/table-editable.js"></script>
 	<script src="js/bootstrap-bootpopup/bootpopup.js"></script>
 	<!-- END JAVASCRIPTS -->
-
 </body>
 </html>

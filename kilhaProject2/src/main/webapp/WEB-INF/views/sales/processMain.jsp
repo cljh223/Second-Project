@@ -267,7 +267,7 @@
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
+								<li><a href="KPIMain">KPI 조회</a></li>
 							</ul></li>
 					</ul>
 				</div>

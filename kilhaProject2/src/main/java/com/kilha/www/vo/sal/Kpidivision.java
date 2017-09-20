@@ -1,6 +1,7 @@
 package com.kilha.www.vo.sal;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,116 +22,82 @@ public class Kpidivision implements Serializable {
 	private String kpidivisionName;
 
 	/** KPI���̺� ���. */
-	private Set<Kpi> kpiSet;
+	private List<Kpi> kpiSet;
 
-	/**
-	 * ������.
-	 */
 	public Kpidivision() {
-		this.kpiSet = new HashSet<Kpi>();
+		super();
 	}
 
-	/**
-	 * �����ڵ��� �����մϴ�..
-	 * 
-	 * @param kpidivisionCode
-	 *            �����ڵ�
-	 */
+	public Integer getKpidivisionCode() {
+		return kpidivisionCode;
+	}
+
 	public void setKpidivisionCode(Integer kpidivisionCode) {
 		this.kpidivisionCode = kpidivisionCode;
 	}
 
-	/**
-	 * �����ڵ��� �����ɴϴ�..
-	 * 
-	 * @return �����ڵ�
-	 */
-	public Integer getKpidivisionCode() {
-		return this.kpidivisionCode;
+	public String getKpidivisionName() {
+		return kpidivisionName;
 	}
 
-	/**
-	 * ���и��� �����մϴ�..
-	 * 
-	 * @param kpidivisionName
-	 *            ���и�
-	 */
 	public void setKpidivisionName(String kpidivisionName) {
 		this.kpidivisionName = kpidivisionName;
 	}
 
-	/**
-	 * ���и��� �����ɴϴ�..
-	 * 
-	 * @return ���и�
-	 */
-	public String getKpidivisionName() {
-		return this.kpidivisionName;
+	public List<Kpi> getKpiSet() {
+		return kpiSet;
 	}
 
-	/**
-	 * KPI���̺� ����� �����մϴ�..
-	 * 
-	 * @param kpiSet
-	 *            KPI���̺� ���
-	 */
-	public void setKpiSet(Set<Kpi> kpiSet) {
+	public void setKpiSet(List<Kpi> kpiSet) {
 		this.kpiSet = kpiSet;
 	}
 
-	/**
-	 * KPI���̺� �߰��մϴ�..
-	 * 
-	 * @param kpi
-	 *            KPI���̺�
-	 */
-	public void addKpi(Kpi kpi) {
-		this.kpiSet.add(kpi);
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	/**
-	 * KPI���̺� ����� �����ɴϴ�..
-	 * 
-	 * @return KPI���̺� ���
-	 */
-	public Set<Kpi> getKpiSet() {
-		return this.kpiSet;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((kpiSet == null) ? 0 : kpiSet.hashCode());
 		result = prime * result + ((kpidivisionCode == null) ? 0 : kpidivisionCode.hashCode());
+		result = prime * result + ((kpidivisionName == null) ? 0 : kpidivisionName.hashCode());
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Kpidivision other = (Kpidivision) obj;
-		if (kpidivisionCode == null) {
-			if (other.kpidivisionCode != null) {
+		if (kpiSet == null) {
+			if (other.kpiSet != null)
 				return false;
-			}
-		} else if (!kpidivisionCode.equals(other.kpidivisionCode)) {
+		} else if (!kpiSet.equals(other.kpiSet))
 			return false;
-		}
+		if (kpidivisionCode == null) {
+			if (other.kpidivisionCode != null)
+				return false;
+		} else if (!kpidivisionCode.equals(other.kpidivisionCode))
+			return false;
+		if (kpidivisionName == null) {
+			if (other.kpidivisionName != null)
+				return false;
+		} else if (!kpidivisionName.equals(other.kpidivisionName))
+			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Kpidivision [kpidivisionCode=" + kpidivisionCode + ", kpidivisionName=" + kpidivisionName + ", kpiSet="
+				+ kpiSet + "]";
+	}
+
+	
 }

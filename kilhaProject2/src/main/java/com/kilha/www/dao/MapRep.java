@@ -10,8 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Kpi;
+import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
 import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyVo;
 
 @Repository
@@ -91,5 +94,56 @@ public class MapRep {
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.processCodeSelect(processCode);
 	}
-	
+
+	public List<SupplyVo> shopDetailSelect(Map map) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.shopDetailSelect(map);
+	}
+
+	public SupplyVo contactsViewFunction(int shopCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.contactsViewFunction(shopCode);
+	}
+
+	public List<SupplyVo> processViewFunction(Map processListMap) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.processViewFunction(processListMap);
+	}
+
+	public List<Process> chartSelect(Map codeMap) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.chartSelect(codeMap);
+	}
+
+	public int processSelect(int shopCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.processSelect(shopCode);
+	}
+
+	public List<String> overviewIntiFunction(int shopCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.overviewIntiFunction(shopCode);
+	}
+
+	public List<Kpidivision> kpiSelect(Map codeMap) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.kpiSelect(codeMap);
+	}
+
+	public Shop updateViewFunction(int shopCode) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.updateViewFunction(shopCode);
+	}
+
+	public int kpiSettingFunction(int shopCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.kpiSettingFunction(shopCode);
+	}
 }

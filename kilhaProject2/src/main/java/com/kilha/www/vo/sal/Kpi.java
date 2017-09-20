@@ -17,7 +17,7 @@ public class Kpi implements Serializable {
 	private Integer kpiCode;
 
 	/** �׼�. */
-	private Integer kpiAmount;
+	private long kpiAmount;
 
 	/** ���۳�¥. */
 	private Date kpiStartDate;
@@ -26,165 +26,105 @@ public class Kpi implements Serializable {
 	private Date kpiEndDate;
 
 	/** �������̺�. */
-	private Shop shop;
+	private int shopCode;
 
-	/** kpi����. */
-	private Kpidivision kpidivision;
-
-	/**
-	 * ������.
-	 */
 	public Kpi() {
+		super();
 	}
 
-	/**
-	 * kpi �ڵ��� �����մϴ�..
-	 * 
-	 * @param kpiCode
-	 *            kpi �ڵ�
-	 */
+	public Integer getKpiCode() {
+		return kpiCode;
+	}
+
 	public void setKpiCode(Integer kpiCode) {
 		this.kpiCode = kpiCode;
 	}
 
-	/**
-	 * kpi �ڵ��� �����ɴϴ�..
-	 * 
-	 * @return kpi �ڵ�
-	 */
-	public Integer getKpiCode() {
-		return this.kpiCode;
+	public long getKpiAmount() {
+		return kpiAmount;
 	}
 
-	/**
-	 * �׼��� �����մϴ�..
-	 * 
-	 * @param kpiAmount
-	 *            �׼�
-	 */
-	public void setKpiAmount(Integer kpiAmount) {
+	public void setKpiAmount(long kpiAmount) {
 		this.kpiAmount = kpiAmount;
 	}
 
-	/**
-	 * �׼��� �����ɴϴ�..
-	 * 
-	 * @return �׼�
-	 */
-	public Integer getKpiAmount() {
-		return this.kpiAmount;
+	public Date getKpiStartDate() {
+		return kpiStartDate;
 	}
 
-	/**
-	 * ���۳�¥�� �����մϴ�..
-	 * 
-	 * @param kpiStartDate
-	 *            ���۳�¥
-	 */
 	public void setKpiStartDate(Date kpiStartDate) {
 		this.kpiStartDate = kpiStartDate;
 	}
 
-	/**
-	 * ���۳�¥�� �����ɴϴ�..
-	 * 
-	 * @return ���۳�¥
-	 */
-	public Date getKpiStartDate() {
-		return this.kpiStartDate;
+	public Date getKpiEndDate() {
+		return kpiEndDate;
 	}
 
-	/**
-	 * ������ ���� �����մϴ�..
-	 * 
-	 * @param kpiEndDate
-	 *            ������ ��
-	 */
 	public void setKpiEndDate(Date kpiEndDate) {
 		this.kpiEndDate = kpiEndDate;
 	}
 
-	/**
-	 * ������ ���� �����ɴϴ�..
-	 * 
-	 * @return ������ ��
-	 */
-	public Date getKpiEndDate() {
-		return this.kpiEndDate;
+	public int getShopCode() {
+		return shopCode;
 	}
 
-	/**
-	 * �������̺��� �����մϴ�..
-	 * 
-	 * @param shop
-	 *            �������̺�
-	 */
-	public void setShop(Shop shop) {
-		this.shop = shop;
+	public void setShopCode(int shopCode) {
+		this.shopCode = shopCode;
 	}
 
-	/**
-	 * �������̺��� �����ɴϴ�..
-	 * 
-	 * @return �������̺�
-	 */
-	public Shop getShop() {
-		return this.shop;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	/**
-	 * kpi������ �����մϴ�..
-	 * 
-	 * @param kpidivision
-	 *            kpi����
-	 */
-	public void setKpidivision(Kpidivision kpidivision) {
-		this.kpidivision = kpidivision;
-	}
-
-	/**
-	 * kpi������ �����ɴϴ�..
-	 * 
-	 * @return kpi����
-	 */
-	public Kpidivision getKpidivision() {
-		return this.kpidivision;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (int) (kpiAmount ^ (kpiAmount >>> 32));
 		result = prime * result + ((kpiCode == null) ? 0 : kpiCode.hashCode());
+		result = prime * result + ((kpiEndDate == null) ? 0 : kpiEndDate.hashCode());
+		result = prime * result + ((kpiStartDate == null) ? 0 : kpiStartDate.hashCode());
+		result = prime * result + shopCode;
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Kpi other = (Kpi) obj;
-		if (kpiCode == null) {
-			if (other.kpiCode != null) {
-				return false;
-			}
-		} else if (!kpiCode.equals(other.kpiCode)) {
+		if (kpiAmount != other.kpiAmount)
 			return false;
-		}
+		if (kpiCode == null) {
+			if (other.kpiCode != null)
+				return false;
+		} else if (!kpiCode.equals(other.kpiCode))
+			return false;
+		if (kpiEndDate == null) {
+			if (other.kpiEndDate != null)
+				return false;
+		} else if (!kpiEndDate.equals(other.kpiEndDate))
+			return false;
+		if (kpiStartDate == null) {
+			if (other.kpiStartDate != null)
+				return false;
+		} else if (!kpiStartDate.equals(other.kpiStartDate))
+			return false;
+		if (shopCode != other.shopCode)
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Kpi [kpiCode=" + kpiCode + ", kpiAmount=" + kpiAmount + ", kpiStartDate=" + kpiStartDate
+				+ ", kpiEndDate=" + kpiEndDate + ", shopCode=" + shopCode + "]";
+	}
+
+
 
 }

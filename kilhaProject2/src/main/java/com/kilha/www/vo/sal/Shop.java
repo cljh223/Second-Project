@@ -31,67 +31,57 @@ public class Shop implements Serializable {
 
 	/** ���� ���� ���̺�. */
 	private String shopState;
+	
+	private String shopEmail;
+	
+	private String shopSNS;
 
-	/** ����� ��ǰ ���� ���̺� ���. */
-	/*private Set<Competitorsupply> competitorsupplySet;
-
-	*//** �������μ������̺� ���. *//*
-	private Set<Process> processSet;
-*/
-	/** �ּ� ���̺� ���. */
 	private List<Address> addressSet;
 
-	/** KPI���̺� ���. *//*
-	private Set<Kpi> kpiSet;
-*/
-	/**
-	 * ������.
-	 */
 	public Shop() {
-		this.addressSet = new ArrayList<Address>();
-		/*this.competitorsupplySet = new HashSet<Competitorsupply>();
-		this.kpiSet = new HashSet<Kpi>();
-		this.processSet = new HashSet<Process>();*/
+		super();
 	}
 
-	/**
-	 * �����ڵ��� �����մϴ�..
-	 * 
-	 * @param shopCode
-	 *            �����ڵ�
-	 */
+	public Integer getShopCode() {
+		return shopCode;
+	}
+
 	public void setShopCode(Integer shopCode) {
 		this.shopCode = shopCode;
 	}
 
-	/**
-	 * �����ڵ��� �����ɴϴ�..
-	 * 
-	 * @return �����ڵ�
-	 */
-	public Integer getShopCode() {
-		return this.shopCode;
+	public String getShopName() {
+		return shopName;
 	}
 
-	/**
-	 * ������� �����մϴ�..
-	 * 
-	 * @param shopName
-	 *            �����
-	 */
 	public void setShopName(String shopName) {
 		this.shopName = shopName;
 	}
 
-	/**
-	 * ������� �����ɴϴ�..
-	 * 
-	 * @return �����
-	 */
-	public String getShopName() {
-		return this.shopName;
+	public String getShopNumber() {
+		return shopNumber;
 	}
-	
+
+	public void setShopNumber(String shopNumber) {
+		this.shopNumber = shopNumber;
+	}
+
+	public String getShopRep() {
+		return shopRep;
+	}
+
+	public void setShopRep(String shopRep) {
+		this.shopRep = shopRep;
+	}
+
+	public String getShopTel() {
+		return shopTel;
+	}
+
+	public void setShopTel(String shopTel) {
+		this.shopTel = shopTel;
+	}
+
 	public String getShopState() {
 		return shopState;
 	}
@@ -100,160 +90,20 @@ public class Shop implements Serializable {
 		this.shopState = shopState;
 	}
 
-	/**
-	 * ����ڵ�Ϲ�ȣ�� �����մϴ�..
-	 * 
-	 * @param shopNumber
-	 *            ����ڵ�Ϲ�ȣ
-	 */
-	public void setShopNumber(String shopNumber) {
-		this.shopNumber = shopNumber;
+	public String getShopEmail() {
+		return shopEmail;
 	}
 
-	/**
-	 * ����ڵ�Ϲ�ȣ�� �����ɴϴ�..
-	 * 
-	 * @return ����ڵ�Ϲ�ȣ
-	 */
-	public String getShopNumber() {
-		return this.shopNumber;
+	public void setShopEmail(String shopEmail) {
+		this.shopEmail = shopEmail;
 	}
 
-	/**
-	 * ��ǥ�ڸ��� �����մϴ�..
-	 * 
-	 * @param shopRep
-	 *            ��ǥ�ڸ�
-	 */
-	public void setShopRep(String shopRep) {
-		this.shopRep = shopRep;
+	public String getShopSNS() {
+		return shopSNS;
 	}
 
-	/**
-	 * ��ǥ�ڸ��� �����ɴϴ�..
-	 * 
-	 * @return ��ǥ�ڸ�
-	 */
-	public String getShopRep() {
-		return this.shopRep;
-	}
-
-	/**
-	 * ��ȭ��ȣ�� �����մϴ�..
-	 * 
-	 * @param shopTel
-	 *            ��ȭ��ȣ
-	 */
-	public void setShopTel(String shopTel) {
-		this.shopTel = shopTel;
-	}
-
-	/**
-	 * ��ȭ��ȣ�� �����ɴϴ�..
-	 * 
-	 * @return ��ȭ��ȣ
-	 */
-	public String getShopTel() {
-		return this.shopTel;
-	}
-
-	/**
-	 * ����� ��ǰ ���� ���̺� ����� �����մϴ�..
-	 * 
-	 * @param competitorsupplySet
-	 *            ����� ��ǰ ���� ���̺� ���
-	 */
-	/*public void setCompetitorsupplySet(Set<Competitorsupply> competitorsupplySet) {
-		this.competitorsupplySet = competitorsupplySet;
-	}
-
-	*//**
-	 * ����� ��ǰ ���� ���̺� �߰��մϴ�..
-	 * 
-	 * @param competitorsupply
-	 *            ����� ��ǰ ���� ���̺�
-	 *//*
-	public void addCompetitorsupply(Competitorsupply competitorsupply) {
-		this.competitorsupplySet.add(competitorsupply);
-	}
-
-	*//**
-	 * ����� ��ǰ ���� ���̺� ����� �����ɴϴ�..
-	 * 
-	 * @return ����� ��ǰ ���� ���̺� ���
-	 *//*
-	public Set<Competitorsupply> getCompetitorsupplySet() {
-		return this.competitorsupplySet;
-	}
-
-	*//**
-	 * �������μ������̺� ����� �����մϴ�..
-	 * 
-	 * @param processSet
-	 *            �������μ������̺� ���
-	 *//*
-	public void setProcessSet(Set<Process> processSet) {
-		this.processSet = processSet;
-	}
-
-	*//**
-	 * �������μ������̺� �߰��մϴ�..
-	 * 
-	 * @param process
-	 *            �������μ������̺�
-	 *//*
-	public void addProcess(Process process) {
-		this.processSet.add(process);
-	}
-
-	*//**
-	 * �������μ������̺� ����� �����ɴϴ�..
-	 * 
-	 * @return �������μ������̺� ���
-	 *//*
-	public Set<Process> getProcessSet() {
-		return this.processSet;
-	}*/
-
-
-	/**
-	 * KPI���̺� ����� �����մϴ�..
-	 * 
-	 * @param kpiSet
-	 *            KPI���̺� ���
-	 */
-	/*public void setKpiSet(Set<Kpi> kpiSet) {
-		this.kpiSet = kpiSet;
-	}
-
-	*//**
-	 * KPI���̺� �߰��մϴ�..
-	 * 
-	 * @param kpi
-	 *            KPI���̺�
-	 *//*
-	public void addKpi(Kpi kpi) {
-		this.kpiSet.add(kpi);
-	}
-
-	*//**
-	 * KPI���̺� ����� �����ɴϴ�..
-	 * 
-	 * @return KPI���̺� ���
-	 *//*
-	public Set<Kpi> getKpiSet() {
-		return this.kpiSet;
-	}*/
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((shopCode == null) ? 0 : shopCode.hashCode());
-		return result;
+	public void setShopSNS(String shopSNS) {
+		this.shopSNS = shopSNS;
 	}
 
 	public List<Address> getAddressSet() {
@@ -264,35 +114,88 @@ public class Shop implements Serializable {
 		this.addressSet = addressSet;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addressSet == null) ? 0 : addressSet.hashCode());
+		result = prime * result + ((shopCode == null) ? 0 : shopCode.hashCode());
+		result = prime * result + ((shopEmail == null) ? 0 : shopEmail.hashCode());
+		result = prime * result + ((shopName == null) ? 0 : shopName.hashCode());
+		result = prime * result + ((shopNumber == null) ? 0 : shopNumber.hashCode());
+		result = prime * result + ((shopRep == null) ? 0 : shopRep.hashCode());
+		result = prime * result + ((shopSNS == null) ? 0 : shopSNS.hashCode());
+		result = prime * result + ((shopState == null) ? 0 : shopState.hashCode());
+		result = prime * result + ((shopTel == null) ? 0 : shopTel.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Shop other = (Shop) obj;
-		if (shopCode == null) {
-			if (other.shopCode != null) {
+		if (addressSet == null) {
+			if (other.addressSet != null)
 				return false;
-			}
-		} else if (!shopCode.equals(other.shopCode)) {
+		} else if (!addressSet.equals(other.addressSet))
 			return false;
-		}
+		if (shopCode == null) {
+			if (other.shopCode != null)
+				return false;
+		} else if (!shopCode.equals(other.shopCode))
+			return false;
+		if (shopEmail == null) {
+			if (other.shopEmail != null)
+				return false;
+		} else if (!shopEmail.equals(other.shopEmail))
+			return false;
+		if (shopName == null) {
+			if (other.shopName != null)
+				return false;
+		} else if (!shopName.equals(other.shopName))
+			return false;
+		if (shopNumber == null) {
+			if (other.shopNumber != null)
+				return false;
+		} else if (!shopNumber.equals(other.shopNumber))
+			return false;
+		if (shopRep == null) {
+			if (other.shopRep != null)
+				return false;
+		} else if (!shopRep.equals(other.shopRep))
+			return false;
+		if (shopSNS == null) {
+			if (other.shopSNS != null)
+				return false;
+		} else if (!shopSNS.equals(other.shopSNS))
+			return false;
+		if (shopState == null) {
+			if (other.shopState != null)
+				return false;
+		} else if (!shopState.equals(other.shopState))
+			return false;
+		if (shopTel == null) {
+			if (other.shopTel != null)
+				return false;
+		} else if (!shopTel.equals(other.shopTel))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Shop [shopCode=" + shopCode + ", shopName=" + shopName + ", shopNumber=" + shopNumber + ", shopRep="
-				+ shopRep + ", shopTel=" + shopTel + ", shopState=" + shopState + ", addressSet=" + addressSet + "]";
+				+ shopRep + ", shopTel=" + shopTel + ", shopState=" + shopState + ", shopEmail=" + shopEmail
+				+ ", shopSNS=" + shopSNS + ", addressSet=" + addressSet + "]";
 	}
 
 }

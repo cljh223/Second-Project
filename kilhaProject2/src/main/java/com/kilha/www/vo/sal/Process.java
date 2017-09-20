@@ -36,15 +36,8 @@ public class Process implements Serializable {
 	private Integer processState;
 
 	/** �������̺�. */
-	private Shop shop;
-
-	/** �������̺�. */
-	private Staff staff;
-
-	/** â�� ���̺�. */
-	private Warehouse warehouse;
-
-	/** ��ǰ������̺� ���. */
+	private int shopCode;
+	
 	private List<Supply> supplySet;
 
 	public Process() {
@@ -91,28 +84,12 @@ public class Process implements Serializable {
 		this.processState = processState;
 	}
 
-	public Shop getShop() {
-		return shop;
+	public int getShopCode() {
+		return shopCode;
 	}
 
-	public void setShop(Shop shop) {
-		this.shop = shop;
-	}
-
-	public Staff getStaff() {
-		return staff;
-	}
-
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
-	public Warehouse getWarehouse() {
-		return warehouse;
-	}
-
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
+	public void setShopCode(int shopCode) {
+		this.shopCode = shopCode;
 	}
 
 	public List<Supply> getSupplySet() {
@@ -136,10 +113,8 @@ public class Process implements Serializable {
 		result = prime * result + ((processInsertDate == null) ? 0 : processInsertDate.hashCode());
 		result = prime * result + ((processState == null) ? 0 : processState.hashCode());
 		result = prime * result + ((processTerm == null) ? 0 : processTerm.hashCode());
-		result = prime * result + ((shop == null) ? 0 : shop.hashCode());
-		result = prime * result + ((staff == null) ? 0 : staff.hashCode());
+		result = prime * result + shopCode;
 		result = prime * result + ((supplySet == null) ? 0 : supplySet.hashCode());
-		result = prime * result + ((warehouse == null) ? 0 : warehouse.hashCode());
 		return result;
 	}
 
@@ -177,25 +152,12 @@ public class Process implements Serializable {
 				return false;
 		} else if (!processTerm.equals(other.processTerm))
 			return false;
-		if (shop == null) {
-			if (other.shop != null)
-				return false;
-		} else if (!shop.equals(other.shop))
-			return false;
-		if (staff == null) {
-			if (other.staff != null)
-				return false;
-		} else if (!staff.equals(other.staff))
+		if (shopCode != other.shopCode)
 			return false;
 		if (supplySet == null) {
 			if (other.supplySet != null)
 				return false;
 		} else if (!supplySet.equals(other.supplySet))
-			return false;
-		if (warehouse == null) {
-			if (other.warehouse != null)
-				return false;
-		} else if (!warehouse.equals(other.warehouse))
 			return false;
 		return true;
 	}
@@ -203,9 +165,12 @@ public class Process implements Serializable {
 	@Override
 	public String toString() {
 		return "Process [processCode=" + processCode + ", processInsertDate=" + processInsertDate + ", processTerm="
-				+ processTerm + ", processEndDate=" + processEndDate + ", processState=" + processState + ", shop="
-				+ shop + ", staff=" + staff + ", warehouse=" + warehouse + ", supplySet=" + supplySet + "]";
+				+ processTerm + ", processEndDate=" + processEndDate + ", processState=" + processState + ", shopCode="
+				+ shopCode + ", supplySet=" + supplySet + ", getProcessCode()=" + getProcessCode()
+				+ ", getProcessInsertDate()=" + getProcessInsertDate() + ", getProcessTerm()=" + getProcessTerm()
+				+ ", getProcessEndDate()=" + getProcessEndDate() + ", getProcessState()=" + getProcessState()
+				+ ", getShopCode()=" + getShopCode() + ", getSupplySet()=" + getSupplySet() + ", hashCode()="
+				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
-
 	
 }

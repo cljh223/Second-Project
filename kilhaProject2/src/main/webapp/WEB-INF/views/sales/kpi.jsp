@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +31,58 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+<script language="javascript"
+	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+	var map, markerLayer, processName;
+
+	// 티맵 레이어를 만드는 메소드
+	function addMarkerLayer() {
+		markerLayer = new Tmap.Layer.Markers("marker");
+		map.addLayer(markerLayer);
+	};
+
+	// 티맵에 마커를 표시하는 메소드
+	function makeMarker(lonList, latList, shopCodeList) {
+		map.setCenter(new Tmap.LonLat(lonList[0], latList[0]), 16);
+		addMarkerLayer();
+		for (var i = 0; i < lonList.length; i++) {
+			var lonlat = new Tmap.LonLat(lonList[i], latList[i]);
+			var size = new Tmap.Size(12, 19);
+			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+			var icon = new Tmap.IconHtml(
+					'<button data-type = "marker" data-source="'+shopCodeList[i]+'" class="btn btn-danger" type="button">2</button>',
+					size, offset);
+			var marker = new Tmap.Markers(lonlat, icon);
+			markerLayer.addMarker(marker);
+		}
+	}
+
+	function initialize() {
+		map = new Tmap.Map({
+			div : "map-canvas",
+			width : '100%',
+			height : '400px'
+		});
+		map.addControl(new Tmap.Control.MousePosition());
+		var lonList = new Array();
+		var latList = new Array();
+		var shopCodeList = new Array();
+		<c:forEach items="${addressList}" var="item">
+		lonList.push("${item.lon}");
+		latList.push("${item.lat}");
+		</c:forEach>
+		<c:forEach items="${shopCodelist}" var="item">
+		shopCodeList.push("${item}");
+		</c:forEach>
+		makeMarker(lonList, latList, shopCodeList);
+	}
+
+	$(function() {
+		initialize();
+	});
+</script>
 </head>
 
 <body>
@@ -720,7 +773,7 @@
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div id="map-canvas"></div>
+												<div class="panel-body" id="map-canvas"></div>
 											</div>
 										</div>
 									</div>
@@ -1132,55 +1185,15 @@
 	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?v=3.exp&AMP;sensor=false"></script>
 
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+
 	<script>
 		//google map
-		function initialize() {
-			var myLatlng = new google.maps.LatLng(-37.815207, 144.963937);
-			var mapOptions = {
-				zoom : 15,
-				scrollwheel : false,
-				center : myLatlng,
-				mapTypeId : google.maps.MapTypeId.ROADMAP
-			}
-			var map = new google.maps.Map(
-					document.getElementById('map-canvas'), mapOptions);
-			var marker = new google.maps.Marker({
-				position : myLatlng,
-				map : map,
-				title : 'Hello World!'
-			});
-		}
-		google.maps.event.addDomListener(window, 'load', initialize);
-
-		$('.contact-map').click(
-				function() {
-
-					//google map in tab click initialize
-					function initialize() {
-						var myLatlng = new google.maps.LatLng(-37.815207,
-								144.963937);
-						var mapOptions = {
-							zoom : 15,
-							scrollwheel : false,
-							center : myLatlng,
-							mapTypeId : google.maps.MapTypeId.ROADMAP
-						}
-						var map = new google.maps.Map(document
-								.getElementById('map-canvas'), mapOptions);
-						var marker = new google.maps.Marker({
-							position : myLatlng,
-							map : map,
-							title : 'Hello World!'
-						});
-					}
-					google.maps.event.addDomListener(window, 'click',
-							initialize);
-				});
 	</script>
 
 

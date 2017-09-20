@@ -5,6 +5,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kilha.www.vo.sal.Shop" alias="Shop" />
+		<typeAlias type="com.kilha.www.vo.sal.Kpi" alias="Kpi" />
+		<typeAlias type="com.kilha.www.vo.sal.Kpidivision" alias="Kpidivision" />
 		<typeAlias type="com.kilha.www.vo.sal.Address" alias="Address" />
 		<typeAlias type="com.kilha.www.vo.logistics.Warehouse" alias="Warehouse" />
 		<typeAlias type="com.kilha.www.vo.logistics.Stock" alias="Stock" />
