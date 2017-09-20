@@ -15,6 +15,11 @@
 		from Pur_rawmaterials
 	</select>
 	
+	<!-- 스태프 정보 뽑기(팝업창) -->
+	<select id="StaffList" resultType="Staff"> 
+		select * from staff
+	</select>
+	
 	<!-- 거래기록 목록 리스트 -->
 	
 	<select id="trList" resultType="TradeRecords"> 
@@ -32,7 +37,7 @@
         order by rmdate asc
 	</select>
 	
-	<!-- 팝업창 검색데이터 불러오기 -->
+	<!-- 팝업창 재료검색데이터 불러오기 -->
 	<select id="popupsearch" parameterType="String" resultType="RawMaterials">
 		select rmcode, rmname, rmstock
 		from Pur_rawmaterials
@@ -62,5 +67,62 @@
 	rmavgprice = #{NewAvgPrice}
 	where rmcode = #{rmcode}
 	</update>
+	
+	<!-- 팝업창 스태프검색데이터 불러오기 -->
+	<select id="staffsearch" parameterType="String" resultType="Staff">
+		select *
+		from staff
+		where staff_name like '%' || #{searchText3} || '%'
+	</select>
+	
+	<!-- 이름으로 스태프 정보 하나 찾기 -->
+	<select id="fineonestaff" parameterType="String" resultType="Staff">
+		select * from staff
+		where staff_name = #{staffname}
+	</select>
+	
+	<!-- 주문기본정보 입력하기 -->
+	<insert id="insertorder" parameterType="OrderRecords">
+	INSERT INTO Pur_orderrecords 
+	(taskcode, requestdate, etc, staff_code)
+	VALUES
+	(#{taskcode}, #{requestdate}, #{etc}, #{staff_code})
+	</insert>
+	
+	<insert id="insertorderdetail" parameterType="OrderRecords_Detail">
+	INSERT INTO Pur_orderrecords_detail
+	(taskcode, rmname, quantity, price, total)
+	VALUES
+	(#{taskcode}, #{rmname}, #{quantity}, #{price},#{total})
+	</insert>
+	
+	
+	<!-- 주문완료 목록 개수 반환 -->
+	<select id="ordercount" resultType="int"> 
+		select count(*) from PUR_ORDERRECORDS
+	</select>
+	
+	<!-- 주문목록 정보 뽑기(게시판) -->
+	<select id="orderlist" resultType="OrderRecords"> 
+		select * from PUR_ORDERRECORDS
+	</select>
+	
+	<!-- 스태프코드로 스태프 정보 하나 찾기 -->
+	<select id="findstaffbynum" parameterType="int" resultType="Staff">
+		select * from staff
+		where staff_code = #{tempstaff}
+	</select>
+	
+	<!-- 요청코드로 기본정보 뽑기 -->
+	<select id="getbasicrecord" parameterType="String" resultType="OrderRecords">
+		select * from Pur_orderrecords
+		where taskcode = #{taskcode}
+	</select>
+	
+	<!-- 요청코드로 주문디테일 정보 모두 뽑기 -->
+	<select id="getdetailrecord" parameterType="String" resultType="OrderRecords_Detail">
+		select * from Pur_orderrecords_detail
+		where taskcode = #{taskcode}
+	</select>
 	
 </mapper>

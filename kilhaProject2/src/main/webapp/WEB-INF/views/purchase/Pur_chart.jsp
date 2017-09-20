@@ -943,7 +943,7 @@ anychart.onDocumentReady(function () {
 	   
 	   	  var stringPrice = $('#price').val();
 	   	  var stringQuantity="";
-	    $('#quantity').on('keyup', function() {
+	      $('#quantity').on('keyup', function() {
 		   stringQuantity= $('#quantity').val();
 	   	  var numberPrice = parseInt(stringPrice);
 	   	  var numberQuantity = parseInt(stringQuantity);

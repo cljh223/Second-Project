@@ -1,23 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Editable Table</title>
+    <title>Invoice</title>
 
     <!--Core CSS -->
     <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
@@ -259,147 +257,287 @@
 </div>
 </header>
 <!--header end-->
-<!--sidebar start-->
 <aside>
     <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
+        <!-- sidebar menu start-->            <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
-                        <span>구매부서</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
-                    </ul>
-                </li>
-        
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
-                    </a>
-                </li>
-            </ul>            </div>
-        <!-- sidebar menu end-->
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-laptop"></i>
+                    <span>Layouts</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="boxed_page.html">Boxed Page</a></li>
+                    <li><a href="horizontal_menu.html">Horizontal Menu</a></li>
+                    <li><a href="language_switch.html">Language Switch Bar</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>UI Elements</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="general.html">General</a></li>
+                    <li><a href="buttons.html">Buttons</a></li>
+<li><a href="typography.html">Typography</a></li>
+                    <li><a href="widget.html">Widget</a></li>
+                    <li><a href="slider.html">Slider</a></li>
+                    <li><a href="tree_view.html">Tree View</a></li>
+                    <li><a href="nestable.html">Nestable</a></li>
+                    <li><a href="grids.html">Grids</a></li>
+                    <li><a href="calendar.html">Calender</a></li>
+                    <li><a href="draggable_portlet.html">Draggable Portlet</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="fontawesome.html">
+                    <i class="fa fa-bullhorn"></i>
+                    <span>Fontawesome </span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-th"></i>
+                    <span>Data Tables</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="basic_table.html">Basic Table</a></li>
+                    <li><a href="responsive_table.html">Responsive Table</a></li>
+                    <li><a href="dynamic_table.html">Dynamic Table</a></li>
+                    <li><a href="editable_table.html">Editable Table</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-tasks"></i>
+                    <span>Form Components</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="form_component.html">Form Elements</a></li>
+                    <li><a href="advanced_form.html">Advanced Components</a></li>
+                    <li><a href="form_wizard.html">Form Wizard</a></li>
+                    <li><a href="form_validation.html">Form Validation</a></li>
+                    <li><a href="file_upload.html">Muliple File Upload</a></li>
+                    
+                    <li><a href="dropzone.html">Dropzone</a></li>
+                    <li><a href="inline_editor.html">Inline Editor</a></li>
+
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i>
+                    <span>Mail </span>
+                </a>
+                <ul class="sub">
+                    <li><a href="mail.html">Inbox</a></li>
+                    <li><a href="mail_compose.html">Compose Mail</a></li>
+                    <li><a href="mail_view.html">View Mail</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class=" fa fa-bar-chart-o"></i>
+                    <span>Charts</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="morris.html">Morris</a></li>
+                    <li><a href="chartjs.html">Chartjs</a></li>
+                    <li><a href="flot_chart.html">Flot Charts</a></li>
+                    <li><a href="c3_chart.html">C3 Chart</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class=" fa fa-bar-chart-o"></i>
+                    <span>Maps</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="google_map.html">Google Map</a></li>
+                    <li><a href="vector_map.html">Vector Map</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="active">
+                    <i class="fa fa-glass"></i>
+                    <span>Extra</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="blank.html">Blank Page</a></li>
+                    <li><a href="lock_screen.html">Lock Screen</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li class="active"><a href="invoice.html">Invoice</a></li>
+                    <li><a href="pricing_table.html">Pricing Table</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>                    
+<li><a href="gallery.html">Media Gallery</a></li><li><a href="404.html">404 Error</a></li>
+                    <li><a href="500.html">500 Error</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="login.html">
+                    <i class="fa fa-user"></i>
+                    <span>Login Page</span>
+                </a>
+            </li>
+        </ul></div>        
+<!-- sidebar menu end-->
     </div>
 </aside>
 <!--sidebar end-->
     <!--main content start-->
     <section id="main-content">
-        <section class="wrapper">
+    <section class="wrapper">
         <!-- page start-->
 
         <div class="row">
-    
-            <div class="col-sm-12">
+            <div class="col-md-12">
                 <section class="panel">
-                    <header class="panel-heading">
-                        	요청물품
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                    </header>
-                    <div class="panel-body">
-                        <div class="adv-table editable-table ">
-                            <div class="clearfix">
-                                <div class="btn-group">
-                                    <button id="editable-sample_new" class="btn btn-primary">
-                                        	요청 
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="btn-group pull-right">
-                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="#">Print</a></li>
-                                        <li><a href="#">Save as PDF</a></li>
-                                        <li><a href="#">Export to Excel</a></li>
-                                    </ul>
-                                </div>
+                    <div class="panel-body invoice">
+                        <div class="invoice-header">
+                            <div class="invoice-title col-md-3 col-xs-2">
+                                <h1>invoice</h1>
+                                <img class="logo-print" src="" alt="">
                             </div>
-                            <div class="space15"></div>
-                            <table class="table table-striped table-hover table-bordered" id="editable-sample">
-                                <thead>
-                                <tr>
-                                    <th>요청코드</th>
-                                    <th>신청인</th>
-                                    <th>신청부서</th>                              
-                                    <th>신청일</th>
-                                    <th>진행상태</th>
-                                    <th>상세보기</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                
-                                <c:forEach items="${orderrmlists}" var="outer" varStatus="outerstat">
-								<tr class= "">
-										<td>${orderrmlists[outerstat.index][0]}</td>
-										<td>${orderrmlists[outerstat.index][1]}</td>
-										<td>${orderrmlists[outerstat.index][2]}</td>
-										<td>${orderrmlists[outerstat.index][3]}</td>
-										<td>${orderrmlists[outerstat.index][4]}</td>
-										<td><a href="invoicedetails?taskcode=${orderrmlists[outerstat.index][0]}">상세보기</a></td>
+                            <div class="invoice-info col-md-9 col-xs-10">
+
+
+
+			
+                    <ul class="breadcrumbs-alt" style="position: absolute; top: 50px; left: 10px;">
+                        <li>
+                            <a class="current">접수완료</a>
+                        </li>
+                        <li>
+                            <a class="active-trail active" >처리중</a>
+                        </li>
+                        <li>
+                            <a class="active-trail active" >완료</a>
+                        </li>
+
+                    </ul>
+               
+
+
+                                <div class="pull-right">
+                                    <div class="col-md-6 col-sm-6 pull-left">
+                                        <p>소속<br>
+                                        	${tempstaff.staff_department},${tempstaff.staff_name}</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 pull-right">
+                                        <p>Phone: ${tempstaff.staff_tel} <br>
+                                            Email : ${tempstaff.staff_email}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row invoice-to">
+                            <div class="col-md-4 col-sm-4 pull-left">
+                                <h4>Invoice To:</h4>
+                                <h2>구매부</h2>
+                                <p>
+                                               담당자: 이재준<br>
+                                    Phone: +61 3 8376 6284<br>
+                                    Email : info@envato.com
+                                </p>
+                            </div>
+                            <div class="col-md-4 col-sm-5 pull-right">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 inv-label">서류번호</div>
+                                    <div class="col-md-8 col-sm-7">${tempOR.taskcode}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 inv-label">신청일</div>
+                                    <div class="col-md-8 col-sm-7">${tempOR.requestdate}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 inv-label">
+                                        <h3>TOTAL DUE</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h1 class="amnt-value">￦ ${totalprice2}</h1>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <table class="table table-invoice" >
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-center">재료명</th>
+                                <th class="text-center">가격(1kg당)</th>
+                                <th class="text-center">주문량</th>
+                                <th class="text-center">합계</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            	<c:forEach items="${tempORD}" var="outer" varStatus="outerstat">
+								<tr>
+										<td class = "text-center">
+										<h4>${outerstat.count}</h4>
+										</td>
+										<td class = "text-center">${tempORD[outerstat.index].rmname}</td>
+										<td class = "text-center">￦ ${tempORD[outerstat.index].price}</td>
+										<td class = "text-center">${tempORD[outerstat.index].quantity} kg</td>
+										<td class = "text-center">￦ ${tempORD[outerstat.index].total}</td>
 								</tr>
 							</c:forEach>
+                            
+                            
+                            
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>
+                                    <h4>Service One</h4>
+                                    <p>Service Four Description Lorem ipsum dolor sit amet.</p>
+                                </td>
+                                <td class="text-center">1</td>
+                                <td class="text-center">4</td>
+                                <td class="text-center">$1300.00</td>
+                            </tr> -->
 
-                                <!-- <tr class="">
-                                    <td>Jonathan</td>
-                                    <td>Smith</td>
-                                    <td>3455</td>
-                                    <td class="center">Lorem ipsume</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
-                                    <td><a class="delete" href="javascript:;">Delete</a></td>
-                                </tr> -->
-                       
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            
-            <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
-                       	월별 주문량
-                        <span class="tools pull-right">
-                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                            <a href="javascript:;" class="fa fa-cog"></a>
-                            <a href="javascript:;" class="fa fa-times"></a>
-                         </span>
-                    </header>
-                    <div class="panel-body">
-                        <div id="visitors-chart">
-                            <div id="visitors-container" style="width: 100%;height:300px; text-align: center; margin:0 auto;">
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-8 col-xs-7 payment-method">
+                                <h4>기타요구사항</h4>
+                                <p>${tempOR.etc}</p>
+                                <!-- <p>2. 우치하 사스케.</p>
+                                <p>3. 높은다리.</p> -->
+                                <br>
+                                <!-- <h3 class="inv-label itatic">Thank you for your business</h3> -->
                             </div>
+                            <%-- <div class="col-md-4 col-xs-5 invoice-block pull-right">
+                                <ul class="unstyled amounts">
+                                    <li class="grand-total">총액 : ￦ ${subtotal}</li>
+                                </ul>
+                            </div> --%>
                         </div>
+
+                        <div class="text-center invoice-btn">
+                            <a class="btn btn-success btn-lg" id="submitorder"><i class="fa fa-check"></i> 접수완료 </a>
+                            <!-- <a href="invoice_print.html" target="_blank" class="btn btn-primary btn-lg"><i class="fa fa-print"></i> Print </a> -->
+                        </div>
+
                     </div>
                 </section>
             </div>
-            
-            
-            
         </div>
         <!-- page end-->
-        </section>
     </section>
+</section>
     <!--main content end-->
 <!--right sidebar start-->
 <div class="right-sidebar">
@@ -658,10 +796,7 @@
 <!-- Placed js at the end of the document so the pages load faster -->
 
 <!--Core js-->
-
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate.js"></script>
-
+<script src="js/jquery.js"></script>
 <script src="bs3/js/bootstrap.min.js"></script>
 <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="js/jquery.scrollTo.min.js"></script>
@@ -678,26 +813,24 @@
 <script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
 
-
-<script src="js/flot-chart/jquery.flot.time.js"></script>
-
-
-
-<script type="text/javascript" src="js/data-tables/jquery.dataTables.js"></script>
-<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
-
 <!--common script init for all pages-->
 <script src="js/scripts.js"></script>
 
-<!--script for this page only-->
-<script src="js/table-editable.js"></script>
+<script type="text/javascript">
 
-<!-- END JAVASCRIPTS -->
-<script>
-    jQuery(document).ready(function() {
-        EditableTable.init();
-    });
+	$(function() {
+		$('#submitorder').on('click', function(){
+			location.href = 'insertorder?taskcode=${invoiceNum}&requestdate=${orderdate}&etc=${staffetc}&staffname=${staffName}&orderrmlist=${orderrmlist}&subtotal=${subtotal}';
+		});
+	});		
+		
+			
+		
+
+		
+		
+	
 </script>
-<script src="js/flot.chart.init.js"></script>
+
 </body>
 </html>

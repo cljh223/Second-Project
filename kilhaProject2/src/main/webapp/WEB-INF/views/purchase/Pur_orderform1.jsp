@@ -315,55 +315,50 @@
                         <div class="panel-body">
                             <div class=" form">
                                 <form class="cmxform form-horizontal " id="commentForm" method="get" action="">
+                                    
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">신청부서</label>
-                                        
-                                        
+                                        <label for="curl" class="control-label col-lg-3">신청인</label>
                                         <div class="col-lg-6">
-                                            <select class=" form-control" id="cname" name="name" >
-	                                        	<option value="">생산부</option>
-	                                        	<option value="">생산부서</option>
-	                                        	<option value="">물류부서</option>
-	                                        	<option value="">영업부서</option>
-	                                        </select>
-                                        
+                                        <a data-toggle="modal" href="#myModal2">
+                                            <input class="form-control " id="staffName" type="text" style="color: black;" readonly="readonly" required />
+                                        </a>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="cemail" class="control-label col-lg-3">신청인</label>
+                                        <label for="curl" class="control-label col-lg-3">신청부서</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control " id="cemail" type="email" name="email" required />
+                                            <input class="form-control " id="staffDepartment" type="text" style="color: black;" readonly="readonly" required/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="curl" class="control-label col-lg-3">주문일자</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control " id="curl" type="date" name="url" />
+                                            <input class="form-control " id="orderdate" type="date" style="color: black;" name="url" readonly="readonly" required/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="curl" class="control-label col-lg-3">이메일</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control " id="curl" type="url" name="url" />
+                                            <input class="form-control " id="staffemail" type="text" style="color: black;" name="url" readonly="readonly" required/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="curl" class="control-label col-lg-3">전화번호</label>
+                                        <label for="curl" class="control-label col-lg-3" >전화번호</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control " id="curl" type="url" name="url" />
+                                            <input class="form-control " id="stafftel" type="text" style="color: black;" name="url" readonly="readonly" required/>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group ">
-                                        <label for="ccomment" class="control-label col-lg-3">기타주문사항</label>
+                                        <label for="ccomment" class="control-label col-lg-3" >기타주문사항</label>
                                         <div class="col-lg-6">
-                                            <textarea class="form-control " id="ccomment" name="comment" required></textarea>
+                                            <textarea class="form-control " id="staffetc" name="comment" style="color: black;" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <button class="btn btn-default" type="button">Cancel</button>
+                                            <button class="btn btn-primary" type="submit" id="completeform">작성완료</button>
+                                            <button class="btn btn-default" type="button">다시작성</button>
                                         </div>
                                     </div>
                                 </form>
@@ -383,119 +378,93 @@
                              </span>
                         </header>
                     <div class="panel-body">
-                        <table class="table  table-hover general-table">
+                        <table class="table  table-hover general-table" id="RmOrderTable">
                             <thead>
                             <tr>
-                                <th> 상품이름</th>
+                                <th>상품이름</th>
                                 <th class="hidden-phone">주문수량</th>
                                 <th>현재가</th>
-                                <th>총액</th>
                                 <th>재고량</th>
+                                <th style="width: 40px"></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="#">Graphics</a></td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                <td>1320.00$ </td>
-                                <td><span class="label label-info label-mini">Due</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
+                            <tbody id="OTtbody">
+										<!-- <tr>
+											<td><input type='text' style="width: 120px;" value='' readonly="readonly"/></td>
+											<td><input type='text' style="width: 100px;" value='' /></td>
+											<td><input type='text' style="width: 100px;" value='' readonly="readonly"/></td>
+											<td><input type='text' style="width: 100px;" value='' readonly="readonly"/></td>
+											<td><input type='text' style="width: 100px;" value='' readonly="readonly"/></td>
+											<td style="width: 40px">
+												<button type="button" class="btn btn-primary" style="width: 38px">
+													<i class="fa  fa-minus-square"></i>&nbsp;&nbsp;
+												</button>
+											</td>
+										</tr> -->
+
+
+
+							</tbody>
+							</table>
+							<table class="table  table-hover general-table">
+							<tbody>
+							<tr>
+                            <td style="width: 120px;"></td>
+                            <td style="width: 100px;"></td>
+                            <td style="width: 100px;"></td>
+                            <td style="width: 100px;"></td>
+                            <td style="width: 40px;">
+                            <a data-toggle="modal" href="#myModal2">
+                            	<button type="button" class="btn btn-default tooltips" id="add-Btn" style="width: 38px"><i class="fa  fa-plus-square"></i>&nbsp;&nbsp;</button>
+                            </a>
+                            </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">
-                                        ThemeBucket
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                <td>556.00$ </td>
-                                <td><span class="label label-warning label-mini">Due</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-danger">
-                                            <span class="sr-only">70% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">
-                                        XYZ
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                <td>13240.00$ </td>
-                                <td><span class="label label-success label-mini">Paid</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 55%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-warning">
-                                            <span class="sr-only">55% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">
-                                        BCSE
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                <td>3455.50$ </td>
-                                <td><span class="label label-danger label-mini">Paid</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-info">
-                                            <span class="sr-only">90% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">AVC Ltd</a></td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                <td>110.00$ </td>
-                                <td><span class="label label-primary label-mini">Due</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
-                                            <span class="sr-only">60% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">
-                                        Themeforest
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                <td>456.00$ </td>
-                                <td><span class="label label-warning label-mini">Due</span></td>
-                                <td>
-                                    <div class="progress progress-striped progress-xs">
-                                        <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-danger">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-								
-				
                             </tbody>
                         </table>
                     </div>
                 </section>
-            </div>
                 
+                
+                <div class="panel-body">
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" id="modalclose2" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">재료정보</h4>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="modal-body">
+                                        
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn btn-default" id="modalclose1" type="button">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal -->
+                    </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
                 
                 
             </div>
@@ -788,5 +757,389 @@
 <!--this page script-->
 <script src="js/validation-init.js"></script>
 
+<script type="text/javascript">
+
+	$(function() {
+		$('#add-Btn').on('click', AddFunction);
+
+		$(document).on("click", ".btn-primary", function(){ 
+			$(this).parent().parent().remove();
+			
+		});
+		
+		$('#completeform').on('click', CompleteformFunction);
+		
+		$('#staffName').on('click', staffSearchFunction);
+		
+		});
+		
+	//오늘날짜가져오기
+	var now = new Date();
+    var year= now.getFullYear();
+    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+            
+    var chan_val = year + '-' + mon + '-' + day;
+    $('#orderdate').val(chan_val);
+	
+	
+	function AddFunction(){
+		
+		var TRindex = $('#RmOrderTable tr').length;
+		if(TRindex > 8){
+			alert("최대 8개까지 주문가능");
+			return false;
+		} 
+		
+		/* var newrow = '<tr>';
+		newrow +='<td><input type="text" id="nameid'+TRindex+'" class="orderrmname" name="orderrmname" style="width: 120px; " readonly="readonly"/></td>';
+		newrow +='<td><input type="text" id="quanid'+TRindex+'" class="orderquantity" name="orderquantity" style="width: 100px; "  /></td>';
+		newrow +='<td><input type="text" id="priceid'+TRindex+'" class="orderprice" name="orderprice" style="width: 100px; "  readonly="readonly"/></td>';
+		newrow +='<td><input type="text" class="orderstock" name="orderstock" style="width: 100px; "  readonly="readonly"/></td>';
+		newrow +='<td style="width: 40px">';
+		newrow +='<button id="TrRemove" type="button" class="btn btn-primary" style="width: 38px">';
+		newrow +='<i class="fa  fa-minus-square"></i>';
+		newrow +='</button>';
+		newrow +='</td>';
+		newrow +='</tr>';
+
+		
+		$("#RmOrderTable").append(newrow); */
+		
+		$.ajax({
+		      url : 'RMinform',
+		      method : 'POST',
+		      dataType : 'json',
+		      success : RMBootString,
+		      error : function() {
+		         alert('재료정보 가져오기 에러입니다.');
+		      }
+		   });
+
+	}
+	
+	
+	
+	
+	//재료 modal을 띄우기
+	function RMBootString(resp) {	
+		   var rmInform = '<form><div class="row">'
+		         + '<div class="col-lg-6">'
+		         + '<div class="dataTables_filter" id="editable-sample_filter">'
+		         + '<label>Search: <input type="text" id = "searchText1"'
+		         +'aria-controls="editable-sample"'
+		         +'class="form-control medium"></label>'
+		         + '</div>'
+		         + '</div>'
+		         + '</div><div class="col-sm-12">'
+		         + '<section class="panel">'
+		         + '<div class="panel-body">'
+		         + '<table id = "searchTable" class="table  table-hover general-table">'
+		         + '<thead><tr>'
+		         + '<th>재료코드</th><th class="hidden-phone">재료명</th>'
+		         + '<th>재고수량</th></tr>'
+		         + '</thead><tbody id = "rmTable">'
+		         + RMStringFunction(resp);
+		   $('.modal-body').html(rmInform);
+		   
+		     $('#searchText1').on('keyup', function() {
+		      var rmname = $('#searchText1').val();
+		      var searchText = {
+		         'searchText' : rmname
+		      }
+		      $.ajax({
+		         url : 'popupRMsearch',
+		         method : 'get',
+		         data : searchText,
+		         dataType : 'json',
+		         success : function(respp) {
+		            var searchResult = RMStringFunction(respp);
+		            $('#rmTable').html(searchResult);
+		            trRMFunction();
+		         },
+		         error : function() {
+		            alert('에러입니다.');
+		         }
+		      });
+		   });
+		   trRMFunction();  
+		}
+	
+	// 재료 클릭시 작동하는 이벤트
+	function trRMFunction() {
+		   $('#searchTable tr').on('click', function() {
+		      var rmname = $(this).attr('id');
+		      var rmstock = $(':nth-child(3)',this).text();
+		      var loc = $("#RmOrderTable").children("tbody").children().last().children();
+		      
+		      var searchText2 = {
+				         'searchText2' : rmname
+				      }
+		      
+		      $.ajax({
+			         url : 'OrderPopupRmPrice',
+			         method : 'get',
+			         data : searchText2,
+			         dataType : 'text',
+			         success : function(pricedata){	        	 
+         
+		      var newrow = '<tr>';
+				newrow +='<td><input type="text" id="nameid'+TRindex+'" class="orderrmname" name="orderrmname" style="width: 120px; background-color:transparent;border:0 solid black;" readonly="readonly" value="' + rmname + '"/></td>';
+				newrow +='<td><input type="text" id="quanid'+TRindex+'" class="orderquantity" name="orderquantity" style="width: 100px; border: 0; outline: 0; background: transparent; border-bottom: 1px solid black;" /></td>';
+				newrow +='<td><input type="text" id="priceid'+TRindex+'" class="orderprice" name="orderprice" style="width: 100px; background-color:transparent;border:0 solid black;"  readonly="readonly" value="' + pricedata + '"/></td>';
+				newrow +='<td><input type="text" class="orderstock" name="orderstock" style="width: 100px; background-color:transparent;border:0 solid black;"  readonly="readonly" value="' + rmstock + '"/></td>';
+				newrow +='<td style="width: 40px">';
+				newrow +='<button id="TrRemove" type="button" class="btn btn-primary" style="width: 38px">';
+				newrow +='<i class="fa  fa-minus-square"></i>';
+				newrow +='</button>';
+				newrow +='</td>';
+				newrow +='</tr>';
+				
+
+				
+				
+				$("#RmOrderTable").append(newrow); 
+		    /*   loc.eq(3).text(rmstock);
+		      loc.eq(0).text(rmname); */
+		      
+		      
+
+		      
+// 		      $('#RMstocks').text(rmstock);
+// 		      $('#RMorder').text(rmname);
+		      $('#modalclose1').trigger("click");
+		      $('#modalclose2').trigger("click");
+			            
+			            
+			         },
+			         error : function() {
+			            alert('가격정보 불러오기 에러입니다.');
+			         }
+			      });
+		      
+		      var TRindex = $('#RmOrderTable tr').length;
+				if(TRindex > 8){
+					alert("최대 8개까지 주문가능");
+					return false;
+				}
+				
+				
+		   });
+		}
+	
+	
+	
+	
+	
+	
+	
+	//modal로 재료띄운 테이블 안에 있는 내용
+	function RMStringFunction(resp) {
+		   var RMString = '';
+		   for (var i = 0; i < resp.length; i++) {
+			   RMString += '<tr id="'+resp[i].rmname+'">';
+			   RMString += '<td><a href="#">'
+			   RMString += resp[i].rmcode;
+			   RMString += '</a></td>'
+			   RMString += '<td>'
+			   RMString += resp[i].rmname;
+			   RMString += '</td>';
+			   RMString += '<td>';
+			   RMString += resp[i].rmstock;
+			   RMString += '</td>';
+			   RMString += '<td><span class="label label-info label-mini">Due</span></td>';
+			   RMString += '<td>';
+			   RMString += '<div class="progress progress-striped progress-xs">';
+			   RMString += '<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">';
+			   RMString += '<span class="sr-only">40% Complete (success)</span>';
+			   RMString += '</div>' + '</div>' + '</td>';
+			   RMString += '</tr>';
+		   }
+		   RMString += '</tbody>' + '</thead>';
+		   RMString += '</div>' + '</section>';
+		   RMString += '</div></form>';
+
+		   return RMString;
+		}
+
+	
+	
+	//직원정보 가져오기 ajax
+	
+	function staffSearchFunction(){
+		
+		$.ajax({
+		      url : 'Staffinform',
+		      method : 'POST',
+		      dataType : 'json',
+		      success : StaffBootString,
+		      error : function() {
+		         alert('직원정보가져오기 에러입니다.');
+		      }
+		   });
+		
+	}
+	
+	//직원정보 모달창
+	
+	function StaffBootString(resp) {	
+		
+		   var StaffInform = '<form><div class="row">'
+		         + '<div class="col-lg-6">'
+		         + '<div class="dataTables_filter" id="editable-sample_filter">'
+		         + '<label>Search: <input type="text" id = "searchText3"'
+		         +'aria-controls="editable-sample"'
+		         +'class="form-control medium"></label>'
+		         + '</div>'
+		         + '</div>'
+		         + '</div><div class="col-sm-12">'
+		         + '<section class="panel">'
+		         + '<div class="panel-body">'
+		         + '<table id = "searchTable" class="table  table-hover general-table">'
+		         + '<thead><tr>'
+		         + '<th>직원코드</th><th>이름</th><th>부서</th><th>전화번호</th><th>이메일</th>'
+		         + '</tr>'
+		         + '</thead><tbody id = "StaffTable">'
+		         + StaffStringFunction(resp);
+		   $('.modal-body').html(StaffInform);
+		   
+		     $('#searchText3').on('keyup', function() {
+		      var staffname = $('#searchText3').val();
+		      var searchText3 = {
+		         'searchText3' : staffname
+		      }
+		      $.ajax({
+		         url : 'popupStaffsearch',
+		         method : 'get',
+		         data : searchText3,
+		         dataType : 'json',
+		         success : function(respp) {
+		            var searchResult = StaffStringFunction(respp);
+		            $('#StaffTable').html(searchResult);
+		            trStaffFunction();
+		         },
+		         error : function() {
+		            alert('에러입니다.');
+		         }
+		      });
+		   });
+		     trStaffFunction();  
+		}
+	
+	// 직원모달창 테이블 안에 넣을 직원리스트
+	function StaffStringFunction(resp) {
+		   var RMString = '';
+		   for (var i = 0; i < resp.length; i++) {
+			   RMString += '<tr id="'+resp[i].staff_code+'">';
+			   RMString += '<td><a href="#">'
+			   RMString += resp[i].staff_code;
+			   RMString += '</a></td>'
+			   RMString += '<td>'
+			   RMString += resp[i].staff_name;
+			   RMString += '</td>';
+			   RMString += '<td>'
+			   RMString += resp[i].staff_department;
+			   RMString += '</td>';
+			   RMString += '<td>'
+			   RMString += resp[i].staff_tel;
+			   RMString += '</td>';
+			   RMString += '<td>';
+			   RMString += resp[i].staff_email;
+			   RMString += '</td>';			
+			   RMString += '</tr>';
+		   }
+		   RMString += '</tbody>' + '</thead>';
+		   RMString += '</div>' + '</section>';
+		   RMString += '</div></form>';
+
+		   return RMString;
+		}
+	
+	
+	//직원선택시 실행되는 함수
+	
+	function trStaffFunction() {
+		   $('#searchTable tr').on('click', function() {	   
+		      var staffName = $(':nth-child(2)',this).text();
+		      var staffemail = $(':nth-child(5)',this).text();
+		      var stafftel = $(':nth-child(4)',this).text();
+		      var staffDepartment = $(':nth-child(3)',this).text();
+		      
+
+		      $('#staffName').val(staffName);
+			  $('#staffemail').val(staffemail);
+			  $('#stafftel').val(stafftel);
+			  $('#staffDepartment').val(staffDepartment);
+		      
+// 		     
+		      $('#modalclose1').trigger("click");
+		      $('#modalclose2').trigger("click");
+		   });
+		}
+	
+	
+	
+	
+	
+
+	//invoice 작성을 위해 데이터를 전송하는 함수
+	
+	function CompleteformFunction(){
+		var staffName = $('#staffName').val();
+		var staffDepartment = $('#staffDepartment').val();
+		var orderdate = $('#orderdate').val();
+		var staffemail = $('#staffemail').val();
+		var stafftel = $('#stafftel').val();
+		var staffetc = $('#staffetc').val();
+		var sendrmname = new Array(); 
+		var sendquantity = new Array();
+		var sendprice = new Array();
+		
+		var TRindex = $('#RmOrderTable tr').length;
+		
+		for(var i = 1; i<TRindex; i++){
+			var nameval = $('#nameid'+i).val();
+			sendrmname.push(nameval);
+		}
+		
+		for(var i = 1; i<TRindex; i++){
+			var quanval = $('#quanid'+i).val();
+			sendquantity.push(quanval);
+		}
+		
+		for(var i = 1; i<TRindex; i++){
+			var priceval = $('#priceid'+i).val();
+			sendprice.push(priceval);
+		}
+		
+		/* var senddata = {
+			"staffDepartment" : staffDepartment,
+			"staffName" : staffName,
+			"orderdate" : orderdate,
+			"staffemail" : staffemail,
+			"stafftel" : stafftel,
+			"staffetc" : staffetc,
+			"sendrmname" : sendrmname,
+			"sendquantity" : sendquantity,
+			"sendprice" : sendprice,
+		} */
+		
+		//$.post("orderdata",senddata);
+		
+		location.href = 'orderdata?staffDepartment='+staffDepartment+
+		'&staffName='+staffName+
+		'&orderdate='+orderdate+
+		'&staffemail='+staffemail+
+		'&stafftel='+stafftel+
+		'&staffetc='+staffetc+
+		'&sendrmname='+sendrmname+
+		'&sendquantity='+sendquantity+
+		'&sendprice='+sendprice;
+
+	}
+	
+	
+	
+</script>
 </body>
 </html>

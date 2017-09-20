@@ -22,6 +22,8 @@
 		<typeAlias type="com.kilha.www.vo.Purchase.RawMaterials" alias="RawMaterials" />
 		<typeAlias type="com.kilha.www.vo.Purchase.RM_daily_price" alias="RM_daily_price" />
 		<typeAlias type="com.kilha.www.vo.Purchase.TradeRecords" alias="TradeRecords" />
+		<typeAlias type="com.kilha.www.vo.Purchase.OrderRecords_Detail" alias="OrderRecords_Detail" />
+		<typeAlias type="com.kilha.www.vo.Purchase.OrderRecords" alias="OrderRecords" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/MapMapper.xml" />
