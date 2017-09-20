@@ -315,26 +315,62 @@
 <!--sidebar start-->
 <aside>
     <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
-                        <span>Production</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="test">1st factory</a></li>
-                        <li><a href="test">2nd factory</a></li>
-                        <li><a href="test1">prediction</a></li>
-                        <li><a href="">register</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-            </ul>           
-          </div>
-        <!-- sidebar menu end-->
-    </div>
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active" href="index.html"> <i
+								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>구매부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+							
+							<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>Logistics</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">log-01, 02, 07</a></li>
+								<li><a href="second">log-03, 11</a></li>
+								<li><a href="third">log-04</a></li>
+								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="fifth">log-06(List)</a></li>
+								<li><a href="sixth">log-06(Timetable)</a></li>
+								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="eighth">log-09, 10</a></li>
+								<li><a href="nineth">log-13</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
 </aside>
 <!--sidebar end-->
 
@@ -608,11 +644,12 @@
 									</div>
 									<div>
 										<select class="form-control m-bot15" style="width: 350px;">
-											<option>select Product</option>
-											<option>product1</option>
-											<option>product2</option>
-											<option>product3</option>
-											<option>product4</option>
+											<option>상품 선택</option>
+											<option>안성탕면</option>
+											<option>신라면</option>
+											<option>너구리라면</option>
+											<option>멸치칼국수라면</option>
+											<option>사리곰탕면</option>
 										</select>
 									</div>
 									<p></p>
@@ -627,10 +664,10 @@
 
 									<div class="col-lg-6" style="width:350px;">
 										<ul class="clearfix location-earning-stats">
-											<li class="stat-divider"><span class="first-city">$734503</span>
-												Rocky Mt,NC</li>
-											<li class="stat-divider"><span class="second-city">$734503</span>
-												Dallas/FW,TX</li>
+											<li class="stat-divider"><span class="first-city">샘플 생산량</span>
+												100EA 생산시</li>
+											<li class="stat-divider"><span class="second-city">예측 결과</span>
+												약 5.6명 투입</li>
 
 										</ul>
 									</div>

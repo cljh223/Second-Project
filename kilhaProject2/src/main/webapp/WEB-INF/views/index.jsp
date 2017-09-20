@@ -278,7 +278,17 @@
 								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
 								<li><a href="Pur_store">상품재고</a></li>
 							</ul></li>
-
+						
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+							</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+						
 						<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-truck"></i> <span>Logistics</span>
 						</a>

@@ -130,7 +130,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-<link rel="stylesheet"
+    
+    <link rel="stylesheet"
 	href="https://cdn.anychart.com/css/7.14.3/anychart-ui.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -145,129 +146,164 @@
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
 	type="text/css" media="all" />
+
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-
 <script>
-	var chartData = [ {
-		"date" : "2012-01-01",
-		"distance" : 227,
-		"townName" : "New York",
-		"townName2" : "New York",
-		"townSize" : 25,
-		"latitude" : 40.71,
-		"duration" : 408
+
+
+/*여기서부터 정규분포  */
+ 
+ 	var chartData =${chartData};
+ 
+	/* var chartData = "["; 
+		$.each(${disList}, function(index, item){
+			chartData += '{';
+			chartData += '"category" : ' + '"' + item[1] + '", ';
+			chartData += '"distance" : ' + '"' + item[0] + '", ';
+			chartData += '"duration" : ' + '"' + item[0] + '"';
+			chartData +='},';
+		});
+		chartData += '{';
+		chartData += '"category" : ' + '"' + 135 + '", ';
+		chartData += '"distance" : ' + '"' + 0 + '", ';
+		chartData += '"duration" : ' + '"' + 0 + '"';
+		chartData +='}';
+		chartData += "];";
+		
+		console.log(chartData);
+	 */
+	 /*
+	{
+		"category" : "121",
+		"distance" : ${disList.get(0)}, // 막대 그래프
+		"duration" : ${disList.get(0)}//선그래프
+	}, 
+	
+	{
+		"category" : "122",
+		"distance" : ${disList.get(1)},
+		"duration" : ${disList.get(1)}
 	}, {
-		"date" : "2012-01-02",
-		"distance" : 371,
-		"townName" : "Washington",
-		"townSize" : 14,
-		"latitude" : 38.89,
-		"duration" : 482
+		"category" : "123",
+		"distance" : ${disList.get(2)},
+		"duration" : ${disList.get(2)}
 	}, {
-		"date" : "2012-01-03",
-		"distance" : 433,
-		"townName" : "Wilmington",
-		"townSize" : 6,
-		"latitude" : 34.22,
-		"duration" : 562
+		"category" : "124",
+		"distance" : ${disList.get(3)},
+		"duration" : ${disList.get(3)}
 	}, {
-		"date" : "2012-01-04",
-		"distance" : 345,
-		"townName" : "Jacksonville",
-		"townSize" : 7,
-		"latitude" : 30.35,
-		"duration" : 379
-	}, {
-		"date" : "2012-01-05",
-		"distance" : 480,
-		"townName" : "Miami",
-		"townName2" : "Miami",
-		"townSize" : 10,
-		"latitude" : 25.83,
-		"duration" : 501
-	}, {
-		"date" : "2012-01-06",
-		"distance" : 386,
-		"townName" : "Tallahassee",
-		"townSize" : 7,
-		"latitude" : 30.46,
-		"duration" : 443
-	}, {
-		"date" : "2012-01-07",
-		"distance" : 348,
-		"townName" : "New Orleans",
-		"townSize" : 10,
-		"latitude" : 29.94,
-		"duration" : 405
-	}, {
-		"date" : "2012-01-08",
-		"distance" : 238,
-		"townName" : "Houston",
-		"townName2" : "Houston",
-		"townSize" : 16,
-		"latitude" : 29.76,
-		"duration" : 309
-	}, {
-		"date" : "2012-01-09",
-		"distance" : 218,
-		"townName" : "Dalas",
-		"townSize" : 17,
-		"latitude" : 32.8,
-		"duration" : 287
-	}, {
-		"date" : "2012-01-10",
-		"distance" : 349,
-		"townName" : "Oklahoma City",
-		"townSize" : 11,
-		"latitude" : 35.49,
-		"duration" : 485
-	}, {
-		"date" : "2012-01-11",
-		"distance" : 603,
-		"townName" : "Kansas City",
-		"townSize" : 10,
-		"latitude" : 39.1,
-		"duration" : 890
-	}, {
-		"date" : "2012-01-12",
-		"distance" : 534,
-		"townName" : "Denver",
-		"townName2" : "Denver",
+		"category" : "125",
+		"distance" : ${disList.get(4)},
+		"duration" : ${disList.get(4)},
+		"townName" : "규격 하한",
+		"townName2" : "LSL ${ramen.lsl}g",
 		"townSize" : 18,
-		"latitude" : 39.74,
-		"duration" : 810
-	}, {
-		"date" : "2012-01-13",
-		"townName" : "Salt Lake City",
-		"townSize" : 12,
-		"distance" : 425,
-		"duration" : 670,
-		"latitude" : 40.75,
-		"alpha" : 0.4
-	}, {
-		"date" : "2012-01-14",
-		"latitude" : 36.1,
-		"duration" : 470,
-		"townName" : "Las Vegas",
-		"townName2" : "Las Vegas",
+		"latitude" : 400,
+		"alpha" : 0.4,
 		"bulletClass" : "lastBullet"
 	}, {
-		"date" : "2012-01-15"
+		"category" : "126",
+		"distance" : ${disList.get(5)},
+		"duration" : ${disList.get(5)},
 	}, {
-		"date" : "2012-01-16"
+		"category" : "127",
+		"distance" : ${disList.get(6)},
+		"duration" : ${disList.get(6)}
 	}, {
-		"date" : "2012-01-17"
+		"category" : "128",
+		"distance" : ${disList.get(7)},
+		"duration" : ${disList.get(7)}
 	}, {
-		"date" : "2012-01-18"
+		"category" : "129",
+		"distance" : ${disList.get(8)},
+		"duration" : ${disList.get(8)}
 	}, {
-		"date" : "2012-01-19"
-	} ];
+		"category" : "130",
+		"townName" : "규격 상한",
+		"townName2" : "USL ${ramen.usl}g",
+		"townSize" : 18,
+		"latitude" : 400,
+		"alpha" : 0.4,
+		"bulletClass" : "lastBullet",
+		"distance" : ${disList.get(9)},
+		"duration" : ${disList.get(9)}
+		
+	}, 
+	{
+		"category" : "131",
+		"distance" : ${disList.get(10)},
+		"duration" : ${disList.get(10)}
+	}, {
+		"category" : "132",
+		"distance" : ${disList.get(11)},
+		"duration" : ${disList.get(11)},
+	}, {
+		"category" : "133",
+		"distance" : ${disList.get(12)},
+		"duration" : ${disList.get(12)},
+		
+	}, {
+		"category" : "134",
+		"distance" : ${disList.get(13)},
+		"duration" : ${disList.get(13)},
+		"bulletClass" : "lastBullet"
+	}, {
+		"category" : "135",
+		"distance" : ${disList.get(14)},
+		"duration" : ${disList.get(14)},
+	}];
+	*/
+	
+	/*
+	var chartData = [{
+		"category" : "1",
+		"distance" : ${disList.get(0)}, // 막대 그래프
+		"duration" : ${disList.get(3)}//선그래프
+	}, {
+		"category" : "2",
+		"distance" : ${disList.get(1)},
+		"duration" : ${disList.get(2)}
+	}, {
+		"category" : "3",
+		"distance" : ${disList.get(2)},
+		"duration" : ${disList.get(1)}
+	}, {
+		"category" : "4",
+		"distance" : ${disList.get(3)},
+		"duration" : ${disList.get(0)}
+	}];
+	*/
+	/*
+	var chart = AmCharts.makeChart("chartdiv", {
+		"type" : "serial",
+		"theme" : "light",
+		"categoryField" : "category",
+		"graphs" : [{"balloonText": "[[title]] of [[category]]:[[value]]",
+					 "fillAlphas": 1,
+					 "id": "AmGraph-1",
+					 "labelText": "[[value]]",
+					 "title": "graph 1",
+					 "type": "column",
+					 "valueField": "distance"}, 
+					
+					 {"balloonText": "[[title]] of [[category]]:[[value]]",
+					  "bullet": "round",
+					  "id": "AmGraph-2",
+					  "labelText": "[[value]]",
+					  "lineThickness": 2,
+					  "title": "graph 2",
+					  "valueField": "duration"}],
+					  
+		"dataProvider" : chartData,
+	});
+	*/
+	
+	
+	
 	var chart = AmCharts.makeChart("chartdiv", {
 		"type" : "serial",
 		"theme" : "light",
 
-		"dataDateFormat" : "YYYY-MM-DD",
 		"dataProvider" : chartData,
 
 		"addClassNames" : true,
@@ -275,73 +311,51 @@
 		//"color": "#FFFFFF",
 		"marginLeft" : 0,
 
-		"categoryField" : "date",
+		"categoryField" : "category",
 		"categoryAxis" : {
-			"parseDates" : true,
-			"minPeriod" : "DD",
 			"autoGridCount" : false,
-			"gridCount" : 50,
+			"gridCount" : 200,
 			"gridAlpha" : 0.1,
 			"gridColor" : "#FFFFFF",
 			"axisColor" : "#555555",
-			"dateFormats" : [ {
-				"period" : 'DD',
-				"format" : 'DD'
-			}, {
-				"period" : 'WW',
-				"format" : 'MMM DD'
-			}, {
-				"period" : 'MM',
-				"format" : 'MMM'
-			}, {
-				"period" : 'YYYY',
-				"format" : 'YYYY'
-			} ]
 		},
 
 		"valueAxes" : [ {
 			"id" : "a1",
-			"title" : "distance",
+			"title" : "Production Amount",
 			"gridAlpha" : 0,
 			"axisAlpha" : 0
-		}, {
+		},/*  {
 			"id" : "a2",
 			"position" : "right",
 			"gridAlpha" : 0,
 			"axisAlpha" : 0,
-			"labelsEnabled" : false
-		}, {
+			"labelsEnabled" : true
+		}, */  /* {
 			"id" : "a3",
 			"title" : "duration",
 			"position" : "right",
 			"gridAlpha" : 0,
 			"axisAlpha" : 0,
 			"inside" : true,
-			"duration" : "mm",
-			"durationUnits" : {
-				"DD" : "d. ",
-				"hh" : "h ",
-				"mm" : "min",
-				"ss" : ""
-			}
-		} ],
+		} */  ], // 날짜 부문 생략
 		"graphs" : [ {
 			"id" : "g1",
 			"valueField" : "distance",
-			"title" : "distance",
+			"title" : "Production Amount",
 			"type" : "column",
 			"fillAlphas" : 0.9,
 			"valueAxis" : "a1",
-			"balloonText" : "[[value]] miles",
-			"legendValueText" : "[[value]] mi",
-			"legendPeriodValueText" : "total: [[value.sum]] mi",
-			"lineColor" : "#263138",
+			"balloonText" : "[[value]] EA",
+			"legendValueText" : "[[value]] EA",
+			"legendPeriodValueText" : "total: [[value.sum]] EA",
+			"lineColor" : "#4B73E1",
 			"alphaField" : "alpha"
 		}, {
 			"id" : "g2",
 			"valueField" : "latitude",
 			"classNameField" : "bulletClass",
-			"title" : "latitude/city",
+			"title" : "LCL/UCL",
 			"type" : "line",
 			"valueAxis" : "a2",
 			"lineColor" : "#786c56",
@@ -349,28 +363,28 @@
 			"legendValueText" : "[[value]]/[[description]]",
 			"descriptionField" : "townName",
 			"bullet" : "round",
-			"bulletSizeField" : "townSize",
+			"bulletSizeField" : "50",
 			"bulletBorderColor" : "#786c56",
 			"bulletBorderAlpha" : 1,
 			"bulletBorderThickness" : 2,
 			"bulletColor" : "#000000",
 			"labelText" : "[[townName2]]",
-			"labelPosition" : "right",
+			"labelPosition" : "top",
 			"balloonText" : "latitude:[[value]]",
 			"showBalloon" : true,
 			"animationPlayed" : true
 		}, {
 			"id" : "g3",
-			"title" : "duration",
+			"title" : "Normal distribution",
 			"valueField" : "duration",
 			"type" : "line",
 			"valueAxis" : "a3",
-			"lineColor" : "#ff5755",
+			"lineColor" : "#FF607F",
 			"balloonText" : "[[value]]",
 			"lineThickness" : 1,
 			"legendValueText" : "[[value]]",
 			"bullet" : "square",
-			"bulletBorderColor" : "#ff5755",
+			"bulletBorderColor" : "#B9062F",
 			"bulletBorderThickness" : 1,
 			"bulletBorderAlpha" : 1,
 			"dashLengthField" : "dashLength",
@@ -379,7 +393,6 @@
 
 		"chartCursor" : {
 			"zoomable" : false,
-			"categoryBalloonDateFormat" : "DD",
 			"cursorAlpha" : 0,
 			"valueBalloonsEnabled" : false
 		},
@@ -391,6 +404,7 @@
 		//"color": "#FFFFFF"
 		}
 	});
+	
 </script>
 </head>
 <body>
@@ -580,16 +594,55 @@
 				<!-- sidebar menu start-->
 				<div class="leftside-navigation">
 					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active" href="index.html"> <i
+								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>Production</span>
+								class="fa fa-laptop"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="fac1">1st factory</a></li>
-								<li><a href="fac2">2nd factory</a></li>
-								<li><a href="test1">prediction</a></li>
-								<li><a href="">register</a></li>
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
 							</ul></li>
-						<li class="sub-menu">
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>Logistics</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">log-01, 02, 07</a></li>
+								<li><a href="second">log-03, 11</a></li>
+								<li><a href="third">log-04</a></li>
+								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="fifth">log-06(List)</a></li>
+								<li><a href="sixth">log-06(Timetable)</a></li>
+								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="eighth">log-09, 10</a></li>
+								<li><a href="nineth">log-13</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
+							</ul></li>
 					</ul>
 				</div>
 				<!-- sidebar menu end-->
@@ -865,8 +918,17 @@
 									<p class="normal">${factory.fac_address}</p>
 									<p>TEL : ${factory.fac_tel}</p>
 									<div class="price">
-										<div><h1>현재 가동률: ${operating}%</h1></div>
-										<p class="terques">전체 생산 상태 : 양호</p>
+										<div>
+											<h1>생산 달성률: ${operating}%</h1>
+										</div>
+										<c:if test="${operating >= 90 }">
+											<p class="terques">Total Manufacture status: GOOD</p>
+											<h1>GOOD</h1>
+										</c:if>
+										<c:if test="${operating <90 }">
+											<p class="terques">Total Manufacture status: NORMAL</p>
+
+										</c:if>
 									</div>
 								</div>
 
@@ -877,185 +939,193 @@
 				</div>
 				<div class="col-lg-6">
 					<section class="panel">
-
 						<div class="panel-body">
-							<table class="table  table-hover general-table">
-								<thead>
-									<tr>
-										<th>Product</th>
-										<th class="hidden-phone">Line number</th>
-										<th>Amount</th>
-										<th>Status</th>
-										<th>Operating ratio</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><a href="#">Product Vol.1</a></td>
-										<td class="hidden-phone">f1111</td>
-										<td>1320.00</td>
-										<td><span class="label label-info label-mini">Good</span></td>
-										<td>
-											<div class="progress progress-striped active progress-sm">
-												<div class="progress-bar progress-bar-success"
-													role="progressbar" aria-valuenow="80" aria-valuemin="0"
-													aria-valuemax="100" style="width: 80%">
-													<span class="sr-only">80% Complete</span>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#"> Product Vol.2 </a></td>
-										<td class="hidden-phone">f1112</td>
-										<td>556.00</td>
-										<td><span class="label label-warning label-mini">Normal</span></td>
-										<td>
-											<div class="progress progress-striped active progress-sm">
-												<div class="progress-bar progress-bar-success"
-													role="progressbar" aria-valuenow="60" aria-valuemin="0"
-													aria-valuemax="100" style="width: 60%">
-													<span class="sr-only">60% Complete</span>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#"> Product Vol.2 </a></td>
-										<td class="hidden-phone">f1113</td>
-										<td>13240.00</td>
-										<td><span class="label label-success label-mini">
-												Bad </span></td>
-										<td>
-											<div class="progress progress-striped active progress-sm">
-												<div class="progress-bar progress-bar-success"
-													role="progressbar" aria-valuenow="45" aria-valuemin="0"
-													aria-valuemax="100" style="width: 45%">
-													<span class="sr-only">45% Complete</span>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="slimScrollDiv" style="overflow: auto; height: 175px">
+								<table class="table table-hover general-table">
+									<thead>
+										<tr>
+											<th style="text-align: center">상품명</th>
+											<th class="hidden-phone" style="text-align: center">생산라인</th>
+											<th style="text-align: center">총 생산량</th>
+											<th style="text-align: center">상태</th>
+											<th style="text-align: center">생산달성률</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										<c:forEach var="item" items="${ramenList}">
+											<tr>
+												<td style="text-align: center"><a href="#">${item.r_name}</a></td>
+												<td class="hidden-phone" style="text-align: center">${item.line_num}</td>
+												<td style="text-align: center">${item.recentAmount}</td>
+												<c:if test="${item.recentAmount/2500*100 >= 90}">
+													<td><span class="label label-success label-mini">Good</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-success"
+																role="progressbar" aria-valuenow="30" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if
+													test="${item.recentAmount/2500*100 < 90 and item.recentAmount/2500*100 >= 85 }">
+													<td><span class="label label-info label-mini">Normal</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-info"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${item.recentAmount/2500*100 < 85}">
+													<td><span class="label label-warning label-mini">Bad</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-warning"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</section>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-lg-3">
 					<section class="panel" style="height: 550px;">
-						<div id="c-slide" class="carousel slide auto panel-body">
-							<ol class="carousel-indicators out">
-								<li class="active" data-slide-to="0" data-target="#c-slide"></li>
-								<li class="" data-slide-to="1" data-target="#c-slide"></li>
-								<li class="" data-slide-to="2" data-target="#c-slide"></li>
-							</ol>
+						<div class="panel-body">
 							<div class="carousel-inner">
-								<div class="item text-center active">
-									<h5 style="text-align: center;">Product Information</h5>
-									<img alt="" src="images/product_sample.jpg">
-									<h3>Bucket Admin is an Awesome Dashboard</h3>
-									<p>Awesome admin template</p>
-									<!--widget weather start-->
-									<section class="weather-widget clearfix">
-										<div class="pull-left weather-icon">
-											<canvas id="icon1" width="60" height="60"></canvas>
-										</div>
-										<div>
-											<ul class="weather-info">
-												<li class="weather-city">현재 공정 상태</li>
-												<li class="weather-cent"><span>BAD</span></li>
-												<li class="weather-status">2.3sigma</li>
-											</ul>
-										</div>
-									</section>
-									<!--widget weather end-->
+								<div style="text-align: center">
+									<h5>Product Information</h5>
+									<img src="${ramen.imageurl}"
+										style="width: 200px; height: 200px;">
 								</div>
-								<div class="item text-center">
-									<h5 style="text-align: center;">Product Information</h5>
-									<img alt="" src="images/product_sample1.jpg">
-									<h3>Bucket Admin is an Awesome Dashboard</h3>
-									<p>Awesome admin template</p>
-									<!--widget weather start-->
-									<section class="weather-widget clearfix">
-										<div class="pull-left weather-icon">
-											<canvas id="icon1" width="60" height="60"></canvas>
-										</div>
-										<div>
-											<ul class="weather-info">
-												<li class="weather-city">현재 공정 상태</li>
-												<li class="weather-cent"><span>BAD</span></li>
-												<li class="weather-stsatus">2.3sigma</li>
-											</ul>
-										</div>
-									</section>
-									<!--widget weather end-->
-								</div>
-								<div class="item text-center">
-									<h5 style="text-align: center;">Product Information</h5>
-									<img alt="" src="images/product_sample2.jpg">
-									<h3>Bucket Admin is an Awesome Dashboard</h3>
-									<p>Awesome admin template</p>
-									<!--widget weather start-->
-									<section class="weather-widget clearfix">
-										<div class="pull-left weather-icon">
-											<canvas id="icon1" width="60" height="60"></canvas>
-										</div>
-										<div>
-											<ul class="weather-info">
-												<li class="weather-city">현재 공정 상태</li>
-												<li class="weather-cent"><span>BAD</span></li>
-												<li class="weather-status">2.3sigma</li>
-											</ul>
-										</div>
-									</section>
-									<!--widget weather end-->
-								</div>
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Factor</th>
+											<th>Detail</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>상품 이름</td>
+											<td>${ramen.r_name}</td>
+										</tr>
+										<tr>
+											<td>규격 상한</td>
+											<td>${ramen.usl}g</td>
+										</tr>
+										<tr>
+											<td>규격 하한</td>
+											<td>${ramen.lsl}g</td>
+										</tr>
+										<tr>
+											<td>생산달성률</td>
+											<td>${ramen.recentAmount/5000*100}%</td>
+										</tr>
+									</tbody>
+								</table>
+								<c:if test="${ramen.recentAmount/2500*100 >= 90}">
+									<h3>현재 상태 : Good</h3>
+									<img alt="" src="images/good.png"
+										style="width: 50px; heigh: 30px;">
+								</c:if>
+								<c:if
+									test="${ramen.recentAmount/2500*100 < 90 and ramen.recentAmount/2500*100 >= 85}">
+									<h3>현재 상태 : Normal</h3>
+									<img alt="" src="images/normal.png"
+										style="width: 50px; heigh: 30px;">
+								</c:if>
+								<c:if test="${ramen.recentAmount/2500*100 < 85}">
+									<h3>현재 상태 : Bad</h3>
+									<img alt="" src="images/bad.png"
+										style="width: 50px; heigh: 30px;">
+								</c:if>
 							</div>
-							<a data-slide="prev" href="#c-slide"
-								class="left carousel-control"> <i class="fa fa-angle-left"></i>
-							</a> <a data-slide="next" href="#c-slide"
-								class="right carousel-control"> <i class="fa fa-angle-right"></i>
-							</a>
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-8">
+
+				<div class="col-lg-6">
 					<!--earning graph start-->
-					<section class="panel" style="width: 930px; height: 550px">
+					<section class="panel">
 						<div class="panel-body">
 							<!--여기에 정규분포 그래프  -->
 							<h5 style="text-align: center;">Normal Distribution</h5>
-							<div id="chartdiv"></div>
+							<div id="chartdiv" style="width: 600px; height: 485px;"></div>
 						</div>
 					</section>
 					<!--earning graph end-->
+				</div>
+				<div class="col-lg-3">
+					<section class="panel">
+						<div class="panel-body">
+							<h5 style="text-align: center;">Detail</h5>
+							<div class="pricing-table most-popular" style="height: 475px;">
+								<div class="pricing-head">
+									<h1>Sigma</h1>
+								</div>
+								<div class="pricing-quote">
+									${sigma}σ
+									<p>${yesterday}</p>
+								</div>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-check"></i> 평균 : ${mean}g</li>
+									<li><i class="fa fa-check"></i> 표준편차: ${std}</li>
+									<li><i class="fa fa-check"></i> 불량률: 약 ${faultrate}%</li>
+									<li><i class="fa fa-check"></i> 불량갯수:
+										${fault}/${ramen.recentAmount}(EA)</li>
+								</ul>
+							</div>
+						</div>
+					</section>
 				</div>
 
 			</div>
 			<div class="row">
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
-						<span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span>
-						<div class="mini-stat-info">
-							<span>320</span> 작업 효율
+						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
+						<div class="mini-stat-info" style="height: 60px;">
+							<span>
+							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<button data-original-title="작업 효율" data-content="작업 효율에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: black; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							</span>
+							<p style="margin-left: 17px; ">작업효율</p>
 						</div>
+						
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
 						<span class="mini-stat-icon tar"><i class="fa fa-tag"></i></span>
-						<div class="mini-stat-info">
-							<span>22,450</span> 종합 설비 가동률
-						</div>
+						<div class="mini-stat-info"><span>${totalrate}%</span> 종합 설비 가동률</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
 						<span class="mini-stat-icon pink"><i class="fa fa-money"></i></span>
 						<div class="mini-stat-info">
-							<span>34,320</span> 시간 가동률
+							<span>${timeeff}%</span> 시간 가동률
 						</div>
 					</div>
 				</div>
@@ -1063,7 +1133,7 @@
 					<div class="mini-stat clearfix">
 						<span class="mini-stat-icon green"><i class="fa fa-eye"></i></span>
 						<div class="mini-stat-info">
-							<span>32720</span> 성능 가동률
+							<span>${performeff}%</span> 성능 가동률
 						</div>
 					</div>
 				</div>
@@ -1083,10 +1153,11 @@
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-
+	<script src="js/jquery.scrollTo/jquery.scrollTo.js"></script>
 	<script
 		src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="js/gauge/gauge.js"></script>
+	<script type="text/javascript" src="js/gritter/js/jquery.gritter.js"></script>
 	<!--Easy Pie Chart-->
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 
@@ -1101,6 +1172,31 @@
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
 	<!--script for this page-->
+	<script src="js/gritter.js" type="text/javascript"></script>
+	
+	<!--Core js-->
+<script src="js/jquery.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="bs3/js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script type="text/javascript" src="js/gritter/js/jquery.gritter.js"></script>
+<!--Easy Pie Chart-->
+<script src="js/easypiechart/jquery.easypiechart.js"></script>
+<!--Sparkline Chart-->
+<script src="js/sparkline/jquery.sparkline.js"></script>
+<!--jQuery Flot Chart-->
+<script src="js/flot-chart/jquery.flot.js"></script>
+<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+<script src="js/flot-chart/jquery.flot.resize.js"></script>
+<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
+<!--common script init for all pages-->
+<script src="js/scripts.js"></script>
+
+<!--script for this page-->
+<script src="js/gritter.js" type="text/javascript"></script>
 </body>
 </html>

@@ -16,8 +16,11 @@
 		<typeAlias type="com.kilha.www.vo.sal.Process" alias="Process" />
 		<typeAlias type="com.kilha.www.vo.sal.SupplyVo" alias="SupplyVo" />
 		<typeAlias type="com.kilha.www.vo.sal.SupplyListVo" alias="SupplyListVo" />
-		<typeAlias type="com.kilha.www.vo.product.FactoryVO" alias="FactoryVO" />
-		<typeAlias type="com.kilha.www.vo.product.ProductVO" alias="ProductVO" />
+		<typeAlias type="com.kilha.www.vo.product.FactoryVO" alias="pro_FactoryVO" />
+		<typeAlias type="com.kilha.www.vo.product.ProductVO" alias="pro_ProductVO" />
+		<typeAlias type="com.kilha.www.vo.product.RamenVO" alias="pro_RamenVO" />
+		<typeAlias type="com.kilha.www.vo.product.ProductinfoVO" alias="pro_ProductinfoVO" />
+		<typeAlias type="com.kilha.www.vo.product.DistributionVO" alias="pro_DistributionVO" />
 		<typeAlias type="com.kilha.www.vo.logistics.Shipping" alias="Shipping" />
 		<typeAlias type="com.kilha.www.vo.Purchase.RawMaterials" alias="RawMaterials" />
 		<typeAlias type="com.kilha.www.vo.Purchase.RM_daily_price" alias="RM_daily_price" />

@@ -5,12 +5,43 @@
 
 <mapper namespace="com.kilha.www.dao.FactoryDAO">
 
-<select id="factory1" resultType="FactoryVO" parameterType="int">
-	select * from factory where fac_num=#{fac_num}
+<!--해당 공장 기본  정보 출력  -->
+<select id="Factory_info" resultType="pro_FactoryVO" parameterType="int">
+	select * from factory where fc_num=#{fc_num}
 </select>
 
+<!--해당 라면 기본 상품 정보 출력  -->
+<select id="Ramen_info" resultType="pro_RamenVO">
+	select * from ramen where r_factory = #{r_factory}
+</select>
 
-<select id="Dailyproduct" resultType ="ProductVO">
-	select * from dailyproduct
+<select id="selectRamen" resultType="pro_RamenVO" parameterType="Map">
+	select * from ramen where r_num = #{r_num} and line_num=#{line_num}
+</select>
+
+<!--일 단위 상품 개당 정보 출력-->
+<select id="Dailyproduct" resultType ="pro_ProductVO" parameterType="Map">
+	select * from dailyproduct where product_date = to_date(#{today}, 'yy/mm/dd')-1 and fc_num=#{fc_num}
+</select>
+
+<!--일 단위 특정 상품 개당 정보 출력 라인 구별 미포함 -->
+<select id="SelectDailyproduct1" resultType="pro_ProductVO" parameterType="Map">
+	select * from dailyproduct where r_num = #{r_num} and fc_num=#{fc_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
+</select>
+
+<!--일 단위 특정 상품 개당 정보 출력 라인 구별 포함  -->
+<select id="SelectDailyproduct2" resultType="pro_ProductVO" parameterType="Map">
+	select * from dailyproduct where r_num = #{r_num} and fc_num=#{fc_num} and line_num=#{line_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
+</select>
+
+<!--일 단위 상품 생산량 출력  -->
+<select id="Counting" resultType="int" parameterType="Map">
+	select count(1) from dailyproduct where r_num=#{r_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
+</select>
+
+<!--생산효율지표 출력을 위한 data  -->
+<select id="EfficiencyData" resultType="pro_ProductinfoVO" parameterType="Map">
+	select r.r_num, r.loadtime, r.standardtime, r.operatingtime, p.amount, p.inputman, p.worktime, p.goodrate from ramen r, productinfo p
+	where r.r_num = #{r_num} and r.line_num=#{line_num} and r.r_num = p.r_num and p.production_date = to_date(#{today}, 'yy/mm/dd')-1
 </select>
 </mapper>
