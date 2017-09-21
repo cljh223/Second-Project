@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +17,10 @@
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <style>
-	#loginForm{
-	width : "250px";
-	float : right;
-	}
+#loginForm {
+	width: "250px";
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -205,18 +206,50 @@
 								class="fa fa-dashboard"></i> <span>Dashboard</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-laptop"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>물류부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">관리자 페이지</a></li>
+								<li><a href="second">물류창고 도면도/도표</a></li>
+								<li><a href="third">트럭별 물류 배송순서</a></li>
+								<li><a href="fourth">선적신청</a></li>
 								<li><a href="fifth">log-06(List)</a></li>
 								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
 								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="nineth">개인 신청 내역</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -227,39 +260,46 @@
 
 		<section id="main-content">
 			<section class="wrapper">
-				<div class="col-lg-2 col-xs-11">
-					<div data-date-viewmode="years" data-date-format="dd-mm-yyyy"
-						data-date="12-02-2017" class="input-append date dpYears">
-						<input type="text" readonly="" value="12-02-2017" size="16"
-							class="form-control"> <span
-							class="input-group-btn add-on">
-							<button class="btn btn-primary" type="button">
-								<i class="fa fa-calendar"></i>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="m-bot20" id="ttableBtn">
-					<input type="checkbox" checked class="switch-large"
-						data-label-icon="fa fa-calendar"
-						data-on-label="<i class='fa fa-check'></i>"
-						data-off-label="<i class='fa fa-times'></i>">
-				</div>
+				<form action="truckMatching" method="GET">
+					<div id="row">
+						<label class="col-lg-1">배송일자</label>
+						<div class="col-lg-2 col-xs-11">
+							<div data-date-viewmode="years" data-date-format="yyyy-mm-dd"
+								data-date="${deliverydate}" class="input-append date dpYears">
+								<input type="text" readonly="" value="12-02-2017" size="16"
+									class="form-control" name="deliveryDate"> <span
+									class="input-group-btn add-on">
+									<button class="btn btn-primary" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+						<label class="col-lg-1">배송지</label>
+						<div class="col-lg-2">
+							<select class="form-control m-bot15" name="${placeAbb}" value="${placeAbb}">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
 
+						<label class="col-lg-1">배송 수량</label> <input type="text"
+							class="col-lg-2" name="${quantity}">
+					</div>
+				</form>
 				<div class="row">
 					<div class="col-sm-12">
 						<section class="panel">
 							<header class="panel-heading">
+								제목부분임
 								<div class="btn-group">
 									<button id="editable-sample_new" class="btn btn-primary">
-										Add New <i class="fa fa-plus"></i>
+										<i class="fa fa-plus"></i>
 									</button>
 								</div>
-								General Table <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> <a
-									href="javascript:;" class="fa fa-cog"></a> <a
-									href="javascript:;" class="fa fa-times"></a>
-								</span>
 							</header>
 							<div class="panel-body">
 								<table class="table  table-hover general-table">
@@ -370,9 +410,13 @@
 						</section>
 					</div>
 				</div>
-
 			</section>
 		</section>
+
+
+
+
+
 
 		<!--right sidebar start-->
 		<div class="right-sidebar">

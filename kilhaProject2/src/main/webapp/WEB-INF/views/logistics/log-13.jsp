@@ -220,18 +220,50 @@
 								class="fa fa-dashboard"></i> <span>Dashboard</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-laptop"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>물류부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">관리자 페이지</a></li>
+								<li><a href="second">물류창고 도면도/도표</a></li>
+								<li><a href="third">트럭별 물류 배송순서</a></li>
+								<li><a href="fourth">선적신청</a></li>
 								<li><a href="fifth">log-06(List)</a></li>
 								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
 								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="nineth">개인 신청 내역</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -531,20 +563,21 @@
 			temp += '<tbody>';
 			
 			$.each(resp, function(index, item) {
+				console.log(item);
 				temp += '<tr>';
 				temp += '<td>' + (index+1) + '</td>';
-				temp += '<td>' + item.deliverydate + '</td>';
-				temp += '<td>' + item.office + '</td>';
-				temp += '<td>' + item.goods + '</td>';
-				temp += '<td>' + item.quantity + '</td>';
+				temp += '<td>' + item.DELIVERYDATE + '</td>';
+				temp += '<td>' + item.SHOP_NAME + '</td>';
+				temp += '<td>' + item.GOODS + '</td>';
+				temp += '<td>' + item.QUANTITY + '</td>';
 				temp += '<td>';
-				temp += '<a href="seventh?num='+item.orderNum+'">';
+				temp += '<a href="seventh?num='+item.ORDERNUM+'">';
 				
-				if (item.status == 'ordered') {
+				if (item.STATUS == 'ordered') {
 					temp += '<span class="label label-success">Ordered</span>';
-				} else if (item.status == 'confirmed') {
+				} else if (item.STATUS == 'confirmed') {
 					temp += '<span class="label label-primary">Confirmed</span>';
-				} else if (item.status == 'shipped') {
+				} else if (item.STATUS == 'shipped') {
 					temp += '<span class="label label-warning">Shipped</span>';
 				} else {
 					temp += '<span class="label label-danger">Rejected</span>';
@@ -553,16 +586,32 @@
 				temp += '</td>';
 				temp += '<td>'; 
 				temp += '<div class="progress progress-sm">';
-				temp += '<div class="progress-bar progress-bar-success" style="width: 35%">';
-				temp += '<span class="sr-only">35% Complete (success)</span>';
-				temp += '</div>';
-				temp += '<div class="progress-bar progress-bar-warning" style="width: 20%">';
-				temp += '<span class="sr-only">20% Complete (warning)</span>';
-				temp += '</div>';
-				temp += '<div class="progress-bar progress-bar-danger" style="width: 10%">';
-				temp += '<span class="sr-only">10% Complete (danger)</span>';
-				temp += '</div>';
-				temp += '</div>';
+				if (item.STATUS == 'ordered') {
+					temp += '<div class="progress-bar progress-bar-warning" style="width: 20%">';
+					temp += '<span class="sr-only">20% Complete (danger)</span>';
+					temp += '</div>';
+				} else if (item.STATUS == 'confirmed') {
+					temp += '<div class="progress-bar progress-bar-warning" style="width: 20%">';
+					temp += '<span class="sr-only">20% Complete (danger)</span>';
+					temp += '</div>';
+					temp += '<div class="progress-bar progress-bar-success" style="width: 25%">';
+					temp += '<span class="sr-only">35% Complete (success)</span>';
+					temp += '</div>';
+				} else if (item.STATUS == 'shipped') {
+					temp += '<div class="progress-bar progress-bar-warning" style="width: 20%">';
+					temp += '<span class="sr-only">20% Complete (danger)</span>';
+					temp += '</div>';
+					temp += '<div class="progress-bar progress-bar-success" style="width: 25%">';
+					temp += '<span class="sr-only">35% Complete (success)</span>';
+					temp += '</div>';
+					temp += '<div class="progress-bar progress-bar-primary" style="width: 30%">';
+					temp += '<span class="sr-only">35% Complete (success)</span>';
+					temp += '</div>';
+				} else {
+					temp += '<div class="progress-bar progress-bar-danger" style="width: 100%">';
+					temp += '<span class="sr-only">100% Complete (danger)</span>';
+					temp += '</div>';
+				}
 				temp += '</td>';
 				temp += '</tr>';
 			});

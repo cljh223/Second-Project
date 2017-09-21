@@ -213,18 +213,50 @@
 								class="fa fa-dashboard"></i> <span>Dashboard</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-laptop"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>물류부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">관리자 페이지</a></li>
+								<li><a href="second">물류창고 도면도/도표</a></li>
+								<li><a href="third">트럭별 물류 배송순서</a></li>
+								<li><a href="fourth">선적신청</a></li>
 								<li><a href="fifth">log-06(List)</a></li>
 								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
 								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="nineth">개인 신청 내역</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -235,7 +267,7 @@
 
 		<section id="main-content">
 			<section class="wrapper">
-
+				<center>
 				<div class="listBtns">
 					<button type="button" class="btn btn-success" id="AA">
 						<i class="fa fa-plus-square"></i> Ordered
@@ -244,12 +276,12 @@
 						<i class="fa fa-check"></i> Confirmed
 					</button>
 					<button type="button" class="btn btn-warning" id="CC">
-						<i class="fa fa-truck"></i> Shipped
+						<i class="fa fa-truck"></i> Delivered
 					</button>
 					<button type="button" class="btn btn-danger" id="DD">
 						<i class="fa fa-times"></i> Rejected
 					</button>
-				</div>
+				</div></center>
 				<br />
 
 				<div class="row">
@@ -260,10 +292,8 @@
 								<div class="adv-table editable-table ">
 									<div class="clearfix">
 										<div class="btn-group">
-											<a href="${pageContext.request.contextPath}/fourth">
-												<button id="editable-sample_new" class="btn btn-primary" onclick>
+												<button id="add" class="btn btn-primary">
 													Add New <i class="fa fa-plus"></i>
-											</a>
 										</div>
 										<div class="btn-group pull-right">
 											<button class="btn btn-default dropdown-toggle"
@@ -543,7 +573,7 @@
 	<script>
 		jQuery(document).ready(function() {
 			EditableTable.init();
-
+			$("#add").on('click', addNew);
 			$.ajax({
 				url : "resultList",
 				method : "GET",
@@ -588,30 +618,26 @@
 								console.log(item);
 								temp += '<tr>';
 								temp += '<td>' + (index + 1) + '</td>';
-								temp += '<td>' + item.deliverydate + '</td>';
-								temp += '<td>' + item.office + '</td>';
-								temp += '<td>' + item.goods + '</td>';
-								temp += '<td>' + item.quantity + '</td>';
+								temp += '<td>' + item.DELIVERYDATE + '</td>';
+								temp += '<td>' + item.SHOP_NAME + '</td>';
+								temp += '<td>' + item.GOODS + '</td>';
+								temp += '<td>' + item.QUANTITY + '</td>';
 								temp += '<td><a class="confirm" href="updateList?changeStatus='
 										+ status1
 										+ '&orderNum='
-										+ item.orderNum
+										+ item.ORDERNUM
 										+ '&status='
-										+ item.status
+										+ item.STATUS
 										+ '"><span class="label label-primary">승인</span></a></td>';
 								temp += '<td><a class="reject" href="updateList?changeStatus='
 										+ status2
 										+ '&orderNum='
-										+ item.orderNum
+										+ item.ORDERNUM
 										+ '&status='
-										+ item.status
+										+ item.STATUS
 										+ '"><span class="label label-danger">거절</span></a></td>';
-								temp += '<td><a class="edit" href="#"><span class="label label-info">수정</span></a></td>';
-								temp += '<td><a class="delete" href="deleteList?orderNum='
-										+ item.orderNum
-										+ '&status='
-										+ item.status
-										+ '"><span class="label label-inverse">삭제</span></a></td>';
+								temp += '<td><a href="seventh?num='+item.ORDERNUM+'"><span class="label label-info">수정</span></a></td>';
+								temp += '<td><a href="deleteList?orderNum='+item.ORDERNUM+'&status='+ item.STATUS+'"><span class="label label-inverse">삭제</span></a></td>';
 								temp += '</tr>';
 							});
 			temp += '</tbody>';
@@ -662,6 +688,10 @@
 				},
 				success : resultList
 			});
+		}
+		
+		function addNew(){
+			location.href = 'fourth';
 		}
 	</script>
 	<!--jQuery Flot Chart-->

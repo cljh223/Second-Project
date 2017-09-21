@@ -22,6 +22,9 @@
 		<typeAlias type="com.kilha.www.vo.product.ProductinfoVO" alias="pro_ProductinfoVO" />
 		<typeAlias type="com.kilha.www.vo.product.DistributionVO" alias="pro_DistributionVO" />
 		<typeAlias type="com.kilha.www.vo.logistics.Shipping" alias="Shipping" />
+		<typeAlias type="com.kilha.www.vo.logistics.Truck" alias="Truck" />
+		<typeAlias type="com.kilha.www.vo.logistics.Warehouse" alias="Warehouse" />
+		<typeAlias type="com.kilha.www.vo.logistics.Stock" alias="Stock" />
 		<typeAlias type="com.kilha.www.vo.Purchase.RawMaterials" alias="RawMaterials" />
 		<typeAlias type="com.kilha.www.vo.Purchase.RM_daily_price" alias="RM_daily_price" />
 		<typeAlias type="com.kilha.www.vo.Purchase.TradeRecords" alias="TradeRecords" />

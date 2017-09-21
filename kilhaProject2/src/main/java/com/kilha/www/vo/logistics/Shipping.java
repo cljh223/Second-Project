@@ -5,11 +5,11 @@ public class Shipping {
 	private String dept; // 부서명
 	private String goods; // 상품명
 	private int quantity; // 수량
-	private String office; // 주문처
 	private String deliverydate; // 배송일자
 	private String status; // 상태
 	private int staff_code; // 직원코드
-	private int truck_code; // 트럭번호
+	private int shop_code; // 주문처
+	private String truck_code; // 트럭번호
 	private int warehouse_code; // 시설번호
 	
 	
@@ -57,14 +57,13 @@ public class Shipping {
 		this.quantity = quantity;
 	}
 
-
-	public String getOffice() {
-		return office;
+	public int getShop_code() {
+		return shop_code;
 	}
 
 
-	public void setOffice(String office) {
-		this.office = office;
+	public void setShop_code(int shop_code) {
+		this.shop_code = shop_code;
 	}
 
 
@@ -98,12 +97,12 @@ public class Shipping {
 	}
 
 
-	public int getTruck_code() {
+	public String getTruck_code() {
 		return truck_code;
 	}
 
 
-	public void setTruck_code(int truck_code) {
+	public void setTruck_code(String truck_code) {
 		this.truck_code = truck_code;
 	}
 
@@ -121,10 +120,10 @@ public class Shipping {
 	@Override
 	public String toString() {
 		return "Shipping [orderNum=" + orderNum + ", dept=" + dept + ", goods=" + goods + ", quantity=" + quantity
-				+ ", office=" + office + ", deliverydate=" + deliverydate + ", status=" + status + ", staff_code="
-				+ staff_code + ", truck_code=" + truck_code + ", warehouse_code=" + warehouse_code + "]";
+				+ ", deliverydate=" + deliverydate + ", status=" + status + ", staff_code=" + staff_code
+				+ ", shop_code=" + shop_code + ", truck_code=" + truck_code + ", warehouse_code=" + warehouse_code
+				+ "]";
 	}
-
 
 	
 }

@@ -1,29 +1,14 @@
 package com.kilha.www.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kilha.www.dao.LogisticsRepository;
-import com.kilha.www.dao.MapRep;
-import com.kilha.www.util.AddressChange;
-import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
-import com.kilha.www.vo.logistics.Stock;
-import com.kilha.www.vo.sal.Address;
-import com.kilha.www.vo.sal.Shop;
-import com.kilha.www.vo.sal.SupplyVo;
 
 /**
  * Handles requests for the application home page.

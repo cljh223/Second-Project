@@ -1,7 +1,7 @@
 package com.kilha.www.vo.logistics;
 
 public class Truck {
-	private int truck_code;
+	private String truck_code;
 	private String space;
 	private int width;
 	private int length;
@@ -11,11 +11,11 @@ public class Truck {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getTruck_code() {
+	public String getTruck_code() {
 		return truck_code;
 	}
 
-	public void setTruck_code(int truck_code) {
+	public void setTruck_code(String truck_code) {
 		this.truck_code = truck_code;
 	}
 

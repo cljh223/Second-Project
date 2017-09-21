@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Shipping;
+import com.kilha.www.vo.logistics.Truck;
+import com.kilha.www.vo.sal.Shop;
 
 
 @Repository
@@ -24,9 +26,9 @@ public class LogisticsRepository {
 		return result;
 	}
 
-	public List<Shipping> myOrderList(int userid) {
+	public List<Map<String, Object>> myOrderList(int userid) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		List<Shipping>list = dao.myOrderList(userid);
+		List<Map<String, Object>>list = dao.myOrderList(userid);
 		return list;
 	}
 
@@ -39,16 +41,15 @@ public class LogisticsRepository {
 		return staff;
 	}
 
-	public Shipping selectOne(int orderNum) {
+	public Map<String, Object> selectOne(int orderNum) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		Map<String, Object> map = new HashMap<>();
-		Shipping shipping = dao.selectOne(orderNum);
-		return shipping;
+		Map<String, Object> map = dao.selectOne(orderNum);
+		return map;
 	}
 
-	public List<Shipping> resultList(String status) {
+	public List<Map<String, Object>> resultList(String status) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		List<Shipping>list = dao.resultList(status);
+		List<Map<String, Object>>list = dao.resultList(status);
 		return list;
 	}
 
@@ -65,6 +66,76 @@ public class LogisticsRepository {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		int result = dao.deleteList(orderNum);
 		return result;
+	}
+
+	public Staff searchDept(int userid) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Staff staff = dao.searchDept(userid);
+		return staff;
+	}
+
+	public List<Map<String, Object>> selectTruck(int shop_code, String deliverydate) {
+		System.out.println("들어옴 : "+shop_code+"/"+deliverydate);
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, Object> map = new HashMap<>();
+		map.put("shop_code", shop_code);
+		map.put("deliverydate", deliverydate);
+		System.out.println("잘 들어갔니? : "+map.toString());
+		List<Map<String, Object>>list = dao.selectTruck(map);
+		return list;
+	}
+
+	public List<Map<String, Object>> getShopList() {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Map<String, Object>>list = dao.getShopList();
+		return list;
+	}
+
+	public List<String> getTruckList() {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<String>list = dao.getTruckList();
+		return list;
+	}
+
+	public List<Map<String, Object>> reserveTruckList(String dDate, String office, String truck) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, Object> map = new HashMap<>();
+		map.put("dDate", dDate);
+		map.put("office", office);
+		map.put("truck", truck);
+		List<Map<String, Object>>list = dao.reserveTruckList(map);
+		return list;
+	}
+
+	public List<Truck> truckCapa(String truck_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Truck> list = dao.truckCapa(truck_code);
+		return list;
+	}
+
+	public List<Integer> originQCapa(String truck_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Integer>list = dao.originQCapa(truck_code);
+		return list;
+	}
+
+	public int updateShipping(Shipping shipping) {
+		System.out.println("repo들어옴");
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		System.out.println("repo : "+shipping.toString());
+		int result = dao.updateShipping(shipping);
+		System.out.println("repo 결과 : "+result);
+		System.out.println("repo나감");
+		return result;
+	}
+
+	public List<Shipping> truckListSearch(String deliverydate, String truck_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, String>map = new HashMap<>();
+		map.put("deliverydate", deliverydate);
+		map.put("truck_code", truck_code);
+		List<Shipping>list = dao.truckListSearch(map);
+		return list;
 	}
 
 }

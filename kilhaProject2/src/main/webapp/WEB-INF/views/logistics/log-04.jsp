@@ -7,32 +7,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="ThemeBucket">
-
-<meta http-equiv=”X-UA-Compatible” content=”IE=EmulateIE9”>
-<meta http-equiv=”X-UA-Compatible” content=”IE=9”>
-
 <link rel="shortcut icon" href="images/favicon.png">
-<title>BucketAdmin</title>
+
+<title>Advanced Form</title>
+
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
-<link href="js/jquery-ui/jquery-ui-1.10.1.custom.min.css"
-	rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href="css/bootstrap-reset.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-<link href="js/jvector-map/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-<link href="css/clndr.css" rel="stylesheet">
-<!--clock css-->
-<link href="js/css3clock/css/style.css" rel="stylesheet">
-<!--Morris Chart CSS -->
-<link rel="stylesheet" href="js/morris-chart/morris.css">
-<!-- Custom styles for this template -->
+<link rel="stylesheet" type="text/css" href="js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="js/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
 <link href="css/style.css" rel="stylesheet">
-<link href="css/style-responsive.css" rel="stylesheet" />
 <style>
-	#loginForm{
-	width : "250px";
-	float : right;
-	}
+#loginForm {
+	width: "250px";
+	float: right;
+}
+
+/* #logListHead {
+	border: 1px black solid;
+	width: 350px;
+	height: 30px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#logListDiv {
+	width: 363px;
+	height: 200px;
+	overflow-y: true;
+}
+
+#logListBody {
+	border: 1px black solid;
+	width: 350px;
+	height: 200px;
+	margin: 0 auto;
+	bgcolor: "white";
+} */
 </style>
 </head>
 <body>
@@ -218,18 +231,50 @@
 								class="fa fa-dashboard"></i> <span>Dashboard</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-laptop"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
+								<li><a href="Pur_main">구매메인화면</a></li>
+								<li><a href="Pur_inform">상품디테일</a></li>
+								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
+								<li><a href="Pur_orders">주문내역</a></li>
+								<li><a href="Pur_orderform1">invoice작성</a></li>
+								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
+								<li><a href="Pur_store">상품재고</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a href="pro_Fac1">제 1공장 정보</a></li>
+								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">선형회귀분석</a></li>
+								<li><a href="">생산정보입력</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>물류부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">관리자 페이지</a></li>
+								<li><a href="second">물류창고 도면도/도표</a></li>
+								<li><a href="third">트럭별 물류 배송순서</a></li>
+								<li><a href="fourth">선적신청</a></li>
 								<li><a href="fifth">log-06(List)</a></li>
 								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
+								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
 								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="nineth">개인 신청 내역</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -239,8 +284,81 @@
 		<!--sidebar end-->
 
 		<section id="main-content">
-			<section class="wrapper"></section>
-		</section>
+			<section class="wrapper">
+				<div class="col-lg-4">
+					<section class="panel">
+						<div class="panel-body">
+							<div class="col-sm-5" id="deliveryDate">
+								<div data-date-viewmode="years" data-date-format="yyyy-mm-dd"
+									data-date="2017-09-01" class="input-append date dpYears">
+									<input type="text" readonly="" value="2017-09-01" size="16"
+										class="form-control" name="deliverydate" id="deliveryDate1">
+									<span class="input-group-btn add-on">
+										<button class="btn btn-primary" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+							<!-- <div class="col-sm-1"></div>  -->
+							<div class="col-sm-5">
+								<div id="truckPart"></div>
+							</div>
+							<div class="col-xs-1">
+								<button type="button" id="optionSearchBtn"
+									class="btn btn-primary"><i class="fa fa-search"></i></button>
+							</div><br>
+									<div id="resultNoneMsg"></div>
+									<div id="truckListPart"></div>
+							</div>
+							<br>
+							<center>
+								<a href="#"><button type="button" id="shortestBtn" class="btn btn-warning">&nbsp
+										&nbsp &nbsp 최단 배송거리 검색 &nbsp &nbsp &nbsp</button></a>
+							</center><br>
+							<div class="col-lg-6">
+								<div class="profile-nav alt">
+									<section class="panel text-center">
+										<div class="user-heading alt wdgt-row terques-bg">
+											<i class="fa fa-location-arrow"></i> 
+										</div>
+
+										<div class="panel-body">
+											<div class="wdgt-value">
+												<h1 class="count">819Km</h1>
+												<p>주행거리</p>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="profile-nav alt">
+									<section class="panel text-center">
+										<div class="user-heading alt wdgt-row red-bg">
+											<i class="fa fa-clock-o"></i>
+										</div>
+
+										<div class="panel-body">
+											<div class="wdgt-value">
+												<h1 class="count">1hr 35min</h1>
+												<p>주행시간</p>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+							</section>
+						</div>
+						<div class="col-lg-8">
+							<section class="panel">
+								<div class="panel-body">
+									<div id="map_div">
+								</div>
+							</section>
+						</div>
+					</section>
+			</section>
 
 		<!--right sidebar start-->
 		<div class="right-sidebar">
@@ -482,50 +600,200 @@
 		</div>
 		<!--right sidebar end-->
 	</section>
-	<!-- Placed js at the end of the document so the pages load faster -->
 	<!--Core js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=21093c88-ac79-33d0-bc3e-8c0652e9a564"></script>
 	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
-	<script src="bs3/js/bootstrap.min.js"></script>
-	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
-	<script src="js/jquery.nicescroll.js"></script>
-	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-	<script src="js/skycons/skycons.js"></script>
-	<script src="js/jquery.scrollTo/jquery.scrollTo.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="js/calendar/clndr.js"></script>
-	<script
-		src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-	<script src="js/calendar/moment-2.2.1.js"></script>
-	<script src="js/evnt.calendar.init.js"></script>
-	<script src="js/jvector-map/jquery-jvectormap-1.2.2.min.js"></script>
-	<script src="js/jvector-map/jquery-jvectormap-us-lcc-en.js"></script>
-	<script src="js/gauge/gauge.js"></script>
-	<!--clock init-->
-	<script src="js/css3clock/js/css3clock.js"></script>
-	<!--Easy Pie Chart-->
-	<script src="js/easypiechart/jquery.easypiechart.js"></script>
-	<!--Sparkline Chart-->
-	<script src="js/sparkline/jquery.sparkline.js"></script>
-	<!--Morris Chart-->
-	<script src="js/morris-chart/morris.js"></script>
-	<script src="js/morris-chart/raphael-min.js"></script>
-	<!--jQuery Flot Chart-->
-	<script src="js/flot-chart/jquery.flot.js"></script>
-	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.animator.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.growraf.js"></script>
-	<script src="js/dashboard.js"></script>
-	<script src="js/jquery.customSelect.min.js"></script>
-	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
-	<!--script for this page-->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<!-- <script src="bs3/js/bootstrap.min.js"></script> -->
+	<!-- <script src="js/jquery-ui-1.9.2.custom.min.js"></script> -->
+	<!-- <script class="include" type="text/javascript"
+		src="js/jquery.dcjqaccordion.2.7.js"></script> -->
+	<!-- <script src="js/jquery.scrollTo.min.js"></script> -->
+	<!-- <script src="js/easypiechart/jquery.easypiechart.js"></script> -->
+	<!-- <script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script> -->
+	<!-- <script src="js/jquery.nicescroll.js"></script> -->
+	<!-- <script src="js/jquery.nicescroll.js"></script> -->
 
+	<!-- <script src="js/bootstrap-switch.js"></script> -->
 
+	<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+	<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script>
+		$(function() {
+			$.ajax({
+				url : "getTruckList",
+				method : "GET",
+				success : printTruckList
+			})
+			
+
+ 			var map = new Tmap.Map({div:'map_div', width:'770px', height:'600px'});
+		    
+		    var lonlat = new Tmap.LonLat(14144160.880501, 4510690.610763);
+		    var zoom = 16;
+		    map.setCenter(lonlat, zoom);        
+		    
+		    var markers = new Tmap.Layer.Markers( "MarkerLayer" );
+		    map.addLayer(markers);
+		    
+		    var size = new Tmap.Size(24, 38);
+		    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
+		    var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png',size,offset);
+		    var marker = new Tmap.Marker(lonlat,icon);
+		    markers.addMarker(marker); 
+		 
+		    
+			$("#optionSearchBtn").on('click', truckListSearch);
+			$("#shortestBtn").on('click', mapStart);
+
+		})
+		
+ 		function mapStart(){
+			routeSequential30(); 
+		} 
+
+		function truckListSearch() {
+			var deliverydate = $("#deliveryDate1").val();
+			var truck_code = $("#truck_code").val();
+
+			$.ajax({
+				url : "truckListSearch",
+				method : "GET",
+				data : {
+					"deliverydate" : deliverydate,
+					"truck_code" : truck_code
+				},
+				success : printSearchResult
+			})
+		}
+
+		function printSearchResult(resp) {
+			console.log(resp);
+			if (resp.length == 0) {
+				var temp='<br><br><br><center><h3>배차내역이 없습니다.</h3></center>';
+				$("#truckListPart").html(temp);
+			} else if (resp != 0) {
+				var temp ='<table border="1">';
+				temp +='<tr bgcolor="white">';
+				temp +='<th class="num">번호</th>';
+				temp +='<th class="ware">물류창고</th>';
+				temp +='<th class="shop">도착지</th>';
+				temp +='<th class="goods">상품</th>';
+				temp +='<th class="quan">수량</th></tr>';
+			$.each(resp, function(index, item) {
+				temp += '<tr><td class="num">' + (index + 1) + '</td>';
+				temp += '<td class="ware">#</td>';
+				temp += '<td class="shop">' + item.SHOP_NAME + '</td>';
+				temp += '<td class="goods">' + item.GOODS + '</td>';
+				temp += '<td class="quan">' + item.QUANTITY + '</td><tr>';
+			})
+				temp+='</table>';
+			$("#truckListPart").html(temp);
+			}
+		}
+
+		function printTruckList(resp) {
+			var temp = '<select class="form-control m-bot15" name="truck_code" id="truck_code">';
+			$.each(resp, function(index, item) {
+				temp += '<option value="'+item+'">' + item + '</option>';
+			})
+			temp += '</select>';
+			$("#truckPart").html(temp);
+		}
+		
+		/*
+		* 자동차 다중 경로안내 30
+		*/
+		/* function routeSequential30() {
+			alert("aa");
+			var obj = ${data};
+		   var jsonString = JSON.stringify(obj);
+		   
+		   $.ajax({
+		       method : "POST",
+		       url : "http://apis.skplanetx.com/tmap/routes/routeSequential30?version=1",
+		       headers : {
+		           "Content-Type" : "application/json",
+		           "appKey" : "21093c88-ac79-33d0-bc3e-8c0652e9a564"
+		       },
+		       data : jsonString,
+		       success : onSuccess
+		   });
+		}
+		 
+		function onSuccess( data ) {
+		   console.log( data ) // 응답 데이터 구조를 보시려면 주석을 푸시면 됩니다.
+		   
+		   // 운행 정보
+		   var totalDistance = data.properties.totalDistance;
+		   var totalFare = data.properties.totalFare;
+		   var totalTime = data.properties.totalTime;
+		   
+		   // 운행 경로
+		   var features = data.features;
+		   var i, j, geometry;
+		   var arrPoint = [];
+		   for( i in features ) {
+		       geometry = features[i].geometry; 
+		       if( geometry.type == "Point" ) {
+		           addMarker( geometry.coordinates[0], geometry.coordinates[1] );
+		       }
+		       else if( geometry.type == "LineString" ) {
+		    	   for( j in geometry.coordinates ) {
+		    		   arrPoint.push(new Tmap.Geometry.Point(geometry.coordinates[j][0], geometry.coordinates[j][1]));
+		    	   }
+		       }
+		   }
+		   console.log(totalDistance + "m");
+		   console.log(totalFare + "원");
+		   console.log(totalTime + "s");
+		   
+		   drawLine( arrPoint );
+		}
+		 
+		function addMarker(lon, lat) {
+		   var lonlat = new Tmap.LonLat(lon, lat);
+		    
+		   var size = new Tmap.Size(24,38);
+		   var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
+		   var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
+		        
+		   var marker = new Tmap.Marker(lonlat, icon);
+		   markerLayer.addMarker(marker);
+		} */
+		
+		
+		/* var style_red = {
+		           fillColor:"#FF0000",
+		           fillOpacity:0.2,
+		           strokeColor: "#FF0000",
+		           strokeWidth: 1,
+		           strokeDashstyle: "solid",
+		           label:"500m",
+		           labelAlign: "lm",
+		           fontColor: "black",
+	               fontSize: "9px",
+	               fontFamily: "Courier New, monospace",
+	               fontWeight: "bold",
+	               labelOutlineColor: "white",
+	               labelOutlineWidth: 3 
+	        }; */
+	        
+/* 		function drawLine( arrPoint ) {
+			var lineString = new Tmap.Geometry.LineString(arrPoint);
+			var style_bold = {
+					strokeWidth: 3,
+					strokeColor: "#FF0000" 
+				};
+			var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+			
+			vectorLayer.addFeatures([mLineFeature]);
+		} */
+		
+	</script>
+
+	<script src="js/advanced-form.js"></script>
 </body>
 </html>

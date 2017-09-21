@@ -20,60 +20,60 @@
 			, #{dept}
 			, #{goods}
 			, #{quantity}
-			, #{office}
 			, #{deliverydate}
 			, #{status}
 			, #{staff_code}
-			, ''
-			, ''
+			, #{shop_code}
+			, #{truck_code}
 		)
 	</insert>
 	
-	<select id="myOrderList" parameterType="int" resultType="Shipping">
+	<select id="myOrderList" parameterType="int" resultType="Map">
 		select
 			s.orderNum
 			, s.goods
 			, s.quantity
-			, s.office
+			, sh.shop_name
 			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
 			, s.status
-			, w.warehouse_name 
 		from
-			shipping s, warehouse w
+			shipping s, shop sh
 		where
-			s.warehouse_code = w.warehouse_code
+			s.shop_code = sh.shop_code
 		and
-			s.staff_code = #{userid}
+			staff_code = #{userid}
 		order by
-			s.deliverydate asc
+			deliverydate asc
 	</select>
 	
-	<select id="selectOne" parameterType="Integer" resultType="Shipping">
+	<select id="selectOne" parameterType="Integer" resultType="Map">
 		select 
 			s.dept
 			, s.staff_code
 			, s.goods
 			, s.quantity
-			, s.office 
+			, sh.shop_name 
 			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
-			, w.warehouse_name
-		from shipping s, warehouse w
+			, s.truck_code
+		from shipping s, shop sh
 		where
-			s.warehouse_code = w.warehouse_code
+			s.shop_code = sh.shop_code
 		and
 			orderNum = #{orderNum}
 	</select>
 	
-	<select id="resultList" parameterType="String" resultType="Shipping">
+	<select id="resultList" parameterType="String" resultType="map">
 		select 
-			orderNum
-			, goods
-			, quantity
-			, office 
-			, to_char(deliverydate, 'YYYY-MM-DD') as deliverydate
-			, status
-		from shipping 
+			s.orderNum
+			, s.goods
+			, s.quantity
+			, sh.shop_name 
+			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
+			, s.status
+		from shipping s, shop sh
 		where
+			s.shop_code = sh.shop_code
+		and
 			status = #{status}
 		order by
 			deliverydate asc
@@ -92,6 +92,95 @@
 		where
 			orderNum = #{orderNum}
 	</delete>
+	
+	<select id="searchDept" parameterType="Int" resultType="Staff">
+		select staff_code, staff_department
+		from 
+			staff
+		where
+			staff_code = #{userid}
+	</select>
+	
+	<select id="selectTruck" parameterType="Map" resultType="Map">g
+		select t.truck_code, sh.shop_name, s.goods, s.quantity, s.status
+		from 
+			trucklist t, shipping s, shop sh
+		where
+			t.orderNum = s.orderNum
+		and
+			s.shop_code = sh.shop_code
+		and
+			s.deliverydate = #{deliverydate}
+		and
+			s.shop_code = #{shop_code}
+	</select>
+	
+	<select id="getShopList" resultType="map">
+		select shop_code, shop_name
+		from
+			shop
+	</select>
+	
+	<select id="getTruckList" resultType="String">
+		select truck_code
+		from 
+			truck
+	</select>
+	
+	<select id="reserveTruckList" parameterType="map" resultType="map">
+		select s.goods, s.quantity, sh.shop_name, a.address_post, 
+			a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4
+		from
+			shipping s, shop sh, address a
+		where
+			s.shop_code = sh.shop_code
+		and
+			sh.shop_code = a.shop_code
+		and
+			s.deliverydate = #{dDate}
+		and
+			s.truck_code = #{truck}
+	</select>
+	
+	<select id="truckCapa" parameterType="String" resultType="truck">
+		select width, length, height
+		from
+			truck
+		where
+			truck_code = #{truck_code}
+	</select>
+	
+	<select id="originQCapa" parameterType="String" resultType="int">
+		select quantity
+		from 
+			shipping
+		where
+			truck_code = #{truck_code}
+	</select>
+	
+	<update id="updateShipping" parameterType="Shipping" >
+		update shipping
+		set
+			goods = #{goods}
+			, quantity = #{quantity}
+			, deliverydate = #{deliverydate}
+			, shop_code = #{shop_code}
+			, truck_code = #{truck_code}
+		where
+			orderNum = #{orderNum}
+	</update>
+	
+	<select id="truckListSearch" parameterType="map" resultType="map">
+		select sh.shop_name, s. goods, s.quantity
+		from 
+			shipping s, shop sh
+		where
+			s.shop_code = sh.shop_code
+		and
+			s.deliverydate = #{deliverydate}
+		and
+			s.truck_code = #{truck_code}
+	</select>
 	
 </mapper>
 

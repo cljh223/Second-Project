@@ -6,9 +6,9 @@ DROP TABLE Pur_orderrecords CASCADE CONSTRAINTS;
 DROP TABLE address CASCADE CONSTRAINTS;
 DROP TABLE supply CASCADE CONSTRAINTS;
 DROP TABLE process CASCADE CONSTRAINTS;
-DROP TABLE Shipping CASCADE CONSTRAINTS;
 DROP TABLE Inmotion CASCADE CONSTRAINTS;
-DROP TABLE Truck CASCADE CONSTRAINTS;
+DROP TABLE truck CASCADE CONSTRAINTS;
+DROP TABLE Shipping CASCADE CONSTRAINTS;
 DROP TABLE Stock CASCADE CONSTRAINTS;
 DROP TABLE warehouse CASCADE CONSTRAINTS;
 DROP TABLE product CASCADE CONSTRAINTS;
@@ -100,7 +100,7 @@ CREATE TABLE process
 
 CREATE TABLE Truck
 (
-	truck_code number NOT NULL,
+	truck_code varchar2(30) NOT NULL,
 	space varchar2(10) NOT NULL,
 	width number NOT NULL,
 	length number NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE Inmotion
 	quantity number NOT NULL,
 	deliverydate date NOT NULL,
 	status varchar2(15) NOT NULL,
-	truck_code number NOT NULL,
+	truck_code varchar2(30) NOT NULL,
 	PRIMARY KEY (motion_code)
 );
 
@@ -207,13 +207,12 @@ CREATE TABLE Shipping
 	orderNum number NOT NULL,
 	dept varchar2(15) NOT NULL,
 	goods varchar2(15) NOT NULL,
-	office varchar2(15),
+	quantity number,
 	deliverydate date NOT NULL,
 	status varchar2(50),
-	quantity number,
 	staff_code number(5,0) NOT NULL,
-	truck_code number,
-	warehouse_code number NOT NULL,
+	shop_code number(10,0) NOT NULL,
+	truck_code varchar2(30) NOT NULL,
 	PRIMARY KEY (orderNum)
 );
 
@@ -445,22 +444,28 @@ ALTER TABLE supply
 	REFERENCES process (process_code)
 ;
 
-
-ALTER TABLE Shipping
+ALTER TABLE shipping
 	ADD FOREIGN KEY (truck_code)
-	REFERENCES Truck (truck_code)
+	REFERENCES truck (truck_code)
+	ON DELETE CASCADE
 ;
 
+ALTER TABLE Shipping
+	ADD FOREIGN KEY (staff_code)
+	REFERENCES Staff (staff_code)
+	ON DELETE CASCADE
+;
+
+
+ALTER TABLE shipping
+	ADD FOREIGN KEY (shop_code)
+	REFERENCES Shop (shop_code)
+	ON DELETE CASCADE
+;
 
 ALTER TABLE Inmotion
 	ADD FOREIGN KEY (truck_code)
 	REFERENCES Truck (truck_code)
-;
-
-
-ALTER TABLE Shipping
-	ADD FOREIGN KEY (warehouse_code)
-	REFERENCES warehouse (warehouse_code)
 ;
 
 
@@ -495,12 +500,6 @@ ALTER TABLE Pur_orderrecords
 
 
 ALTER TABLE process
-	ADD FOREIGN KEY (staff_code)
-	REFERENCES Staff (staff_code)
-;
-
-
-ALTER TABLE Shipping
 	ADD FOREIGN KEY (staff_code)
 	REFERENCES Staff (staff_code)
 ;
@@ -552,6 +551,7 @@ ALTER TABLE kpi
 	ADD FOREIGN KEY (kpiDivision_code)
 	REFERENCES kpiDivision (kpiDivision_code)
 ;
+
 
 
 CREATE SEQUENCE warehouse_code_num_SEQ;

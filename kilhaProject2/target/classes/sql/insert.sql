@@ -204,95 +204,179 @@ insert into kpi values
 
 insert into Truck 
 values
-(seq_truck_code.nextval, '措', 300, 200, 100);
+('11啊1234', '措', 300, 200, 100);
+
+insert into Truck 
+values
+('12啊1234', '措', 300, 200, 100);
+
+insert into Truck 
+values
+('13啊1234', '措', 300, 200, 100);
+
+insert into Truck 
+values
+('14啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('15啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('16啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('17啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('18啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('19啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('20啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('21啊1234', '吝', 300, 200, 100);
+
+insert into Truck 
+values
+('22啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('23啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('24啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('25啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('26啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('27啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('28啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('29啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('30啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('31啊1234', '家', 300, 200, 100);
+
+insert into Truck 
+values
+('32啊1234', '家', 300, 200, 100);
 
 insert into shipping
 values
-(52, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'confirmed', 1, 1, 1);
+(52, '康诀何', '力前3', 10, '2017-09-30', 'confirmed', 1, 1, '11啊1234');
 
 insert into shipping
 values
-(53, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'shipped', 1, 1, 1);
+(53, '积魂何', '力前1', 20, '2017-09-15', 'shipped', 1, 1, '12啊1234');
 
 insert into shipping
 values
-(54, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'rejected', 1, 1, 2);
+(54, '备概何', '力前2', 40, '2017-09-27', 'rejected', 1, 1, '13啊1234');
 
 insert into shipping
 values
-(55, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 1, 1, 2);
+(55, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 1, 1, '14啊1234');
 
 insert into shipping
 values
-(56, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 2, 1, 1);
+(56, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 2, '15啊1234');
 
 insert into shipping
 values
-(57, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 2, 1, 2);
+(57, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 2, '16啊1234');
 
 insert into shipping
 values
-(58, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 2, 1, 2);
+(58, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 2, 2, '17啊1234');
 
 insert into shipping
 values
-(59, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 2, 1, 1);
+(59, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 2, '18啊1234');
 
 insert into shipping
 values
-(60, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 3, 1, 2);
+(60, '备概何', '力前2', 40, '2017-09-27', 'ordered', 3, 3, '19啊1234');
 
 insert into shipping
 values
-(61, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 3, 1, 2);
+(61, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 3, 3, '20啊1234');
 
 insert into shipping
 values
-(62, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 3, 1, 1);
+(62, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 3, 3, '21啊1234');
 
 insert into shipping
 values
-(63, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 3, 1, 2);
+(63, '备概何', '力前2', 40, '2017-09-27', 'ordered', 3, 3, '22啊1234');
 
 insert into shipping
 values
-(64, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 4, 1, 1);
+(64, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 4, 1, '23啊1234');
 
 insert into shipping
 values
-(65, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 4, 1, 1);
+(65, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 4, 2, '24啊1234');
 
 insert into shipping
 values
-(66, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 4, 1, 2);
+(66, '备概何', '力前2', 40, '2017-09-27', 'ordered', 4, 3, '25啊1234');
 
 insert into shipping
 values
-(67, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 4, 1, 2);
+(67, '备概何', '力前2', 40, '2017-09-27', 'ordered', 4, 1, '26啊1234');
 
 insert into shipping
 values
-(68, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 4, 1, 1);
+(68, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 4, 2, '27啊1234');
 
 insert into shipping
 values
-(69, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 4, 1, 1);
+(69, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 4, 3, '28啊1234');
 
 insert into shipping
 values
-(70, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 2, 1, 2);
+(70, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 1, '29啊1234');
 
 insert into shipping
 values
-(71, '康诀何', '力前3', 10, '康诀家1', '2017-09-30', 'ordered', 1, 1, 2);
+(71, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 1, 2, '30啊1234');
 
 insert into shipping
 values
-(72, '积魂何', '力前1', 20, '康诀家3', '2017-09-15', 'ordered', 2, 1, 1);
+(72, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 3, '31啊1234');
 
 insert into shipping
 values
-(73, '备概何', '力前2', 40, '康诀家2', '2017-09-27', 'ordered', 2, 1, 2);
+(73, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 1, '32啊1234');
 
 insert into factory values (1, '1st Ramen Factory', '版扁档 焙器矫 寸沥悼', '031-450-5500', 15000);
 insert into factory values (2, '2nd Ramen Factory', '版扁档 救剧矫 悼救备 乞锰悼', '031-421-2122', 15000);
