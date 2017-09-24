@@ -97,17 +97,18 @@
 <!-- Resources -->
 
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-
 <script
 	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
 	type="text/css" media="all" />
-
 <script src="https://www.amcharts.com/lib/3/themes/patterns.js"></script>
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
 <script language="javascript"
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -116,10 +117,193 @@
 <script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 <script src="js/flot-chart/jquery.flot.resize.js"></script>
 <script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+
+<!-- Chart code -->
+<script>
+	var chart = AmCharts.makeChart("chartdiv", {
+		"type" : "serial",
+		"theme" : "light",
+		"rotate" : true,
+		"marginBottom" : 50,
+		"dataProvider" : [ {
+			"age" : "45-49",
+			"male" : -2.8,
+			"female" : 3.0
+		}, {
+			"age" : "40-44",
+			"male" : -3.4,
+			"female" : 3.6
+		}, {
+			"age" : "35-39",
+			"male" : -4.2,
+			"female" : 4.1
+		}, {
+			"age" : "30-34",
+			"male" : -5.2,
+			"female" : 4.8
+		}, {
+			"age" : "25-29",
+			"male" : -5.6,
+			"female" : 5.1
+		}, {
+			"age" : "20-24",
+			"male" : -5.1,
+			"female" : 5.1
+		}, {
+			"age" : "15-19",
+			"male" : -3.8,
+			"female" : 3.8
+		}, {
+			"age" : "10-14",
+			"male" : -3.2,
+			"female" : 3.4
+		}, {
+			"age" : "5-9",
+			"male" : -4.4,
+			"female" : 4.1
+		}, {
+			"age" : "0-4",
+			"male" : -5.0,
+			"female" : 4.8
+		} ],
+		"startDuration" : 1,
+		"graphs" : [
+				{
+					"fillAlphas" : 0.8,
+					"lineAlpha" : 0.2,
+					"type" : "column",
+					"valueField" : "male",
+					"title" : "Male",
+					"labelText" : "[[value]]",
+					"clustered" : false,
+					"labelFunction" : function(item) {
+						return Math.abs(item.values.value);
+					},
+					"balloonFunction" : function(item) {
+						return item.category + ": "
+								+ Math.abs(item.values.value) + "%";
+					}
+				},
+				{
+					"fillAlphas" : 0.8,
+					"lineAlpha" : 0.2,
+					"type" : "column",
+					"valueField" : "female",
+					"title" : "Female",
+					"labelText" : "[[value]]",
+					"clustered" : false,
+					"labelFunction" : function(item) {
+						return Math.abs(item.values.value);
+					},
+					"balloonFunction" : function(item) {
+						return item.category + ": "
+								+ Math.abs(item.values.value) + "%";
+					}
+				} ],
+		"categoryField" : "age",
+		"categoryAxis" : {
+			"gridPosition" : "start",
+			"gridAlpha" : 0.2,
+			"axisAlpha" : 0
+		},
+		"valueAxes" : [ {
+			"gridAlpha" : 0,
+			"ignoreAxisWidth" : true,
+			"labelFunction" : function(value) {
+				return Math.abs(value) + '%';
+			},
+			"guides" : [ {
+				"value" : 0,
+				"lineAlpha" : 0.2
+			} ]
+		} ],
+		"balloon" : {
+			"fixedPosition" : true
+		},
+		"chartCursor" : {
+			"valueBalloonsEnabled" : false,
+			"cursorAlpha" : 0.05,
+			"fullWidth" : true
+		},
+		"allLabels" : [ {
+			"text" : "Male",
+			"x" : "28%",
+			"y" : "97%",
+			"bold" : true,
+			"align" : "middle"
+		}, {
+			"text" : "Female",
+			"x" : "75%",
+			"y" : "97%",
+			"bold" : true,
+			"align" : "middle"
+		} ],
+		"export" : {
+			"enabled" : true
+		}
+
+	});
+</script>
 <script type="text/javascript">
+	var map, markerLayer;
+
+	// 티맵 레이어를 만드는 메소드
+	function addMarkerLayer() {
+		markerLayer = new Tmap.Layer.Markers("marker");
+		map.addLayer(markerLayer);
+	};
+
+	// 티맵에 마커를 표시하는 메소드
+	function makeMarker(lonList, latList, shopCodeList, shopStateList) {
+		map.setCenter(new Tmap.LonLat(lonList[0], latList[0]), 16);
+		addMarkerLayer();
+		var icon;
+		for (var i = 0; i < lonList.length; i++) {
+			var lonlat = new Tmap.LonLat(lonList[i], latList[i]);
+			var size = new Tmap.Size(12, 19);
+			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+			if (shopCodeList[i] == 0) {
+				icon = new Tmap.IconHtml(
+						'<img alt="" src="images/sales/견적마커.png">', size,
+						offset);
+			} else {
+				icon = new Tmap.IconHtml(
+						'<img alt="" src="images/sales/수주마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'">',
+						size, offset);
+			}
+			var marker = new Tmap.Markers(lonlat, icon);
+			markerLayer.addMarker(marker);
+		}
+		chan();
+	}
+
+	function initialize() {
+		map = new Tmap.Map({
+			div : "map",
+			width : '100%',
+			height : '600px'
+		});
+		map.addControl(new Tmap.Control.MousePosition());
+		var lonList = new Array();
+		var latList = new Array();
+		var shopCodeList = new Array();
+		var shopStateList = new Array();
+		<c:forEach items="${addressList}" var="item">
+		lonList.push("${item.lon}");
+		latList.push("${item.lat}");
+		</c:forEach>
+		<c:forEach items="${shopCodeList}" var="item">
+		shopCodeList.push("${item}");
+		</c:forEach>
+		<c:forEach items="${shopStateList}" var="item">
+		shopStateList.push("${item}");
+		</c:forEach>
+		makeMarker(lonList, latList, shopCodeList, shopStateList);
+	}
+
 	$(function() {
+		initialize();
 		processInitialize();
-		searchProcess();
 		$('.panel .tools .fa-chevron-up').parents(".panel").children(
 				".panel-body").slideUp(200);
 		$('#견적').on('click', function() {
@@ -140,11 +324,8 @@
 		});
 	});
 </script>
-
 </head>
-
 <body>
-
 	<section id="container">
 		<!--header start-->
 		<header class="header fixed-top clearfix">
@@ -378,224 +559,13 @@
 		<section id="main-content">
 			<section class="wrapper">
 				<!-- page start-->
-				<div class="row">
-					<div class="col-sm-12">
-						<section class="panel">
-							<header class="panel-heading">
-								General Table <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a>
-								</span>
-							</header>
-							<div class="row">
-								<div class="col-md-12">
-									<ul class="breadcrumbs-alt">
-										<li id="견적" data-processName="견적"><a class="current">견적</a></li>
-										<li id="수주" data-processName="수주"><a class="">수주</a></li>
-										<li id="출고" data-processName="출고"><a class="">출고</a></li>
-									</ul>
-								</div>
-							</div>
-							<div id="chartdiv"></div>
-						</section>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<section class="panel">
-							<header class="panel-heading">
-								General Table <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> 
-								</span>
-							</header>
-							<div class="panel-body" id="processListForm"></div>
-						</section>
-					</div>
-					<div class="col-sm-6">
-						<section class="panel">
-							<header class="panel-heading">
-								상세보기 <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-up"></a>
-								</span>
-							</header>
-							<div class="panel-body processSearchForm"></div>
-						</section>
-					</div>
-				</div>
+				
 				<!-- page end-->
 			</section>
 		</section>
 		<!--main content end-->
 	</section>
 	<script type="text/javascript">
-		function searchProcess() {
-			$('#searchText').on('keyup', function() {
-				var searchProcessText = $(this).val();
-				var searchText = {
-					'searchProcessText' : searchProcessText
-				}
-				$.ajax({
-					url : 'processInitialize',
-					method : 'get',
-					data : searchText,
-					dataType : 'json',
-					success : processInitializeFunction,
-					error : function() {
-						alert('에러입니다.');
-					}
-				});
-			});
-		}
-
-		function processCodeClick(resp) {
-			$('#processListForm tr')
-					.on(
-							'click',
-							function() {
-								var index = 0;
-								var processCode = $(this).attr('id');
-								for (var i = 0; i < resp.length; i++) {
-									if (resp[i].processCode == processCode) {
-										index = i;
-										break;
-									}
-								}
-								var processPrintText = '<div class="row">'
-										+ '<div class="col-lg-12">'
-										+ '<section class="panel">';
-								if (resp[index].processCode.substring(0, 2) == 'em') {
-									processPrintText += '<div class="panel-body invoice">'
-											+ '<div class="invoice-header">'
-											+ '<div class="invoice-title col-md-3 col-xs-2">'
-											+ '<h3>estimate</h3>';
-								} else if (resp[index].processCode.substring(0,
-										2) == 'co') {
-									processPrintText += '<div class="panel-body invoice">'
-											+ '<div class="invoice-header">'
-											+ '<div class="invoice-title col-md-3 col-xs-2">'
-											+ '<h3>contract</h3>';
-								} else if (resp[index].processCode.substring(0,
-										2) == 're') {
-									processPrintText += '<div class="panel-body invoice">'
-											+ '<div class="invoice-header">'
-											+ '<div class="invoice-title col-md-3 col-xs-2">'
-											+ '<h3>release</h3>';
-								}
-								processPrintText += '</div>'
-										+ '<div class="invoice-info col-md-9 col-xs-10">'
-										+ '<div class="pull-right">'
-										+ '<div class="col-md-6 col-sm-6 pull-left">'
-										+ '<p>121 King Street, Melbourne <br>'
-										+ 'Victoria 3000 Australia</p>'
-										+ '</div>'
-										+ '<div class="col-md-6 col-sm-6 pull-right">'
-										+ '<p>Phone: +61 3 8376 6284 <br>'
-										+ 'Email : info@envato.com</p>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
-										+ '<div class="row invoice-to">'
-										+ '<div class="col-md-4 col-sm-4 pull-left">'
-										+ '<h4>Invoice To:</h4>' + '<h2>'
-										+ resp[index].shopName + '</h2><br>'
-										+ '<p>' + resp[index].addressDetail1
-										+ ' ' + resp[index].addressDetail2
-										+ '<br>' + resp[index].addressDetail3
-										+ ' ';
-								if (resp.shopDetail4 != null) {
-									processPrintText += resp[index].addressDetail4
-								}
-								processPrintText += '<br>'
-										+ resp[index].shopTel
-										+ '<br>'
-										+ '</p>'
-										+ '</div>'
-										+ '<div class="col-md-4 col-sm-5 pull-right">'
-										+ '<div class="row">'
-										+ '<div class="col-md-4 col-sm-5 inv-label"></div>'
-										+ '<div class="col-md-8 col-sm-7"></div>'
-										+ '</div>'
-										+ '<div class="row">'
-										+ '<div class="col-md-4 col-sm-5 inv-label">입력날짜</div>'
-										+ '<div class="col-md-8 col-sm-7">'
-										+ resp[index].processInsertDate
-										+ '</div>'
-										+ '</div>'
-										+ '<br>'
-										+ '<div class="row">'
-										+ '<div class="col-md-4 col-sm-5 inv-label">마감날짜</div>'
-										+ '<div class="col-md-8 col-sm-7">'
-										+ resp[index].processTerm
-										+ '</div>'
-										+ '</div>'
-										+ '<br>'
-										+ '<div class="row">'
-										+ '<div class="col-md-12 inv-label">'
-										+ '<h3>납품종료일 #</h3>'
-										+ '</div>'
-										+ '<div class="col-md-12">'
-										+ '<h4 class="amnt-value">'
-										+ resp[index].processEndDate
-										+ '</h4>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
-										+ '<table class="table table-invoice" >'
-										+ '<thead>'
-										+ '<tr>'
-										+ '<th>#</th>'
-										+ '<th>Item Description</th>'
-										+ '<th class="text-center">Unit Cost</th>'
-										+ '<th class="text-center">Total</th>'
-										+ '<th class="text-center">Quantity</th>'
-										+ '</tr>' + '</thead>' + '<tbody>';
-								$
-										.each(
-												resp[index].supplyList,
-												function(i, item) {
-													processPrintText += '<tr>'
-															+ '<td>'
-															+ i
-															+ '</td>'
-															+ '<td>'
-															+ '<h4>'
-															+ item.productName
-															+ '</h4>'
-															+ '<p>단위 : '
-															+ item.productUnit
-															+ '</p>'
-															+ '</td>'
-															+ '<td class="text-center">'
-															+ item.supplyPrice
-															+ '</td>'
-															+ '<td class="text-center">'
-															+ item.supplyVolume
-															+ '</td>'
-															+ '<td class="text-center">'
-															+ item.supplyPrice
-															* item.supplyVolume
-															+ '</td>' + '</tr>'
-												});
-								+'</tbody>'
-										+ '</table>'
-										+ '<div class="row">'
-										+ '<div class="col-md-8 col-xs-7 payment-method">'
-										+ '<h3 class="inv-label itatic">Thank you for your business</h3>'
-										+ '</div>'
-										+ '<div class="col-md-4 col-xs-5 invoice-block pull-right">'
-										+ '<ul class="unstyled amounts">'
-										+ '<li class="grand-total">Grand Total : $7145</li>'
-										+ '</ul>'
-										+ '</div>'
-										+ '</div>'
-										+ '<div class="text-center invoice-btn">'
-										+ '</div>' + '</div>' + '</section>'
-										+ '</div>' + '</div>';
-								$('.processSearchForm').html(processPrintText);
-							});
-		}
-
 		function processInitializeFunction(resp) {
 			var salAmount = 0;
 			var processLocationText = '<div class="adv-table">'
@@ -660,126 +630,43 @@
 				}
 			});
 		}
-	</script>
-	<!-- Chart code -->
-	<script>
-		var chartData = generateChartData();
 
-		var chart = AmCharts.makeChart("chartdiv", {
-			"type" : "serial",
-			"theme" : "light",
-			"legend" : {
-				"useGraphSettings" : true
-			},
-			"dataProvider" : chartData,
-			"synchronizeGrid" : true,
-			"valueAxes" : [ {
-				"id" : "v1",
-				"axisColor" : "#FF6600",
-				"axisThickness" : 2,
-				"axisAlpha" : 1,
-				"position" : "left"
-			}, {
-				"id" : "v2",
-				"axisColor" : "#FCD202",
-				"axisThickness" : 2,
-				"axisAlpha" : 1,
-				"position" : "right"
-			}, {
-				"id" : "v3",
-				"axisColor" : "#B0DE09",
-				"axisThickness" : 2,
-				"gridAlpha" : 0,
-				"offset" : 50,
-				"axisAlpha" : 1,
-				"position" : "left"
-			} ],
-			"graphs" : [ {
-				"valueAxis" : "v1",
-				"lineColor" : "#FF6600",
-				"bullet" : "round",
-				"bulletBorderThickness" : 1,
-				"hideBulletsCount" : 30,
-				"title" : "red line",
-				"valueField" : "visits",
-				"fillAlphas" : 0
-			}, {
-				"valueAxis" : "v2",
-				"lineColor" : "#FCD202",
-				"bullet" : "square",
-				"bulletBorderThickness" : 1,
-				"hideBulletsCount" : 30,
-				"title" : "yellow line",
-				"valueField" : "hits",
-				"fillAlphas" : 0
-			}, {
-				"valueAxis" : "v3",
-				"lineColor" : "#B0DE09",
-				"bullet" : "triangleUp",
-				"bulletBorderThickness" : 1,
-				"hideBulletsCount" : 30,
-				"title" : "green line",
-				"valueField" : "views",
-				"fillAlphas" : 0
-			} ],
-			"chartScrollbar" : {},
-			"chartCursor" : {
-				"cursorPosition" : "mouse"
-			},
-			"categoryField" : "date",
-			"categoryAxis" : {
-				"parseDates" : true,
-				"axisColor" : "#DADADA",
-				"minorGridEnabled" : true
-			},
-			"export" : {
-				"enabled" : true,
-				"position" : "bottom-right"
-			}
-		});
-
-		chart.addListener("dataUpdated", zoomChart);
-		zoomChart();
-
-		// generate some random data, quite different range
-		function generateChartData() {
-			var chartData = [];
-			var firstDate = new Date();
-			firstDate.setDate(firstDate.getDate() - 100);
-
-			var visits = 1600;
-			var hits = 2900;
-			var views = 8700;
-
-			for (var i = 0; i < 100; i++) {
-				// we create date objects here. In your data, you can have date strings
-				// and then set format of your dates using chart.dataDateFormat property,
-				// however when possible, use date objects, as this will speed up chart rendering.
-				var newDate = new Date(firstDate);
-				newDate.setDate(newDate.getDate() + i);
-
-				visits += Math.round((Math.random() < 0.5 ? 1 : -1)
-						* Math.random() * 10);
-				hits += Math.round((Math.random() < 0.5 ? 1 : -1)
-						* Math.random() * 10);
-				views += Math.round((Math.random() < 0.5 ? 1 : -1)
-						* Math.random() * 10);
-
-				chartData.push({
-					date : newDate,
-					visits : visits,
-					hits : hits,
-					views : views
-				});
-			}
-			return chartData;
-		}
-
-		function zoomChart() {
-			chart.zoomToIndexes(chart.dataProvider.length - 20,
-					chart.dataProvider.length - 1);
+		// 마커 클릭시 이벤트
+		function chan() {
+			$('div>img[data-type = "marker"]').on(
+					'click',
+					function() {
+						var el = $('.panel .tools .menuForm').parents(".panel")
+								.children(".panel-body");
+						if ($('.panel .tools .menuForm').hasClass(
+								"fa-chevron-up")) {
+							$('.panel .tools .menuForm').removeClass(
+									"fa-chevron-up")
+									.addClass("fa-chevron-down");
+							el.slideDown(200);
+						}
+						shopCode = $(this).attr("data-source");
+						$('.overview').attr('data-shopCode', shopCode);
+						$('.job-history').attr('data-shopCode', shopCode);
+						$('.contacts').attr('data-shopCode', shopCode);
+						$('.settings').attr('data-shopCode', shopCode);
+						var shopCodeJson = {
+							"shopCode" : shopCode
+						};
+						$.ajax({
+							url : 'shopDetailSelect',
+							method : 'get',
+							data : shopCodeJson,
+							dataType : 'json',
+							success : shopDetailFunction,
+							error : function() {
+								alert('에러');
+							}
+						});
+					});
 		}
 	</script>
+
 	<!--Core js-->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-1.10.2.min.js"></script>

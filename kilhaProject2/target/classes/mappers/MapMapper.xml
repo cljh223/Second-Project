@@ -41,6 +41,7 @@
 		<result property="supplyPrice" column="supply_price" />
 		<result property="productName" column="product_name" />
 		<result property="productUnit" column="product_unit" />
+		<result property="productUnitPrice" column="product_unit_price" />
 	</resultMap>
 
 	<resultMap type="Process" id="ProcessMap">
@@ -91,7 +92,7 @@
 		<result property="productUnit" column="product_unit" />
 		<result property="productSalesPrice" column="product_sales_price" />
 	</resultMap>
-	
+
 	<resultMap type="kpi" id="kpiMap">
 		<id property="kpiCode" column="kpi_code" />
 		<result property="kpiAmount" column="kpi_amount" />
@@ -107,8 +108,15 @@
 			resultMap="kpiMap" />
 	</resultMap>
 
+	<resultMap type="ProcessTableVo" id="ProcessTableVoMap">
+		<result property="staffName" column="staff_name" />
+		<result property="warehouseName" column="warehouse_name" />
+		<result property="processTerm" column="process_term" />
+		<result property="processEndDate" column="process_end_date" />
+	</resultMap>
+	
 	<select id="markerSelect" resultMap="ShopMap">
-		select s. shop_code,
+		select s.shop_code, s.shop_state,
 		s.shop_name, a.address_detail1, a.address_detail2, a.address_detail3,
 		a.address_detail4
 		from address a INNER JOIN shop s
@@ -199,24 +207,32 @@
 		l.supply_price, l.supply_volume, p.process_term,
 		d.product_code,
 		p.process_end_date, p.process_insert_date, d.product_name
-		FROM process p INNER JOIN shop s ON
+		FROM process
+		p INNER JOIN shop s ON
 		p.process_code = #{processCode}
-		AND p.SHOP_CODE = s.SHOP_CODE
+		AND p.SHOP_CODE =
+		s.SHOP_CODE
 		INNER JOIN address a ON a.shop_code = s.shop_code
-		INNER JOIN supply l ON
+		INNER JOIN
+		supply l ON
 		l.process_code = p.process_code AND
-		l.process_code = #{processCode}
+		l.process_code =
+		#{processCode}
 		INNER JOIN product d ON d.product_code = l.product_code
 		WHERE
 		p.process_insert_date = (select max(process_insert_date) as
 		process_insert_date from process p INNER JOIN shop s ON
-		p.process_code = #{processCode}
+		p.process_code
+		= #{processCode}
 		AND p.SHOP_CODE = s.SHOP_CODE
-		INNER JOIN address a ON a.shop_code = s.shop_code
+		INNER JOIN address a ON
+		a.shop_code = s.shop_code
 		INNER JOIN supply l ON
-		l.process_code = p.process_code AND
+		l.process_code =
+		p.process_code AND
 		l.process_code = #{processCode}
-		INNER JOIN product d ON d.product_code = l.product_code)
+		INNER JOIN product d
+		ON d.product_code = l.product_code)
 	</select>
 
 	<select id="popupAllEstimateView" parameterType="Map" resultMap="SupplyVoMap">
@@ -301,13 +317,14 @@
 		s.shop_tel
 		<if test="gubun =='no'">
 			FROM shop s INNER JOIN address a
-			ON s.shop_code = #{shopCode}
+			ON s.shop_code =
+			#{shopCode}
 			AND a.shop_code = s.shop_code
 		</if>
 		<if test="gubun == 'yes'">
 			,l.supply_price, l.supply_volume, p.process_term,
 			d.product_code, p.process_end_date, p.process_insert_date,
-			p.process_state,p.process_code
+			p.process_state,p.process_code, d.product_unit_price
 			FROM
 			shop s INNER JOIN
 			process p
@@ -325,31 +342,39 @@
 			INNER JOIN
 			product d
 			ON
-			d.product_code = l.product_code
+			d.product_code =
+			l.product_code
 			INNER JOIN
 			staff f
 			ON
 			p.staff_code = f.staff_code
-			ORDER BY p.process_insert_date DESC
+			ORDER BY
+			p.process_insert_date DESC
 		</if>
 	</select>
 
 	<select id="contactsViewFunction" parameterType="int" resultMap="SupplyVoMap">
 		SELECT a.address_post, a.address_detail1, a.address_detail2,
-		a.address_detail3, a.address_detail4, s.shop_tel, s.shop_SNS, s.shop_Email
+		a.address_detail3, a.address_detail4, s.shop_tel, s.shop_SNS,
+		s.shop_email
 		FROM address a INNER JOIN shop s
-		ON s.shop_code = #{shopCode} AND a.shop_code = s.shop_code
+		ON s.shop_code =
+		#{shopCode} AND a.shop_code = s.shop_code
 	</select>
 
 	<select id="processViewFunction" parameterType="Map" resultMap="SupplyVoMap">
 		SELECT s.shop_name, a.address_detail1, a.address_detail2,
 		a.address_detail3, a.address_detail4,
-		s.shop_tel, d.product_unit, f.staff_name,
-		l.supply_price, l.supply_volume, p.process_term, p.process_code,
+		s.shop_tel, d.product_unit,
+		f.staff_name,
+		l.supply_price, l.supply_volume, p.process_term,
+		p.process_code,
 		d.product_code,
-		p.process_end_date, p.process_insert_date, d.product_name,
+		p.process_end_date,
+		p.process_insert_date, d.product_name,
 		p.process_state
-		FROM process p INNER JOIN shop s ON s.shop_code =
+		FROM process p
+		INNER JOIN shop s ON s.shop_code =
 		#{shopCode}
 		<if test="processName=='견적'">
 			AND SUBSTR(p.process_code,0,2) = 'em'
@@ -388,7 +413,8 @@
 		FROM process p INNER JOIN supply s
 		ON p.process_code = s.process_code
 		AND TO_CHAR(p.process_end_date, 'YYYY-MM') = #{date}
-		AND p.shop_code = #{shopCode}
+		AND p.shop_code =
+		#{shopCode}
 		AND SUBSTR(p.process_code,0,2) = 're'
 	</select>
 
@@ -396,32 +422,51 @@
 		SELECT
 		count(*) FROM process WHERE shop_code = #{shop_code}
 	</select>
-	
-	<select id="overviewIntiFunction" parameterType="int" resultType="String">
+
+	<select id="overviewIntiFunction" parameterType="int"
+		resultType="String">
 		SELECT DISTINCT process_end_date
-		FROM process 
-		WHERE shop_code = #{shop_code}
+		FROM process
+		WHERE shop_code
+		= #{shop_code}
 		AND SUBSTR(process_code,0,2) = 're'
-		ORDER BY process_end_date
+		ORDER BY
+		process_end_date
 	</select>
-	
+
 	<select id="kpiSelect" parameterType="Map" resultMap="kpidivisionMap">
-		SELECT k.kpiDivision_code, k.kpi_amount FROM kpidivision d INNER JOIN kpi k
+		SELECT
+		k.kpiDivision_code, k.kpi_amount FROM kpidivision d INNER JOIN kpi k
 		ON d.kpiDivision_code = k.kpiDivision_code
-		AND k.shop_code = #{shopCode}
+		AND k.shop_code =
+		#{shopCode}
 		AND TO_CHAR(kpi_start_date, 'YYYY-MM') = #{date}
 	</select>
-	
+
 	<select id="updateViewFunction" parameterType="int" resultMap="ShopMap">
 		SELECT s.*, a.* FROM shop s INNER JOIN address a
-		ON s.shop_code = #{shopCode} 
+		ON s.shop_code =
+		#{shopCode}
 		AND s.shop_code=a.shop_code
 	</select>
-	
-	<insert id="kpiSettingFunction" parameterType="int">
-		INSERT INTO kpi VALUES
+
+	<insert id="kpiSettingFunction" parameterType="Map">
+		INSERT INTO kpi
+		VALUES
 		(
-					
+		kpi_code_seq.NEXTVAL
+		,#{kpiJson}
+		,#{selector}
+		,#{shopCode}
+		,#{index}
 		)
-	</insert>	
+	</insert>
+	
+	<select id="processTable" parameterType="String" resultMap="ProcessTableVoMap">
+		SELECT s.staff_name, w.warehouse_name, p.process_term, p.process_end_date
+		FROM staff s INNER JOIN process p
+		ON s.staff_code = p.staff_code AND p.process_code = #{processCode}
+		INNER JOIN warehouse w
+		ON w.warehouse_code = p.warehouse_code
+	</select>
 </mapper>

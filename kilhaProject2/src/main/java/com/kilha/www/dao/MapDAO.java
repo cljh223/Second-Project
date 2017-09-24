@@ -9,6 +9,7 @@ import com.kilha.www.vo.logistics.Stock;
 import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
+import com.kilha.www.vo.sal.ProcessTableVo;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyVo;
@@ -34,5 +35,6 @@ public interface MapDAO {
 	public List<String> overviewIntiFunction(int shopCode);
 	public List<Kpidivision> kpiSelect(Map codeMap);
 	public Shop updateViewFunction(int shopCode);
-	public int kpiSettingFunction(int shopCode);
+	public int kpiSettingFunction(Map map);
+	public ProcessTableVo processTable(String processCode);
 }

@@ -5,23 +5,44 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="ThemeBucket">
+<link rel="shortcut icon" href="images/favicon.png">
 
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 
-<link rel="shortcut icon" href="images/favicon.png">
-<title>BucketAdmin</title>
+<title>Blank page</title>
+
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
-<link href="js/jquery-ui/jquery-ui-1.10.1.custom.min.css"
-	rel="stylesheet">
 <link href="css/bootstrap-reset.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
-<link href="css/clndr.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+<!--icheck-->
+<link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/minimal/purple.css" rel="stylesheet">
+
+<link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/square/purple.css" rel="stylesheet">
+
+<link href="js/iCheck/skins/flat/grey.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/red.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/green.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/blue.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/yellow.css" rel="stylesheet">
+<link href="js/iCheck/skins/flat/purple.css" rel="stylesheet">
+
 <link rel="stylesheet" href="css/bootstrap-switch.css" />
 <link rel="stylesheet" type="text/css"
 	href="js/bootstrap-fileupload/bootstrap-fileupload.css" />
@@ -46,22 +67,23 @@
 
 <link rel="stylesheet" type="text/css" href="js/select2/select2.css" />
 
-<!-- Custom styles for this template -->
-<link href="css/style.css" rel="stylesheet">
-<link href="css/style-responsive.css" rel="stylesheet" />
+
+<!--dynamic table-->
+<link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+<link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+
+<!--iron slider-->
 <link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.css"
 	rel="stylesheet" />
 <link href="js/ion.rangeSlider-1.8.2/css/ion.rangeSlider.skinFlat.css"
 	rel="stylesheet" />
 
-<!--clock css-->
-<link href="js/css3clock/css/style.css" rel="stylesheet">
-<!--Morris Chart CSS -->
-<link rel="stylesheet" href="js/morris-chart/morris.css">
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
-<style>
+
+<style type="text/css">
 #loginForm {
 	width: "250px";
 	float: right;
@@ -71,24 +93,40 @@
 	width: 100%;
 	height: 500px;
 }
+
+#chartdiv1 {
+	width: 100%;
+	height: 500px;
+}
 </style>
 <!-- Resources -->
 
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-
 <script
 	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
 	type="text/css" media="all" />
-
 <script src="https://www.amcharts.com/lib/3/themes/patterns.js"></script>
+
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script
+	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
 <script language="javascript"
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=8eea4abd-531c-3ca0-b3de-daa4dcc5878e"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!--jQuery Flot Chart-->
+<script src="js/flot-chart/jquery.flot.js"></script>
+<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+<script src="js/flot-chart/jquery.flot.resize.js"></script>
+<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 <script type="text/javascript">
 	var map, markerLayer;
 
@@ -99,16 +137,25 @@
 	};
 
 	// 티맵에 마커를 표시하는 메소드
-	function makeMarker(lonList, latList, shopCodeList) {
+	function makeMarker(lonList, latList, shopCodeList, shopStateList) {
 		map.setCenter(new Tmap.LonLat(lonList[0], latList[0]), 16);
 		addMarkerLayer();
+		var icon;
 		for (var i = 0; i < lonList.length; i++) {
 			var lonlat = new Tmap.LonLat(lonList[i], latList[i]);
 			var size = new Tmap.Size(12, 19);
 			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
-			var icon = new Tmap.IconHtml(
-					'<button data-type = "marker" data-source="'+shopCodeList[i]+'" class="btn btn-danger" type="button">2</button>',
-					size, offset);
+			if (shopCodeList[i] == 0) {
+				icon = new Tmap.IconHtml(
+						'<img alt="" src="images/sales/견적마커.png">', size,
+						offset);
+			} else {
+				icon = new Tmap.IconHtml(
+						'<img alt="" src="images/sales/수주마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'">',
+						size, offset);
+				/* '<button data-type = "marker" data-source="'+shopCodeList[i]+'" class="btn btn-danger" type="button">'
+						+ shopStateList[i] + '</button>', size, offset); */
+			}
 			var marker = new Tmap.Markers(lonlat, icon);
 			markerLayer.addMarker(marker);
 		}
@@ -547,14 +594,18 @@
 		var lonList = new Array();
 		var latList = new Array();
 		var shopCodeList = new Array();
+		var shopStateList = new Array();
 		<c:forEach items="${addressList}" var="item">
 		lonList.push("${item.lon}");
 		latList.push("${item.lat}");
 		</c:forEach>
-		<c:forEach items="${shopCodelist}" var="item">
+		<c:forEach items="${shopCodeList}" var="item">
 		shopCodeList.push("${item}");
 		</c:forEach>
-		makeMarker(lonList, latList, shopCodeList);
+		<c:forEach items="${shopStateList}" var="item">
+		shopStateList.push("${item}");
+		</c:forEach>
+		makeMarker(lonList, latList, shopCodeList, shopStateList);
 	}
 
 	$(function() {
@@ -576,7 +627,6 @@
 		$('.allEstimateView').on('click', allEstimateViewFunction);
 		$('.allContractView').on('click', allEstimateViewFunction);
 		$('.allReleaseView').on('click', allEstimateViewFunction);
-		$('#processFormAddBtn').on('click', estimateAddFunction);
 		$('#견적').on('click', function() {
 			$('.current').removeClass("current");
 			$('#견적 >a').addClass("current");
@@ -814,7 +864,8 @@
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="KPIMain">KPI 조회</a></li>
+								<li><a href="compareMain">영업 비교 페이지</a></li>
+								<li><a href="productMain">상품 비교 페이지</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -896,7 +947,7 @@
 																</div>
 															</div>
 															<div class="col-md-6">
-																<div class="panel-body" id="map-canvas"></div>
+																<div id="chartdiv1"></div>
 															</div>
 														</div>
 													</div>
@@ -913,7 +964,6 @@
 
 																	</ul>
 																</div>
-																<button type="button" class="btn btn-default">Default</button>
 															</div>
 														</div>
 														<div class="row">
@@ -921,34 +971,8 @@
 																<div class="prf-box prf-kpi">
 																	<h3 class="prf-border-head">work in progress</h3>
 																	<div class=" wk-progress salesClass"></div>
-																	<div class=" wk-progress earnClass">
-																		<div class="col-md-5">Graphics River</div>
-																		<div class="col-md-5">
-																			<div class="progress ">
-																				<div style="width: 57%" aria-valuemax="100"
-																					aria-valuemin="0" aria-valuenow="40"
-																					role="progressbar"
-																					class="progress-bar progress-bar-success">
-																					<span class="sr-only">57% Complete (success)</span>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-2">57%</div>
-																	</div>
-																	<div class=" wk-progress realEarnClass">
-																		<div class="col-md-5">Code Canyon</div>
-																		<div class="col-md-5">
-																			<div class="progress ">
-																				<div style="width: 20%" aria-valuemax="100"
-																					aria-valuemin="0" aria-valuenow="40"
-																					role="progressbar"
-																					class="progress-bar progress-bar-info">
-																					<span class="sr-only">20% Complete (success)</span>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="col-md-2">20%</div>
-																	</div>
+																	<div class=" wk-progress earnClass"></div>
+																	<div class=" wk-progress realEarnClass"></div>
 																</div>
 																<div class="prf-box">
 																	<h3 class="prf-border-head">performance status</h3>
@@ -962,9 +986,7 @@
 																	</div>
 																	<div class=" wk-progress pf-status ">
 																		<div class="col-md-8 col-xs-8">Total Earn</div>
-																		<div class="col-md-4 col-xs-4 allEarnText">
-																			<strong>235452344$</strong>
-																		</div>
+																		<div class="col-md-4 col-xs-4 allEarnText"></div>
 																	</div>
 																</div>
 															</div>
@@ -1115,35 +1137,7 @@
 														<div class="row">
 															<div class="col-sm-12">
 																<section class="panel">
-																	<div class="panel-body">
-																		<div class="adv-table">
-																			<button type="button" id="processFormAddBtn"
-																				class="btn btn-round btn-primary">등록</button>
-																			<div class="dataTables_filter"
-																				id="editable-sample_filter">
-																				<label>Search: <input type="text"
-																					id="searchText4" aria-controls="editable-sample"
-																					class="form-control medium"></label>
-																			</div>
-																			<table
-																				class="display table table-bordered table-striped"
-																				id="dynamic-table">
-																				<thead>
-																					<tr>
-																						<th>주문번호</th>
-																						<th>거래처명</th>
-																						<th>담당자</th>
-																						<th>납입기한</th>
-																						<th>금액</th>
-																						<th>종결여부</th>
-																					</tr>
-																				</thead>
-																				<tbody id="processListForm">
-
-																				</tbody>
-																			</table>
-																		</div>
-																	</div>
+																	<div class="panel-body" id="processListForm"></div>
 																</section>
 															</div>
 														</div>
@@ -1246,54 +1240,55 @@
 									</div>
 									<!-- modal -->
 									<div class="form">
-										<div class="form-group ">
-											<label for="shopName" class="control-label col-lg-3">거래처</label>
-											<div class="col-lg-6">
-												<input class=" form-control" id="shopName" name="shopName"
-													type="text" readonly="readonly" style="width: 236px;" />
+										<div class="col-sm-6">
+											<div class="form-group ">
+												<label for="shopName" class="control-label col-lg-3">거래처</label>
+												<div class="col-lg-6">
+													<input class=" form-control" id="shopName" name="shopName"
+														type="text" readonly="readonly" style="width: 236px;" />
+												</div>
+											</div>
+											<div class="form-group ">
+												<label for="staffName" class="control-label col-lg-3">담당자</label>
+												<div class="col-lg-6">
+													<a data-toggle="modal" href="#myModal1"><input
+														class=" form-control" id="staffName" name="staffName"
+														type="text" readonly="readonly" style="width: 236px;" /></a>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label for="warehouseName" class="control-label col-lg-3">출하창고</label>
+												<div class="col-lg-6">
+													<a data-toggle="modal" href="#myModal2"><input
+														class="form-control " id="warehouseName"
+														name="warehouseName" readonly="readonly" type="text"
+														style="width: 236px;" /></a>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3">유효기간</label>
+												<div class="col-lg-6 col-xs-11">
+													<input id="processTerm" name="processTerm"
+														class="form-control form-control-inline input-medium default-date-picker"
+														size="16" type="text" readonly="readonly" value=""
+														style="width: 236px;" />
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-md-3">납품종료일</label>
+												<div class="col-lg-6 col-xs-11">
+													<input id="processEndDate" name="processEndDate"
+														class="form-control form-control-inline input-medium default-date-picker"
+														size="16" type="text" readonly="readonly" value=""
+														style="width: 236px;" />
+												</div>
 											</div>
 										</div>
-										<div class="form-group ">
-											<label for="staffName" class="control-label col-lg-3">담당자</label>
-											<div class="col-lg-6">
-												<a data-toggle="modal" href="#myModal1"><input
-													class=" form-control" id="staffName" name="staffName"
-													type="text" readonly="readonly" style="width: 236px;" /></a>
-											</div>
+										<div class="col-sm-6">
+											<section class="panel">
+												<div class="panel-body" id="mae-dynamic-table"></div>
+											</section>
 										</div>
-										<div class="form-group ">
-											<label for="warehouseName" class="control-label col-lg-3">출하창고</label>
-											<div class="col-lg-6">
-												<a data-toggle="modal" href="#myModal2"><input
-													class="form-control " id="warehouseName"
-													name="warehouseName" readonly="readonly" type="text"
-													style="width: 236px;" /></a>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="control-label col-md-3">유효기간</label>
-											<div class="col-lg-6 col-xs-11">
-												<input id="processTerm" name="processTerm"
-													class="form-control form-control-inline input-medium default-date-picker"
-													size="16" type="text" readonly="readonly" value=""
-													style="width: 236px;" />
-											</div>
-										</div>
-										<div class="form-group ">
-											<label class="control-label col-md-3">납품종료일</label>
-											<div class="col-lg-6 col-xs-11">
-												<input id="processEndDate" name="processEndDate"
-													class="form-control form-control-inline input-medium default-date-picker"
-													size="16" type="text" readonly="readonly" value=""
-													style="width: 236px;" />
-											</div>
-										</div>
-									</div>
-									<div class="dataTables_filter" id="editable-sample_filter">
-										<a data-toggle="modal" href="#myModal3"><button
-												type="button" id="productSelectbutton" class="btn btn-info ">
-												<i class="fa fa-refresh"></i> 상품검색
-											</button></a>
 									</div>
 									<table class="table  table-hover general-table">
 										<thead>
@@ -1314,6 +1309,13 @@
 											<button id="processSaveBtn" type="button"
 												class="btn btn-info popovers">Save</button>
 											<button class="btn btn-default" type="button">Cancel</button>
+											<div class="dataTables_filter" id="editable-sample_filter">
+												<a data-toggle="modal" href="#myModal3"><button
+														type="button" id="productSelectbutton"
+														class="btn btn-info ">
+														<i class="fa fa-refresh"></i> 상품검색
+													</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -1327,16 +1329,57 @@
 		<!--main content end-->
 
 	</section>
+	<!-- Chart code -->
+	<script>
+		var chart = AmCharts.makeChart("chartdiv1", {
+			"type" : "pie",
+			"theme" : "light",
+			"dataProvider" : [ {
+				"country" : "Lithuania",
+				"litres" : 501.9
+			}, {
+				"country" : "Czech Republic",
+				"litres" : 301.9
+			}, {
+				"country" : "Ireland",
+				"litres" : 201.1
+			}, {
+				"country" : "Germany",
+				"litres" : 165.8
+			}, {
+				"country" : "Australia",
+				"litres" : 139.9
+			}, {
+				"country" : "Austria",
+				"litres" : 128.3
+			}, {
+				"country" : "UK",
+				"litres" : 99
+			}, {
+				"country" : "Belgium",
+				"litres" : 60
+			}, {
+				"country" : "The Netherlands",
+				"litres" : 50
+			} ],
+			"valueField" : "litres",
+			"titleField" : "country",
+			"balloon" : {
+				"fixedPosition" : true
+			},
+			"export" : {
+				"enabled" : true
+			}
+		});
+	</script>
 	<script type="text/javascript">
 		function goPopup() {
 			// 주소검색을 수행할 팝업 페이지를 호출합니다.
 			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
 			var pop = window.open("jusoPopuo", "pop",
 					"width=570,height=420, scrollbars=yes, resizable=yes");
-
-			// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-			//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 		}
+
 		function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail,
 				roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn,
 				bdMgtSn, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm,
@@ -1353,9 +1396,17 @@
 
 		function processViewFunctionSuccess(resp) {
 			var salAmount = 0;
-			var processLocationText = '';
+			var processLocationText = '<div class="adv-table">'
+					+ '<button type="button" id="processFormAddBtn" class="btn btn-round btn-primary">등록</button>'
+					+ '<table class="dynamic-table display table table-bordered table-striped" id="dynamic-table">'
+					+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th>'
+					+ '</tr></thead><tbody>'
 			for (var i = 0; i < resp.length; i++) {
-				processLocationText += '<a data-toggle="modal" href="#myModal4"><tr id="'+resp[i].processCode+'">';
+				if (i % 2 != 0) {
+					processLocationText += '<a data-toggle="modal" href="#myModal4"><tr class = "gradeX odd" id="'+resp[i].processCode+'">';
+				} else {
+					processLocationText += '<a data-toggle="modal" href="#myModal4"><tr class = "gradeX even" id="'+resp[i].processCode+'">';
+				}
 				processLocationText += '<td>'
 				processLocationText += resp[i].processCode;
 				processLocationText += '</td>'
@@ -1384,9 +1435,15 @@
 				processLocationText += '</td>';
 				processLocationText += '</tr></a>';
 			}
+			processLocationText += '</tbody></table></div>'
 
 			$('#processListForm').html(processLocationText);
+
+			$('.dynamic-table').dataTable({
+				"aaSorting" : [ [ 4, "desc" ] ]
+			});
 			$('#processListForm tr').on('click', nowEstimateSearchFunction);
+			$('#processFormAddBtn').on('click', estimateAddFunction);
 
 		}
 
@@ -1394,7 +1451,6 @@
 		function processViewFunction() {
 
 			var shopCodeText = $('.settings').attr('data-shopCode');
-			alert(shopCodeText);
 			var processText = $('.current').parents().attr('data-processName');
 			var searchText = $('#searchText4').val();
 			var processCode = {
@@ -1473,15 +1529,17 @@
 					+ resp[2] + '</p></br>';
 			$('.profile-desk').html(shopDetailHearderText);
 
-			var shopDetailEarnText = '<h1>' + resp[4] + '</h1>'
-					+ '<p>This Month Sales</p>' + '<h1>' + resp[5] + '</h1>'
-					+ '<p>This Monthh Earn</p>'
+			var shopDetailEarnText = '<h1>' + AddComma(resp[4]) + '</h1>'
+					+ '<p>This Month Sales</p>' + '<h1>' + AddComma(resp[5])
+					+ '</h1>' + '<p>This Month Earn</p>' + '<h1>'
+					+ AddComma(resp[6]) + '</h1>'
+					+ '<p>This Month Gross Margin</p>'
 			$('.profile-statistics').html(shopDetailEarnText);
 		}
 
 		// 마커 클릭시 이벤트
 		function chan() {
-			$('div>button[data-type = "marker"]').on(
+			$('div>img[data-type = "marker"]').on(
 					'click',
 					function() {
 						var el = $('.panel .tools .menuForm').parents(".panel")
@@ -1551,6 +1609,7 @@
 			});
 		}
 
+		//등록 버튼 눌렀을 때 메소드
 		function estimateAddFunction() {
 			$('#processFormDiv').removeAttr('style');
 			var el = $('.panel .tools .processForm').parents(".panel")
@@ -1561,9 +1620,89 @@
 				el.slideDown(200);
 			}
 			var shopText = $('#shopNameText').attr('data-shopName');
-			alert(shopText);
 			$('#shopName').val(shopText);
-			processViewFunction;
+			processViewFunction();
+
+			$
+					.ajax({
+						url : 'processViewFunction',
+						method : 'get',
+						data : {
+							'shopCode' : shopCode,
+							'processName' : processName
+						},
+						dataType : 'json',
+						success : function(resp) {
+							var salAmount = 0;
+							var processLocationText = '<div class="adv-table">'
+									+ '<table class="dynamic-table display table table-bordered table-striped">'
+									+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th></tr>	</thead>'
+									+ '<tbody>';
+							for (var i = 0; i < resp.length; i++) {
+								processLocationText += '<a data-toggle="modal" href="#myModal4"><tr id="'+resp[i].processCode+'">';
+								processLocationText += '<td>'
+								processLocationText += resp[i].processCode;
+								processLocationText += '</td>'
+								processLocationText += '<td class="hidden-phone">'
+								processLocationText += resp[i].shopName;
+								processLocationText += '</td>'
+								processLocationText += '<td>'
+								processLocationText += resp[i].staffName;
+								processLocationText += '</td>';
+								processLocationText += '<td>';
+								processLocationText += resp[i].processTerm
+								processLocationText += '</td>';
+								for (var j = 0; j < resp[i].supplyList.length; j++) {
+									salAmount = salAmount
+											+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
+								}
+								processLocationText += '<td>';
+								processLocationText += salAmount;
+								processLocationText += '</td>'
+								processLocationText += '<td>';
+								if (resp[i].processState == 0) {
+									processLocationText += '진행중';
+								} else {
+									processLocationText += '종료';
+								}
+								processLocationText += '</td>';
+								processLocationText += '</tr></a>';
+							}
+							processLocationText += '</tbody></table></div>';
+
+							$('#mae-dynamic-table').html(processLocationText);
+							$('.dynamic-table').dataTable({
+								"aaSorting" : [ [ 4, "desc" ] ]
+							});
+							$('#mae-dynamic-table tr').on(
+									'click',
+									function() {
+										var processCode = $(this).attr('id');
+										alert(processCode);
+										$.ajax({
+											url : 'processTable',
+											method : 'post',
+											data : {
+												'processCode' : processCode
+											},
+											dataType : 'json',
+											success : function(resp) {
+												$('#staffName').val(
+														resp.staffName);
+												$('#warehouseName').val(
+														resp.warehouseName);
+												$('#processTerm').val(
+														resp.processTerm);
+												$('#processEndDate').val(
+														resp.processEndDate);
+											},
+											error : function() {
+												alert('에러');
+											}
+										});
+									});
+						}
+					});
 		}
 
 		//process 저장하는 메소드
@@ -1647,7 +1786,7 @@
 		}
 
 		var chart;
-		var chartData;
+		var chartData = new Array();
 
 		function zoomChart() {
 			chart.zoomToIndexes(chart.dataProvider.length - 20,
@@ -1672,6 +1811,7 @@
 										.ajax({
 											url : 'chartSelect',
 											method : 'post',
+											async : false,
 											data : {
 												'date' : date,
 												"shopCode" : shopCode
@@ -1687,7 +1827,6 @@
 												var earnList = resp.earnList[0];
 												var salesList = resp.salesList[0];
 												var views = 8700;
-
 												for (var i = 1; i < resp.earnList.length; i++) {
 													var newDate = new Date(
 															firstDate);
@@ -1697,6 +1836,7 @@
 
 													earnList = resp.earnList[i];
 													salesList = resp.salesList[i];
+													alert("뭐지" + newDate);
 													views += Math.round((Math
 															.random() < 0.5 ? 1
 															: -1)
@@ -1712,7 +1852,7 @@
 												}
 
 												chartData = subChartData
-												alert(chartData);
+												alert(subChartData);
 												chart = AmCharts
 														.makeChart(
 																"chartdiv",
@@ -1803,6 +1943,7 @@
 														.ajax({
 															url : 'kpiSelect',
 															method : 'post',
+															async : false,
 															data : {
 																'date' : date,
 																"shopCode" : shopCode
@@ -1912,19 +2053,20 @@
 					$('#shopEmailUpdate').val(resp.shopEmail);
 					$('#shopSNSUpdate').val(resp.shopSNS);
 					$('#addressUpdate').val();
-					
+
 					var d = new Date();
 					var year = d.getFullYear();
-					var month = d.getMonth()+2;
+					var month = d.getMonth() + 2;
 					var bot15Text = '';
-					for(var i = 0; i<12; i++){
-						if(month<=12){
-							bot15Text += '<option>'+year+'-'+(month)+'</option>';
-							month = month+1;
-						}else{
-							year = year+1;
+					for (var i = 0; i < 12; i++) {
+						if (month <= 12) {
+							bot15Text += '<option>' + year + '-' + (month)
+									+ '</option>';
+							month = month + 1;
+						} else {
+							year = year + 1;
 							month = 1;
-							i = i-1;
+							i = i - 1;
 						}
 					}
 
@@ -1935,8 +2077,8 @@
 				}
 			});
 		}
-		
-		function kpiSettingFunction(){
+
+		function kpiSettingFunction() {
 			var shopCode = $('.settings').attr('data-shopCode');
 			var salesKpi = $('#salesKpi').val();
 			var earnKpi = $('#earnKpi').val();
@@ -1944,38 +2086,42 @@
 			var salesEnd = salesKpi.split(';');
 			var earnKpiEnd = earnKpi.split(';');
 			var AllearnKpiEnd = AllearnKpi.split(';');
-			alert(salesEnd[1]);
-			var kpiJson = new Array;
+			var kpiJson = new Array();
 			kpiJson.push(salesEnd[1]);
 			kpiJson.push(earnKpiEnd[1]);
 			kpiJson.push(AllearnKpiEnd[1]);
-			alert(kpiJson);
+			var selector = $('.m-bot15').val();
+			$.ajaxSettings.traditional = true;
 			$.ajax({
-				url : 'kpiSettingFunction'
-				, method : 'post'
-				, data : {'shopCode' : shopCode, 'kpiJson' : kpiJson}
-				, success : function(){
+				url : 'kpiSettingFunction',
+				method : 'post',
+				data : {
+					'shopCode' : shopCode,
+					'kpiJson' : kpiJson,
+					'selector' : selector
+				},
+				success : function() {
 					alert('등록되었습니다.');
 				}
 			});
 		}
+
+		function AddComma(data_value) {
+			return Number(data_value).toLocaleString('en');
+		}
 	</script>
-	<!-- Placed js at the end of the document so the pages load faster -->
 	<!--Core js-->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery-migrate.js"></script>
-	<script src="js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
-
 	<script src="bs3/js/bootstrap.min.js"></script>
 	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script class="include" type="text/javascript"
 		src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/jquery.scrollTo.min.js"></script>
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
+
 	<script src="js/bootstrap-switch.js"></script>
 
 	<script type="text/javascript" src="js/fuelux/js/spinner.min.js"></script>
@@ -1985,7 +2131,6 @@
 		src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 	<script type="text/javascript"
 		src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-
 	<script type="text/javascript"
 		src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript"
@@ -2012,48 +2157,33 @@
 	<script src="js/select2/select2.js"></script>
 	<script src="js/select-init.js"></script>
 
-	<script src="js/skycons/skycons.js"></script>
-	<script src="js/jquery.scrollTo/jquery.scrollTo.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script
-		src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-	<script src="js/gauge/gauge.js"></script>
-	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
-	<script src="js/toggle-init.js"></script>
-	<script src="js/fullcalendar/fullcalendar.min.js"></script>
-	<script src="js/advanced-form.js?version=1"></script>
-	<!--clock init-->
-	<script src="js/css3clock/js/css3clock.js"></script>
 	<!--Easy Pie Chart-->
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
 	<script src="js/sparkline/jquery.sparkline.js"></script>
-	<!--Morris Chart-->
-	<script src="js/morris-chart/morris.js"></script>
-	<script src="js/morris-chart/raphael-min.js"></script>
-	<!--jQuery Flot Chart-->
-	<script src="js/flot-chart/jquery.flot.js"></script>
-	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.animator.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.growraf.js"></script>
-	<script src="js/dashboard.js"></script>
-	<script src="js/jquery.customSelect.min.js"></script>
 
-	<script type="text/javascript"
-		src="js/data-tables/jquery.dataTables.js"></script>
+	<script src="js/iCheck/jquery.icheck.js"></script>
+
+	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+
+	<!--dynamic table-->
+	<script type="text/javascript" language="javascript"
+		src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
-	<!--script for this page-->
 	<script
 		src="js/ion.rangeSlider-1.8.2/js/ion-rangeSlider/ion.rangeSlider.min.js"
 		type="text/javascript"></script>
-	<script src="js/external-dragging-calendar.js"></script>
-	<script src="js/table-editable.js"></script>
-	<script src="js/bootstrap-bootpopup/bootpopup.js"></script>
-	<!-- END JAVASCRIPTS -->
+
+	<!--common script init for all pages-->
+	<script src="js/scripts.js"></script>
+	<script src="js/toggle-init.js"></script>
+	<script src="js/advanced-form.js"></script>
+
+	<!--icheck init -->
+	<script src="js/icheck-init.js"></script>
+
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js?version=1"></script>
 </body>
 </html>

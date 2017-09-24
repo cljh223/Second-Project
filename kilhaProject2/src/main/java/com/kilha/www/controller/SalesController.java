@@ -26,6 +26,7 @@ import com.kilha.www.vo.sal.Address;
 import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
+import com.kilha.www.vo.sal.ProcessTableVo;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyListVo;
@@ -50,13 +51,16 @@ public class SalesController {
 	public String salesMain(Model model) {
 		List<Shop> shopList = rep.markerSelect();
 		List<List<Address>> addressList = new ArrayList<>();
-		List<Integer> shopCodelist = new ArrayList<>();
+		List<Integer> shopCodeList = new ArrayList<>();
+		List<String> shopStateList = new ArrayList<>();
 		for (int i = 0; i < shopList.size(); i++) {
 			addressList.add(shopList.get(i).getAddressSet());
-			shopCodelist.add(shopList.get(i).getShopCode());
+			shopCodeList.add(shopList.get(i).getShopCode());
+			shopStateList.add(shopList.get(i).getShopState());
 		}
-		model.addAttribute("shopCodelist", shopCodelist);
+		model.addAttribute("shopCodeList", shopCodeList);
 		model.addAttribute("addressList", new AddressChange().search(addressList));
+		model.addAttribute("shopStateList", shopStateList);
 		return "sales/selIndex";
 	}
 
@@ -185,10 +189,11 @@ public class SalesController {
 		String lateProcess = "아직 없습니다.";
 		int sumPrice = 0;
 		int sumSales = 0;
+		int sumUnitPrice = 0;
 		String gubun = "yes";
 		int process = rep.processSelect(shopCode);
 		System.out.println(process);
-		if(process == 0){
+		if (process == 0) {
 			gubun = "no";
 		}
 		Map map = new HashMap<>();
@@ -197,8 +202,8 @@ public class SalesController {
 		List<SupplyVo> supplyList = rep.shopDetailSelect(map);
 		System.out.println(supplyList);
 		List list = new ArrayList<>();
-		if(gubun.equals("yes")){
-			endDate = supplyList.get(supplyList.size()-1).getProcessEndDate();
+		if (gubun.equals("yes")) {
+			endDate = supplyList.get(supplyList.size() - 1).getProcessEndDate();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				Date insertDate = formatter.parse(supplyList.get(0).getProcessInsertDate());
@@ -217,12 +222,15 @@ public class SalesController {
 				for (SupplyVo vo : supplyList) {
 					int sumTemp = 0;
 					int sumSalesTemp = 0;
+					int sumUnitPriceTemp = 0;
 					for (SupplyListVo listVo : vo.getSupplyList()) {
 						sumTemp += listVo.getSupplyPrice() * listVo.getSupplyVolume();
 						sumSalesTemp += listVo.getSupplyVolume();
+						sumUnitPriceTemp += listVo.getProductUnitPrice();
 					}
 					sumPrice += sumTemp;
 					sumSales += sumSalesTemp;
+					sumUnitPrice += sumUnitPriceTemp;
 				}
 
 			} catch (ParseException e) {
@@ -237,36 +245,33 @@ public class SalesController {
 		list.add(lateProcess);
 		list.add(sumSales);
 		list.add(sumPrice);
+		list.add(sumUnitPrice);
 		return list;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("contactsViewFunction")
-	public SupplyVo contactsViewFunction(int shopCode){
+	public SupplyVo contactsViewFunction(int shopCode) {
 		return rep.contactsViewFunction(shopCode);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("processViewFunction")
 	public List<SupplyVo> processViewFunction(
-			@RequestParam(value = "processName", defaultValue = "") String processName,
-			String shopCode,
-			@RequestParam(value = "searchText", defaultValue = "") String searchText
-			){
+			@RequestParam(value = "processName", defaultValue = "") String processName, String shopCode,
+			@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		Map processListMap = new HashMap<>();
 		processListMap.put("processName", processName);
-		System.out.println(processName);
+		System.out.println(shopCode);
 		processListMap.put("shopCode", shopCode);
 		processListMap.put("searchText", searchText);
-		System.out.println(rep.processViewFunction(processListMap));
 		return rep.processViewFunction(processListMap);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "chartSelect", method = RequestMethod.POST)
-	public Map<String, List> chartSelect(
-			@RequestParam(value = "date", defaultValue = "2017-01") String date, 
-			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode){
+	public Map<String, List> chartSelect(@RequestParam(value = "date", defaultValue = "2017-01") String date,
+			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
 		codeMap.put("shopCode", shopCode);
@@ -274,12 +279,12 @@ public class SalesController {
 		Map<String, List> map = new HashMap<>();
 		ArrayList<Integer> salesList = new ArrayList<>();
 		ArrayList<Integer> earnList = new ArrayList<>();
-		for(Process p : processList){
+		for (Process p : processList) {
 			int salesSum = 0;
 			int earnSum = 0;
-			for(Supply vo : p.getSupplySet()){
+			for (Supply vo : p.getSupplySet()) {
 				salesSum += vo.getSupplyVolume();
-				earnSum +=vo.getSupplyVolume()*vo.getSupplyPrice();
+				earnSum += vo.getSupplyVolume() * vo.getSupplyPrice();
 			}
 			earnList.add(earnSum);
 			salesList.add(salesSum);
@@ -288,81 +293,121 @@ public class SalesController {
 		map.put("salesList", salesList);
 		return map;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="overviewIntiFunction", method = RequestMethod.POST)
-	public Map<String, List<String>> overviewIntiFunction(int shopCode){
+	@RequestMapping(value = "overviewIntiFunction", method = RequestMethod.POST)
+	public Map<String, List<String>> overviewIntiFunction(int shopCode) {
 		Map<String, List<String>> map = new HashMap<>();
 		List<String> list = rep.overviewIntiFunction(shopCode);
 		ArrayList<String> yearList = new ArrayList<>();
 		String yearTemp = null;
-		for(String s : list){
-			String tempArray [] = s.split("-");
-			yearTemp = tempArray[0] +"-"+tempArray[1];
+		for (String s : list) {
+			String tempArray[] = s.split("-");
+			yearTemp = tempArray[0] + "-" + tempArray[1];
 			boolean stResult = true;
-			for(String st : yearList){
-				if(yearTemp.equals(st)){
+			for (String st : yearList) {
+				if (yearTemp.equals(st)) {
 					stResult = false;
 					break;
 				}
 			}
-			if(stResult){
+			if (stResult) {
 				yearList.add(yearTemp);
 			}
 		}
 		map.put("yearList", yearList);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "kpiSelect", method = RequestMethod.POST)
-	public Map<String ,Kpidivision> kpiSelect(
-			@RequestParam(value = "date", defaultValue = "2017-01") String date, 
-			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode){
+	public Map<String, Kpidivision> kpiSelect(@RequestParam(value = "date", defaultValue = "2017-01") String date,
+			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
 		codeMap.put("shopCode", shopCode);
 		List<Kpidivision> kpiList = rep.kpiSelect(codeMap);
-		System.out.println(kpiList);
 		Map resultList = new HashMap<>();
-		for(Kpidivision k : kpiList){
-			if(k.getKpidivisionCode()==0) resultList.put("salse", k);
-			else if(k.getKpidivisionCode()==1) resultList.put("earn", k);
-			else if(k.getKpidivisionCode()==2) resultList.put("allEarn", k);
+		for (Kpidivision k : kpiList) {
+			if (k.getKpidivisionCode() == 0)
+				resultList.put("salse", k);
+			else if (k.getKpidivisionCode() == 1)
+				resultList.put("earn", k);
+			else if (k.getKpidivisionCode() == 2)
+				resultList.put("allEarn", k);
 		}
-		Map<String, List> list = chartSelect(date,shopCode);
+		Map<String, List> list = chartSelect(date, shopCode);
 		List<Integer> salesList = list.get("salesList");
 		List<Integer> earnList = list.get("earnList");
 		long sumSales = 0;
 		long sumEarn = 0;
-		for(Integer i : salesList){
-			sumSales+=i;
+		for (Integer i : salesList) {
+			sumSales += i;
 		}
-		for(Integer t : earnList){
-			sumEarn+=t;
+		for (Integer t : earnList) {
+			sumEarn += t;
 		}
 		resultList.put("sumSales", sumSales);
 		resultList.put("sumEarn", sumEarn);
 		return resultList;
 	}
-	
+
 	@RequestMapping(value = "jusoPopuo", method = RequestMethod.GET)
 	public String jusoPopuo() {
-		
+
 		return "sales/jusoPopup";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "updateViewFunction", method = RequestMethod.POST)
-	public Shop updateViewFunction(int shopCode){
+	public Shop updateViewFunction(int shopCode) {
 		return rep.updateViewFunction(shopCode);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "kpiSettingFunction", method = RequestMethod.POST)
-	public int kpiSettingFunction(int shopCode, int[] kpiJson){
-		System.out.println("나보도 잘한데 : "+kpiJson);
-		return rep.kpiSettingFunction(shopCode);
+	public int kpiSettingFunction(int shopCode, @RequestParam(value = "kpiJson", required = true) List<Integer> kpiJson,
+			String selector) {
+		Map map = new HashMap<>();
+		map.put("shopCode", shopCode);
+		selector += "-01";
+		map.put("selector", selector);
+		int count = 0;
+		for (int i = 0; i < 3; i++) {
+			map.put("kpiJson", kpiJson.get(i));
+			map.put("index", i);
+			count += rep.kpiSettingFunction(map);
+		}
+		return count;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "processTable", method = { RequestMethod.POST, RequestMethod.GET })
+	public ProcessTableVo processTable(String processCode) {
+		System.out.println("123" + processCode);
+		return rep.processTable(processCode);
+	}
+
+	@RequestMapping("compareMain")
+	public String compareMain(Model model) {
+		List<Shop> shopList = rep.markerSelect();
+		List<List<Address>> addressList = new ArrayList<>();
+		List<Integer> shopCodeList = new ArrayList<>();
+		List<String> shopStateList = new ArrayList<>();
+		for (int i = 0; i < shopList.size(); i++) {
+			addressList.add(shopList.get(i).getAddressSet());
+			shopCodeList.add(shopList.get(i).getShopCode());
+			shopStateList.add(shopList.get(i).getShopState());
+		}
+		model.addAttribute("shopCodeList", shopCodeList);
+		model.addAttribute("addressList", new AddressChange().search(addressList));
+		model.addAttribute("shopStateList", shopStateList);
+		return "sales/Compare";
 	}
 	
+	@RequestMapping("productMain")
+	public String productMain(){
+		return "sales/productCompare";
+	}
+
 }

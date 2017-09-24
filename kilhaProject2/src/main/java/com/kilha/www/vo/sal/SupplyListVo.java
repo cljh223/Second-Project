@@ -1,21 +1,31 @@
 package com.kilha.www.vo.sal;
 
 public class SupplyListVo {
-	
+
 	private String productCode;
 
 	private String productName;
-	
+
 	private String productUnit;
-	
+
 	private String processCode;
 
 	private Integer supplyVolume;
 
 	private Integer supplyPrice;
 
+	private Integer productUnitPrice;
+
 	public SupplyListVo() {
 		super();
+	}
+
+	public Integer getProductUnitPrice() {
+		return productUnitPrice;
+	}
+
+	public void setProductUnitPrice(Integer productUnitPrice) {
+		this.productUnitPrice = productUnitPrice;
 	}
 
 	public String getProductCode() {
@@ -74,6 +84,7 @@ public class SupplyListVo {
 		result = prime * result + ((productCode == null) ? 0 : productCode.hashCode());
 		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ((productUnit == null) ? 0 : productUnit.hashCode());
+		result = prime * result + ((productUnitPrice == null) ? 0 : productUnitPrice.hashCode());
 		result = prime * result + ((supplyPrice == null) ? 0 : supplyPrice.hashCode());
 		result = prime * result + ((supplyVolume == null) ? 0 : supplyVolume.hashCode());
 		return result;
@@ -108,6 +119,11 @@ public class SupplyListVo {
 				return false;
 		} else if (!productUnit.equals(other.productUnit))
 			return false;
+		if (productUnitPrice == null) {
+			if (other.productUnitPrice != null)
+				return false;
+		} else if (!productUnitPrice.equals(other.productUnitPrice))
+			return false;
 		if (supplyPrice == null) {
 			if (other.supplyPrice != null)
 				return false;
@@ -125,8 +141,7 @@ public class SupplyListVo {
 	public String toString() {
 		return "SupplyListVo [productCode=" + productCode + ", productName=" + productName + ", productUnit="
 				+ productUnit + ", processCode=" + processCode + ", supplyVolume=" + supplyVolume + ", supplyPrice="
-				+ supplyPrice + "]";
+				+ supplyPrice + ", productUnitPrice=" + productUnitPrice + "]";
 	}
-	
-	
+
 }

@@ -13,6 +13,7 @@ import com.kilha.www.vo.logistics.Stock;
 import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
+import com.kilha.www.vo.sal.ProcessTableVo;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyVo;
@@ -141,9 +142,14 @@ public class MapRep {
 		return dao.updateViewFunction(shopCode);
 	}
 
-	public int kpiSettingFunction(int shopCode) {
+	public int kpiSettingFunction(Map map) {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
-		return dao.kpiSettingFunction(shopCode);
+		return dao.kpiSettingFunction(map);
+	}
+
+	public ProcessTableVo processTable(String processCode) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.processTable(processCode);
 	}
 }
