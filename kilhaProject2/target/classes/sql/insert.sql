@@ -11,46 +11,6 @@ INSERT INTO warehouse VALUES
 	, '잠실창고'
 	, '물류창고'
 );
-
-insert into shop values
-(
-	shop_code_SEQ.nextval
-	, '위드미 스타필드코엑스몰4호점'
-	, '920223-11111111'
-	, '조준석'
-	, '02-909-0031'
-	, 1
-	, 'cljh223@naver.com'
-	, 'cljh223@naver.com'
-	, '대형 마트'
-);
-
-insert into shop values
-(
-	shop_code_SEQ.nextval
-	, '이마트24 스타필드코엑스몰1호점'
-	, '785695-11111111'
-	, '정우석'
-	, '03-4563-1235'
-	, 2
-	, 'cljh223@naver.com'
-	, 'cljh223@naver.com'
-	, '대형 마트'
-);
-
-insert into shop values
-(
-	shop_code_SEQ.nextval
-	, '잠실 롯데백화점'
-	, '352642-4569853'
-	, '은지쏭'
-	, '02-4532-7856'
-	, 0
-	, 'cljh223@naver.com'
-	, 'cljh223@naver.com'
-	, '대형 마트'
-);
-
 INSERT INTO product VALUES
 (
 	'my00001'
@@ -71,36 +31,6 @@ INSERT INTO product VALUES
 	, 'bbb'
 	, 'box'
 	, '45000'
-);
-
-insert into address values
-(
-	'06164'
-	, '서울특별시'
-	, '강남구'
-	, '봉은사로 524'
-	, ''
-	, 1
-);
-
-insert into address values
-(
-	'06164'
-	, '서울특별시'
-	, '강남구'
-	, '영동대로 513'
-	, '삼성동코엑스'
-	, 2
-);
-
-insert into address values
-(
-	'05554'
-	, '서울'
-	, '송파구'
-	, '올림픽로 240'
-	, ''
-	, 3
 );
 
 insert into staff values

@@ -278,23 +278,6 @@ CREATE TABLE Pur_RM_daily_price
 	RMvolume number(12) NOT NULL
 );
 
-
-CREATE TABLE factory
-(
-	-- 각 공장을 식별할 수 있는 고유 번호
-	fc_num number NOT NULL,
-	-- 해당 공장의 이름
-	fac_name varchar2(50) NOT NULL,
-	-- 해당 공장의 주소
-	fac_address varchar2(50) NOT NULL,
-	-- 해당 공장의 전화번호
-	fac_tel varchar2(50) NOT NULL,
-	-- 해당 공장이 생산할 수 있는 최대 생산량
-	maxamount number NOT NULL,
-	PRIMARY KEY (fc_num)
-);
-
-
 CREATE TABLE dailyproduct
 (
 	-- 해당 일자에 생산된 라면 1개의 고유 식별 번호
@@ -338,30 +321,6 @@ CREATE TABLE productinfo
 	-- 해당 제품이 생산된 날짜
 	production_date date NOT NULL,
 	PRIMARY KEY (info_num)
-);
-
-
-CREATE TABLE ramen
-(
-	-- 해당 라면 상품을 식별하는 고유 번호
-	r_num varchar2(10) NOT NULL,
-	-- 해당 라면 상품의 상품명
-	r_name varchar2(50) NOT NULL,
-	-- 해당 라면 상품이 생산된 공장명
-	r_factory varchar2(20) NOT NULL,
-	-- 해당 상품이 생산되는 생산 라인의 식별 번호
-	line_num varchar2(20) NOT NULL,
-	-- 양품 판정을 받을 수 있는 규격 상한
-	usl number NOT NULL,
-	-- 양품 판정을 받을 수 있는 규격 하한
-	lsl number NOT NULL,
-	-- 생산 계획상 설비를 가동해야 할 시간
-	loadtime number NOT NULL,
-	-- 제품이 하나 생산되는 데 걸리는 기본 시간
-	standardtime number NOT NULL,
-	-- 공장이 가동되는 시간(24시간 기준)
-	operatingtime number,
-	PRIMARY KEY (r_num)
 );
 
 

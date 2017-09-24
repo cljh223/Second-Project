@@ -314,7 +314,7 @@
 		SELECT
 		s.shop_name, a.address_detail1, a.address_detail2,
 		a.address_detail3, a.address_detail4, s.shop_rep,
-		s.shop_tel
+		s.shop_tel, s.shop_code
 		<if test="gubun =='no'">
 			FROM shop s INNER JOIN address a
 			ON s.shop_code =
@@ -468,5 +468,18 @@
 		ON s.staff_code = p.staff_code AND p.process_code = #{processCode}
 		INNER JOIN warehouse w
 		ON w.warehouse_code = p.warehouse_code
+	</select>
+	
+	<select id="shopDetailSelect2" resultMap="ShopMap">
+		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
+		a.address_detail2, a.address_detail3, a.address_detail4
+		FROM shop s INNER JOIN address a
+		ON s.shop_code = a.shop_code
+	</select>
+	
+	<select id="compareChartDateFunction" parameterType="int" resultMap="SupplyVoMap">
+		SELECT s.process_code, s.supply_volume, s.supply_price, p.process_end_date
+		FROM process p INNER JOIN supply s ON p.process_code = s.process_code
+		INNER JOIN shop s ON s.shop_code = p.shop_code AND s.shop_code = #{shopCode}
 	</select>
 </mapper>

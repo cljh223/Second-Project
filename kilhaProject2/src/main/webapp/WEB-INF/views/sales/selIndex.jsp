@@ -644,7 +644,7 @@
 		});
 		$(".range_2").ionRangeSlider();
 		$('.mtop10').on('click', kpiSettingFunction);
-
+		$('#shopSearchFormBtn').on('click', shopSearchFormFunction);
 	});
 </script>
 </head>
@@ -877,6 +877,25 @@
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="row">
+					<div class="col-sm-12">
+						<input id="searchKeyword" type="text" class="form-control">
+						<button id="shopSearchFormBtn" type="button"
+							class="btn btn-danger">Sign in</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8" style="width: 100%; height: 650px";>
+						<section class="panel" style="height: 450px">
+							<header class="panel-heading">
+								Earning Graph <span class="tools pull-right"> <a
+									href="javascript:;" class="fa fa-chevron-down"></a>
+								</span>
+							</header>
+							<div class="panel-body" id="shopSearchFormTable"></div>
+						</section>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-8" style="width: 100%; height: 650px";>
 						<section class="panel" style="height: 450px">
 							<header class="panel-heading">
@@ -961,7 +980,6 @@
 																		Date <span class="caret"></span>
 																	</button>
 																	<ul role="menu" class="dropdown-menu yearMenu">
-
 																	</ul>
 																</div>
 															</div>
@@ -2108,6 +2126,79 @@
 
 		function AddComma(data_value) {
 			return Number(data_value).toLocaleString('en');
+		}
+
+		function shopSearchFormFunction() {
+			var searchKeyword = $('#searchKeyword').val();
+			$
+					.ajax({
+						url : 'poiInfo',
+						method : 'get',
+						data : {
+							'searchKeyword' : searchKeyword
+						},
+						dataType : 'json',
+						success : function(resp) {
+							var salAmount = 0;
+							var processLocationText = '<div class="adv-table">'
+									+ '<table id = "shopSearchTable" class="dynamic-table display table table-bordered table-striped">'
+									+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th></tr>	</thead>'
+									+ '<tbody>';
+							$.each(resp.name, function(index, value) {
+								processLocationText += '<tr data-lon="'+resp.lon[index]+'" data-lat = "'+resp.lat[index]+'">';
+								processLocationText += '<td>'
+								processLocationText += resp.name[index];
+								processLocationText += '</td>'
+								processLocationText += '<td class="hidden-phone">'
+								processLocationText += resp.lon[index];
+								processLocationText += '</td>'
+								processLocationText += '<td>'
+								processLocationText += resp.lat[index];
+								processLocationText += '</td>';
+								processLocationText += '</tr></a>';
+							});
+							processLocationText += '</tbody></table></div>';
+							$('#shopSearchFormTable').html(processLocationText);
+							
+							/* $('.dynamic-table')
+							.dataTable(
+									{
+										"aaSorting" : [ [
+												4,
+												"desc" ] ]
+									});
+							 */
+							 
+							$('#shopSearchTable tr').on('click', function(){
+								var map = new Tmap.Map({
+									div : "shopSearchFormTable",
+									width : '100%',
+									height : '600px'
+								});
+								map.addControl(new Tmap.Control.MousePosition());
+								
+								var lon = $(this).attr('data-lon');
+								var lat = $(this).attr('data-lat');
+								alert(lon);
+								alert(lat);
+								map.setCenter(new Tmap.LonLat(lon, lat), 16);
+								addMarkerLayer();
+								var icon;
+									var lonlat = new Tmap.LonLat(lon, lat);
+									var size = new Tmap.Size(12, 19);
+									var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+										icon = new Tmap.IconHtml(
+												'<img alt="" src="images/sales/수주마커.png" data-type = "marker">',
+												size, offset);
+									var marker = new Tmap.Markers(lonlat, icon);
+									markerLayer.addMarker(marker);
+								});
+								chan();
+						}
+						,error : function(){
+							alert('유정이 바보');
+						}
+					});
 		}
 	</script>
 	<!--Core js-->

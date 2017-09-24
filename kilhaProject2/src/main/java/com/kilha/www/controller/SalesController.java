@@ -102,6 +102,7 @@ public class SalesController {
 			String processEndDate, String shopCode, String processName, String[] productCode, int[] supplyVolume,
 			int[] supplyPrice) {
 		Map<String, String> processMap = new HashMap<>();
+		System.out.println(shopCode);
 		String message = "";
 		processMap.put("staffName", staffName);
 		processMap.put("warehouseName", warehouseName);
@@ -183,7 +184,8 @@ public class SalesController {
 
 	@ResponseBody
 	@RequestMapping("shopDetailSelect")
-	public List<SupplyVo> shopDetailSelect(int shopCode, Model model) {
+	public List<SupplyVo> shopDetailSelect(
+			@RequestParam(value = "shopCode", defaultValue = "0") int shopCode, Model model) {
 		String endDate = "";
 		long shopTerm = 0;
 		String lateProcess = "아직 없습니다.";
@@ -192,7 +194,6 @@ public class SalesController {
 		int sumUnitPrice = 0;
 		String gubun = "yes";
 		int process = rep.processSelect(shopCode);
-		System.out.println(process);
 		if (process == 0) {
 			gubun = "no";
 		}
@@ -408,6 +409,19 @@ public class SalesController {
 	@RequestMapping("productMain")
 	public String productMain(){
 		return "sales/productCompare";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "shopDetailSelect2", method = RequestMethod.POST)
+	public List<Shop> shopDetailSelect2(){
+		return rep.shopDetailSelect2();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "compareChartDateFunction", method = RequestMethod.POST)
+	public List<SupplyVo> compareChartDateFunction(int shopCode){
+		System.out.println(rep.compareChartDateFunction(shopCode));
+		return rep.compareChartDateFunction(shopCode);
 	}
 
 }

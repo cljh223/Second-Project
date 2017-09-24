@@ -37,4 +37,6 @@ public interface MapDAO {
 	public Shop updateViewFunction(int shopCode);
 	public int kpiSettingFunction(Map map);
 	public ProcessTableVo processTable(String processCode);
+	public List<Shop> shopDetailSelect2();
+	public List<SupplyVo> compareChartDateFunction(int shopCode);
 }

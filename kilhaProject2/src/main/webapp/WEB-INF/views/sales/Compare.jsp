@@ -120,6 +120,31 @@
 
 <!-- Chart code -->
 <script>
+	function compareChartDateFunction(){
+		$('#shopCompareForm tr').on('click', function(){
+			var shopCode = $('div>img[data-type = "marker"]').attr('data-source');
+			$.ajax({
+				url : 'compareChartDateFunction'
+				,method : 'post'
+				,data : {'shopCode' : shopCode}
+				,dataType : 'json'
+				,success : function(resp){
+					shopCode = $(this).attr('id');
+					$.ajax({
+						url : 'compareChartDateFunction'
+						,method : 'post'
+						,data : {'shopCode' : shopCode}
+						,dataType : 'json'
+						,success : function(respp){
+							
+						}
+					});				
+				}
+			});	
+		});
+		
+	}
+
 	var chart = AmCharts.makeChart("chartdiv", {
 		"type" : "serial",
 		"theme" : "light",
@@ -303,25 +328,8 @@
 
 	$(function() {
 		initialize();
-		processInitialize();
 		$('.panel .tools .fa-chevron-up').parents(".panel").children(
 				".panel-body").slideUp(200);
-		$('#견적').on('click', function() {
-			$('.current').removeClass("current");
-			$('#견적 >a').addClass("current");
-			alert(123);
-			processInitialize();
-		});
-		$('#수주').on('click', function() {
-			$('.current').removeClass("current");
-			$('#수주 >a').addClass("current");
-			processInitialize();
-		});
-		$('#출고').on('click', function() {
-			$('.current').removeClass("current");
-			$('#출고 >a').addClass("current");
-			processInitialize();
-		});
 	});
 </script>
 </head>
@@ -577,7 +585,7 @@
 									href="javascript:;" class="fa fa-chevron-up menuForm"></a>
 								</span>
 							</header>
-							<div class="panel-body" id="processListForm"></div>
+							<div class="panel-body" id="shopCompareForm"></div>
 						</section>
 					</div>
 				</div>
@@ -592,104 +600,78 @@
 		<!--main content end-->
 	</section>
 	<script type="text/javascript">
-		function processInitializeFunction(resp) {
-			var salAmount = 0;
-			var processLocationText = '<div class="adv-table">'
-					+ '<table class="dynamic-table display table table-bordered table-striped">'
-					+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th></tr>	</thead>'
-					+ '<tbody>';
-			for (var i = 0; i < resp.length; i++) {
-				processLocationText += '<tr id="'+resp[i].processCode+'">';
-				processLocationText += '<td>'
-				processLocationText += resp[i].processCode;
-				processLocationText += '</td>'
-				processLocationText += '<td class="hidden-phone">'
-				processLocationText += resp[i].shopName;
-				processLocationText += '</td>'
-				processLocationText += '<td>'
-				processLocationText += resp[i].staffName;
-				processLocationText += '</td>';
-				processLocationText += '<td>';
-				processLocationText += resp[i].processTerm
-				processLocationText += '</td>';
-				for (var j = 0; j < resp[i].supplyList.length; j++) {
-					salAmount = salAmount
-							+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
-				}
-				processLocationText += '<td>';
-				processLocationText += salAmount;
-				processLocationText += '</td>'
-				processLocationText += '<td>';
-				if (resp[i].processState == 0) {
-					processLocationText += '진행중';
-				} else {
-					processLocationText += '종료';
-				}
-				processLocationText += '</td>';
-				processLocationText += '</tr></a>';
-			}
-			processLocationText += '</tbody></table></div>';
-
-			$('#processListForm').html(processLocationText);
-			$('.dynamic-table').dataTable({
-				"aaSorting" : [ [ 4, "desc" ] ]
-			});
-
-			processCodeClick(resp);
-		}
-
-		function processInitialize() {
-			var processText = $('.current').parents().attr('data-processName');
-			var processInitializeJson = {
-				'shopName' : '',
-				'processName' : processText
-			}
-
-			$.ajax({
-				url : "processInitialize",
-				method : "get",
-				data : processInitializeJson,
-				dataType : "json",
-				success : processInitializeFunction,
-				error : function() {
-					alert('에러입니다.');
-				}
-			});
-		}
-
 		// 마커 클릭시 이벤트
 		function chan() {
-			$('div>img[data-type = "marker"]').on(
-					'click',
-					function() {
-						var el = $('.panel .tools .menuForm').parents(".panel")
-								.children(".panel-body");
-						if ($('.panel .tools .menuForm').hasClass(
-								"fa-chevron-up")) {
-							$('.panel .tools .menuForm').removeClass(
-									"fa-chevron-up")
-									.addClass("fa-chevron-down");
-							el.slideDown(200);
-						}
-						shopCode = $(this).attr("data-source");
-						$('.overview').attr('data-shopCode', shopCode);
-						$('.job-history').attr('data-shopCode', shopCode);
-						$('.contacts').attr('data-shopCode', shopCode);
-						$('.settings').attr('data-shopCode', shopCode);
-						var shopCodeJson = {
-							"shopCode" : shopCode
-						};
-						$.ajax({
-							url : 'shopDetailSelect',
-							method : 'get',
-							data : shopCodeJson,
-							dataType : 'json',
-							success : shopDetailFunction,
-							error : function() {
-								alert('에러');
-							}
-						});
-					});
+			$('div>img[data-type = "marker"]')
+					.on(
+							'click',
+							function() {
+								var el = $('.panel .tools .menuForm').parents(
+										".panel").children(".panel-body");
+								if ($('.panel .tools .menuForm').hasClass(
+										"fa-chevron-up")) {
+									$('.panel .tools .menuForm').removeClass(
+											"fa-chevron-up").addClass(
+											"fa-chevron-down");
+									el.slideDown(200);
+								}
+
+								$
+										.ajax({
+											url : 'shopDetailSelect2',
+											method : 'post',
+											dataType : 'json',
+											success : function(resp) {
+												var salAmount = 0;
+												var processLocationText = '<div class="adv-table">'
+														+ '<table class="dynamic-table display table table-bordered table-striped">'
+														+ '<thead><tr><th>매장번호</th><th>매장명</th><th>주소</th><th>대표자</th><th>전화번호</th></tr>	</thead>'
+														+ '<tbody>';
+												for (var i = 0; i < resp.length; i++) {
+													processLocationText += '<tr id="'+resp[i].shopCode+'">';
+													processLocationText += '<td>'
+													processLocationText += resp[i].shopCode;
+													processLocationText += '</td>'
+													processLocationText += '<td class="hidden-phone">'
+													processLocationText += resp[i].shopName;
+													processLocationText += '</td>'
+													processLocationText += '<td>'
+															+ resp[i].addressSet[0].addressDetail1
+															+ ' '
+															+ resp[i].addressSet[0].addressDetail2
+															+ resp[i].addressSet[0].addressDetail3
+															+ ' ';
+													if (resp.shopDetail4 != null) {
+														processLocationText += resp[i].addressSet[0].addressDetail4
+													}
+													processLocationText += '</td>';
+													processLocationText += '<td>';
+													processLocationText += resp[i].shopRep
+													processLocationText += '</td>';
+													processLocationText += '<td>';
+													processLocationText += resp[i].shopTel;
+													processLocationText += '</td>'
+													processLocationText += '</tr></a>';
+												}
+												processLocationText += '</tbody></table></div>';
+
+												$('#shopCompareForm').html(
+														processLocationText);
+												$('.dynamic-table')
+														.dataTable(
+																{
+																	"aaSorting" : [ [
+																			4,
+																			"desc" ] ]
+																});
+												compareChartDateFunction();
+
+											},
+											error : function() {
+												alert('에러입니다.');
+											}
+										});
+							});
 		}
 	</script>
 

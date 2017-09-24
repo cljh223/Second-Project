@@ -152,4 +152,18 @@ public class MapRep {
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.processTable(processCode);
 	}
+
+	public List<Shop> shopDetailSelect2() {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.shopDetailSelect2();
+	}
+
+	public List<SupplyVo> compareChartDateFunction(int shopCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.compareChartDateFunction(shopCode);
+	}
+
+	
 }

@@ -119,13 +119,16 @@
 <script type="text/javascript">
 	$(function() {
 		processInitialize();
-		searchProcess();
 		$('.panel .tools .fa-chevron-up').parents(".panel").children(
 				".panel-body").slideUp(200);
+		$('#전체').on('click', function() {
+			$('.current').removeClass("current");
+			$('#전체 >a').addClass("current");
+			processInitialize();
+		});
 		$('#견적').on('click', function() {
 			$('.current').removeClass("current");
 			$('#견적 >a').addClass("current");
-			alert(123);
 			processInitialize();
 		});
 		$('#수주').on('click', function() {
@@ -142,9 +145,7 @@
 </script>
 
 </head>
-
 <body>
-
 	<section id="container">
 		<!--header start-->
 		<header class="header fixed-top clearfix">
@@ -389,7 +390,8 @@
 							<div class="row">
 								<div class="col-md-12">
 									<ul class="breadcrumbs-alt">
-										<li id="견적" data-processName="견적"><a class="current">견적</a></li>
+										<li id="전체" data-processName=""><a class="current">전체</a>
+										<li id="견적" data-processName="견적"><a class="">견적</a></li>
 										<li id="수주" data-processName="수주"><a class="">수주</a></li>
 										<li id="출고" data-processName="출고"><a class="">출고</a></li>
 									</ul>
@@ -404,7 +406,7 @@
 						<section class="panel">
 							<header class="panel-heading">
 								General Table <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> 
+									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
 							<div class="panel-body" id="processListForm"></div>
@@ -427,25 +429,6 @@
 		<!--main content end-->
 	</section>
 	<script type="text/javascript">
-		function searchProcess() {
-			$('#searchText').on('keyup', function() {
-				var searchProcessText = $(this).val();
-				var searchText = {
-					'searchProcessText' : searchProcessText
-				}
-				$.ajax({
-					url : 'processInitialize',
-					method : 'get',
-					data : searchText,
-					dataType : 'json',
-					success : processInitializeFunction,
-					error : function() {
-						alert('에러입니다.');
-					}
-				});
-			});
-		}
-
 		function processCodeClick(resp) {
 			$('#processListForm tr')
 					.on(
@@ -855,5 +838,6 @@
 
 	<!--dynamic table initialization -->
 	<script src="js/dynamic_table_init.js?version=1"></script>
+
 </body>
 </html>
