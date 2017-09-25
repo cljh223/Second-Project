@@ -223,6 +223,7 @@ public class Lonlat {
 			}
 
 			String inputLine = br.readLine();
+			System.out.println(inputLine);
 			List<String> list = new ArrayList<String>();
 			int start = inputLine.indexOf("{\"id");
 			int end = inputLine.indexOf("\"}");
@@ -239,25 +240,48 @@ public class Lonlat {
 			List<String> name = new ArrayList<String>();
 			List<String> lon = new ArrayList<String>();
 			List<String> lat = new ArrayList<String>();
+			List<String> telNo = new ArrayList<String>();
+			List<String> upperAddrName = new ArrayList<String>();
+			List<String> middleAddrName = new ArrayList<String>();
+			List<String> lowerAddrName = new ArrayList<String>();
+			List<String> detailAddrName = new ArrayList<String>();
 			
 			for(int i = 0; i < list.size(); i++)
 			{
 				name.add(list.get(i).substring(list.get(i).indexOf("name\":\""), list.get(i).indexOf("\",\"tel")));
 				lon.add(list.get(i).substring(list.get(i).indexOf("noorLat\":\""), list.get(i).indexOf("\",\"noorLon")));
 				lat.add(list.get(i).substring(list.get(i).indexOf("noorLon\":\""), list.get(i).indexOf("\",\"upper")));
+				telNo.add(list.get(i).substring(list.get(i).indexOf("telNo\":\""), list.get(i).indexOf("\",\"frontLat")));
+				upperAddrName.add(list.get(i).substring(list.get(i).indexOf("upperAddrName\":\""), list.get(i).indexOf("\",\"middleAddrName")));
+				middleAddrName.add(list.get(i).substring(list.get(i).indexOf("middleAddrName\":\""), list.get(i).indexOf("\",\"lowerAddrName")));
+				lowerAddrName.add(list.get(i).substring(list.get(i).indexOf("lowerAddrName\":\""), list.get(i).indexOf("\",\"detailAddrName")));
+				detailAddrName.add(list.get(i).substring(list.get(i).indexOf("detailAddrName\":\""), list.get(i).indexOf("\",\"firstNo")));
 				
 				name.add(name.get(i).substring(7, name.get(i).length()));
-				lon.add(lon.get(i).substring(11, lon.get(i).length()));
-				lat.add(lat.get(i).substring(11, lat.get(i).length()));
-				
+				lon.add(lon.get(i).substring(10, lon.get(i).length()));
+				lat.add(lat.get(i).substring(10, lat.get(i).length()));
+				telNo.add(telNo.get(i).substring(8, telNo.get(i).length()));
+				upperAddrName.add(upperAddrName.get(i).substring(16, upperAddrName.get(i).length()));
+				middleAddrName.add(middleAddrName.get(i).substring(17, middleAddrName.get(i).length()));
+				lowerAddrName.add(lowerAddrName.get(i).substring(16, lowerAddrName.get(i).length()));
+				detailAddrName.add(detailAddrName.get(i).substring(12, detailAddrName.get(i).length()));
 				name.remove(i);
 				lon.remove(i);
 				lat.remove(i);
+				telNo.remove(i);
+				upperAddrName.remove(i);
+				middleAddrName.remove(i);
+				lowerAddrName.remove(i);
+				detailAddrName.remove(i);
 			}
-			
 			poilonlat.put("name", name);
 			poilonlat.put("lon", lon);
 			poilonlat.put("lat", lat);
+			poilonlat.put("telNo", telNo);
+			poilonlat.put("upperAddrName", upperAddrName);
+			poilonlat.put("middleAddrName", middleAddrName);
+			poilonlat.put("lowerAddrName", lowerAddrName);
+			poilonlat.put("detailAddrName", detailAddrName);
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();

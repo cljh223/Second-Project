@@ -114,13 +114,16 @@
 		<result property="processTerm" column="process_term" />
 		<result property="processEndDate" column="process_end_date" />
 	</resultMap>
-	
+
 	<select id="markerSelect" resultMap="ShopMap">
-		select s.shop_code, s.shop_state,
-		s.shop_name, a.address_detail1, a.address_detail2, a.address_detail3,
+		select s.shop_code,
+		s.shop_state,
+		s.shop_name, a.address_detail1, a.address_detail2,
+		a.address_detail3,
 		a.address_detail4
 		from address a INNER JOIN shop s
-		on a.shop_code =
+		on
+		a.shop_code =
 		s.shop_code
 	</select>
 
@@ -171,12 +174,11 @@
 		,
 		#{processEndDate}
 		, 0
-		, #{shopCode}
-		, (SELECT warehouse_code from
-		warehouse where
+		, (SELECT warehouse_code from warehouse where
 		#{warehouseName}=warehouse_name)
-		, (SELECT staff_code
-		from staff where #{staffName}=staff_name)
+		, (SELECT staff_code from staff where
+		#{staffName}=staff_name)
+		, #{shopCode}
 		)
 	</insert>
 
@@ -314,7 +316,8 @@
 		SELECT
 		s.shop_name, a.address_detail1, a.address_detail2,
 		a.address_detail3, a.address_detail4, s.shop_rep,
-		s.shop_tel, s.shop_code
+		s.shop_tel,
+		s.shop_code
 		<if test="gubun =='no'">
 			FROM shop s INNER JOIN address a
 			ON s.shop_code =
@@ -326,7 +329,8 @@
 			d.product_code, p.process_end_date, p.process_insert_date,
 			p.process_state,p.process_code, d.product_unit_price
 			FROM
-			shop s INNER JOIN
+			shop s INNER
+			JOIN
 			process p
 			ON
 			s.shop_code = #{shopCode}
@@ -409,13 +413,57 @@
 
 	<select id="chartSelect" parameterType="Map" resultMap="ProcessMap">
 		SELECT
-		p.process_state, p.process_end_date, s.supply_volume, s.supply_price
+		p.process_end_date, sum(s.supply_volume) AS "supply_volume",
+		sum(s.supply_volume*s.supply_price) AS "supply_price",
+		sum((s.supply_volume*s.supply_price)-(s.supply_volume*d.product_unit_price))
+		AS "supply_num"
 		FROM process p INNER JOIN supply s
-		ON p.process_code = s.process_code
-		AND TO_CHAR(p.process_end_date, 'YYYY-MM') = #{date}
-		AND p.shop_code =
+		ON p.process_code =
+		s.process_code
+		AND TO_CHAR(p.process_end_date,
+		'YYYY-MM') = #{date}
+		AND
+		p.shop_code =
 		#{shopCode}
-		AND SUBSTR(p.process_code,0,2) = 're'
+		AND
+		SUBSTR(p.process_code,0,2) = 're'
+		INNER JOIN
+		product d
+		ON
+		d.product_code = s.product_code
+		GROUP BY p.process_end_date
+		ORDER BY
+		p.process_end_date
+	</select>
+
+	<select id="chartSelect2" parameterType="Map" resultMap="ProcessMap">
+		SELECT
+		p.process_end_date, sum(s.supply_volume) AS "supply_volume",
+		sum(s.supply_volume*s.supply_price) AS "supply_price",
+		sum((s.supply_volume*s.supply_price)-(s.supply_volume*d.product_unit_price))
+		AS "supply_num"
+		FROM process p INNER JOIN supply s
+		ON p.process_code =
+		s.process_code
+		<if test="processName == '견적'">
+			AND
+			SUBSTR(p.process_code,0,2) = 'em'
+		</if>
+		<if test="processName == '수주'">
+			AND
+			SUBSTR(p.process_code,0,2) = 'co'
+		</if>
+		<if test="processName == '출고'">
+			AND
+			SUBSTR(p.process_code,0,2) = 're'
+		</if>
+		INNER JOIN product d
+		ON
+		d.product_code = s.product_code
+		GROUP BY
+		p.process_end_date
+		ORDER BY
+		p.process_end_date
 	</select>
 
 	<select id="processSelect" parameterType="int" resultType="int">
@@ -461,25 +509,33 @@
 		,#{index}
 		)
 	</insert>
-	
+
 	<select id="processTable" parameterType="String" resultMap="ProcessTableVoMap">
-		SELECT s.staff_name, w.warehouse_name, p.process_term, p.process_end_date
+		SELECT s.staff_name, w.warehouse_name, p.process_term,
+		p.process_end_date
 		FROM staff s INNER JOIN process p
-		ON s.staff_code = p.staff_code AND p.process_code = #{processCode}
+		ON s.staff_code =
+		p.staff_code AND p.process_code = #{processCode}
 		INNER JOIN warehouse w
 		ON w.warehouse_code = p.warehouse_code
 	</select>
-	
+
 	<select id="shopDetailSelect2" resultMap="ShopMap">
-		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
+		SELECT s.shop_code,
+		s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
 		a.address_detail2, a.address_detail3, a.address_detail4
-		FROM shop s INNER JOIN address a
+		FROM shop s
+		INNER JOIN address a
 		ON s.shop_code = a.shop_code
 	</select>
-	
-	<select id="compareChartDateFunction" parameterType="int" resultMap="SupplyVoMap">
-		SELECT s.process_code, s.supply_volume, s.supply_price, p.process_end_date
-		FROM process p INNER JOIN supply s ON p.process_code = s.process_code
-		INNER JOIN shop s ON s.shop_code = p.shop_code AND s.shop_code = #{shopCode}
+
+	<select id="compareChartDateFunction" parameterType="int"
+		resultMap="SupplyVoMap">
+		SELECT s.process_code, s.supply_volume, s.supply_price,
+		p.process_end_date
+		FROM process p INNER JOIN supply s ON p.process_code
+		= s.process_code
+		INNER JOIN shop s ON s.shop_code = p.shop_code AND
+		s.shop_code = #{shopCode}
 	</select>
 </mapper>

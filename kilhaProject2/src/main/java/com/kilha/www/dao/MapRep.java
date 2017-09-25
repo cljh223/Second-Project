@@ -55,6 +55,7 @@ public class MapRep {
 	
 	public boolean processAdd(Map<String, String>processMap){
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		System.out.println(processMap.get("shopCode"));
 		if(dao.processAdd(processMap)>0){
 			return true;
 		}
@@ -163,6 +164,12 @@ public class MapRep {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.compareChartDateFunction(shopCode);
+	}
+
+	public List<Process> chartSelect2(Map codeMap) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.chartSelect2(codeMap);
 	}
 
 	

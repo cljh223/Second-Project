@@ -24,13 +24,13 @@ public class Process implements Serializable {
 	private String processCode;
 
 	/** �Է³�¥. */
-	private Date processInsertDate;
+	private String processInsertDate;
 
 	/** ��ȿ�Ⱓ. */
-	private Date processTerm;
+	private String processTerm;
 
 	/** ��ǰ ������. */
-	private Date processEndDate;
+	private String processEndDate;
 
 	/** ���Ῡ��. */
 	private Integer processState;
@@ -52,27 +52,27 @@ public class Process implements Serializable {
 		this.processCode = processCode;
 	}
 
-	public Date getProcessInsertDate() {
+	public String getProcessInsertDate() {
 		return processInsertDate;
 	}
 
-	public void setProcessInsertDate(Date processInsertDate) {
+	public void setProcessInsertDate(String processInsertDate) {
 		this.processInsertDate = processInsertDate;
 	}
 
-	public Date getProcessTerm() {
+	public String getProcessTerm() {
 		return processTerm;
 	}
 
-	public void setProcessTerm(Date processTerm) {
+	public void setProcessTerm(String processTerm) {
 		this.processTerm = processTerm;
 	}
 
-	public Date getProcessEndDate() {
+	public String getProcessEndDate() {
 		return processEndDate;
 	}
 
-	public void setProcessEndDate(Date processEndDate) {
+	public void setProcessEndDate(String processEndDate) {
 		this.processEndDate = processEndDate;
 	}
 
@@ -166,11 +166,9 @@ public class Process implements Serializable {
 	public String toString() {
 		return "Process [processCode=" + processCode + ", processInsertDate=" + processInsertDate + ", processTerm="
 				+ processTerm + ", processEndDate=" + processEndDate + ", processState=" + processState + ", shopCode="
-				+ shopCode + ", supplySet=" + supplySet + ", getProcessCode()=" + getProcessCode()
-				+ ", getProcessInsertDate()=" + getProcessInsertDate() + ", getProcessTerm()=" + getProcessTerm()
-				+ ", getProcessEndDate()=" + getProcessEndDate() + ", getProcessState()=" + getProcessState()
-				+ ", getShopCode()=" + getShopCode() + ", getSupplySet()=" + getSupplySet() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+				+ shopCode + ", supplySet=" + supplySet + "]";
 	}
+
+	
 	
 }

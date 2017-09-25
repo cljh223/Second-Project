@@ -39,4 +39,5 @@ public interface MapDAO {
 	public ProcessTableVo processTable(String processCode);
 	public List<Shop> shopDetailSelect2();
 	public List<SupplyVo> compareChartDateFunction(int shopCode);
+	public List<Process> chartSelect2(Map codeMap);
 }

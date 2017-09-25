@@ -102,7 +102,7 @@ public class SalesController {
 			String processEndDate, String shopCode, String processName, String[] productCode, int[] supplyVolume,
 			int[] supplyPrice) {
 		Map<String, String> processMap = new HashMap<>();
-		System.out.println(shopCode);
+		System.out.println("shopCode" + shopCode);
 		String message = "";
 		processMap.put("staffName", staffName);
 		processMap.put("warehouseName", warehouseName);
@@ -184,8 +184,8 @@ public class SalesController {
 
 	@ResponseBody
 	@RequestMapping("shopDetailSelect")
-	public List<SupplyVo> shopDetailSelect(
-			@RequestParam(value = "shopCode", defaultValue = "0") int shopCode, Model model) {
+	public List<SupplyVo> shopDetailSelect(@RequestParam(value = "shopCode", defaultValue = "0") int shopCode,
+			Model model) {
 		String endDate = "";
 		long shopTerm = 0;
 		String lateProcess = "아직 없습니다.";
@@ -273,6 +273,7 @@ public class SalesController {
 	@RequestMapping(value = "chartSelect", method = RequestMethod.POST)
 	public Map<String, List> chartSelect(@RequestParam(value = "date", defaultValue = "2017-01") String date,
 			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
+		System.out.println("emfdjddha");
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
 		codeMap.put("shopCode", shopCode);
@@ -280,17 +281,57 @@ public class SalesController {
 		Map<String, List> map = new HashMap<>();
 		ArrayList<Integer> salesList = new ArrayList<>();
 		ArrayList<Integer> earnList = new ArrayList<>();
-		for (Process p : processList) {
-			int salesSum = 0;
-			int earnSum = 0;
-			for (Supply vo : p.getSupplySet()) {
-				salesSum += vo.getSupplyVolume();
-				earnSum += vo.getSupplyVolume() * vo.getSupplyPrice();
+		ArrayList<Integer> allEarnSumList = new ArrayList<>();
+		ArrayList<String> dateList = new ArrayList<>();
+		for (int j = 0; j < processList.size(); j++) {
+			String end_date = processList.get(j).getProcessEndDate();
+			dateList.add(end_date);
+			for (int i = 0; i < processList.get(j).getSupplySet().size(); i++) {
+				int salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
+				int earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
+				int allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
+				earnList.add(earnSum);
+				salesList.add(salesSum);
+				allEarnSumList.add(allEarnSum);
 			}
-			earnList.add(earnSum);
-			salesList.add(salesSum);
+
 		}
+		map.put("dateList", dateList);
 		map.put("earnList", earnList);
+		map.put("allEarnSumList", allEarnSumList);
+		map.put("salesList", salesList);
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "chartSelect2", method = RequestMethod.POST)
+	public Map<String, List> chartSelect2(
+			@RequestParam(value = "processName", defaultValue = "") String processName) {
+		System.out.println("emfdjddha");
+		Map codeMap = new HashMap<>();
+		codeMap.put("processName", processName);
+		List<Process> processList = rep.chartSelect2(codeMap);
+		Map<String, List> map = new HashMap<>();
+		ArrayList<Integer> salesList = new ArrayList<>();
+		ArrayList<Integer> earnList = new ArrayList<>();
+		ArrayList<Integer> allEarnSumList = new ArrayList<>();
+		ArrayList<String> dateList = new ArrayList<>();
+		for (int j = 0; j < processList.size(); j++) {
+			String end_date = processList.get(j).getProcessEndDate();
+			dateList.add(end_date);
+			for (int i = 0; i < processList.get(j).getSupplySet().size(); i++) {
+				int salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
+				int earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
+				int allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
+				earnList.add(earnSum);
+				salesList.add(salesSum);
+				allEarnSumList.add(allEarnSum);
+			}
+
+		}
+		map.put("dateList", dateList);
+		map.put("earnList", earnList);
+		map.put("allEarnSumList", allEarnSumList);
 		map.put("salesList", salesList);
 		return map;
 	}
@@ -405,21 +446,21 @@ public class SalesController {
 		model.addAttribute("shopStateList", shopStateList);
 		return "sales/Compare";
 	}
-	
+
 	@RequestMapping("productMain")
-	public String productMain(){
+	public String productMain() {
 		return "sales/productCompare";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "shopDetailSelect2", method = RequestMethod.POST)
-	public List<Shop> shopDetailSelect2(){
+	public List<Shop> shopDetailSelect2() {
 		return rep.shopDetailSelect2();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "compareChartDateFunction", method = RequestMethod.POST)
-	public List<SupplyVo> compareChartDateFunction(int shopCode){
+	public List<SupplyVo> compareChartDateFunction(int shopCode) {
 		System.out.println(rep.compareChartDateFunction(shopCode));
 		return rep.compareChartDateFunction(shopCode);
 	}

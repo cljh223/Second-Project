@@ -507,19 +507,30 @@
 				+ '<thead><tr><th>No</th><th>매장명</th><th class="hidden-phone">작성날짜</th>'
 				+ '<th class="hidden-phone">종료날짜</th><th class="hidden-phone">종결여부</th>'
 				+ '</tr></thead><tbody>'
-		$.each(resp, function(index, item) {
-			allEstimateViewText += '<tr>' + '<td>' + index + '</td>' + '<td>'
-					+ '<h4>' + item.shopName + '</h4></td>'
-					+ '<td class="text-center">' + item.processInsertDate
-					+ '</td>' + '<td class="text-center">'
-					+ item.processEndDate + '</td>'
-					+ '<td class="text-center">' + item.processState + '</td>'
-					+ '</tr>'
-		});
+		$
+				.each(
+						resp,
+						function(index, item) {
+							allEstimateViewText += '<a data-toggle="modal" href="#myModal5"><tr>'
+									+ '<td>'
+									+ index
+									+ '</td>'
+									+ '<td>'
+									+ '<h4>'
+									+ item.shopName
+									+ '</h4></td>'
+									+ '<td class="text-center">'
+									+ item.processInsertDate
+									+ '</td>'
+									+ '<td class="text-center">'
+									+ item.processEndDate
+									+ '</td>'
+									+ '<td class="text-center">'
+									+ item.processState + '</td>' + '</tr></a>'
+						});
 		+'</tbody>' + '</table>' + '</div>' + '</div>' + '</section>'
 				+ '</div>' + '</div>'
 
-		$('div#myModal5 .modal-body').html(allEstimateViewText);
 	}
 
 	function trStaffFunction() {
@@ -541,7 +552,7 @@
 	}
 
 	function trProductFunction(resp) {
-		$('tr')
+		$('#myModal3 tr')
 				.on(
 						'click',
 						function() {
@@ -552,34 +563,31 @@
 									break;
 								}
 							}
-							$('#button3')
-									.on(
-											'click',
-											function() {
-												var supplyTableString = '<tr>';
-												supplyTableString += '<td>';
-												supplyTableString += '<input class=" form-control productCode" name="productCode" type="text" value="'+resp[index].productCode+'" readonly = "true" style="width: 100px;"/>';
-												supplyTableString += '</td>'
-												supplyTableString += '<td class="hidden-phone">'
-												supplyTableString += '<input class=" form-control productName" name="productName" type="text" value="'+resp[index].productName+'" readonly = "true" style="width: 100px;"/>';
-												supplyTableString += '</td>'
-												supplyTableString += '<td class="hidden-phone">'
-												supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'+resp[index].productUnit+'" style="width: 100px;"/>';
-												supplyTableString += '</td>';
-												supplyTableString += '<td>'
-												supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="" style="width: 100px;"/>';
-												supplyTableString += '</td>';
-												supplyTableString += '<td>'
-												supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'+resp[index].productReleasePrice+'" style="width: 100px;"/>';
-												supplyTableString += '</td>';
-												supplyTableString += '<td>'
-												supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'+resp[index].productUnitPrice+'" style="width: 100px;"/>';
-												supplyTableString += '</td>';
-												supplyTableString += '</tr>';
-												$('#supplyProductTable')
-														.append(
-																supplyTableString);
-											});
+
+							var supplyTableString = '<tr>';
+							supplyTableString += '<td>';
+							supplyTableString += '<input class=" form-control productCode" name="productCode" type="text" value="'+resp[index].productCode+'" readonly = "true" style="width: 100px;"/>';
+							supplyTableString += '</td>'
+							supplyTableString += '<td class="hidden-phone">'
+							supplyTableString += '<input class=" form-control productName" name="productName" type="text" value="'+resp[index].productName+'" readonly = "true" style="width: 100px;"/>';
+							supplyTableString += '</td>'
+							supplyTableString += '<td class="hidden-phone">'
+							supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'+resp[index].productUnit+'" style="width: 100px;"/>';
+							supplyTableString += '</td>';
+							supplyTableString += '<td>'
+							supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="" style="width: 100px;"/>';
+							supplyTableString += '</td>';
+							supplyTableString += '<td>'
+							supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'+resp[index].productReleasePrice+'" style="width: 100px;"/>';
+							supplyTableString += '</td>';
+							supplyTableString += '<td>'
+							supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'+resp[index].productUnitPrice+'" style="width: 100px;"/>';
+							supplyTableString += '</td>';
+							supplyTableString += '</tr>';
+							$('#supplyProductTable').append(supplyTableString);
+							$('#myModal3').trigger("click");
+							alert(supplyTableString);
+
 						});
 	}
 
@@ -610,7 +618,6 @@
 
 	$(function() {
 		initialize();
-		$('.contacts').on('click', contactsViewFunction);
 		$('.overview').on('click', overviewIntiFunction);
 		$('.settings').on('click', processViewFunction);
 		$('.job-history').on('click', updateViewFunction);
@@ -663,142 +670,6 @@
 				</div>
 			</div>
 			<!--logo end-->
-
-			<div class="nav notify-row" id="top_menu">
-				<!--  notification start -->
-				<ul class="nav top-menu">
-					<!-- settings start -->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <i class="fa fa-tasks"></i>
-							<span class="badge bg-success">8</span>
-					</a>
-						<ul class="dropdown-menu extended tasks-bar">
-							<li>
-								<p class="">You have 8 pending tasks</p>
-							</li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>25% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="45"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Product Delivery</h5>
-											<p>45% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="78"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Payment collection</h5>
-											<p>87% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="60"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>33% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="90"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-
-							<li class="external"><a href="#">See All Tasks</a></li>
-						</ul></li>
-					<!-- settings end -->
-					<!-- inbox dropdown start-->
-					<li id="header_inbox_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-envelope-o"></i> <span class="badge bg-important">4</span>
-					</a>
-						<ul class="dropdown-menu extended inbox">
-							<li>
-								<p class="red">You have 4 Mails</p>
-							</li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Jonathan
-											Smith</span> <span class="time">Just now</span>
-								</span> <span class="message"> Hello, this is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-2.jpg"></span> <span
-									class="subject"> <span class="from">Jane Doe</span> <span
-										class="time">2 min ago</span>
-								</span> <span class="message"> Nice admin template </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-3.jpg"></span> <span
-									class="subject"> <span class="from">Tasi sam</span> <span
-										class="time">2 days ago</span>
-								</span> <span class="message"> This is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Mr. Perfect</span> <span
-										class="time">2 hour ago</span>
-								</span> <span class="message"> Hi there, its a test </span>
-							</a></li>
-							<li><a href="#">See all messages</a></li>
-						</ul></li>
-					<!-- inbox dropdown end -->
-					<!-- notification dropdown start-->
-					<li id="header_notification_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-bell-o"></i> <span class="badge bg-warning">3</span>
-					</a>
-						<ul class="dropdown-menu extended notification">
-							<li>
-								<p>Notifications</p>
-							</li>
-							<li>
-								<div class="alert alert-info clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #1 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-danger clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #2 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-success clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #3 overloaded.</a>
-									</div>
-								</div>
-							</li>
-
-						</ul></li>
-					<!-- notification dropdown end -->
-				</ul>
-				<!--  notification end -->
-			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
 				<table id="loginForm">
@@ -865,7 +736,6 @@
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
 								<li><a href="compareMain">영업 비교 페이지</a></li>
-								<li><a href="productMain">상품 비교 페이지</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -884,8 +754,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-8" style="width: 100%; height: 650px";>
-						<section class="panel" style="height: 450px">
+					<div class="col-md-12">
+						<section class="panel">
 							<header class="panel-heading">
 								Earning Graph <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
@@ -926,8 +796,20 @@
 														<img src="images/lock_thumb.jpg" alt="" />
 													</div>
 												</div>
-												<div class="col-md-6">
+												<div class="col-md-3">
 													<div class="profile-desk"></div>
+												</div>
+												<div class="col-md-3">
+													<div class="prf-contacts">
+														<h2>
+															<span><i class="fa fa-map-marker"></i></span> location
+														</h2>
+														<div class="location-info"></div>
+														<h2>
+															<span><i class="fa fa-phone"></i></span> contacts
+														</h2>
+														<div class="location-info contact-info"></div>
+													</div>
 												</div>
 												<div class="col-md-3">
 													<div class="profile-statistics"></div>
@@ -939,8 +821,6 @@
 										<section class="panel">
 											<header class="panel-heading tab-bg-dark-navy-blue">
 												<ul class="nav nav-tabs nav-justified ">
-													<li class="contacts"><a data-toggle="tab"
-														href="#contacts" class="contact-map"> Contacts </a></li>
 													<li class="overview"><a data-toggle="tab"
 														href="#overview"> Overview </a></li>
 													<li class="settings"><a data-toggle="tab"
@@ -951,25 +831,6 @@
 											</header>
 											<div class="panel-body">
 												<div class="tab-content tasi-tab ">
-													<div id="contacts" class="tab-pane">
-														<div class="row">
-															<div class="col-md-6">
-																<div class="prf-contacts">
-																	<h2>
-																		<span><i class="fa fa-map-marker"></i></span> location
-																	</h2>
-																	<div class="location-info"></div>
-																	<h2>
-																		<span><i class="fa fa-phone"></i></span> contacts
-																	</h2>
-																	<div class="location-info contact-info"></div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div id="chartdiv1"></div>
-															</div>
-														</div>
-													</div>
 													<div id="overview" class="tab-pane">
 														<div class="row">
 															<div class="col-lg-12">
@@ -1109,24 +970,26 @@
 																		<table class="table slider-table">
 																			<tr>
 																				<td><input id="salesKpi" class="range_2"
-																					type="text" name="salesKpi" value="1000;100000"
+																					type="text" name="salesKpi" value="20000;100000"
 																					data-type="double" data-step="500"
 																					data-postfix=" &euro;" data-from="30000"
 																					data-to="90000" data-hasgrid="true" /></td>
 																			</tr>
 																			<tr>
 																				<td><input id="earnKpi" class="range_2"
-																					type="text" name="earnKpi" value="1000;100000"
-																					data-type="double" data-step="500"
-																					data-postfix=" &euro;" data-from="30000"
-																					data-to="90000" data-hasgrid="true" /></td>
+																					type="text" name="earnKpi"
+																					value="10000000;1000000000" data-type="double"
+																					data-step="500" data-postfix=" &euro;"
+																					data-from="30000" data-to="90000"
+																					data-hasgrid="true" /></td>
 																			</tr>
 																			<tr>
 																				<td><input id="AllearnKpi" class="range_2"
-																					type="text" name="AllearnKpi" value="1000;100000"
-																					data-type="double" data-step="500"
-																					data-postfix=" &euro;" data-from="30000"
-																					data-to="90000" data-hasgrid="true" /></td>
+																					type="text" name="AllearnKpi"
+																					value="100000000;1000000000" data-type="double"
+																					data-step="500" data-postfix=" &euro;"
+																					data-from="30000" data-to="90000"
+																					data-hasgrid="true" /></td>
 																			</tr>
 																			<tr>
 																				<td class="text-center ">
@@ -1256,6 +1119,25 @@
 											</div>
 										</div>
 									</div>
+									<div class="modal fade" id="myModal5" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-hidden="true">&times;</button>
+													<h4 class="modal-title">Datepicker in Modal</h4>
+												</div>
+												<div class="modal-body"></div>
+												<div class="modal-footer">
+													<button data-dismiss="modal" class="btn btn-default"
+														type="button">Close</button>
+													<button type="button" id="button3" class="btn btn-primary">OK</button>
+												</div>
+											</div>
+										</div>
+									</div>
 									<!-- modal -->
 									<div class="form">
 										<div class="col-sm-6">
@@ -1347,49 +1229,7 @@
 		<!--main content end-->
 
 	</section>
-	<!-- Chart code -->
-	<script>
-		var chart = AmCharts.makeChart("chartdiv1", {
-			"type" : "pie",
-			"theme" : "light",
-			"dataProvider" : [ {
-				"country" : "Lithuania",
-				"litres" : 501.9
-			}, {
-				"country" : "Czech Republic",
-				"litres" : 301.9
-			}, {
-				"country" : "Ireland",
-				"litres" : 201.1
-			}, {
-				"country" : "Germany",
-				"litres" : 165.8
-			}, {
-				"country" : "Australia",
-				"litres" : 139.9
-			}, {
-				"country" : "Austria",
-				"litres" : 128.3
-			}, {
-				"country" : "UK",
-				"litres" : 99
-			}, {
-				"country" : "Belgium",
-				"litres" : 60
-			}, {
-				"country" : "The Netherlands",
-				"litres" : 50
-			} ],
-			"valueField" : "litres",
-			"titleField" : "country",
-			"balloon" : {
-				"fixedPosition" : true
-			},
-			"export" : {
-				"enabled" : true
-			}
-		});
-	</script>
+
 	<script type="text/javascript">
 		function goPopup() {
 			// 주소검색을 수행할 팝업 페이지를 호출합니다.
@@ -1509,16 +1349,13 @@
 
 		// contacts메뉴 클릭시 이벤트
 		function contactsViewFunction() {
-			var shopCodeText = $(this).attr('data-shopCode');
-			alert(shopCodeText);
-			var shopCode = {
-				"shopCode" : shopCodeText
-			};
-
+			shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
 				url : 'contactsViewFunction',
 				method : 'get',
-				data : shopCode,
+				data : {
+					"shopCode" : shopCode
+				},
 				dataType : 'json',
 				success : contactsViewFunctionSuccess,
 				error : function() {
@@ -1587,6 +1424,7 @@
 								alert('에러');
 							}
 						});
+						contactsViewFunction()
 					});
 		}
 
@@ -1837,36 +1675,21 @@
 											dataType : 'json',
 											success : function(resp) {
 												var subChartData = [];
-												var firstDate = new Date();
-												var year = firstDate.getYear() - 100;
-												firstDate.setDate(firstDate
-														.getDay()
-														- firstDate.getDay());
-												var earnList = resp.earnList[0];
-												var salesList = resp.salesList[0];
 												var views = 8700;
-												for (var i = 1; i < resp.earnList.length; i++) {
+												for (var i = 0; i < resp.earnList.length; i++) {
 													var newDate = new Date(
-															firstDate);
-													newDate.setDate(newDate
-															.getDate()
-															+ i);
+															resp.dateList[i]);
 
 													earnList = resp.earnList[i];
 													salesList = resp.salesList[i];
-													alert("뭐지" + newDate);
-													views += Math.round((Math
-															.random() < 0.5 ? 1
-															: -1)
-															* Math.random()
-															* 10);
-
-													subChartData.push({
-														date : newDate,
-														earnList : earnList,
-														salesList : salesList,
-														views : views
-													});
+													allEarnSumList = resp.allEarnSumList[i];
+													subChartData
+															.push({
+																date : newDate,
+																earnList : earnList,
+																salesList : salesList,
+																allEarnSumList : allEarnSumList
+															});
 												}
 
 												chartData = subChartData
@@ -1934,7 +1757,7 @@
 																				"bulletBorderThickness" : 1,
 																				"hideBulletsCount" : 30,
 																				"title" : "green line",
-																				"valueField" : "views",
+																				"valueField" : "allEarnSumList",
 																				"fillAlphas" : 0
 																			} ],
 																	"chartScrollbar" : {},
@@ -2140,65 +1963,107 @@
 						dataType : 'json',
 						success : function(resp) {
 							var salAmount = 0;
-							var processLocationText = '<div class="adv-table">'
+							var processLocationText = '<div class="row"><div class="col-sm-12">'
+									+ '<section class="panel"><div class="panel-body"><div class="adv-table">'
 									+ '<table id = "shopSearchTable" class="dynamic-table display table table-bordered table-striped">'
-									+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th></tr>	</thead>'
+									+ '<thead><tr><th>건물명</th><th>전화번호</th><th>주소</th></tr></thead>'
 									+ '<tbody>';
-							$.each(resp.name, function(index, value) {
-								processLocationText += '<tr data-lon="'+resp.lon[index]+'" data-lat = "'+resp.lat[index]+'">';
-								processLocationText += '<td>'
-								processLocationText += resp.name[index];
-								processLocationText += '</td>'
-								processLocationText += '<td class="hidden-phone">'
-								processLocationText += resp.lon[index];
-								processLocationText += '</td>'
-								processLocationText += '<td>'
-								processLocationText += resp.lat[index];
-								processLocationText += '</td>';
-								processLocationText += '</tr></a>';
-							});
+							$
+									.each(
+											resp.name,
+											function(index, value) {
+												processLocationText += '<tr data-lon="'+resp.lon[index]+'" data-lat = "'+resp.lat[index]+'">';
+												processLocationText += '<td>'
+												processLocationText += resp.name[index];
+												processLocationText += '</td>'
+												processLocationText += '<td>'
+												processLocationText += resp.telNo[index];
+												processLocationText += '</td>';
+												processLocationText += '<td>'
+												processLocationText += resp.upperAddrName[index]
+														+ ' '
+														+ resp.middleAddrName[index]
+														+ ' '
+														+ resp.lowerAddrName[index]
+														+ ' '
+												if (resp.detailAddrName[index] != '') {
+													+resp.detailAddrName[index];
+												}
+												processLocationText += '</td>';
+												processLocationText += '</tr></a>';
+											});
 							processLocationText += '</tbody></table></div>';
 							$('#shopSearchFormTable').html(processLocationText);
-							
-							/* $('.dynamic-table')
-							.dataTable(
-									{
-										"aaSorting" : [ [
-												4,
-												"desc" ] ]
-									});
-							 */
-							 
-							$('#shopSearchTable tr').on('click', function(){
-								var map = new Tmap.Map({
-									div : "shopSearchFormTable",
-									width : '100%',
-									height : '600px'
-								});
-								map.addControl(new Tmap.Control.MousePosition());
-								
-								var lon = $(this).attr('data-lon');
-								var lat = $(this).attr('data-lat');
-								alert(lon);
-								alert(lat);
-								map.setCenter(new Tmap.LonLat(lon, lat), 16);
-								addMarkerLayer();
-								var icon;
-									var lonlat = new Tmap.LonLat(lon, lat);
-									var size = new Tmap.Size(12, 19);
-									var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
-										icon = new Tmap.IconHtml(
-												'<img alt="" src="images/sales/수주마커.png" data-type = "marker">',
-												size, offset);
-									var marker = new Tmap.Markers(lonlat, icon);
-									markerLayer.addMarker(marker);
-								});
-								chan();
-						}
-						,error : function(){
+
+							$('.dynamic-table').dataTable({
+								"aaSorting" : [ [ 4, "desc" ] ]
+							});
+							$('#shopSearchTable tr')
+									.on(
+											'click',
+											function() {
+												
+												var lon = $(this).attr(
+														'data-lon');
+												var lat = $(this).attr(
+														'data-lat');
+												map.setCenter(new Tmap.LonLat(
+														lat, lon), 16);
+												var icon;
+												var lonlat = new Tmap.LonLat(
+														lat, lon);
+												var size = new Tmap.Size(12, 19);
+												var offset = new Tmap.Pixel(
+														-(size.w / 2), -size.h);
+												icon = new Tmap.IconHtml(
+														'<a data-toggle="modal" href="#myModal5"><img alt="" src="images/sales/견적마커.png" data-type = "unMarker" style="width: 20px;"></a>',
+														size, offset);
+												var marker = new Tmap.Markers(
+														lonlat, icon);
+												markerLayer.addMarker(marker);
+
+												unMarkerClickFunction(lon, lat);
+											});
+						},
+						error : function() {
 							alert('유정이 바보');
 						}
 					});
+		}
+
+		function unMarkerClickFunction() {
+			$('div>img[data-type = "unMarker"]')
+					.on(
+							'click',
+							function() {
+								var unMarkerClickText = '<div class="col-sm-6"><section class="panel"><div class="panel-body">'
+										+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
+										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
+										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNameUpdate" value="" placeholder="매장명">'
+										+ '<p class="help-block">매장명을 입력하세요</p></div></div><div class="form-group">'
+										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">사업자등록번호</label>'
+										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNumberUpdate" value="" placeholder="사업자등록번호">'
+										+ '<p class="help-block">사업자등록번호를 입력하세요</p></div></div>	<div class="form-group">'
+										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">대표자명</label>'
+										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopRepUpdate" value="" placeholder="대표자명">'
+										+ '<p class="help-block">대표자명을 입력하세요</p></div></div><div class="form-group">'
+										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">전화번호</label>'
+										+ '<div class="col-lg-10"><input type="tel" class="form-control" id="shopTelUpdate" value="" placeholder="전화번호">'
+										+ '<p class="help-block">전화번호를 입력하세요</p></div></div>'
+										+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">이메일</label>'
+										+ '<div class="col-lg-10"><input type="email" class="form-control" id="shopEmailUpdate" value="" placeholder="이메일">'
+										+ '<p class="help-block">이메일을 입력하세요</p></div></div><div class="form-group">'
+										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">SNS</label>'
+										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopSNSUpdate" value="" placeholder="SNS">'
+										+ '<p class="help-block">SNS를 입력하세요</p></div></div>'
+										+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">주소</label>'
+										+ '<div class="col-lg-10"><input type="text" class="form-control" id="addressUpdate" value=""><p class="help-block">주소를 검색하세요</p>'
+										+ '</div></div><button type="submit" class="btn btn-info">Submit</button><button type="reset" class="btn btn-info">reset</button>'
+										+ '</form></div></div></section></div>';
+
+								$('div#myModal5 .modal-body').html(
+										unMarkerClickText);
+							});
 		}
 	</script>
 	<!--Core js-->
