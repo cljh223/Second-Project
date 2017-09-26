@@ -1,10 +1,12 @@
 package com.kilha.www.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kilha.www.dao.LogisticsRepository;
+import com.kilha.www.dao.MapRep;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Shipping;
 import com.kilha.www.vo.logistics.Truck;
+import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.tmap.Excute;
 
 
 @Controller
 public class LogisticsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LogisticsController.class);
+	public ArrayList<String> shopAddresslist = new ArrayList<>();
 	
 	@Autowired
 	LogisticsRepository repo;
+	
+	@Autowired
+	MapRep repo2;
 	
 	@RequestMapping(value = "/first", method = RequestMethod.GET)
 	public String first() {
@@ -233,8 +242,56 @@ public class LogisticsController {
 	public List<Shipping> truckListSearch(String deliverydate, String truck_code){
 		List<Shipping>list = repo.truckListSearch(deliverydate, truck_code);
 		System.out.println(list.toString());
+		
 		return list;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "nameRoute", method = RequestMethod.GET)
+	public List<String> nameRoute(String[] shopName) 
+	{
+		String shopAddress = "";
+		shopAddresslist.clear();
+		
+		for(int i = 0; i < shopName.length; i++)
+		{
+			List<Shop> list = repo2.shopDetailSelect3(shopName[i]);
+			shopAddress += list.get(0).getAddressSet().get(0).getAddressDetail1();
+			shopAddress += list.get(0).getAddressSet().get(0).getAddressDetail2();
+			shopAddress += list.get(0).getAddressSet().get(0).getAddressDetail3();
+			
+			if(list.get(0).getAddressSet().get(0).getAddressDetail4() != null
+				&& !(list.get(0).getAddressSet().get(0).getAddressDetail4().contains("지하")))
+			{
+				shopAddress += list.get(0).getAddressSet().get(0).getAddressDetail4();
+			}
+			
+			shopAddresslist.add(shopAddress);
+			shopAddress = "";
+		}
+		
+		System.out.println(shopAddresslist.toString());
+		
+		return shopAddresslist;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value = "shortest", method = RequestMethod.GET)
+	public String shortest(HttpSession session) 
+	{
+		long start = System.currentTimeMillis();
+		Excute excute = new Excute();
+		
+		String data = "";
+		
+		if(shopAddresslist.size() > 0)
+		{
+			data = excute.shortestExcute(shopAddresslist);
+		}
+		long end = System.currentTimeMillis();
+		System.out.println(end - start + "ms");
+		
+		JSONObject obj = new JSONObject(data);
+		return obj.toString();
+	}
 }

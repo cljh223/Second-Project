@@ -528,6 +528,16 @@
 		INNER JOIN address a
 		ON s.shop_code = a.shop_code
 	</select>
+	
+	<select id="shopDetailSelect3" parameterType="Map" resultMap="ShopMap">
+		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
+		a.address_detail2, a.address_detail3, a.address_detail4
+		FROM shop s INNER JOIN address a
+		ON s.shop_code = a.shop_code
+		<if test="shopName != null">
+			AND s.shop_name = #{shopName}
+		</if>
+	</select>
 
 	<select id="compareChartDateFunction" parameterType="int"
 		resultMap="SupplyVoMap">

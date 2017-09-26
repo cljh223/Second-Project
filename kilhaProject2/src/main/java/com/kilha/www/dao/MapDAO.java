@@ -38,6 +38,7 @@ public interface MapDAO {
 	public int kpiSettingFunction(Map map);
 	public ProcessTableVo processTable(String processCode);
 	public List<Shop> shopDetailSelect2();
+	public List<Shop> shopDetailSelect3(Map<String, String> map);
 	public List<SupplyVo> compareChartDateFunction(int shopCode);
 	public List<Process> chartSelect2(Map codeMap);
 }

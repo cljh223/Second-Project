@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -621,39 +622,50 @@
 	<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script>
+	
+	$(function() {
+		var map;
+		var makerLayer;
+		var vectorLayer;
+		var shopName = [];		
+
 		$(function() {
 			$.ajax({
 				url : "getTruckList",
 				method : "GET",
 				success : printTruckList
 			})
+
+ 			map = new Tmap.Map({div:"map_div", width:'100%', height:'500px'});
+	   
+			markerLayer = new Tmap.Layer.Markers();
+		    map.addLayer(markerLayer);
+		   
+		    vectorLayer = new Tmap.Layer.Vector("route");
+		    vectorLayer.events.register("featuresadded", vectorLayer, function(e){map.zoomToExtent(this.getDataExtent())});
+			map.addLayer(vectorLayer);
 			
-
- 			var map = new Tmap.Map({div:'map_div', width:'770px', height:'600px'});
-		    
-		    var lonlat = new Tmap.LonLat(14144160.880501, 4510690.610763);
-		    var zoom = 16;
-		    map.setCenter(lonlat, zoom);        
-		    
-		    var markers = new Tmap.Layer.Markers( "MarkerLayer" );
-		    map.addLayer(markers);
-		    
-		    var size = new Tmap.Size(24, 38);
-		    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
-		    var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png',size,offset);
-		    var marker = new Tmap.Marker(lonlat,icon);
-		    markers.addMarker(marker); 
-		 
-		    
 			$("#optionSearchBtn").on('click', truckListSearch);
-			$("#shortestBtn").on('click', mapStart);
-
+			$('#shortestBtn').on('click', function(){
+				jQuery.ajaxSettings.traditional = true;
+				
+				$.ajax({
+					url: "nameRoute",
+					method : "GET",
+					data: {"shopName" : shopName},
+					success: shortestRoute
+				});
+			});
 		})
 		
- 		function mapStart(){
-			routeSequential30(); 
-		} 
-
+		function shortestRoute() {
+			$.ajax({
+				url: "shortest",
+				method: "GET",
+				success: routeSequential30
+			});
+		}
+		
 		function truckListSearch() {
 			var deliverydate = $("#deliveryDate1").val();
 			var truck_code = $("#truck_code").val();
@@ -688,6 +700,7 @@
 				temp += '<td class="shop">' + item.SHOP_NAME + '</td>';
 				temp += '<td class="goods">' + item.GOODS + '</td>';
 				temp += '<td class="quan">' + item.QUANTITY + '</td><tr>';
+				shopName[index] = item.SHOP_NAME; 
 			})
 				temp+='</table>';
 			$("#truckListPart").html(temp);
@@ -702,96 +715,74 @@
 			temp += '</select>';
 			$("#truckPart").html(temp);
 		}
-		
-		/*
-		* 자동차 다중 경로안내 30
-		*/
-		/* function routeSequential30() {
-			alert("aa");
-			var obj = ${data};
-		   var jsonString = JSON.stringify(obj);
-		   
-		   $.ajax({
-		       method : "POST",
-		       url : "http://apis.skplanetx.com/tmap/routes/routeSequential30?version=1",
-		       headers : {
-		           "Content-Type" : "application/json",
-		           "appKey" : "21093c88-ac79-33d0-bc3e-8c0652e9a564"
-		       },
-		       data : jsonString,
-		       success : onSuccess
-		   });
-		}
-		 
-		function onSuccess( data ) {
-		   console.log( data ) // 응답 데이터 구조를 보시려면 주석을 푸시면 됩니다.
-		   
-		   // 운행 정보
-		   var totalDistance = data.properties.totalDistance;
-		   var totalFare = data.properties.totalFare;
-		   var totalTime = data.properties.totalTime;
-		   
-		   // 운행 경로
-		   var features = data.features;
-		   var i, j, geometry;
-		   var arrPoint = [];
-		   for( i in features ) {
-		       geometry = features[i].geometry; 
-		       if( geometry.type == "Point" ) {
-		           addMarker( geometry.coordinates[0], geometry.coordinates[1] );
-		       }
-		       else if( geometry.type == "LineString" ) {
-		    	   for( j in geometry.coordinates ) {
-		    		   arrPoint.push(new Tmap.Geometry.Point(geometry.coordinates[j][0], geometry.coordinates[j][1]));
-		    	   }
-		       }
-		   }
-		   console.log(totalDistance + "m");
-		   console.log(totalFare + "원");
-		   console.log(totalTime + "s");
-		   
-		   drawLine( arrPoint );
-		}
-		 
-		function addMarker(lon, lat) {
-		   var lonlat = new Tmap.LonLat(lon, lat);
-		    
-		   var size = new Tmap.Size(24,38);
-		   var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
-		   var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
-		        
-		   var marker = new Tmap.Marker(lonlat, icon);
-		   markerLayer.addMarker(marker);
-		} */
-		
-		
-		/* var style_red = {
-		           fillColor:"#FF0000",
-		           fillOpacity:0.2,
-		           strokeColor: "#FF0000",
-		           strokeWidth: 1,
-		           strokeDashstyle: "solid",
-		           label:"500m",
-		           labelAlign: "lm",
-		           fontColor: "black",
-	               fontSize: "9px",
-	               fontFamily: "Courier New, monospace",
-	               fontWeight: "bold",
-	               labelOutlineColor: "white",
-	               labelOutlineWidth: 3 
-	        }; */
-	        
-/* 		function drawLine( arrPoint ) {
-			var lineString = new Tmap.Geometry.LineString(arrPoint);
-			var style_bold = {
-					strokeWidth: 3,
-					strokeColor: "#FF0000" 
-				};
-			var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+
+		function routeSequential30(data) {
+			   var obj = data;
+
+			   $.ajax({
+			       method : "POST",
+			       url : "http://apis.skplanetx.com/tmap/routes/routeSequential30?version=1",
+			       headers : {
+			           "Content-Type" : "application/json",
+			           "appKey" : "21093c88-ac79-33d0-bc3e-8c0652e9a564"
+			       },
+			       data : obj,
+			       success : onSuccess
+			   });
+			}
+			 
+			function onSuccess( data ) {
+			   console.log( data ) // 응답 데이터 구조를 보시려면 주석을 푸시면 됩니다.
+			   
+			   // 운행 정보
+			   var totalDistance = data.properties.totalDistance;
+			   var totalFare = data.properties.totalFare;
+			   var totalTime = data.properties.totalTime;
+			   
+			   // 운행 경로
+			   var features = data.features;
+			   var i, j, geometry;
+			   var arrPoint = [];
+			   for( i in features ) {
+			       geometry = features[i].geometry; 
+			       if( geometry.type == "Point" ) {
+			           addMarker( geometry.coordinates[0], geometry.coordinates[1] );
+			       }
+			       else if( geometry.type == "LineString" ) {
+			    	   for( j in geometry.coordinates ) {
+			    		   arrPoint.push(new Tmap.Geometry.Point(geometry.coordinates[j][0], geometry.coordinates[j][1]));
+			    	   }
+			       }
+			   }
+			   console.log(totalDistance + "m");
+			   console.log(totalFare + "원");
+			   console.log(totalTime + "s");
+			   
+			   drawLine( arrPoint );
+			}
+			 
+			function addMarker(lon, lat) {
+			   var lonlat = new Tmap.LonLat(lon, lat);
+			    
+			   var size = new Tmap.Size(24,38);
+			   var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
+			   var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
+			        
+			   var marker = new Tmap.Marker(lonlat, icon);
+			   markerLayer.addMarker(marker);
+			}
 			
-			vectorLayer.addFeatures([mLineFeature]);
-		} */
-		
+			function drawLine( arrPoint ) {
+				var lineString = new Tmap.Geometry.LineString(arrPoint);
+				var style_bold = {
+						strokeWidth: 3,
+						strokeColor: "#FF0000" 
+					};
+				var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+					
+				vectorLayer.addFeatures([mLineFeature]);
+			}
+	});
 	</script>
 
 	<script src="js/advanced-form.js"></script>

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Excute 
 {
-	public String shortestExcute() 
+	public String shortestExcute(ArrayList<String> shopAddresslist) 
 	{
-		long start = System.currentTimeMillis();
 		Lonlat lonlat = new Lonlat();
 		Permutation permutation = new Permutation();
 		Distance distance = new Distance();
 		
-		lonlat.getlonlat();
+		lonlat.getlonlat(shopAddresslist);
 		
 		int size = lonlat.list.size();
 		int arr[] = permutation.setarr(size);
@@ -31,11 +30,8 @@ public class Excute
 		System.out.println(routeName.toString());
 		
 		lonlat.convertlonlat(routeName);
-		String last = lonlat.dataSet(routeName.size());
+		String data = lonlat.dataSet(routeName.size());
 		
-		long end = System.currentTimeMillis();
-		System.out.println(end - start + "ms");
-		
-		return last;
+		return data;
 	}
 }

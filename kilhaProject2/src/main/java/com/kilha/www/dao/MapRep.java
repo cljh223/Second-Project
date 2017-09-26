@@ -1,5 +1,6 @@
 package com.kilha.www.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,12 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
-import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
 import com.kilha.www.vo.sal.ProcessTableVo;
 import com.kilha.www.vo.sal.Shop;
-import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyVo;
 
 @Repository
@@ -158,6 +157,14 @@ public class MapRep {
 		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.shopDetailSelect2();
+	}
+	
+	public List<Shop> shopDetailSelect3(String shopName) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		Map<String, String> map = new HashMap<>();
+		map.put("shopName", shopName);
+		return dao.shopDetailSelect3(map);
 	}
 
 	public List<SupplyVo> compareChartDateFunction(int shopCode) {
