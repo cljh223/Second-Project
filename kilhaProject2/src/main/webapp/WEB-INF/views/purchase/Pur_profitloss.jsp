@@ -243,12 +243,12 @@
                     </a>
                     <ul class="sub">
                         <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
         
@@ -276,7 +276,7 @@
 						<!--earning graph start-->
 						<section class="panel">
 							<header class="panel-heading">
-								기간별 거래손익 <span class="tools pull-right"> <a
+								원자재 거래내역 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
@@ -285,7 +285,7 @@
 							<div class="panel-body">
 								<div class="adv-table editable-table ">
 									<div class="clearfix">
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="control-label col-md-3">Date Range</label>
 											<div class="col-md-4">
 												<div class="input-group input-large" data-date="13/07/2013"
@@ -296,18 +296,8 @@
 												</div>
 												<span class="help-block">검색기간설정</span>
 											</div>
-										</div>
-										<div class="btn-group pull-right">
-											<button class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												Tools <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right">
-												<li><a href="#">Print</a></li>
-												<li><a href="#">Save as PDF</a></li>
-												<li><a href="#">Export to Excel</a></li>
-											</ul>
-										</div>
+										</div> -->
+										
 									</div>
 									<div class="space15"></div>
 									<table class="table table-striped table-hover table-bordered"
@@ -336,8 +326,8 @@
 										<td>${traderecords.quantity}</td>
 										<td>${traderecords.price}</td>
 										<td>${traderecords.totalprice}</td>
-										<td>수익금</td>
-										<td>수익률</td>
+										<td>${traderecords.profits}</td>
+										<td>${traderecords.profitrates}</td>
 										</tr>
 										</c:forEach>
 
@@ -350,7 +340,7 @@
 					</div>
 
 
-			<div class="col-sm-12">
+			<!-- <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
                         누적수익률
@@ -365,7 +355,47 @@
                         <table class="table slider-table">
                             <tbody><tr>
                                 <td>
-                                    <span class="irs irs-with-grid" id="irs-1"><span class="irs"><span class="irs-line"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span><span class="irs-min" style="display: block;">$0</span><span class="irs-max" style="display: block;">$5000</span><span class="irs-from" style="left: 229.6px; display: block;">$1000</span><span class="irs-to" style="left: 951.4px; display: block;">$4000</span><span class="irs-single" style="left: 568.5px; display: none;">$1000 — $4000</span><span class="irs-diapason" style="left: 248.6px; width: 721.8px;"></span><span class="irs-slider from last" style="left: 241px;"></span><span class="irs-slider to" style="left: 962px;"></span></span><span class="irs-grid"><span class="irs-grid-pol small" style="left: 0px;"></span><span class="irs-grid-pol small" style="left: 60px;"></span><span class="irs-grid-pol small" style="left: 121px;"></span><span class="irs-grid-pol small" style="left: 182px;"></span><span class="irs-grid-pol small" style="left: 243px;"></span><span class="irs-grid-pol small" style="left: 304px;"></span><span class="irs-grid-pol small" style="left: 365px;"></span><span class="irs-grid-pol small" style="left: 426px;"></span><span class="irs-grid-pol small" style="left: 487px;"></span><span class="irs-grid-pol small" style="left: 548px;"></span><span class="irs-grid-pol small" style="left: 609px;"></span><span class="irs-grid-pol small" style="left: 670px;"></span><span class="irs-grid-pol small" style="left: 731px;"></span><span class="irs-grid-pol small" style="left: 792px;"></span><span class="irs-grid-pol small" style="left: 853px;"></span><span class="irs-grid-pol small" style="left: 914px;"></span><span class="irs-grid-pol small" style="left: 975px;"></span><span class="irs-grid-pol small" style="left: 1036px;"></span><span class="irs-grid-pol small" style="left: 1097px;"></span><span class="irs-grid-pol small" style="left: 1158px;"></span><span class="irs-grid-pol small" style="left: 1218px;"></span><span class="irs-grid-pol" style="left: 0px;"></span><span class="irs-grid-text" style="left: 0px; text-align: left;">0</span><span class="irs-grid-pol" style="left: 304px;"></span><span class="irs-grid-text" style="left: 254px;">1250</span><span class="irs-grid-pol" style="left: 609px;"></span><span class="irs-grid-text" style="left: 559px;">2500</span><span class="irs-grid-pol" style="left: 914px;"></span><span class="irs-grid-text" style="left: 864px;">3750</span><span class="irs-grid-pol" style="left: 1218px;"></span><span class="irs-grid-text" style="left: 1118px; text-align: right;">5000</span></span></span><input id="range_1" type="text" name="range_1" value="1000;4000" style="display: none;">
+                                    <span class="irs irs-with-grid" id="irs-1"><span class="irs"><span class="irs-line"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span>
+                                    <span class="irs-min" style="display: block;">0</span>
+                                    <span class="irs-max" style="display: block;">0</span>
+                                    <span class="irs-from" style="left: 229.6px; display: block;">-100%</span>
+                                    <span class="irs-to" style="left: 951.4px; display: block;">+100%</span>
+                                    <span class="irs-single" style="left: 568.5px; display: none;">$1000 — $4000</span>
+                                    <span class="irs-diapason" style="left: 248.6px; width: 721.8px;"></span>
+                                    <span class="irs-slider from last" style="left: 241px;">
+                                    </span><span class="irs-slider to" style="left: 962px;">
+                                    </span></span><span class="irs-grid"><span class="irs-grid-pol small" style="left: 0px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 60px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 121px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 182px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 243px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 304px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 365px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 426px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 487px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 548px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 609px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 670px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 731px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 792px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 853px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 914px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 975px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 1036px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 1097px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 1158px;"></span>
+                                    <span class="irs-grid-pol small" style="left: 1218px;"></span>
+                                    <span class="irs-grid-pol" style="left: 0px;"></span>
+                                    <span class="irs-grid-text" style="left: 0px; text-align: left;">0</span>
+                                    <span class="irs-grid-pol" style="left: 304px;"></span>
+                                    <span class="irs-grid-text" style="left: 254px;">1250</span>
+                                    <span class="irs-grid-pol" style="left: 609px;"></span>
+                                    <span class="irs-grid-text" style="left: 559px;">2500</span>
+                                    <span class="irs-grid-pol" style="left: 914px;"></span>
+                                    <span class="irs-grid-text" style="left: 864px;">3750</span>
+                                    <span class="irs-grid-pol" style="left: 1218px;"></span>
+                                    <span class="irs-grid-text" style="left: 1118px; text-align: right;">5000</span></span></span>
+                                    <input id="range_1" type="text" name="range_1" value="1000;4000" style="display: none;">
                                 </td>
                             </tr>
                             
@@ -374,7 +404,7 @@
 
                     </div>
                 </section>
-            </div>
+            </div> -->
 				
 
 

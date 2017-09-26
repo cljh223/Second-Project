@@ -278,12 +278,12 @@
                     </a>
                     <ul class="sub">
                         <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
         
@@ -308,7 +308,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        	요청물품
+                        	원자재 주문내역
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -319,20 +319,14 @@
                         <div class="adv-table editable-table ">
                             <div class="clearfix">
                                 <div class="btn-group">
-                                    <button id="editable-sample_new" class="btn btn-primary">
-                                        	요청 
+                                <a href="Pur_orderform1">
+                                    <button class="btn btn-primary">
+                                        	원자재 주문하기
                                         <i class="fa fa-plus"></i>
                                     </button>
+                                    </a>
                                 </div>
-                                <div class="btn-group pull-right">
-                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="#">Print</a></li>
-                                        <li><a href="#">Save as PDF</a></li>
-                                        <li><a href="#">Export to Excel</a></li>
-                                    </ul>
-                                </div>
+                                
                             </div>
                             <div class="space15"></div>
                             <table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -342,6 +336,7 @@
                                     <th>신청인</th>
                                     <th>신청부서</th>                              
                                     <th>신청일</th>
+                                    <th>업무개시일</th>
                                     <th>진행상태</th>
                                     <th>상세보기</th>
                                 </tr>
@@ -355,6 +350,7 @@
 										<td>${orderrmlists[outerstat.index][2]}</td>
 										<td>${orderrmlists[outerstat.index][3]}</td>
 										<td>${orderrmlists[outerstat.index][4]}</td>
+										<td>${orderrmlists[outerstat.index][5]}</td>
 										<td><a href="invoicedetails?taskcode=${orderrmlists[outerstat.index][0]}">상세보기</a></td>
 								</tr>
 							</c:forEach>
@@ -375,7 +371,7 @@
                 </section>
             </div>
             
-            <div class="col-sm-12">
+            <!-- <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
                        	월별 주문량
@@ -392,7 +388,7 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </div> -->
             
             
             

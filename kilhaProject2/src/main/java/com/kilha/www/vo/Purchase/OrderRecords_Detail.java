@@ -6,7 +6,7 @@ public class OrderRecords_Detail {
 	private String rmname;
 	private int quantity;
 	private double price;
-	private double total;
+	private int total;
 	
 	public OrderRecords_Detail() {
 		// TODO Auto-generated constructor stub
@@ -44,11 +44,11 @@ public class OrderRecords_Detail {
 		this.price = price;
 	}
 
-	public double getTotal() {
+	public int getTotal() {
 		return total;
 	}
 
-	public void setTotal(double total) {
+	public void setTotal(int total) {
 		this.total = total;
 	}
 

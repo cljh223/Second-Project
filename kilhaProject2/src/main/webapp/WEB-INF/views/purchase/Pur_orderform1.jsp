@@ -276,12 +276,12 @@
                     </a>
                     <ul class="sub">
                         <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
         
@@ -305,7 +305,7 @@
                 <div class="col-lg-6">
                     <section class="panel">
                         <header class="panel-heading">
-                            	invoice작성-step1
+                            	기본정보 입력
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="fa fa-cog" href="javascript:;"></a>
@@ -358,7 +358,7 @@
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit" id="completeform">작성완료</button>
-                                            <button class="btn btn-default" type="button">다시작성</button>
+                                            <a href="Pur_orderform1"><button class="btn btn-default" type="button">다시작성</button></a>
                                         </div>
                                     </div>
                                 </form>
@@ -370,7 +370,7 @@
                 <div class="col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
-                            	주문품목작성
+                            	원자재입력
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="fa fa-cog" href="javascript:;"></a>
@@ -786,8 +786,8 @@
 	function AddFunction(){
 		
 		var TRindex = $('#RmOrderTable tr').length;
-		if(TRindex > 8){
-			alert("최대 8개까지 주문가능");
+		if(TRindex > 10){
+			alert("최대 10개까지 주문가능");
 			return false;
 		} 
 		
@@ -918,8 +918,8 @@
 			      });
 		      
 		      var TRindex = $('#RmOrderTable tr').length;
-				if(TRindex > 8){
-					alert("최대 8개까지 주문가능");
+				if(TRindex > 10){
+					alert("최대 10개까지 주문가능");
 					return false;
 				}
 				

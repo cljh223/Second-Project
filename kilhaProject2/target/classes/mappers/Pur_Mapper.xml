@@ -15,6 +15,14 @@
 		from Pur_rawmaterials
 	</select>
 	
+	
+	<!-- 원재료 전체목록뽑기 (팝업창) -->
+	<select id="listRawMaterials" resultType="RawMaterials"> 
+		select *
+		from Pur_rawmaterials
+	</select>
+	
+	
 	<!-- 스태프 정보 뽑기(팝업창) -->
 	<select id="StaffList" resultType="Staff"> 
 		select * from staff
@@ -25,7 +33,7 @@
 	<select id="trList" resultType="TradeRecords"> 
 		select *
 		from Pur_traderecords
-		order by dealdate asc
+		order by dealdate desc
 	</select>
 	
 	
@@ -46,7 +54,14 @@
 
 	
 	<!-- 거래내역테이블 BUY 입력 -->
-	 <insert id="AddTradeRecords" parameterType="TradeRecords">
+	 <insert id="SubTradeRecords" parameterType="TradeRecords">
+	INSERT INTO Pur_traderecords 
+	(dealdate, RMname, RMcode, dealtype, quantity, price, totalprice, profits, profitrates)
+	VALUES
+	(#{dealdate}, #{rmname}, #{rmcode}, #{dealtype}, #{quantity}, #{price}, #{totalprice}, #{profits}, #{profitrates})
+</insert>
+
+<insert id="AddTradeRecords" parameterType="TradeRecords">
 	INSERT INTO Pur_traderecords 
 	(dealdate, RMname, RMcode, dealtype, quantity, price, totalprice, profits, profitrates)
 	VALUES
@@ -60,11 +75,18 @@
 		where rmname=#{rmname}
 	</select>
 	
-	<!-- 재료테이블에 가격 및 수량 업데이트 -->
+	<!-- 재료테이블에 가격 및 수량 증가 업데이트 -->
 	<update id="AddRawMaterials" parameterType="Map">
 	update Pur_rawmaterials set
 	rmstock = rmstock+#{NewStock},
 	rmavgprice = #{NewAvgPrice}
+	where rmcode = #{rmcode}
+	</update>
+	
+	<!-- 재료테이블 수량 감소 업데이트 -->
+	<update id="SubRawMaterials" parameterType="Map">
+	update Pur_rawmaterials set
+	rmstock = rmstock-#{NewStock}
 	where rmcode = #{rmcode}
 	</update>
 	
@@ -104,7 +126,7 @@
 	
 	<!-- 주문목록 정보 뽑기(게시판) -->
 	<select id="orderlist" resultType="OrderRecords"> 
-		select * from PUR_ORDERRECORDS
+		select * from PUR_ORDERRECORDS order by requestdate desc
 	</select>
 	
 	<!-- 스태프코드로 스태프 정보 하나 찾기 -->
@@ -125,4 +147,63 @@
 		where taskcode = #{taskcode}
 	</select>
 	
+	<!-- 업무시작 날짜 업데이트 -->
+	<update id="workstart" parameterType="Map">
+	update Pur_orderrecords set
+	acceptdate = #{workstartday}
+	where taskcode = #{taskcode}
+	</update>
+	
+	<!-- 업무종료 날짜 업데이트 -->
+	<update id="workend" parameterType="Map">
+	update Pur_orderrecords set
+	enddate = #{workendday}
+	where taskcode = #{taskcode}
+	</update>
+	
+	
+	<!-- 재료정보테이블에 필요수량 뽑아내는 리스트 -->
+	<select id="getordlist" parameterType="String" resultType="OrderRecords_Detail">
+		select * from Pur_orderrecords_detail
+		where rmname = #{searchText5}
+	</select>
+	
+	<!-- 주문재료 숫자 더하기 -->
+	<select id="sumorderrm" parameterType="String" resultType="OrderRecords_Detail">
+		select * from Pur_orderrecords_detail
+		where rmname = #{temprm}
+	</select>
+
+	
+	<select id="getrmpastprice" parameterType="Map" resultType="String">
+		select rmclose from PUR_RM_DAILY_PRICE where rmdate = #{daytext} and rmname=#{nametext}
+	</select>
+	
+	<!-- 생산부 테이블에 재고 업데이트 -->
+	<update id="updateinventory" parameterType="Map">
+	update inventory set
+	p_amount = p_amount + #{rmamount}
+	where materialname = #{rmname}
+	</update>
+	
+	<!-- 생산부에 준만큼 구매재고테이블 감소 -->
+	<update id="updaterm" parameterType="Map">
+	update Pur_rawmaterials set
+	rmstock = rmstock-#{rmamount}
+	where rmname = #{rmname}
+	</update>
+
+	<!-- 종료일 가져오기 -->
+	<select id="getenddate" parameterType="String" resultType="String"> 
+		select enddate from PUR_ORDERRECORDS
+		where taskcode=#{temptc}
+	</select>
+	
+	
+	<!-- 주문코드중에 일이 종료안된수량 가져오기 -->
+	<select id="getordamount" parameterType="Map" resultType="Integer"> 
+		select quantity from Pur_orderrecords_detail
+		where taskcode=#{temptc} and RMname=#{temprm}
+	</select>
+
 </mapper>

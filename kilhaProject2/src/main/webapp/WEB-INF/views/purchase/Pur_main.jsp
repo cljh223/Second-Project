@@ -308,12 +308,12 @@ $(function(){
                     </a>
                     <ul class="sub">
                         <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
         

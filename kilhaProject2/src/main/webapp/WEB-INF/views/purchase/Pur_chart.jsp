@@ -285,32 +285,40 @@
 		<!--sidebar start-->
 		<aside>
 			<div id="sidebar" class="nav-collapse">
-				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li><a href="login.html"> <i class="fa fa-user"></i> <span>Login
-									Page</span>
-						</a></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
-			</div>
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active" href="index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-laptop"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_main">구매메인화면</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+        
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-user"></i>
+                        <span>Login Page</span>
+                    </a>
+                </li>
+            </ul>            </div>
+        <!-- sidebar menu end-->
+    </div>
 		</aside>
 		<!--sidebar end-->
 		<!--main content start-->
@@ -322,7 +330,7 @@
 					<div class="col-lg-9">
 						<section class="panel">
 							<header class="panel-heading">
-								Editable Table <span class="tools pull-right"> <a
+								원자재 가격 차트 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
@@ -422,7 +430,7 @@ anychart.onDocumentReady(function () {
 						<div class="col-lg-3">
 							<section class="panel" style="height: 729px;">
 								<header class="panel-heading">
-									Editable Table <span class="tools pull-right"> <a
+									거래정보 <span class="tools pull-right"> <a
 										href="javascript:;" class="fa fa-chevron-down"></a> <a
 										href="javascript:;" class="fa fa-cog"></a> <a
 										href="javascript:;" class="fa fa-times"></a>
@@ -430,11 +438,11 @@ anychart.onDocumentReady(function () {
 								</header>
 								<div class="panel-body profile-information">
 									<div class="col-md-3">
-										<div class="profile-pic text-center">
+										<div class="profile-pic text-center" style="position:relative; left: 65px;">
 											<img src="images/${rmname}.jpg" id="rmImage" alt="" />
 										</div>
-										<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rmname}</h3>
-										<select id="RMsearch" class="populate " style="width: 200px">
+										<h3 style="position:relative; left: 115px;">${rmname}</h3>
+										<select id="RMsearch" class="populate " style="width: 168px; position:relative; left: 75px;">
 											<optgroup label="면재료(noodle)">
 												<option value="wheat">재료선택</option>
 												<option value="wheat">밀가루</option>
@@ -499,13 +507,12 @@ anychart.onDocumentReady(function () {
 								
 									<div class="panel-body" style="height: 50px">
 										<div class="form-group">
-											<label class="control-label col-md-3">날짜</label>
+											<label class="control-label col-md-3" input type="">날짜</label>
 											<div class="col-lg-4">
 												<div id="spinner1" style="width: 150px;">
 													<div class="input-group input-small">
-														<input type="text" id="today" style="background-color: WhiteSmoke;"
-															readonly="">
-
+														<input type="date" id="today" style="width: 162px;">
+								<!-- 			<input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value=""> -->
 													</div>
 												</div>
 
@@ -955,8 +962,38 @@ anychart.onDocumentReady(function () {
 		      
 	   
 		      });
-	   	  
-	   	  
+	   	 
+	    //최근 가격 가져오기
+	    
+	   
+   $("#today").change(function(){
+      
+	   var todayval = $('#today').val();
+	    var rmname = "${rmname}";
+	    
+	    var daytext = {
+	         'daytext' : todayval,
+	         'nametext' : rmname
+	    }
+	    $.ajax({
+	         url : 'gettodayprice',
+	         method : 'get',
+	         data : daytext,
+	         dataType : 'json',
+	         success : function(respp) {
+	        	 alert("과거의 가격을 가져옵니다.");
+	        	 console.log(respp);
+	        	 $('#price').val(respp);
+	            /* var searchResult = RMStringFunction(respp);
+	            $('#rmTable').html(searchResult);
+	            trRMFunction(); */
+	         },
+	         error : function() {
+	            alert('가격에러입니다.');
+	         }
+	      });
+  		});
+	
 
 		//재료 바꾸기
 		$('#RMsearch').change(function(){

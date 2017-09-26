@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -260,32 +261,40 @@
 		<!--sidebar start-->
 		<aside>
 			<div id="sidebar" class="nav-collapse">
-				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li><a href="login.html"> <i class="fa fa-user"></i> <span>Login
-									Page</span>
-						</a></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
-			</div>
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active" href="index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-laptop"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_main">구매메인화면</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+        
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-user"></i>
+                        <span>Login Page</span>
+                    </a>
+                </li>
+            </ul>            </div>
+        <!-- sidebar menu end-->
+    </div>
 		</aside>
 		<!--sidebar end-->
 		<!--main content start-->
@@ -298,7 +307,7 @@
 					<div class="col-md-9">
 						<section class="panel">
 						<header class="panel-heading">
-								Editable Table <span class="tools pull-right"> <a
+								재료정보 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
@@ -307,7 +316,7 @@
 							<div class="panel-body profile-information">
 								<div class="col-md-3">
 									<div class="profile-pic text-center">
-										<img src="images/wheat.jpg" id="rmImage" alt="" />
+										<img src="" id="rmImage" alt="" />
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -315,7 +324,7 @@
 										
 									<a data-toggle="modal" href="#myModal2">
 										<h1 id="rmType">
-											<span id="rmTypeSpan" >밀가루</span> &nbsp;
+											<span id="rmTypeSpan" >재료검색</span> &nbsp;
 											<img src="images/search.png"
 												id="SearchImg" style="width: 50px; height: 50px;">
 										</h1>
@@ -323,7 +332,7 @@
 										<br>
 										<p>밀가루는 밀의 낟알을 분쇄하여 만든 가루이다. 영어로 '곡물 가루'를 뜻하는 단어인 flour는
 											보통 특별한 언급이 없으면 밀가루를 뜻한다. 옥수수, 쌀, 콩 등의 밀이 아닌 곡물로 만든 가루도
-											'밀가루'라고 칭할 때가 있다. 다당류 탄수화물로 이루어진 높은 비율의 전분을 함유하고 있다.</p>
+											'밀가루'라고 칭할 때가 있다. 다당류 탄수화물로 이루어진 높은 비율의 전분을 함유하고 있다.</p> 
 										<br>
 									</div>
 								</div>
@@ -331,7 +340,7 @@
 								<div class="profile-statistics">
 									<h1><span id="RMstock"></span>kg</h1>
 									<p>현재보유량</p>
-									<h1>1500kg</h1>
+									<h1><span id="RMneedstock"></span>kg</h1>
 									<p>필요주문량</p>
 
 									<br> <a href="#" class="btn btn-primary" id="buybutton">구매</a> <a
@@ -350,17 +359,7 @@
 								<div class="adv-table editable-table ">
 									<div class="clearfix">
 
-										<div class="btn-group pull-right">
-											<button class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												Tools <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right">
-												<li><a href="#">Print</a></li>
-												<li><a href="#">Save as PDF</a></li>
-												<li><a href="#">Export to Excel</a></li>
-											</ul>
-										</div>
+										
 									</div>
 									<div class="space15"></div>
 									<table class="table table-striped table-hover table-bordered"
@@ -368,7 +367,6 @@
 										<thead>
 											<tr>
 												<th>요청 코드</th>
-												<th>신청 부서</th>
 												<th>요청 품목</th>
 												<th>요청수량</th>
 												<th>신청일</th>
@@ -376,52 +374,7 @@
 												<th>상세보기</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr class="">
-												<td>pd-wheat-01</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2000kg</td>
-												<td class="center">2017-08-28</td>
-												<td><a class="edit" href="javascript:;">승인대기</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-02</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2500kg</td>
-												<td class="center">2017-08-25</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-03</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1500kg</td>
-												<td class="center">2017-08-21</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-04</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>3000kg</td>
-												<td class="center">2017-08-15</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-05</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1000kg</td>
-												<td class="center">2017-08-11</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
+										<tbody id="selectedrmorders">
 
 										</tbody>
 									</table>
@@ -459,17 +412,13 @@
                     </div>
 
 
-
-
-
-
 						</section>
 					</div>
 					<div class="col-md-3">
 						<!--widget graph start-->
 						<section class="panel">
 						<header class="panel-heading">
-								Editable Table <span class="tools pull-right"> <a
+								주문량 대비 재고량 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a> <a
 									href="javascript:;" class="fa fa-cog"></a> <a
 									href="javascript:;" class="fa fa-times"></a>
@@ -477,97 +426,67 @@
 							</header>
 
 							<div class="prf-box">
-								<h3 class="prf-border-head">&nbsp;&nbsp;&nbsp;&nbsp;재고/필요주문량</h3>
-								<div class=" wk-progress">
-									<div class="col-md-5">밀가루</div>
-									<div class="col-md-5">
-										<div class="progress  ">
-											<div style="width: 70%" aria-valuemax="100" aria-valuemin="0"
-												aria-valuenow="40" role="progressbar"
-												class="progress-bar progress-bar-danger">
-												<span class="sr-only">70% Complete (success)</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">70%</div>
-								</div>
-								<div class=" wk-progress">
-									<div class="col-md-5">말린버섯</div>
+								<h3 class="prf-border-head"></h3>
+							
+                            <c:forEach items="${ordertorm}" var="order" varStatus="stat">
+                            <fmt:parseNumber var = "nuum" type = "number" value = "${order[1]}" />
+                            
+                            	 <c:if test="${nuum<=50 && nuum != 100}">
+									<div class=" wk-progress">
+									<div class="col-md-5">${order[0]}</div>
 									<div class="col-md-5">
 										<div class="progress ">
-											<div style="width: 57%" aria-valuemax="100" aria-valuemin="0"
+											<div style="width: ${order[1]}%" aria-valuemax="100" aria-valuemin="0"
 												aria-valuenow="40" role="progressbar"
 												class="progress-bar progress-bar-success">
 												<span class="sr-only">57% Complete (success)</span>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-2">57%</div>
-								</div>
-								<div class=" wk-progress">
-									<div class="col-md-5">당근</div>
+									<div class="col-md-2">${order[1]}%</div>
+								</div>                           	
+                            	</c:if>
+                            	
+                            	<c:if test="${nuum >50 && nuum != 100}">
+                            		<div class=" wk-progress">
+									<div class="col-md-5">${order[0]}</div>
 									<div class="col-md-5">
 										<div class="progress ">
-											<div style="width: 20%" aria-valuemax="100" aria-valuemin="0"
-												aria-valuenow="40" role="progressbar"
-												class="progress-bar progress-bar-info">
-												<span class="sr-only">20% Complete (success)</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">20%</div>
-								</div>
-								<div class=" wk-progress">
-									<div class="col-md-5">감자전분</div>
-									<div class="col-md-5">
-										<div class="progress ">
-											<div style="width: 30%" aria-valuemax="100" aria-valuemin="0"
+											<div style="width: ${order[1]}%" aria-valuemax="100" aria-valuemin="0"
 												aria-valuenow="40" role="progressbar"
 												class="progress-bar progress-bar-warning">
 												<span class="sr-only">30% Complete (success)</span>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-2">30%</div>
+									<div class="col-md-2">${order[1]}%</div>
 								</div>
-								<div class=" wk-progress">
-									<div class="col-md-5">당근</div>
+                            	</c:if>
+                            	
+                            	<c:if test="${nuum == 100 }">
+
+                            		<div class=" wk-progress">
+									<div class="col-md-5">${order[0]}</div>
 									<div class="col-md-5">
-										<div class="progress ">
-											<div style="width: 80%" aria-valuemax="100" aria-valuemin="0"
+										<div class="progress  ">
+											<div style="width: 100%" aria-valuemax="100" aria-valuemin="0"
 												aria-valuenow="40" role="progressbar"
-												class="progress-bar progress-bar-warning">
-												<span class="sr-only">80% Complete (success)</span>
+												class="progress-bar progress-bar-danger">
+												<span class="sr-only">70% Complete (success)</span>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-2">80%</div>
+									<div class="col-md-2">!</div>
 								</div>
-								<div class=" wk-progress">
-									<div class="col-md-5">고추가루</div>
-									<div class="col-md-5">
-										<div class="progress ">
-											<div style="width: 100%" aria-valuemax="100"
-												aria-valuemin="0" aria-valuenow="40" role="progressbar"
-												class="progress-bar progress-bar-warning">
-												<span class="sr-only">100% Complete (success)</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">100%</div>
-								</div>
+                            	</c:if> 
+                            	
+           	
+                            	
+                            </c:forEach>
 							</div>
-
-
-
+							
 						</section>
-						<!--widget graph end-->
-						<!--widget graph start-->
 
-						<!--widget graph end-->
-						<!--widget weather start-->
-
-						<!--widget weather end-->
 					</div>
 
 					<!--mini statistics end-->
@@ -579,11 +498,6 @@
 				<!--mini statistics start-->
 
 				<!--mini statistics end-->
-
-
-
-
-
 
 			</section>
 		</section>
@@ -1074,8 +988,72 @@
 		      $('#RMstock').text(rmstock);
 		      $('#rmTypeSpan').text(rmname);
 		      $("#rmImage").attr("src","images/"+rmname+".jpg");	     
+		     
+		      
+		      var searchText5 = {
+		 	         'searchText5' : rmname
+		 	      }
+		      
+		      
+		      //목록뽑기
+		      $.ajax({
+			         url : 'inform_orderlist',
+			         method : 'get',
+			         data : searchText5,
+			         dataType : 'json',
+			         success : function(ressp) {
+     
+			            var olString = '';
+			            var totalrmneed = 0;
+			            for (var i = 0; i < ressp.length; i++) {
+			            	olString += '<tr>';
+			            	olString += '<td style="width: 200px;">';
+			            	olString += ressp[i][0];
+			            	olString += '</td>';
+			            	olString += '<td>';
+			            	olString += ressp[i][1];
+			            	olString += '</td>';
+			            	olString += '<td>';
+			            	olString += ressp[i][2];
+			            	olString += '</td>';
+			            	olString += '<td>';
+			            	olString += ressp[i][3];
+			            	olString += '</td>';
+			            	olString += '<td>';
+			            	olString += ressp[i][4];
+			            	olString += '</td>';
+			            	olString += '<td>';
+			            	olString += '<a href="invoicedetails?taskcode='+ressp[i][0]+'">';
+			            	olString += '상세보기';
+			            	olString += '</td>';
+			            	olString += '</tr>';
+			            }
+			                       
+						$('#selectedrmorders').html(olString);
+						
+						for(var i = 0; i< ressp.length; i++){
+							totalrmneed += parseInt(ressp[i][2]);
+						}
+						
+						
+						 $('#RMneedstock').text(totalrmneed);
+			            
+			         },
+			         
+			         
+			         
+			         
+			         error : function() {
+			            alert('구매목록가져오기에러입니다.');
+			         }
+			      });
+		      
+  
+		      
 		      $('#modalclose1').trigger("click");
 		      $('#modalclose2').trigger("click");
+		      
+		      
 		   });
 		}
 	

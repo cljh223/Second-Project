@@ -47,5 +47,29 @@ public interface Pur_DAO {
 	public OrderRecords getbasicrecord(String taskcode);
 
 	public List<OrderRecords_Detail> getdetailrecord(String taskcode);
+
+	public int workstart(Map updatestart);
+
+	public List<OrderRecords_Detail> getordlist(String searchText5);
+
+	public List<OrderRecords_Detail> sumorderrm(String temprm);
+
+	public List<RawMaterials> listRawMaterials();
+
+	public String getrmpastprice(Map rmpriceMap);
+
+	public int SubRawMaterials(Map rmupdateMap);
+
+	public int updateinventory(Map updatepromap);
+
+	public int updaterm(Map updatepurmap);
+
+	public int workend(Map updateend);
+
+	public int SubTradeRecords(TradeRecords tr);
+
+	public String getenddate(String temptc);
+
+	public int getordamount(Map filtermap);
 	
 }

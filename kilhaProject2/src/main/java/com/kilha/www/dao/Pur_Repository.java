@@ -123,6 +123,77 @@ public class Pur_Repository {
 		return dao.getdetailrecord(taskcode);
 	}
 
+	//업무시작 날짜 업데이트
+	public int workstart(Map updatestart) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.workstart(updatestart);
+	}
+
+
+	public List<OrderRecords_Detail> getordlist(String searchText5) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.getordlist(searchText5);
+	}
+
+
+	public List<OrderRecords_Detail> sumorderrm(String temprm) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.sumorderrm(temprm); 
+	}
+
+
+	public List<RawMaterials> listRawMaterials() {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.listRawMaterials();
+	}
+
+
+	public String getrmpastprice(Map rmpriceMap) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.getrmpastprice(rmpriceMap);
+	}
+
+	//재료감소업데이트
+	public int SubRawMaterials(Map rmupdateMap) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.SubRawMaterials(rmupdateMap);
+	}
+
+
+	public int updateinventory(Map updatepromap) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.updateinventory(updatepromap);
+	}
+
+
+	public int updaterm(Map updatepurmap) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.updaterm(updatepurmap);
+	}
+
+
+	public int workend(Map updateend) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.workend(updateend);
+	}
+
+
+	public int SubTradeRecords(TradeRecords tr) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.SubTradeRecords(tr);
+	}
+
+
+	public String getenddate(String temptc) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.getenddate(temptc);
+	}
+
+	public int getordamount(Map filtermap) {
+		Pur_DAO dao = sqlSession.getMapper(Pur_DAO.class);
+		return dao.getordamount(filtermap);
+	}
+
 	//재고테이블 입력
 	
 

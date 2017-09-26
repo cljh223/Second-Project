@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -238,12 +239,12 @@
                     </a>
                     <ul class="sub">
                         <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
         
@@ -268,7 +269,69 @@
 				<!--mini statistics end-->
 				<div class="row">
 				
-				<div class="col-sm-12">
+				
+
+					<div class="col-md-12">
+						<!--earning graph start-->
+						<section class="panel">
+							<header class="panel-heading">
+								원자재 재고량
+							</header>
+							<div class="panel-body">
+								<div class="adv-table editable-table ">
+									<div class="clearfix">
+										<!-- <div class="form-group">
+											<label class="control-label col-md-3">Date Range</label>
+											<div class="col-md-4">
+												<div class="input-group input-large" data-date="13/07/2013"
+													data-date-format="mm/dd/yyyy">
+													<input type="text" class="form-control dpd1" name="from">
+													<span class="input-group-addon">To</span> <input
+														type="text" class="form-control dpd2" name="to">
+												</div>
+												<span class="help-block">검색기간설정</span>
+											</div>
+										</div> -->
+										
+									</div>
+									<div class="space15"></div>
+									<table class="table table-striped table-hover table-bordered"
+										id="editable-sample">
+										<thead>
+											<tr>
+												<th>상품명</th>
+												<th>상품코드</th>
+												<th>잔여수량(kg)</th>
+												<th>평균단가</th>
+												<th>현재가격</th>
+												<th>수익금</th>
+												<th>수익률(%)</th>											
+												<th>잔여가치</th>
+											</tr>
+										</thead>
+										<tbody>
+												
+									<c:forEach items="${rmstoreinform}" var="rmstockinform" varStatus="outerstat">
+										<tr>
+											<td class = "text-center">${rmstockinform[0]}</td>
+											<td class = "text-center">${rmstockinform[1]}</td>
+											<td class = "text-center">${rmstockinform[2]}</td>
+											<td class = "text-center">${rmstockinform[3]}</td>
+											<td class = "text-center">${rmstockinform[4]}</td>
+											<td class = "text-center">${rmstockinform[5]}</td>
+											<td class = "text-center">${rmstockinform[6]}%</td>
+											<td class = "text-center">${rmstockinform[7]}</td>
+										</tr>
+									</c:forEach>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</section>
+						<!--earning graph end-->
+					</div>
+					<!-- <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
                         Bar Chart
@@ -281,127 +344,10 @@
                     <div class="panel-body">
                         <div class="chartJS">
                             <canvas id="bar-chart-js" height="250" width="800" ></canvas>
-
-
                         </div>
-
-
-
                     </div>
                 </section>
-            </div>
-				
-				
-				
-				
-				
-				
-					<div class="col-md-12">
-						<!--earning graph start-->
-						<section class="panel">
-							<header class="panel-heading">
-								기간별 거래손익 <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> <a
-									href="javascript:;" class="fa fa-cog"></a> <a
-									href="javascript:;" class="fa fa-times"></a>
-								</span>
-							</header>
-							<div class="panel-body">
-								<div class="adv-table editable-table ">
-									<div class="clearfix">
-										<div class="form-group">
-											<label class="control-label col-md-3">Date Range</label>
-											<div class="col-md-4">
-												<div class="input-group input-large" data-date="13/07/2013"
-													data-date-format="mm/dd/yyyy">
-													<input type="text" class="form-control dpd1" name="from">
-													<span class="input-group-addon">To</span> <input
-														type="text" class="form-control dpd2" name="to">
-												</div>
-												<span class="help-block">검색기간설정</span>
-											</div>
-										</div>
-										<div class="btn-group pull-right">
-											<button class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												Tools <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right">
-												<li><a href="#">Print</a></li>
-												<li><a href="#">Save as PDF</a></li>
-												<li><a href="#">Export to Excel</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="space15"></div>
-									<table class="table table-striped table-hover table-bordered"
-										id="editable-sample">
-										<thead>
-											<tr>
-												<th>상품명</th>
-												<th>상품코드</th>
-												<th>잔여수량</th>
-												<th>평균단가</th>
-												<th>현재가격</th>
-												<th>수익금</th>
-												<th>수익률</th>											
-												<th>잔여가치</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="">
-												<td>pd-wheat-01</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2000kg</td>
-												<td class="center">2017-08-28</td>
-												<td><a class="edit" href="javascript:;">승인대기</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-02</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>2500kg</td>
-												<td class="center">2017-08-25</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-03</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1500kg</td>
-												<td class="center">2017-08-21</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-04</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>3000kg</td>
-												<td class="center">2017-08-15</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-											<tr class="">
-												<td>pd-wheat-05</td>
-												<td>production</td>
-												<td>wheat(밀가루)</td>
-												<td>1000kg</td>
-												<td class="center">2017-08-11</td>
-												<td><a class="edit" href="javascript:;">처리중</a></td>
-												<td><a class="delete" href="javascript:;">상세보기</a></td>
-											</tr>
-
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</section>
-						<!--earning graph end-->
-					</div>
+            </div> -->
 
 
 				</div>

@@ -259,136 +259,39 @@
 <!--header end-->
 <aside>
     <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->            <div class="leftside-navigation">
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-laptop"></i>
-                    <span>Layouts</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="boxed_page.html">Boxed Page</a></li>
-                    <li><a href="horizontal_menu.html">Horizontal Menu</a></li>
-                    <li><a href="language_switch.html">Language Switch Bar</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-book"></i>
-                    <span>UI Elements</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="general.html">General</a></li>
-                    <li><a href="buttons.html">Buttons</a></li>
-<li><a href="typography.html">Typography</a></li>
-                    <li><a href="widget.html">Widget</a></li>
-                    <li><a href="slider.html">Slider</a></li>
-                    <li><a href="tree_view.html">Tree View</a></li>
-                    <li><a href="nestable.html">Nestable</a></li>
-                    <li><a href="grids.html">Grids</a></li>
-                    <li><a href="calendar.html">Calender</a></li>
-                    <li><a href="draggable_portlet.html">Draggable Portlet</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="fontawesome.html">
-                    <i class="fa fa-bullhorn"></i>
-                    <span>Fontawesome </span>
-                </a>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-th"></i>
-                    <span>Data Tables</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="basic_table.html">Basic Table</a></li>
-                    <li><a href="responsive_table.html">Responsive Table</a></li>
-                    <li><a href="dynamic_table.html">Dynamic Table</a></li>
-                    <li><a href="editable_table.html">Editable Table</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-tasks"></i>
-                    <span>Form Components</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="form_component.html">Form Elements</a></li>
-                    <li><a href="advanced_form.html">Advanced Components</a></li>
-                    <li><a href="form_wizard.html">Form Wizard</a></li>
-                    <li><a href="form_validation.html">Form Validation</a></li>
-                    <li><a href="file_upload.html">Muliple File Upload</a></li>
-                    
-                    <li><a href="dropzone.html">Dropzone</a></li>
-                    <li><a href="inline_editor.html">Inline Editor</a></li>
-
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-envelope"></i>
-                    <span>Mail </span>
-                </a>
-                <ul class="sub">
-                    <li><a href="mail.html">Inbox</a></li>
-                    <li><a href="mail_compose.html">Compose Mail</a></li>
-                    <li><a href="mail_view.html">View Mail</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class=" fa fa-bar-chart-o"></i>
-                    <span>Charts</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="morris.html">Morris</a></li>
-                    <li><a href="chartjs.html">Chartjs</a></li>
-                    <li><a href="flot_chart.html">Flot Charts</a></li>
-                    <li><a href="c3_chart.html">C3 Chart</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class=" fa fa-bar-chart-o"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="google_map.html">Google Map</a></li>
-                    <li><a href="vector_map.html">Vector Map</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="active">
-                    <i class="fa fa-glass"></i>
-                    <span>Extra</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="blank.html">Blank Page</a></li>
-                    <li><a href="lock_screen.html">Lock Screen</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li class="active"><a href="invoice.html">Invoice</a></li>
-                    <li><a href="pricing_table.html">Pricing Table</a></li>
-                    <li><a href="timeline.html">Timeline</a></li>                    
-<li><a href="gallery.html">Media Gallery</a></li><li><a href="404.html">404 Error</a></li>
-                    <li><a href="500.html">500 Error</a></li>
-                    <li><a href="registration.html">Registration</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="login.html">
-                    <i class="fa fa-user"></i>
-                    <span>Login Page</span>
-                </a>
-            </li>
-        </ul></div>        
-<!-- sidebar menu end-->
+                <li>
+                    <a class="active" href="index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-laptop"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_main">구매메인화면</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+        
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-user"></i>
+                        <span>Login Page</span>
+                    </a>
+                </li>
+            </ul>            </div>
+        <!-- sidebar menu end-->
     </div>
 </aside>
 <!--sidebar end-->
@@ -413,19 +316,44 @@
 			
                     <ul class="breadcrumbs-alt" style="position: absolute; top: 50px; left: 10px;">
                         <li>
+                        	<c:if test="${empty tempOR.acceptdate && empty tempOR.enddate}">
                             <a class="current">접수완료</a>
+                            </c:if>
+                            <c:if test="${not empty tempOR.acceptdate ||not empty tempOR.enddate}">
+                            <a class="active-trail active">접수완료</a>
+                            </c:if>
+                            
                         </li>
                         <li>
+                        	<c:if test="${not empty tempOR.acceptdate && empty tempOR.enddate}">
+                        	<a class="current" >처리중</a>
+                        	</c:if>
+                        	<c:if test="${empty tempOR.acceptdate}">
                             <a class="active-trail active" >처리중</a>
+                            </c:if>
+                            <c:if test="${not empty tempOR.acceptdate && not empty tempOR.enddate}">
+                            <a class="active-trail active" >처리중</a>
+                            </c:if>
                         </li>
                         <li>
-                            <a class="active-trail active" >완료</a>
+                        	<c:if test="${not empty tempOR.acceptdate && not empty tempOR.enddate}">
+                        	<a class="current" >업무종료</a>
+                        	</c:if>
+                        	<c:if test="${empty tempOR.enddate}">
+                            <a class="active-trail active" >업무종료</a>
+                            </c:if>
                         </li>
 
                     </ul>
-               
-
-
+               				<div style="position: absolute; top: 45px; left: 300px;">
+								<label>업무시작일 : </label>
+								<label>${tempOR.acceptdate}</label>
+							</div>
+							<div style="position: absolute; top: 70px; left: 300px;">
+								<label>업무종료일 : </label>
+								<label>${tempOR.enddate}</label>
+							</div>
+							
                                 <div class="pull-right">
                                     <div class="col-md-6 col-sm-6 pull-left">
                                         <p>소속<br>
@@ -527,8 +455,13 @@
                         </div>
 
                         <div class="text-center invoice-btn">
-                            <a class="btn btn-success btn-lg" id="submitorder"><i class="fa fa-check"></i> 접수완료 </a>
-                            <!-- <a href="invoice_print.html" target="_blank" class="btn btn-primary btn-lg"><i class="fa fa-print"></i> Print </a> -->
+                            
+                            <c:if test="${empty tempOR.acceptdate && empty tempOR.enddate}">
+                            <a class="btn btn-success btn-lg" id="workstart"><i class="fa fa-cloud-download"></i> 업무개시 </a>
+                            </c:if>
+                            <c:if test="${not empty tempOR.acceptdate && empty tempOR.enddate}">
+                            <a class="btn btn-success btn-lg" id="workend" target="_blank" class="btn btn-primary btn-lg"><i class="fa fa-cloud-upload"></i> 업무종료 </a> 
+                       		</c:if>
                         </div>
 
                     </div>
@@ -819,9 +752,36 @@
 <script type="text/javascript">
 
 	$(function() {
-		$('#submitorder').on('click', function(){
-			location.href = 'insertorder?taskcode=${invoiceNum}&requestdate=${orderdate}&etc=${staffetc}&staffname=${staffName}&orderrmlist=${orderrmlist}&subtotal=${subtotal}';
+
+		$('#workstart').on('click', function(){
+			
+			  var now = new Date();
+		      var year= now.getFullYear();
+		      var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+		      var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+		              
+		      var chan_val = year + '-' + mon + '-' + day;
+		      
+			  location.href='Pur_workstart?taskcode=${tempOR.taskcode}&workstartday='+chan_val;
+			  
 		});
+		
+		$('#workend').on('click', function(){
+			
+			  var now = new Date();
+		      var year= now.getFullYear();
+		      var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+		      var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+		              
+		      var chan_val = year + '-' + mon + '-' + day;
+		      
+			  location.href='Pur_workend?taskcode=${tempOR.taskcode}&workendday='+chan_val;
+			  
+		});
+		
+		
+		
+		
 	});		
 		
 			
