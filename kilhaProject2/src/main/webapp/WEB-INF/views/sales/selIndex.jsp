@@ -176,12 +176,6 @@
 			wareString += '<td>'
 			wareString += resp[i].warehouseType;
 			wareString += '</td>';
-			wareString += '<td><span class="label label-info label-mini">Due</span></td>';
-			wareString += '<td>';
-			wareString += '<div class="progress progress-striped progress-xs">';
-			wareString += '<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">';
-			wareString += '<span class="sr-only">40% Complete (success)</span>';
-			wareString += '</div>' + '</div>' + '</td>';
 			wareString += '</tr>';
 		}
 		wareString += '</tbody>' + '</thead>';
@@ -205,12 +199,8 @@
 			staffString += '<td>'
 			staffString += resp[i].staff_department;
 			staffString += '</td>';
-			staffString += '<td><span class="label label-info label-mini">Due</span></td>';
-			staffString += '<td>';
-			staffString += '<div class="progress progress-striped progress-xs">';
-			staffString += '<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">';
-			staffString += '<span class="sr-only">40% Complete (success)</span>';
-			staffString += '</div>' + '</div>' + '</td>';
+			staffString += '<td>' + resp[i].staff_tel + '</td>';
+			staffString += '<td>' + resp[i].staff_email + '</td>';
 			staffString += '</tr>';
 		}
 		staffString += '</tbody>' + '</thead>';
@@ -306,7 +296,7 @@
 				+ '<table id = "searchTable" class="table  table-hover general-table">'
 				+ '<thead><tr>'
 				+ '<th>창고코드</th><th class="hidden-phone">창고명</th>'
-				+ '<th>창고종류</th><th>창고상태</th><th>생산률</th></tr>'
+				+ '<th>창고종류</th></tr>'
 				+ '</thead><tbody id = "warehouseTable">'
 				+ warehouseStringFunction(resp);
 		$('div#myModal2 .modal-body').html(warehouseText);
@@ -349,7 +339,7 @@
 				+ '<table id = "searchTable" class="table  table-hover general-table">'
 				+ '<thead><tr><th>직원코드</th>'
 				+ '<th class="hidden-phone">직원명</th><th>부서</th>'
-				+ '<th>??</th><th>Progress</th></tr></thead>'
+				+ '<th>전화번호</th><th>이메일</th></tr></thead>'
 				+ '<tbody id="staffTable">' + staffStringFunction(resp);
 		$('div#myModal1 .modal-body').html(staffText);
 		$('#searchText2').on('keyup', function() {
@@ -586,7 +576,6 @@
 							supplyTableString += '</tr>';
 							$('#supplyProductTable').append(supplyTableString);
 							$('#myModal3').trigger("click");
-							alert(supplyTableString);
 
 						});
 	}
@@ -617,9 +606,13 @@
 	}
 
 	$(function() {
+		//지도포함 초기화면 생성
 		initialize();
+		//overview클릭시 작동
 		$('.overview').on('click', overviewIntiFunction);
+		//settings클릭시 작동
 		$('.settings').on('click', processViewFunction);
+		//job-history 클릭시 작동
 		$('.job-history').on('click', updateViewFunction);
 		$('#staffName').on('click', staffBootFunction);
 		$('#warehouseName').on('click', warehouseBootFunction);
@@ -652,6 +645,64 @@
 		$(".range_2").ionRangeSlider();
 		$('.mtop10').on('click', kpiSettingFunction);
 		$('#shopSearchFormBtn').on('click', shopSearchFormFunction);
+		$('.wdgt-value')
+				.on(
+						'click',
+						function() {
+							var shopName = $('#shopNameText').attr(
+									'data-shopName');
+							var date = $('.m-bot16').val();
+							var gubun = $(this).attr('id');
+							var tempGubun = '';
+							if (gubun == '0') {
+								tempGubun = '월간 판매량';
+							} else if (gubun == '1') {
+								tempGubun = '월간 매출액';
+							} else if (gubun == '2') {
+								tempGubun = '월간 매출 총 이익';
+							}
+
+							var kpiSettingText = '<div class="col-sm-12"><section class="panel"><div class="panel-body">'
+									+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
+									+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
+									+ '<div class="col-lg-10"><input type="text" class="form-control" id="unShopNameUpdate" value="'+shopName+'" placeholder="매장명">'
+									+ '</div></div><div class="form-group">'
+									+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">날짜</label>'
+									+ '<div class="col-lg-10"><input type="text" class="form-control" id="unDateUpdate" value="'+date+'" placeholder="날짜">'
+									+ '</div></div>	<div class="form-group">'
+									+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">구분</label>'
+									+ '<div class="col-lg-10"><input type="text" class="form-control" id="unDivisionUpdate" value="'+tempGubun+'" placeholder="구분">'
+									+ '</div></div><div class="form-group">'
+									+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">목표액수</label>'
+									+ '<div class="col-lg-10"><input type="tel" class="form-control" id="unEarnUpdate" value="" placeholder="목표액수">'
+									+ '<p class="help-block">목표액수를 입력하세요</p></div></div>'
+									+ '</form></div></div></section></div>';
+
+							$('div#myModal5 .modal-body').html(kpiSettingText);
+							$('#button5').unbind('click');
+							$('#button5').on('click', function() {
+								var unEarnUpdate = $('#unEarnUpdate').val();
+								$.ajax({
+									url : 'kpiAdd',
+									method : 'post',
+									data : {
+										'shopCode' : shopCode,
+										'date' : date,
+										'gubun' : gubun,
+										'unEarnUpdate' : unEarnUpdate
+									},
+									dataType : 'json',
+									success : function(resp) {
+										alert('등록했습니다.');
+										overviewIntiFunction();
+										$('#myModal5').trigger("click");
+									},
+									error : function() {
+										alert('에라데스');
+									}
+								})
+							});
+						});
 	});
 </script>
 </head>
@@ -746,14 +797,18 @@
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-				<div class="row">
-					<div class="col-sm-12">
-						<input id="searchKeyword" type="text" class="form-control">
+				<div class="row" style="margin-bottom: 20px;">
+					<div class="col-sm-11">
+						<input id="searchKeyword" type="text" class="form-control"
+							style="width: 1526px;">
+					</div>
+					<div class="col-sm-1">
 						<button id="shopSearchFormBtn" type="button"
-							class="btn btn-danger">Sign in</button>
+							class="btn btn-danger" style="margin-left: 30px;">Sign
+							in</button>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" id="shopSearchForm2" style="display: none">
 					<div class="col-md-12">
 						<section class="panel">
 							<header class="panel-heading">
@@ -761,6 +816,24 @@
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
+							<div class="modal fade" id="myModal6" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+											<h4 class="modal-title">Datepicker in Modal</h4>
+										</div>
+										<div class="modal-body"></div>
+										<div class="modal-footer">
+											<button data-dismiss="modal" class="btn btn-default"
+												type="button">Close</button>
+											<button type="button" id="button6" class="btn btn-primary">OK</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="panel-body" id="shopSearchFormTable"></div>
 						</section>
 					</div>
@@ -778,7 +851,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row" style="margin-top: 20px;">
 					<div class="col-lg-12">
 						<section class="panel">
 							<header class="panel-heading">
@@ -792,11 +865,6 @@
 										<section class="panel">
 											<div class="panel-body profile-information">
 												<div class="col-md-3">
-													<div class="profile-pic text-center">
-														<img src="images/lock_thumb.jpg" alt="" />
-													</div>
-												</div>
-												<div class="col-md-3">
 													<div class="profile-desk"></div>
 												</div>
 												<div class="col-md-3">
@@ -805,6 +873,10 @@
 															<span><i class="fa fa-map-marker"></i></span> location
 														</h2>
 														<div class="location-info"></div>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="prf-contacts">
 														<h2>
 															<span><i class="fa fa-phone"></i></span> contacts
 														</h2>
@@ -834,14 +906,89 @@
 													<div id="overview" class="tab-pane">
 														<div class="row">
 															<div class="col-lg-12">
-																<div class="btn-group">
-																	<button data-toggle="dropdown"
-																		class="btn btn-default dropdown-toggle" type="button"
-																		aria-expanded="false">
-																		Date <span class="caret"></span>
-																	</button>
-																	<ul role="menu" class="dropdown-menu yearMenu">
-																	</ul>
+																<div class="btn-group" style="width: 300px;">
+																	<div class="position-center"
+																		style="margin-left: 0px; margin-bottom: 20px;">
+																		<select class="form-control m-bot16">
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<!-- modal -->
+															<div class="modal fade" id="myModal5" tabindex="-1"
+																role="dialog" aria-labelledby="myModalLabel"
+																aria-hidden="true">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-hidden="true">&times;</button>
+																			<h4 class="modal-title">Datepicker in Modal</h4>
+																		</div>
+																		<div class="modal-body"></div>
+																		<div class="modal-footer">
+																			<button data-dismiss="modal" class="btn btn-default"
+																				type="button">Close</button>
+																			<button id="button5" type="button"
+																				class="btn btn-primary">OK</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<!-- modal end -->
+															<div class="col-lg-4">
+																<div class="profile-nav alt">
+																	<section class="panel text-center">
+																		<div class="user-heading alt wdgt-row terques-bg">
+																			<i class="fa fa-ticket"></i>
+																		</div>
+																		<div class="panel-body">
+																			<a data-toggle="modal" href="#myModal5">
+																				<div class="wdgt-value" id="0">
+																					<h1 id="salesText" class="count">등록해주세요</h1>
+																					<p>월 판매 목표량</p>
+																				</div>
+																			</a>
+																		</div>
+
+																	</section>
+																</div>
+															</div>
+															<div class="col-lg-4">
+																<div class="profile-nav alt">
+																	<section class="panel text-center">
+																		<div class="user-heading alt wdgt-row terques-bg">
+																			<i class="fa fa-money"></i>
+																		</div>
+																		<div class="panel-body">
+																			<a data-toggle="modal" href="#myModal5">
+																				<div class="wdgt-value" id="1">
+																					<h1 id="earnText" class="count">등록해주세요</h1>
+																					<p>월 매출 목표액</p>
+																				</div>
+																			</a>
+																		</div>
+
+																	</section>
+																</div>
+															</div>
+															<div class="col-lg-4">
+																<div class="profile-nav alt">
+																	<section class="panel text-center">
+																		<div class="user-heading alt wdgt-row terques-bg">
+																			<i class="fa fa-dollar"></i>
+																		</div>
+																		<div class="panel-body">
+																			<a data-toggle="modal" href="#myModal5">
+																				<div class="wdgt-value" id="2">
+																					<h1 id="allEarnText" class="count">등록해주세요</h1>
+																					<p>월 매출 총이익 목표액</p>
+																				</div>
+																			</a>
+																		</div>
+																	</section>
 																</div>
 															</div>
 														</div>
@@ -851,7 +998,7 @@
 																	<h3 class="prf-border-head">work in progress</h3>
 																	<div class=" wk-progress salesClass"></div>
 																	<div class=" wk-progress earnClass"></div>
-																	<div class=" wk-progress realEarnClass"></div>
+																	<div class=" wk-progress allEarnClass"></div>
 																</div>
 																<div class="prf-box">
 																	<h3 class="prf-border-head">performance status</h3>
@@ -877,7 +1024,7 @@
 													</div>
 													<div id="job-history" class="tab-pane ">
 														<div class="row">
-															<div class="col-sm-6">
+															<div class="col-sm-12">
 																<section class="panel">
 																	<header class="panel-heading"> Horizontal
 																		Forms </header>
@@ -955,49 +1102,6 @@
 																				<button type="reset" class="btn btn-info">reset</button>
 																			</form>
 																		</div>
-																	</div>
-																</section>
-															</div>
-															<div class="col-sm-6">
-																<section class="panel">
-																	<header class="panel-heading"> Horizontal
-																		Forms </header>
-																	<div class="panel-body">
-																		<div class="position-center">
-																			<select class="form-control m-bot15">
-																			</select>
-																		</div>
-																		<table class="table slider-table">
-																			<tr>
-																				<td><input id="salesKpi" class="range_2"
-																					type="text" name="salesKpi" value="20000;100000"
-																					data-type="double" data-step="500"
-																					data-postfix=" &euro;" data-from="30000"
-																					data-to="90000" data-hasgrid="true" /></td>
-																			</tr>
-																			<tr>
-																				<td><input id="earnKpi" class="range_2"
-																					type="text" name="earnKpi"
-																					value="10000000;1000000000" data-type="double"
-																					data-step="500" data-postfix=" &euro;"
-																					data-from="30000" data-to="90000"
-																					data-hasgrid="true" /></td>
-																			</tr>
-																			<tr>
-																				<td><input id="AllearnKpi" class="range_2"
-																					type="text" name="AllearnKpi"
-																					value="100000000;1000000000" data-type="double"
-																					data-step="500" data-postfix=" &euro;"
-																					data-from="30000" data-to="90000"
-																					data-hasgrid="true" /></td>
-																			</tr>
-																			<tr>
-																				<td class="text-center ">
-																					<button class="btn btn-info btn-sm mtop10"
-																						id="updateLast">Update this slider</button>
-																				</td>
-																			</tr>
-																		</table>
 																	</div>
 																</section>
 															</div>
@@ -1095,31 +1199,11 @@
 												<div class="modal-footer">
 													<button data-dismiss="modal" class="btn btn-default"
 														type="button">Close</button>
-													<button type="button" id="button3" class="btn btn-primary">OK</button>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="modal fade" id="myModal4" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Datepicker in Modal</h4>
-												</div>
-												<div class="modal-body"></div>
-												<div class="modal-footer">
-													<button data-dismiss="modal" class="btn btn-default"
-														type="button">Close</button>
-													<button type="button" id="button3" class="btn btn-primary">OK</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal fade" id="myModal5" tabindex="-1"
 										role="dialog" aria-labelledby="myModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
@@ -1252,6 +1336,7 @@
 		var shopCode;
 		var processName;
 
+		//setting 클릭시 위쪽 데이터 데이블 생성 함수
 		function processViewFunctionSuccess(resp) {
 			var salAmount = 0;
 			var processLocationText = '<div class="adv-table">'
@@ -1300,7 +1385,9 @@
 			$('.dynamic-table').dataTable({
 				"aaSorting" : [ [ 4, "desc" ] ]
 			});
+
 			$('#processListForm tr').on('click', nowEstimateSearchFunction);
+			$('#processFormAddBtn').unbind('click');
 			$('#processFormAddBtn').on('click', estimateAddFunction);
 
 		}
@@ -1477,7 +1564,6 @@
 			}
 			var shopText = $('#shopNameText').attr('data-shopName');
 			$('#shopName').val(shopText);
-			processViewFunction();
 
 			$
 					.ajax({
@@ -1530,33 +1616,88 @@
 							$('.dynamic-table').dataTable({
 								"aaSorting" : [ [ 4, "desc" ] ]
 							});
-							$('#mae-dynamic-table tr').on(
-									'click',
-									function() {
-										var processCode = $(this).attr('id');
-										alert(processCode);
-										$.ajax({
-											url : 'processTable',
-											method : 'post',
-											data : {
-												'processCode' : processCode
-											},
-											dataType : 'json',
-											success : function(resp) {
-												$('#staffName').val(
-														resp.staffName);
-												$('#warehouseName').val(
-														resp.warehouseName);
-												$('#processTerm').val(
-														resp.processTerm);
-												$('#processEndDate').val(
-														resp.processEndDate);
-											},
-											error : function() {
-												alert('에러');
-											}
-										});
-									});
+							$('#mae-dynamic-table tr')
+									.on(
+											'click',
+											function() {
+												var processCode = $(this).attr(
+														'id');
+												alert(processCode);
+												$
+														.ajax({
+															url : 'processTable',
+															method : 'post',
+															data : {
+																'processCode' : processCode
+															},
+															dataType : 'json',
+															success : function(
+																	resp) {
+																$('#staffName')
+																		.val(
+																				resp.staffName);
+																$(
+																		'#warehouseName')
+																		.val(
+																				resp.warehouseName);
+																$(
+																		'#processTerm')
+																		.val(
+																				resp.processTerm);
+																$(
+																		'#processEndDate')
+																		.val(
+																				resp.processEndDate);
+
+																$
+																		.ajax({
+																			url : 'supplyTableSetting',
+																			method : 'post',
+																			data : {
+																				'processCode' : processCode
+																			},
+																			dataType : 'json',
+																			success : function(
+																					rresp) {
+																				$
+																						.each(
+																								rresp,
+																								function(
+																										index,
+																										value) {
+																									var supplyTableString = '<tr>';
+																									supplyTableString += '<td>';
+																									supplyTableString += '<input class=" form-control productCode" name="productCode" type="text" value="'+value.productCode+'" readonly = "true" style="width: 100px;"/>';
+																									supplyTableString += '</td>'
+																									supplyTableString += '<td class="hidden-phone">'
+																									supplyTableString += '<input class=" form-control productName" name="productName" type="text" value="'+value.productName+'" readonly = "true" style="width: 100px;"/>';
+																									supplyTableString += '</td>'
+																									supplyTableString += '<td class="hidden-phone">'
+																									supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'+value.productUnit+'" style="width: 100px;"/>';
+																									supplyTableString += '</td>';
+																									supplyTableString += '<td>'
+																									supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="" style="width: 100px;"/>';
+																									supplyTableString += '</td>';
+																									supplyTableString += '<td>'
+																									supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'+value.productReleasePrice+'" style="width: 100px;"/>';
+																									supplyTableString += '</td>';
+																									supplyTableString += '<td>'
+																									supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'+value.productUnitPrice+'" style="width: 100px;"/>';
+																									supplyTableString += '</td>';
+																									supplyTableString += '</tr>';
+																									$(
+																											'#supplyProductTable')
+																											.append(
+																													supplyTableString);
+																								});
+																			}
+																		})
+															},
+															error : function() {
+																alert('에러');
+															}
+														});
+											});
 						}
 					});
 		}
@@ -1621,26 +1762,6 @@
 			});
 		}
 
-		function kpiSelectFunction() {
-			$('.monthMenu>li').on('click', function() {
-				var timeCode = $(this).attr('id');
-				var shopCode = $('.settings').attr('data-shopCode');
-				$.ajax({
-					url : 'kpiSelectFunction',
-					method : 'post',
-					data : {
-						'timeCode' : timeCode,
-						'shopCode' : shopCode
-					},
-					dataType : 'json',
-					success : kpiSelectTxtFunction,
-					error : function() {
-						alert('에러다');
-					}
-				});
-			});
-		}
-
 		var chart;
 		var chartData = new Array();
 
@@ -1649,219 +1770,258 @@
 					chart.dataProvider.length - 1);
 		}
 
-		function overviewTextFunction(resp) {
-			var yearBtn = '';
-			$.each(resp.yearList, function(index, item) {
-				yearBtn += '<li class='+item+'><a>' + item + '</a></li>'
-			});
-			$('.yearMenu').html(yearBtn);
+		function kpiSettingFunction2() {
+			var date = $('.m-bot16').val();
+			var shopCode = $('.settings').attr('data-shopCode');
+			$
+					.ajax({
+						url : 'chartSelect',
+						method : 'post',
+						async : false,
+						data : {
+							'date' : date,
+							"shopCode" : shopCode
+						},
+						dataType : 'json',
+						success : function(resp) {
+							var subChartData = [];
+							for (var i = 0; i < resp.earnList.length; i++) {
+								var newDate = new Date(resp.dateList[i]);
 
-			$('.yearMenu li')
-					.on(
-							'click',
-							function() {
-								var date = $(this).attr('class');
-								var shopCode = $('.settings').attr(
-										'data-shopCode');
-								$
-										.ajax({
-											url : 'chartSelect',
-											method : 'post',
-											async : false,
-											data : {
-												'date' : date,
-												"shopCode" : shopCode
-											},
-											dataType : 'json',
-											success : function(resp) {
-												var subChartData = [];
-												var views = 8700;
-												for (var i = 0; i < resp.earnList.length; i++) {
-													var newDate = new Date(
-															resp.dateList[i]);
+								earnList = resp.earnList[i];
+								salesList = resp.salesList[i];
+								allEarnSumList = resp.allEarnSumList[i];
+								subChartData.push({
+									date : newDate,
+									earnList : earnList,
+									salesList : salesList,
+									allEarnSumList : allEarnSumList
+								});
+							}
 
-													earnList = resp.earnList[i];
-													salesList = resp.salesList[i];
-													allEarnSumList = resp.allEarnSumList[i];
-													subChartData
-															.push({
-																date : newDate,
-																earnList : earnList,
-																salesList : salesList,
-																allEarnSumList : allEarnSumList
-															});
-												}
-
-												chartData = subChartData
-												alert(subChartData);
-												chart = AmCharts
-														.makeChart(
-																"chartdiv",
-																{
-																	"type" : "serial",
-																	"theme" : "none",
-																	"legend" : {
-																		"useGraphSettings" : true
-																	},
-																	"dataProvider" : chartData,
-																	"synchronizeGrid" : true,
-																	"valueAxes" : [
-																			{
-																				"id" : "v1",
-																				"axisColor" : "#FF6600",
-																				"axisThickness" : 2,
-																				"axisAlpha" : 1,
-																				"position" : "left"
-																			},
-																			{
-																				"id" : "v2",
-																				"axisColor" : "#FCD202",
-																				"axisThickness" : 2,
-																				"axisAlpha" : 1,
-																				"position" : "right"
-																			},
-																			{
-																				"id" : "v3",
-																				"axisColor" : "#B0DE09",
-																				"axisThickness" : 2,
-																				"gridAlpha" : 0,
-																				"offset" : 50,
-																				"axisAlpha" : 1,
-																				"position" : "left"
-																			} ],
-																	"graphs" : [
-																			{
-																				"valueAxis" : "v1",
-																				"lineColor" : "#FF6600",
-																				"bullet" : "round",
-																				"bulletBorderThickness" : 1,
-																				"hideBulletsCount" : 30,
-																				"title" : "red line",
-																				"valueField" : "earnList",
-																				"fillAlphas" : 0
-																			},
-																			{
-																				"valueAxis" : "v2",
-																				"lineColor" : "#FCD202",
-																				"bullet" : "square",
-																				"bulletBorderThickness" : 1,
-																				"hideBulletsCount" : 30,
-																				"title" : "yellow line",
-																				"valueField" : "salesList",
-																				"fillAlphas" : 0
-																			},
-																			{
-																				"valueAxis" : "v3",
-																				"lineColor" : "#B0DE09",
-																				"bullet" : "triangleUp",
-																				"bulletBorderThickness" : 1,
-																				"hideBulletsCount" : 30,
-																				"title" : "green line",
-																				"valueField" : "allEarnSumList",
-																				"fillAlphas" : 0
-																			} ],
-																	"chartScrollbar" : {},
-																	"chartCursor" : {
-																		"cursorPosition" : "mouse"
-																	},
-																	"categoryField" : "date",
-																	"categoryAxis" : {
-																		"parseDates" : true,
-																		"axisColor" : "#DADADA",
-																		"minorGridEnabled" : true
-																	},
-																	"export" : {
-																		"enabled" : true,
-																		"position" : "bottom-right"
-																	}
-																});
-												chart.addListener(
-														"dataUpdated",
-														zoomChart);
-												zoomChart();
-
-												$
-														.ajax({
-															url : 'kpiSelect',
-															method : 'post',
-															async : false,
-															data : {
-																'date' : date,
-																"shopCode" : shopCode
-															},
-															dataType : 'json',
-															success : function(
-																	respp) {
-																var sales = respp.salse.kpiSet[0].kpiAmount;
-																var earn = respp.earn.kpiSet[0].kpiAmount;
-																var allEarn = respp.allEarn.kpiSet[0].kpiAmount;
-																var sumSales = respp.sumSales;
-																var sumEarn = respp.sumEarn;
-																var salesPercent = sumSales
-																		/ sales
-																		* 100;
-																var earnPercent = sumEarn
-																		/ earn
-																		* 100;
-																kpisalesPercentBarText = '<div class="col-md-5">판매액</div>'
-																		+ '<div class="col-md-5">'
-																		+ '<div class="progress  ">'
-																		+ '<div style="width:'
-																		+ salesPercent
-																		+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-																		+ 'role="progressbar" class="progress-bar progress-bar-danger">'
-																		+ '<span class="sr-only">'
-																		+ salesPercent
-																		+ '% Complete (success)</span>'
-																		+ '</div></div></div><div class="col-md-2">'
-																		+ salesPercent
-																		+ '%</div>'
-
-																$('.salesClass')
-																		.html(
-																				kpisalesPercentBarText);
-
-																kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
-																		+ '<div class="col-md-5">'
-																		+ '<div class="progress  ">'
-																		+ '<div style="width:'
-																		+ earnPercent
-																		+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-																		+ 'role="progressbar" class="progress-bar progress-bar-danger">'
-																		+ '<span class="sr-only">'
-																		+ earnPercent
-																		+ '% Complete (success)</span>'
-																		+ '</div></div></div><div class="col-md-2">'
-																		+ earnPercent
-																		+ '%</div>'
-
-																$('.earnClass')
-																		.html(
-																				kpiEarnPercentBarText);
-
-																kpiSalesText = '<strong>'
-																		+ sumSales
-																		+ '</strong>';
-																$('.salesText')
-																		.html(
-																				kpiSalesText);
-
-																kpiEarnText = '<strong>'
-																		+ sumEarn
-																		+ '</strong>';
-																$('.earnText')
-																		.html(
-																				kpiEarnText);
-															}
-														});
-											},
-											error : function() {
-												alert('에러입니다.');
-											}
-										});
+							chartData = subChartData
+							alert(subChartData);
+							chart = AmCharts.makeChart("chartdiv", {
+								"type" : "serial",
+								"theme" : "none",
+								"legend" : {
+									"useGraphSettings" : true
+								},
+								"dataProvider" : chartData,
+								"synchronizeGrid" : true,
+								"valueAxes" : [ {
+									"id" : "v1",
+									"axisColor" : "#FF6600",
+									"axisThickness" : 2,
+									"axisAlpha" : 1,
+									"position" : "left"
+								}, {
+									"id" : "v2",
+									"axisColor" : "#FCD202",
+									"axisThickness" : 2,
+									"axisAlpha" : 1,
+									"position" : "right"
+								}, {
+									"id" : "v3",
+									"axisColor" : "#B0DE09",
+									"axisThickness" : 2,
+									"gridAlpha" : 0,
+									"offset" : 50,
+									"axisAlpha" : 1,
+									"position" : "left"
+								} ],
+								"graphs" : [ {
+									"valueAxis" : "v1",
+									"lineColor" : "#FF6600",
+									"bullet" : "round",
+									"bulletBorderThickness" : 1,
+									"hideBulletsCount" : 30,
+									"title" : "red line",
+									"valueField" : "earnList",
+									"fillAlphas" : 0
+								}, {
+									"valueAxis" : "v2",
+									"lineColor" : "#FCD202",
+									"bullet" : "square",
+									"bulletBorderThickness" : 1,
+									"hideBulletsCount" : 30,
+									"title" : "yellow line",
+									"valueField" : "salesList",
+									"fillAlphas" : 0
+								}, {
+									"valueAxis" : "v3",
+									"lineColor" : "#B0DE09",
+									"bullet" : "triangleUp",
+									"bulletBorderThickness" : 1,
+									"hideBulletsCount" : 30,
+									"title" : "green line",
+									"valueField" : "allEarnSumList",
+									"fillAlphas" : 0
+								} ],
+								"chartScrollbar" : {},
+								"chartCursor" : {
+									"cursorPosition" : "mouse"
+								},
+								"categoryField" : "date",
+								"categoryAxis" : {
+									"parseDates" : true,
+									"axisColor" : "#DADADA",
+									"minorGridEnabled" : true
+								},
+								"export" : {
+									"enabled" : true,
+									"position" : "bottom-right"
+								}
 							});
+							chart.addListener("dataUpdated", zoomChart);
+							zoomChart();
+
+							$
+									.ajax({
+										url : 'kpiSelect',
+										method : 'post',
+										async : false,
+										data : {
+											'date' : date,
+											"shopCode" : shopCode
+										},
+										dataType : 'json',
+										success : function(respp) {
+											var sales = respp.salse.kpiSet[0].kpiAmount;
+											var earn = respp.earn.kpiSet[0].kpiAmount;
+											var allEarn = respp.allEarn.kpiSet[0].kpiAmount;
+											var sumSales = respp.sumSales;
+											var sumEarn = respp.sumEarn;
+											var sumAllEarn = respp.sumAllEarn;
+											var salesPercent = sumSales / sales
+													* 100;
+											var earnPercent = sumEarn / earn
+													* 100;
+											var allEarnPercent = sumAllEarn
+													/ allEarn * 100;
+											kpisalesPercentBarText = '<div class="col-md-5">판매액</div>'
+													+ '<div class="col-md-5">'
+													+ '<div class="progress  ">'
+													+ '<div style="width:'
+													+ salesPercent
+													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ '<span class="sr-only">'
+													+ salesPercent
+													+ '% Complete (success)</span>'
+													+ '</div></div></div><div class="col-md-2">'
+													+ earnPercent + '%</div>'
+
+											$('.salesClass').html(
+													kpisalesPercentBarText);
+
+											kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
+													+ '<div class="col-md-5">'
+													+ '<div class="progress  ">'
+													+ '<div style="width:'
+													+ earnPercent
+													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ '<span class="sr-only">'
+													+ earnPercent
+													+ '% Complete (success)</span>'
+													+ '</div></div></div><div class="col-md-2">'
+													+ earnPercent + '%</div>'
+
+											$('.earnClass').html(
+													kpiEarnPercentBarText);
+
+											kpiAllEarnPercentBarText = '<div class="col-md-5">매출 총 이익</div>'
+													+ '<div class="col-md-5">'
+													+ '<div class="progress  ">'
+													+ '<div style="width:'
+													+ allEarnPercent
+													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ '<span class="sr-only">'
+													+ allEarnPercent
+													+ '% Complete (success)</span>'
+													+ '</div></div></div><div class="col-md-2">'
+													+ allEarnPercent
+													+ '%</div>'
+
+											$('.allEarnClass').html(
+													kpiAllEarnPercentBarText);
+
+											kpiSalesText = '<strong>'
+													+ sumSales + '</strong>';
+											$('.salesText').html(kpiSalesText);
+
+											kpiEarnText = '<strong>' + sumEarn
+													+ '</strong>';
+											$('.earnText').html(kpiEarnText);
+											kpiEarnText = '<strong>'
+													+ sumAllEarn + '</strong>';
+											$('.allEarnText').html(kpiEarnText);
+										}
+									});
+						},
+						error : function() {
+							alert('에러입니다.');
+						}
+					});
 		}
+		//overview의 날짜 박스 데이터 생성 함수
+		function overviewTextFunction(resp) {
+			var d = new Date();
+			var year = d.getFullYear();
+			var month = d.getMonth() + 2;
+			var date = year + '-' + month;
+			var yearBtn = '';
+			for (var i = 0; i < 12; i++) {
+				if (month <= 12) {
+					yearBtn += '<option>' + year + '-' + (month) + '</option>';
+					month = month + 1;
+				} else {
+					year = year + 1;
+					month = 1;
+					i = i - 1;
+				}
+			}
+
+			$('.m-bot16').html(yearBtn);
+
+			$.ajax({
+				url : 'kpiSelect',
+				method : 'post',
+				data : {
+					"shopCode" : shopCode,
+					"date" : date
+				},
+				dataType : 'json',
+				success : function(resp) {
+					alert(shopCode);
+					alert(date);
+					var temp = '등록해주세요';
+					$('#salesText').html(temp);
+					$('#earnText').html(temp);
+					$('#allEarnText').html(temp);
+					if (sales != '') {
+						var sales = resp.salse.kpiSet[0].kpiAmount;
+						$('#salesText').html(sales);
+					}
+					if (earn != '') {
+						var earn = resp.earn.kpiSet[0].kpiAmount;
+						$('#earnText').html(earn);
+					}
+					if (allEarn != '') {
+						var allEarn = resp.allEarn.kpiSet[0].kpiAmount;
+						$('#allEarnText').html(allEarn);
+					}
+				}
+			});
+			kpiSettingFunction2();
+			$('.m-bot16').on('click', kpiSettingFunction2);
+		}
+
+		//overview클릭시 작동하는 함수
 		function overviewIntiFunction() {
+			updateViewFunction();
 			var shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
 				url : 'overviewIntiFunction',
@@ -1877,6 +2037,7 @@
 			});
 		}
 
+		//job-history클릭시 작동
 		function updateViewFunction() {
 			var shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
@@ -1973,13 +2134,13 @@
 											resp.name,
 											function(index, value) {
 												processLocationText += '<tr data-lon="'+resp.lon[index]+'" data-lat = "'+resp.lat[index]+'">';
-												processLocationText += '<td>'
+												processLocationText += '<td data-type = "name">'
 												processLocationText += resp.name[index];
 												processLocationText += '</td>'
-												processLocationText += '<td>'
+												processLocationText += '<td data-type = "telNo">'
 												processLocationText += resp.telNo[index];
 												processLocationText += '</td>';
-												processLocationText += '<td>'
+												processLocationText += '<td data-type = "address">'
 												processLocationText += resp.upperAddrName[index]
 														+ ' '
 														+ resp.middleAddrName[index]
@@ -1990,10 +2151,12 @@
 													+resp.detailAddrName[index];
 												}
 												processLocationText += '</td>';
-												processLocationText += '</tr></a>';
+												processLocationText += '</tr>';
 											});
 							processLocationText += '</tbody></table></div>';
 							$('#shopSearchFormTable').html(processLocationText);
+
+							$('#shopSearchForm2').removeAttr('style');
 
 							$('.dynamic-table').dataTable({
 								"aaSorting" : [ [ 4, "desc" ] ]
@@ -2002,7 +2165,97 @@
 									.on(
 											'click',
 											function() {
-												
+												var name = $(
+														'#shopSearchTable tr td[data-type="name"]')
+														.html();
+												var telNo = $(
+														'#shopSearchTable tr td[data-type="telNo"]')
+														.html();
+												var address = $(
+														'#shopSearchTable tr td[data-type="address"]')
+														.html();
+												alert(name);
+												var unMarkerClickText = '<div class="col-sm-12"><section class="panel"><div class="panel-body">'
+														+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNameUpdate" value="'+name+'" placeholder="매장명">'
+														+ '<p class="help-block">매장명을 입력하세요</p></div></div><div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장분류</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopDivisionUpdate" value="" placeholder="매장명">'
+														+ '<p class="help-block">매장분류를 입력하세요</p></div></div><div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">사업자등록번호</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNumberUpdate" value="" placeholder="사업자등록번호">'
+														+ '<p class="help-block">사업자등록번호를 입력하세요</p></div></div>	<div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">대표자명</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopRepUpdate" value="" placeholder="대표자명">'
+														+ '<p class="help-block">대표자명을 입력하세요</p></div></div><div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">전화번호</label>'
+														+ '<div class="col-lg-10"><input type="tel" class="form-control" id="shopTelUpdate" value="'+telNo+'" placeholder="전화번호">'
+														+ '<p class="help-block">전화번호를 입력하세요</p></div></div>'
+														+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">이메일</label>'
+														+ '<div class="col-lg-10"><input type="email" class="form-control" id="shopEmailUpdate" value="" placeholder="이메일">'
+														+ '<p class="help-block">이메일을 입력하세요</p></div></div><div class="form-group">'
+														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">SNS</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopSNSUpdate" value="" placeholder="SNS">'
+														+ '<p class="help-block">SNS를 입력하세요</p></div></div>'
+														+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">주소</label>'
+														+ '<div class="col-lg-10"><input type="text" class="form-control" id="addressUpdate" value="'+address+'"><p class="help-block">주소를 검색하세요</p>'
+														+ '</div></div></form></div></div></section></div>';
+
+												$('div#myModal6 .modal-body')
+														.html(unMarkerClickText);
+												$('#button6')
+														.on(
+																'click',
+																function() {
+																	var shopName = $(
+																			'#shopNameUpdate')
+																			.val();
+																	var shopNumber = $(
+																			'#shopNumberUpdate')
+																			.val();
+																	var shopRep = $(
+																			'#shopRepUpdate')
+																			.val();
+																	var shopTel = $(
+																			'#shopTelUpdate')
+																			.val();
+																	var shopEmail = $(
+																			'#shopEmailUpdate')
+																			.val();
+																	var shopSNS = $(
+																			'#shopSNSUpdate')
+																			.val();
+																	var address = $(
+																			'#addressUpdate')
+																			.val();
+																	var shopDivision = $(
+																			'#shopDivisionUpdate')
+																			.val();
+
+																	$
+																			.ajax({
+																				url : 'insertNewShop',
+																				method : 'post',
+																				data : {
+																					'shopName' : shopName,
+																					'shopNumber' : shopNumber,
+																					'shopRep' : shopRep,
+																					'shopDivision' : shopDivision,
+																					'shopTel' : shopTel,
+																					'shopEmail' : shopEmail,
+																					'shopSNS' : shopSNS,
+																					'address' : address
+																				},
+																				dataType : 'json',
+																				success : function(
+																						resp) {
+																					alert('등록되었습니다.');
+																					initialize();
+																				}
+																			});
+																});
+
 												var lon = $(this).attr(
 														'data-lon');
 												var lat = $(this).attr(
@@ -2016,54 +2269,17 @@
 												var offset = new Tmap.Pixel(
 														-(size.w / 2), -size.h);
 												icon = new Tmap.IconHtml(
-														'<a data-toggle="modal" href="#myModal5"><img alt="" src="images/sales/견적마커.png" data-type = "unMarker" style="width: 20px;"></a>',
+														'<a data-toggle="modal" href="#myModal6"><img alt="" src="images/sales/견적마커.png" data-type = "unMarker" style="width: 20px;"></a>',
 														size, offset);
 												var marker = new Tmap.Markers(
 														lonlat, icon);
 												markerLayer.addMarker(marker);
-
-												unMarkerClickFunction(lon, lat);
 											});
 						},
 						error : function() {
 							alert('유정이 바보');
 						}
 					});
-		}
-
-		function unMarkerClickFunction() {
-			$('div>img[data-type = "unMarker"]')
-					.on(
-							'click',
-							function() {
-								var unMarkerClickText = '<div class="col-sm-6"><section class="panel"><div class="panel-body">'
-										+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
-										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
-										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNameUpdate" value="" placeholder="매장명">'
-										+ '<p class="help-block">매장명을 입력하세요</p></div></div><div class="form-group">'
-										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">사업자등록번호</label>'
-										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopNumberUpdate" value="" placeholder="사업자등록번호">'
-										+ '<p class="help-block">사업자등록번호를 입력하세요</p></div></div>	<div class="form-group">'
-										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">대표자명</label>'
-										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopRepUpdate" value="" placeholder="대표자명">'
-										+ '<p class="help-block">대표자명을 입력하세요</p></div></div><div class="form-group">'
-										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">전화번호</label>'
-										+ '<div class="col-lg-10"><input type="tel" class="form-control" id="shopTelUpdate" value="" placeholder="전화번호">'
-										+ '<p class="help-block">전화번호를 입력하세요</p></div></div>'
-										+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">이메일</label>'
-										+ '<div class="col-lg-10"><input type="email" class="form-control" id="shopEmailUpdate" value="" placeholder="이메일">'
-										+ '<p class="help-block">이메일을 입력하세요</p></div></div><div class="form-group">'
-										+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">SNS</label>'
-										+ '<div class="col-lg-10"><input type="text" class="form-control" id="shopSNSUpdate" value="" placeholder="SNS">'
-										+ '<p class="help-block">SNS를 입력하세요</p></div></div>'
-										+ '<div class="form-group"><label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">주소</label>'
-										+ '<div class="col-lg-10"><input type="text" class="form-control" id="addressUpdate" value=""><p class="help-block">주소를 검색하세요</p>'
-										+ '</div></div><button type="submit" class="btn btn-info">Submit</button><button type="reset" class="btn btn-info">reset</button>'
-										+ '</form></div></div></section></div>';
-
-								$('div#myModal5 .modal-body').html(
-										unMarkerClickText);
-							});
 		}
 	</script>
 	<!--Core js-->

@@ -32,6 +32,10 @@
 		<result property="processCode" column="process_code" />
 		<result property="supplyVolume" column="supply_volume" />
 		<result property="supplyPrice" column="supply_price" />
+		<result property="productName" column="product_name" />
+		<result property="productUnit" column="product_unit" />
+		<result property="productReleasePrice" column="product_release_price" />
+		<result property="productUnitPrice" column="product_unit_price" />
 	</resultMap>
 
 	<resultMap type="SupplyListVo" id="SupplyListVoMap">
@@ -125,6 +129,7 @@
 		on
 		a.shop_code =
 		s.shop_code
+		ORDER BY s.shop_code
 	</select>
 
 	<select id="shopSelect" parameterType="String" resultMap="ShopMap">
@@ -145,7 +150,8 @@
 	</select>
 
 	<select id="staffSelect" parameterType="String" resultType="Staff">
-		select staff_code, staff_name, staff_department
+		select staff_code, staff_name, staff_department, staff_email,
+		staff_tel
 		from staff
 		where
 		staff_name like '%' || #{searchText} || '%'
@@ -528,16 +534,6 @@
 		INNER JOIN address a
 		ON s.shop_code = a.shop_code
 	</select>
-	
-	<select id="shopDetailSelect3" parameterType="Map" resultMap="ShopMap">
-		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
-		a.address_detail2, a.address_detail3, a.address_detail4
-		FROM shop s INNER JOIN address a
-		ON s.shop_code = a.shop_code
-		<if test="shopName != null">
-			AND s.shop_name = #{shopName}
-		</if>
-	</select>
 
 	<select id="compareChartDateFunction" parameterType="int"
 		resultMap="SupplyVoMap">
@@ -547,5 +543,68 @@
 		= s.process_code
 		INNER JOIN shop s ON s.shop_code = p.shop_code AND
 		s.shop_code = #{shopCode}
+	</select>
+
+	<insert id="kpiAdd" parameterType="Map">
+		INSERT INTO kpi VALUES
+		(
+		kpi_code_seq.NEXTVAL
+		, #{unEarnUpdate}
+		, TO_DATE(#{kpiStartDate},
+		'YYYY-MM')
+		, #{shopCode}
+		, #{gubun}
+		)
+	</insert>
+
+	<insert id="insertNewShop" parameterType="Map">
+		INSERT INTO shop VALUES
+		(
+		shop_code_SEQ.NEXTVAL
+		, #{shopName}
+		, #{shopNumber}
+		, #{shopRep}
+		,
+		#{shopTel}
+		, '미계약'
+		, #{shopEmail}
+		, #{shopSNS}
+		, #{shopDivision}
+		)
+	</insert>
+
+	<insert id="insertNewAddress" parameterType="map">
+		INSERT INTO address VALUES
+		(
+		'11'
+		, #{addressDetail1}
+		, #{addressDetail2}
+		, #{addressDetail3}
+		<if test="addressDetail4 != ''">
+			, #{addressDetail4}
+		</if>
+		<if test="addressDetail4 == ''">
+			, ''
+		</if>
+		, (SELECT MAX(shop_code) FROM shop)
+		)
+	</insert>
+
+	<select id="supplyTableSetting" parameterType="String"
+		resultMap="SupplyMap">
+		select d.PRODUCT_CODE, d.product_name, d.product_unit, d.product_unit_price, d.product_release_price, s.*
+		from supply s INNER JOIN product d ON
+		d.PRODUCT_CODE = s.PRODUCT_CODE
+		where PROCESS_CODE = #{process_code}
+	</select>
+	
+	<select id="shopDetailSelect3" parameterType="Map" resultMap="ShopMap">
+		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
+		a.address_detail2, a.address_detail3, a.address_detail4
+		FROM shop s INNER JOIN address a
+		ON s.shop_code = a.shop_code
+		<if test="shopName != null">
+			AND s.shop_name = #{shopName}
+		</if>
 	</select>
 </mapper>

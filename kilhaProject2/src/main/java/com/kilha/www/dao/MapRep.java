@@ -11,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
 import com.kilha.www.vo.sal.ProcessTableVo;
 import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.Supply;
 import com.kilha.www.vo.sal.SupplyVo;
 
 @Repository
@@ -158,14 +160,6 @@ public class MapRep {
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.shopDetailSelect2();
 	}
-	
-	public List<Shop> shopDetailSelect3(String shopName) {
-		// TODO Auto-generated method stub
-		MapDAO dao = sqlSession.getMapper(MapDAO.class);
-		Map<String, String> map = new HashMap<>();
-		map.put("shopName", shopName);
-		return dao.shopDetailSelect3(map);
-	}
 
 	public List<SupplyVo> compareChartDateFunction(int shopCode) {
 		// TODO Auto-generated method stub
@@ -179,5 +173,32 @@ public class MapRep {
 		return dao.chartSelect2(codeMap);
 	}
 
+	public int kpiAdd(Map map) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.kpiAdd(map);
+	}
+
+	public int insertNewShop(Map map) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.insertNewShop(map);
+	}
+
+	public int insertNewAddress(Map map) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.insertNewAddress(map);
+	}
+
+	public List<Supply> supplyTableSetting(String processCode) {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.supplyTableSetting(processCode);
+	}
+	
+	public List<Shop> shopDetailSelect3(String shopName) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		Map<String, String> map = new HashMap<>();
+		map.put("shopName", shopName);
+		return dao.shopDetailSelect3(map);
+	}
 	
 }

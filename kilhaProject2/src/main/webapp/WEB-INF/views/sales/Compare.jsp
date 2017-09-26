@@ -120,31 +120,9 @@
 
 <!-- Chart code -->
 <script>
-	function compareChartDateFunction(){
-		$('#shopCompareForm tr').on('click', function(){
-			var shopCode = $('div>img[data-type = "marker"]').attr('data-source');
-			$.ajax({
-				url : 'compareChartDateFunction'
-				,method : 'post'
-				,data : {'shopCode' : shopCode}
-				,dataType : 'json'
-				,success : function(resp){
-					shopCode = $(this).attr('id');
-					$.ajax({
-						url : 'compareChartDateFunction'
-						,method : 'post'
-						,data : {'shopCode' : shopCode}
-						,dataType : 'json'
-						,success : function(respp){
-							
-						}
-					});				
-				}
-			});	
-		});
-		
-	}
-
+	var shopCode;
+	var shop1Date;
+	var shop2Date;
 	var chart = AmCharts.makeChart("chartdiv", {
 		"type" : "serial",
 		"theme" : "light",
@@ -601,6 +579,23 @@
 	</section>
 	<script type="text/javascript">
 		// 마커 클릭시 이벤트
+		function compareChartDateFunction() {
+			$('#shopCompareForm tr').on('click', function() {
+				shopCode = $(this).attr('id');
+				$.ajax({
+					url : 'compareChartDateFunction',
+					method : 'post',
+					data : {
+						'shopCode' : shopCode
+					},
+					dataType : 'text',
+					success : function(resp) {
+						shop2Date = resp
+					}
+				});
+			});
+		}
+
 		function chan() {
 			$('div>img[data-type = "marker"]')
 					.on(
@@ -616,6 +611,22 @@
 									el.slideDown(200);
 								}
 
+								shopCode = $(this).attr('data-source');
+
+								$.ajax({
+									url : 'compareChartDateFunction',
+									method : 'post',
+									data : {
+										'shopCode' : shopCode
+									},
+									dataType : 'text',
+									success : function(resp) {
+										shop1Date = resp;
+									},
+									error : function() {
+										alert('에러입니다.');
+									}
+								})
 								$
 										.ajax({
 											url : 'shopDetailSelect2',
