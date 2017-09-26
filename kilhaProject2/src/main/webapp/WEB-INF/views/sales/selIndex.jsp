@@ -2145,13 +2145,10 @@
 														+ ' '
 														+ resp.middleAddrName[index]
 														+ ' '
-														+ resp.lowerAddrName[index]
-														+ ' '
-												if (resp.detailAddrName[index] != '') {
-													+resp.detailAddrName[index];
-												}
-												processLocationText += '</td>';
-												processLocationText += '</tr>';
+														+ resp.roadName[index]
+														+ resp.firstBuildNo[index]
+														+ '</td>';
+												+'</tr>';
 											});
 							processLocationText += '</tbody></table></div>';
 							$('#shopSearchFormTable').html(processLocationText);
