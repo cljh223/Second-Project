@@ -27,7 +27,6 @@ public class Excute
 		{
 			routeName.add(lonlat.list.get(route.get(i) - 1));
 		}
-		System.out.println(routeName.toString());
 		
 		lonlat.convertlonlat(routeName);
 		String data = lonlat.dataSet(routeName.size());

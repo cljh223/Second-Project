@@ -279,7 +279,6 @@ public class LogisticsController {
 	@RequestMapping(value = "shortest", method = RequestMethod.GET)
 	public String shortest(HttpSession session) 
 	{
-		long start = System.currentTimeMillis();
 		Excute excute = new Excute();
 		
 		String data = "";
@@ -288,8 +287,6 @@ public class LogisticsController {
 		{
 			data = excute.shortestExcute(shopAddresslist);
 		}
-		long end = System.currentTimeMillis();
-		System.out.println(end - start + "ms");
 		
 		JSONObject obj = new JSONObject(data);
 		return obj.toString();

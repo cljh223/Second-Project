@@ -53,12 +53,10 @@ public class Permutation
 			if (i == k - 1)
 			{
 				all.add(arr[i]);
-				System.out.println(arr[i]);
 			}
 			else
 			{
 				all.add(arr[i]);
-				System.out.print(arr[i] + " ");
 			}
 		}
 		return all;

@@ -326,7 +326,7 @@
 
 										<div class="panel-body">
 											<div class="wdgt-value">
-												<h1 class="count">819Km</h1>
+												<h1 id="totalDistance" class="count"></h1>
 												<p>주행거리</p>
 											</div>
 										</div>
@@ -342,7 +342,7 @@
 
 										<div class="panel-body">
 											<div class="wdgt-value">
-												<h1 class="count">1hr 35min</h1>
+												<h1 id="totalTime" class="count"></h1>
 												<p>주행시간</p>
 											</div>
 										</div>
@@ -734,11 +734,6 @@
 			function onSuccess( data ) {
 			   console.log( data ) // 응답 데이터 구조를 보시려면 주석을 푸시면 됩니다.
 			   
-			   // 운행 정보
-			   var totalDistance = data.properties.totalDistance;
-			   var totalFare = data.properties.totalFare;
-			   var totalTime = data.properties.totalTime;
-			   
 			   // 운행 경로
 			   var features = data.features;
 			   var i, j, geometry;
@@ -754,6 +749,24 @@
 			    	   }
 			       }
 			   }
+			
+			   // 운행 정보
+			   var totalDistance = data.properties.totalDistance;
+			   var totalFare = data.properties.totalFare;
+			   var totalTime = data.properties.totalTime;
+			   
+			   function convertTime(totalTime) {
+
+				   var hour = parseInt(totalTime / 3600);
+				   var min = parseInt((totalTime % 3600) / 60);
+
+				   $('#totalTime').html(hour + "시간 " + min + "분");
+
+			   }
+			   
+			   convertTime(totalTime);
+			   $('#totalDistance').html((totalDistance / 1000).toFixed(1) + "km");
+			   
 			   console.log(totalDistance + "m");
 			   console.log(totalFare + "원");
 			   console.log(totalTime + "s");

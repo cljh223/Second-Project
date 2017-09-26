@@ -22,15 +22,6 @@ public class Lonlat {
 
 	public void getlonlat(ArrayList<String> shopAddressList) 
 	{
-//		DB에서 가져오면 대입하기
-//		첫번째 들어간 값이 출발지, 마지막이 도착지(이 부분을 유의해서 넣을 것)
-//		switch, if 출도착지
-//		list.add("부산광역시 동구 중앙대로 206");
-//		list.add("울산광역시 울주군 삼남면 울산역로");
-//		list.add("대전광역시 동구 중앙동 중앙로");
-//		list.add("서울특별시 용산구 한강대로 405 서울역");
-//		list.add("대구광역시 북구 칠성동2가 302-155");
-//		list.add("충청남도 천안시 동남구 신안동 만남로 43");
 		list = shopAddressList;
 
 		String appkey = "21093c88-ac79-33d0-bc3e-8c0652e9a564";
