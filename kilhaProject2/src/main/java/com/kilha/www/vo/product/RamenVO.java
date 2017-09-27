@@ -8,8 +8,8 @@ public class RamenVO {
 	private double loadtime;
 	private double standardtime;
 	private double operatingtime;
-	private double usl;
-	private double lsl;
+	private int usl;
+	private int lsl;
 	private int recentAmount;
 	private String imageurl;
 	
@@ -17,18 +17,18 @@ public class RamenVO {
 
 	}
 
-	public RamenVO(String r_num, String r_name, String r_factory, String line_num, double usl, double lsl,
-			double loadtime, double standardtime, double operatingtime, int recentAmount, String imageurl) {
+	public RamenVO(String r_num, String r_name, String r_factory, String line_num, double loadtime, double standardtime,
+			double operatingtime, int usl, int lsl, int recentAmount, String imageurl) {
 		super();
 		this.r_num = r_num;
 		this.r_name = r_name;
 		this.r_factory = r_factory;
 		this.line_num = line_num;
-		this.usl = usl;
-		this.lsl = lsl;
 		this.loadtime = loadtime;
 		this.standardtime = standardtime;
 		this.operatingtime = operatingtime;
+		this.usl = usl;
+		this.lsl = lsl;
 		this.recentAmount = recentAmount;
 		this.imageurl = imageurl;
 	}
@@ -65,22 +65,6 @@ public class RamenVO {
 		this.line_num = line_num;
 	}
 
-	public double getUsl() {
-		return usl;
-	}
-
-	public void setUsl(double usl) {
-		this.usl = usl;
-	}
-
-	public double getLsl() {
-		return lsl;
-	}
-
-	public void setLsl(double lsl) {
-		this.lsl = lsl;
-	}
-
 	public double getLoadtime() {
 		return loadtime;
 	}
@@ -105,6 +89,22 @@ public class RamenVO {
 		this.operatingtime = operatingtime;
 	}
 
+	public int getUsl() {
+		return usl;
+	}
+
+	public void setUsl(int usl) {
+		this.usl = usl;
+	}
+
+	public int getLsl() {
+		return lsl;
+	}
+
+	public void setLsl(int lsl) {
+		this.lsl = lsl;
+	}
+
 	public int getRecentAmount() {
 		return recentAmount;
 	}
@@ -124,10 +124,10 @@ public class RamenVO {
 	@Override
 	public String toString() {
 		return "RamenVO [r_num=" + r_num + ", r_name=" + r_name + ", r_factory=" + r_factory + ", line_num=" + line_num
-				+ ", usl=" + usl + ", lsl=" + lsl + ", loadtime=" + loadtime + ", standardtime=" + standardtime
-				+ ", operatingtime=" + operatingtime + ", recentAmount=" + recentAmount + ", imageurl=" + imageurl
-				+ "]";
+				+ ", loadtime=" + loadtime + ", standardtime=" + standardtime + ", operatingtime=" + operatingtime
+				+ ", usl=" + usl + ", lsl=" + lsl + ", recentAmount=" + recentAmount + ", imageurl=" + imageurl + "]";
 	}
+
 	
 	
 }

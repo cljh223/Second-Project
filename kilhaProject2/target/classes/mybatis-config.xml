@@ -17,11 +17,6 @@
 		<typeAlias type="com.kilha.www.vo.sal.SupplyVo" alias="SupplyVo" />
 		<typeAlias type="com.kilha.www.vo.sal.SupplyListVo" alias="SupplyListVo" />
 		<typeAlias type="com.kilha.www.vo.sal.ProcessTableVo" alias="ProcessTableVo"/>
-		<typeAlias type="com.kilha.www.vo.product.FactoryVO" alias="pro_FactoryVO" />
-		<typeAlias type="com.kilha.www.vo.product.ProductVO" alias="pro_ProductVO" />
-		<typeAlias type="com.kilha.www.vo.product.RamenVO" alias="pro_RamenVO" />
-		<typeAlias type="com.kilha.www.vo.product.ProductinfoVO" alias="pro_ProductinfoVO" />
-		<typeAlias type="com.kilha.www.vo.product.DistributionVO" alias="pro_DistributionVO" />
 		<typeAlias type="com.kilha.www.vo.logistics.Shipping" alias="Shipping" />
 		<typeAlias type="com.kilha.www.vo.logistics.Truck" alias="Truck" />
 		<typeAlias type="com.kilha.www.vo.logistics.Warehouse" alias="Warehouse" />
@@ -31,6 +26,15 @@
 		<typeAlias type="com.kilha.www.vo.Purchase.TradeRecords" alias="TradeRecords" />
 		<typeAlias type="com.kilha.www.vo.Purchase.OrderRecords_Detail" alias="OrderRecords_Detail" />
 		<typeAlias type="com.kilha.www.vo.Purchase.OrderRecords" alias="OrderRecords" />
+		<typeAlias type="com.kilha.www.vo.product.FactoryVO" alias="pro_FactoryVO" />
+		<typeAlias type="com.kilha.www.vo.product.ProductVO" alias="pro_ProductVO" />
+		<typeAlias type="com.kilha.www.vo.product.RamenVO" alias="pro_RamenVO" />
+		<typeAlias type="com.kilha.www.vo.product.ProductinfoVO" alias="pro_ProductinfoVO" />
+		<typeAlias type="com.kilha.www.vo.product.DistributionVO" alias="pro_DistributionVO" />
+		<typeAlias type="com.kilha.www.vo.product.RecipeVO" alias="pro_RecipeVO" />
+		<typeAlias type="com.kilha.www.vo.product.TotalinfoVO" alias="pro_TotalinfoVO" />
+		<typeAlias type="com.kilha.www.vo.product.MaterialPriceVO" alias="pro_MaterialPriceVO" />
+		<typeAlias type="com.kilha.www.vo.product.InventoryVO" alias="pro_InventoryVO" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/MapMapper.xml" />

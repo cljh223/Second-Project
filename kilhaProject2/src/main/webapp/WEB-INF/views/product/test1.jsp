@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,17 +88,17 @@
     chart.title('System interruptions');
 
     chart.xScale()
-            .minimum(1.5)
-            .maximum(5.5)
-            .ticks({interval: 1});
+            .minimum(0)
+            .maximum(3500)
+            .ticks({interval: 500});
     chart.yScale()
-            .minimum(40)
-            .maximum(100)
-            .ticks({interval: 10});
+            .minimum(0)
+            .maximum(${maximum})
+            .ticks({interval: ${interval}});
 
-    chart.yAxis().title('Y value');
+    chart.yAxis().title('${searchType}');
     chart.xAxis()
-            .title('X value')
+            .title('Amount')
             .drawFirstLabel(false)
             .drawLastLabel(false);
 
@@ -109,7 +110,7 @@
 
     // The data used in this sample can be obtained from the CDN
     // https://cdn.anychart.com/samples-data/scatter-charts/combination-of-line-and-marker-charts/data.js
-    var marker = chart.marker(getMarkerData());
+    var marker = chart.marker(${dataset});
     marker.type('triangleup')
             .size(4)
             .hoverSize(7)
@@ -118,12 +119,12 @@
     marker.tooltip()
             .hAlign('start')
             .format(function () {
-                return 'Waiting time: ' + this.value + ' min.\nDuration: ' + this.x + ' min.';
+                return '${searchType}: ' + this.value + ' min.\nAmount: ' + this.x + ' min.';
             });
 
     // The data used in this sample can be obtained from the CDN
     // https://cdn.anychart.com/samples-data/scatter-charts/combination-of-line-and-marker-charts/data.js
-    chart.line(getLineData());
+    chart.line(${linedata});
 
     // set container id for the chart
     chart.container('gradient');
@@ -336,12 +337,12 @@
 							
 							<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-laptop"></i> <span>생산 부문</span>
-						</a>
+							</a>
 							<ul class="sub">
-								<li><a href="pro_Fac1">제 1공장 정보</a></li>
-								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
 								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="">생산정보입력</a></li>
+								<li><a href="pro_Regist">생산정보입력</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
@@ -621,8 +622,9 @@
 			<div class="row">
 				<div class="col-lg-4" >
 					<div class="feed-box text-center" >
-						<section class="panel">
+						<section class="panel" style="height: 400px;">
 							<div class="panel-body">
+							<form class="cmxform form-horizontal " id="registForm" method="post" action="pro_goGradient">
 								<div class="corner-ribon blue-ribon">
 									<i class=""></i>
 								</div>
@@ -633,57 +635,169 @@
 								<div style="float: left;">
 									<div class="radio single-row" style="float: left; width: 100%">
 										<div style="float: left; width: 33%">
-											<input type="radio" name="demo-radio">WORK
+											<input type="radio" name="searchType" value ="MAN">MAN
 										</div>
 										<div style="float: left; width: 33%">
-											<input type="radio" name="demo-radio">COST
+											<input type="radio" name="searchType" value = "COST">COST
 										</div>
 										<div style="float: left; width: 33%">
-											<input type="radio" name="demo-radio">TIME
+											<input type="radio" name="searchType" value="TIME">TIME
 										</div>
 									</div>
 									<div>
-										<select class="form-control m-bot15" style="width: 350px;">
+										<select class="form-control m-bot15" id="r_name" name="r_name" style="width: 350px;">
 											<option>상품 선택</option>
-											<option>안성탕면</option>
-											<option>신라면</option>
-											<option>너구리라면</option>
-											<option>멸치칼국수라면</option>
-											<option>사리곰탕면</option>
+											<option value="안성탕면">안성탕면</option>
+											<option value="신라면">신라면</option>
+											<option value="너구리">너구리라면</option>
+											<option value="멸치칼국수라면">멸치칼국수라면</option>
+											<option value="사리곰탕면">사리곰탕면</option>
 										</select>
 									</div>
 									<p></p>
 									<div class="input-group m-bot15" style="width: 350px;">
-										<input type="text" class="form-control"> <span
+										<input type="text" class="form-control" name="searchValue"> <span
 											class="input-group-btn">
-											<button class="btn btn-success" type="button">Go!</button>
+											<button class="btn btn-success" type="submit">Go!</button>
 										</span>
 									</div>
 								</div>
 								<div class="region-stats">
 
 									<div class="col-lg-6" style="width:350px;">
-										<ul class="clearfix location-earning-stats">
+										<ul class="clearfix location-earning-stats" style="margin-top: 40px;">
+											<c:if test="${searchValue == null}">
+											<li><span class="first-city">예상 주문량을 입력하세요</span>
+												예상 준문량 대비 <br>투입인원, 재료비용, 생산기간을 예측합니다</li>
+											</c:if>
+											<c:if test="${searchValue != null}">
 											<li class="stat-divider"><span class="first-city">샘플 생산량</span>
-												100EA 생산시</li>
-											<li class="stat-divider"><span class="second-city">예측 결과</span>
-												약 5.6명 투입</li>
+												${searchValue}EA 생산시</li>
+											</c:if>
+											<c:if test="${searchType=='MAN'}">
+											<li><span class="third-city">예측 결과</span>
+												약  ${result} 명</li>
+											</c:if>
+											<c:if test="${searchType=='COST'}">
+											<li><span class="third-city">예측 결과</span>
+												약  ${result} 원</li>
+											</c:if>
+											<c:if test="${searchType=='TIME'}">
+											<li><span class="third-city">예측 결과</span>
+												약  ${result} 일</li>
+											</c:if>
 
 										</ul>
 									</div>
 								</div>
-							</div>
+							</form>
+						</div>
 						</section>
 					</div>
 				</div>
 				<div class="col-lg-8">
 					<section class="panel">
 						<div class="panel-body">
+						<c:if test="${message == 'datain'}">
 							<div id="gradient" style="height: 370px;"></div>
+						</c:if>
+						<c:if test="${message == 'aaa'}">
+						<div style="height: 370px; text-align: center;">
+						<p style= "text-align: center;">선형회귀 분석을 통하여 예상 준문량과 관련된 요소들을 예측합니다.</p>
+								<img src="images/pen.gif" style="height: 300px; text-align: center;">
+						</div>
+						</c:if>
 						</div>
 					</section>
 				</div>
 			</div>
+			
+			<div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Advanced Form validations
+                            <span class="tools pull-right">
+                                <a class="fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="fa fa-cog" href="javascript:;"></a>
+                                <a class="fa fa-times" href="javascript:;"></a>
+                             </span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="form">
+                                <form class="cmxform form-horizontal " id="registForm" method="post" action="goRegist">
+                                    <div class="form-group ">
+                                        <label for="productNum" class="control-label col-lg-3">상품 번호</label>
+                                        <div class="col-lg-6">
+                                        	<select class=" form-control " id="productNum" name="r_num">
+                                        		<option value="">선택하세요</option>
+                                        		<option value="p01_1">p01_1</option>
+                                        		<option value="p01_2">p01_2</option>
+                                        		<option value="p02_1">p02_1</option>
+                                        		<option value="p02_2">p02_2</option>
+                                        		<option value="p03_1">p03_1</option>
+                                        		<option value="p03_2">p03_2</option>
+                                        		<option value="p04_1">p04_1</option>
+                                        		<option value="p04_2">p04_2</option>
+                                        		<option value="p05_1">p05_1</option>
+                                        		<option value="p05_2">P05_2</option>
+                                        	</select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="productName" class="control-label col-lg-3">상품 이름</label>
+                                        <div class="col-lg-6">
+                                            <input class=" form-control" id="productName" name="r_name" type="text" readonly/>
+                                        </div>
+                                    </div>
+                                   <div class="form-group ">
+                                        <label for="produceAmount" class="control-label col-lg-3">총생산량</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control " id="produceAmount" name="t_amount" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="number_person" class="control-label col-lg-3">투입 인원</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control " id="number_person" name="t_man" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+		                                <label for="produceDate" class="control-label col-lg-3">생산 시작 일자</label>
+		                                <div class="col-lg-6">
+		                                    <input class="form-control form-control-inline input-medium default-date-picker"  
+		                                    id="produceDate" name="startdate" size="16" type="text" value="" />
+		                                </div>
+		                            </div>
+                                    <div class="form-group ">
+		                                <label for="produceDate" class="control-label col-lg-3">생산 종료 일자</label>
+		                                <div class="col-lg-6">
+		                                    <input class="form-control form-control-inline input-medium default-date-picker"  
+		                                    id="produceDate" name="enddate" size="16" type="text" value="" />
+		                                </div>
+		                            </div>
+                                    <div class="form-group ">
+		                                <label for="produceDate" class="control-label col-lg-3">재료 구매 일자</label>
+		                                <div class="col-lg-6">
+		                                    <input class="form-control form-control-inline input-medium default-date-picker"  
+		                                    id="produceDate" name="buydate" size="16" type="text" value="" />
+		                                </div>
+		                            </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-3 col-lg-6">
+                                            <button class="btn btn-primary" type="submit">등록</button>
+                                            <button class="btn btn-default" type="button">취소</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+			
+			
 			<div class="row">
             <div class="col-sm-12">
                 <section class="panel">
@@ -700,420 +814,39 @@
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                     <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th class="hidden-phone">Platform(s)</th>
-                        <th class="hidden-phone">Engine version</th>
-                        <th class="hidden-phone">CSS grade</th>
+                        <th>상품명</th>
+                        <th>생산시작일</th>
+                        <th>생산량</th>
+                        <th>재료비용</th>	
+                        <th>투입인원</th>
+                        <th style="display:none;">생산번호</th>
+                        <th style="display:none;">상품번호</th>
+                        <th style="display:none;">총생산량</th>
+                        <th style="display:none;">생산시작일</th>
+                        <th style="display:none;">생산종료일</th>
+                        <th style="display:none;">재료구매일</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 4.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">4</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">5</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.5</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">5.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 6</td>
-                        <td class="hidden-phone">Win 98+</td>
-                        <td class="center hidden-phone">6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet Explorer 7</td>
-                        <td class="hidden-phone">Win XP SP2+</td>
-                        <td class="center hidden-phone">7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>AOL browser (AOL desktop)</td>
-                        <td class="hidden-phone">Win XP</td>
-                        <td class="center hidden-phone">6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 1.0</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 1.5</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 2.0</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 3.0</td>
-                        <td class="hidden-phone">Win 2k+ / OSX.3+</td>
-                        <td class="center hidden-phone">1.9</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Camino 1.0</td>
-                        <td class="hidden-phone">OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Camino 1.5</td>
-                        <td class="hidden-phone">OSX.3+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape 7.2</td>
-                        <td class="hidden-phone">Win 95+ / Mac OS 8.6-9.2</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape Browser 8</td>
-                        <td class="hidden-phone">Win 98SE+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape Navigator 9</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.1</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.2</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.2</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.3</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.4</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.4</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.6</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.7</td>
-                        <td class="hidden-phone">Win 98+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.8</td>
-                        <td class="hidden-phone">Win 98+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Seamonkey 1.1</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Epiphany 2.20</td>
-                        <td class="hidden-phone">Gnome</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 1.2</td>
-                        <td class="hidden-phone">OSX.3</td>
-                        <td class="center hidden-phone">125.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 1.3</td>
-                        <td class="hidden-phone">OSX.3</td>
-                        <td class="center hidden-phone">312.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 2.0</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">419.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 3.0</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">522.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>OmniWeb 5.5</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">420</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>iPod Touch / iPhone</td>
-                        <td class="hidden-phone">iPod</td>
-                        <td class="center hidden-phone">420.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>S60</td>
-                        <td class="hidden-phone">S60</td>
-                        <td class="center hidden-phone">413</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 7.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 7.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 8.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 8.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.2</td>
-                        <td class="hidden-phone">Win 88+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.5</td>
-                        <td class="hidden-phone">Win 88+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera for Wii</td>
-                        <td class="hidden-phone">Wii</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Nokia N800</td>
-                        <td class="hidden-phone">N800</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Nintendo DS browser</td>
-                        <td class="hidden-phone">Nintendo DS</td>
-                        <td class="center hidden-phone">8.5</td>
-                        <td class="center hidden-phone">C/A<sup>1</sup></td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.1</td>
-                        <td class="hidden-phone">KDE 3.1</td>
-                        <td class="center hidden-phone">3.1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.3</td>
-                        <td class="hidden-phone">KDE 3.3</td>
-                        <td class="center hidden-phone">3.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.5</td>
-                        <td class="hidden-phone">KDE 3.5</td>
-                        <td class="center hidden-phone">3.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 4.5</td>
-                        <td class="hidden-phone">Mac OS 8-9</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 5.1</td>
-                        <td class="hidden-phone">Mac OS 7.6-9</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 5.2</td>
-                        <td class="hidden-phone">Mac OS 8-X</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Misc</td>
-                        <td>NetFront 3.1</td>
-                        <td>Embedded devices</td>
-                        <td class="center">-</td>
-                        <td class="center">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Misc</td>
-                        <td>NetFront 3.4</td>
-                        <td class="hidden-phone">Embedded devices</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Dillo 0.8</td>
-                        <td class="hidden-phone">Embedded devices</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Links</td>
-                        <td class="hidden-phone">Text only</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Lynx</td>
-                        <td class="hidden-phone">Text only</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Misc</td>
-                        <td>IE Mobile</td>
-                        <td class="hidden-phone">Windows Mobile 6</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Misc</td>
-                        <td>PSP browser</td>
-                        <td class="hidden-phone">PSP</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeU">
-                        <td>Other browsers</td>
-                        <td>All others</td>
-                        <td class="hidden-phone">-</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">U</td>
-                    </tr>
+                    
+                    <c:forEach var="item" items="${totalinfo}" varStatus="status">
+                    	<tr class="gradeA">
+                    		<td>${item.r_name}</td>
+	                        <td>${item.startdate}</td>
+	                        <td>${item.t_amount}</td>
+	                        <td>${item.t_cost}</td>
+	                        <td>${item.t_man}</td>
+	                        <td style="display:none;">${item.t_num}</td>
+	                        <td style="display:none;">${item.r_num}</td>
+	                        <td style="display:none;">${item.t_amount}</td>
+	                        <td style="display:none;">${item.startdate}</td>
+	                        <td style="display:none;">${item.enddate}</td>
+	                        <td style="display:none;">${item.buydate}</td>
+                   		</tr>
+					</c:forEach>
+
                     </tbody>
                     </table>
-
                     </div>
                     </div>
                 </section>
@@ -1130,6 +863,55 @@
 	<script src="js/jquery.scrollTo.min.js"></script>
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
+	
+	<script>
+$(function() {
+	var message = '${message}';
+	if(message != 'aaa'){
+		alert(message);
+	}
+	
+	if(message == "aaa"){
+	
+	$("#productNum").change(function(){
+		var text = $("#productNum").val();
+		var name = "";
+		if(text == "p01_1"){
+			name = "안성탕면";
+		}
+		if(text == "p01_2"){
+			name = "안성탕면";
+		}
+		if(text == "p02_1"){
+			name = "신라면";
+		} 
+		if(text == "p02_2"){
+			name = "신라면";
+		}
+		if(text == "p03_1"){
+			name = "너구리";
+		}
+		if(text == "p03_2"){
+			name = "너구리";
+		}
+		if(text == "p04_1"){
+			name = "멸치칼국수라면";
+		}
+		if(text == "p04_2"){
+			name = "멸치칼국수라면";
+		}
+		if(text == "p05_1"){
+			name = "사리곰탕면";
+		}
+		if(text == "p05_2"){
+			name = "사리곰탕면";
+		}
+		$("#productName").val(name);
+	});
+	}
+});
+</script>
+	
 	<!--Easy Pie Chart-->
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
@@ -1141,19 +923,25 @@
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
 	<script src="js/iCheck/jquery.icheck.js"></script>
-
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	
 	<!--dynamic table-->
 	<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
-
+	
+	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js?version=20170920"></script>
+	<script type="text/javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+	
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
-	
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript" src="js/advanced-form.js?version=20170920"></script>
+	<script type="text/javascript" src="js/validation-init.js?version=20170920"></script>
 	<!--icheck init -->
 	<script src="js/icheck-init.js"></script>
 	<!--dynamic table initialization -->
-<script src="js/dynamic_table_init.js"></script>
+	<script type="text/javascript" src="js/dynamic_table_init.js?version=20170920"></script> 
 </body>
 </html>

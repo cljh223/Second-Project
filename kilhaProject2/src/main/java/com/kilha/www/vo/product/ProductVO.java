@@ -3,7 +3,7 @@ package com.kilha.www.vo.product;
 public class ProductVO {
 	private String product_num;
 	private String r_num;
-	private String fc_num;
+	private String f_num;
 	private String line_num;
 	private String product_date;
 	private double weight;
@@ -12,12 +12,12 @@ public class ProductVO {
 
 	}
 
-	public ProductVO(String product_num, String r_num, String fc_num, String line_num, String product_date,
+	public ProductVO(String product_num, String r_num, String f_num, String line_num, String product_date,
 			double weight) {
 		super();
 		this.product_num = product_num;
 		this.r_num = r_num;
-		this.fc_num = fc_num;
+		this.f_num = f_num;
 		this.line_num = line_num;
 		this.product_date = product_date;
 		this.weight = weight;
@@ -39,12 +39,12 @@ public class ProductVO {
 		this.r_num = r_num;
 	}
 
-	public String getFc_num() {
-		return fc_num;
+	public String getF_num() {
+		return f_num;
 	}
 
-	public void setFc_num(String fc_num) {
-		this.fc_num = fc_num;
+	public void setF_num(String f_num) {
+		this.f_num = f_num;
 	}
 
 	public String getLine_num() {
@@ -73,7 +73,7 @@ public class ProductVO {
 
 	@Override
 	public String toString() {
-		return "ProductVO [product_num=" + product_num + ", r_num=" + r_num + ", fc_num=" + fc_num + ", line_num="
+		return "ProductVO [product_num=" + product_num + ", r_num=" + r_num + ", f_num=" + f_num + ", line_num="
 				+ line_num + ", product_date=" + product_date + ", weight=" + weight + "]";
 	}
 }

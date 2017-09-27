@@ -7,7 +7,7 @@
 
 <!--해당 공장 기본  정보 출력  -->
 <select id="Factory_info" resultType="pro_FactoryVO" parameterType="int">
-	select * from factory where fc_num=#{fc_num}
+	select * from factory where fac_num=#{fac_num}
 </select>
 
 <!--해당 라면 기본 상품 정보 출력  -->
@@ -19,19 +19,24 @@
 	select * from ramen where r_num = #{r_num} and line_num=#{line_num}
 </select>
 
+
+<!--일일 생산 정보 모두 출력  -->
+<select id="allProduct" resultType="pro_ProductinfoVO">
+	select * from productinfo
+</select>
 <!--일 단위 상품 개당 정보 출력-->
 <select id="Dailyproduct" resultType ="pro_ProductVO" parameterType="Map">
-	select * from dailyproduct where product_date = to_date(#{today}, 'yy/mm/dd')-1 and fc_num=#{fc_num}
+	select * from dailyproduct where product_date = to_date(#{today}, 'yy/mm/dd')-1 and f_num=#{f_num}
 </select>
 
 <!--일 단위 특정 상품 개당 정보 출력 라인 구별 미포함 -->
 <select id="SelectDailyproduct1" resultType="pro_ProductVO" parameterType="Map">
-	select * from dailyproduct where r_num = #{r_num} and fc_num=#{fc_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
+	select * from dailyproduct where r_num = #{r_num} and f_num=#{f_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
 </select>
 
 <!--일 단위 특정 상품 개당 정보 출력 라인 구별 포함  -->
 <select id="SelectDailyproduct2" resultType="pro_ProductVO" parameterType="Map">
-	select * from dailyproduct where r_num = #{r_num} and fc_num=#{fc_num} and line_num=#{line_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
+	select * from dailyproduct where r_num = #{r_num} and f_num=#{f_num} and line_num=#{line_num} and product_date = to_date(#{today}, 'yy/mm/dd')-1
 </select>
 
 <!--일 단위 상품 생산량 출력  -->
@@ -44,4 +49,131 @@
 	select r.r_num, r.loadtime, r.standardtime, r.operatingtime, p.amount, p.inputman, p.worktime, p.goodrate from ramen r, productinfo p
 	where r.r_num = #{r_num} and r.line_num=#{line_num} and r.r_num = p.r_num and p.production_date = to_date(#{today}, 'yy/mm/dd')-1
 </select>
+
+<!--totalinfoList 가져오기  -->
+<select id="getTotalInfo" resultType="pro_TotalinfoVO">
+	select * from totalinfo
+</select>
+
+
+
+<!--테스트 sql  -->
+<!--recipe정보 가져오기  -->
+<select id="getRecipe" resultType="pro_recipeVO" parameterType="Map">
+	select * from recipe where r_num=#{r_num} and r_name=#{r_name}
+</select>
+
+<!--해당 날짜 재료의 가격 정보 가져오기  -->
+<select id="getPrice" resultType="pro_MaterialPriceVO" parameterType="Map">
+	select * from pur_rm_daily_price where rmname=#{rmname} and rmdate=to_date(#{rmdate}, 'yy/mm/dd')
+</select>
+
+<!--해당 종합 정보의 총 자재비용 가져오기  -->
+<select id="getTotalPrice" resultType="pro_TotalinfoVO" parameterType="pro_TotalinfoVO">
+select t_num, r_num, r_name, t_amount*((select wheat from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='wheat' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select potatostarch from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='potatostarch' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select palmoil from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='palmoil' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select driedbeef from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='driedbeef' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select anchovy from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='anchovy' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select garlic from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='garlic' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select onion from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='onion' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select carrot from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='carrot' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select salty from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='salt' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select sugar from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='sugar' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select redpepperpowder from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='redpepperpowder' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select mushroom from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='mushroom' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
++ (select seaweed from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='seaweed' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000) as t_cost
+from totalinfo where startdate =to_date(#{startdate}, 'yy/mm/dd') and r_name=#{r_name}
+</select>
+
+
+<!--1일 생산 정보 등록  -->
+<insert id="regist" parameterType="pro_ProductinfoVO">
+	insert into productinfo values
+	(
+		seq_product_regist.nextval,
+		#{r_num},
+		#{r_name},
+		#{line_num},
+		#{amount},
+		#{inputman},
+		#{worktime},
+		#{losstime},
+		#{capa},
+		#{goodrate},
+		#{fault},
+		#{production_date}
+	)
+</insert>
+
+<!--1일 생산 정보 리스트 출력  -->
+<select id="list" resultType="pro_ProductinfoVO">
+	select * from productinfo order by production_date desc
+</select>
+
+<!--생산량, 투입인원 데이터셋 가져오기  -->
+<select id="getInputMan" resultType="pro_TotalinfoVO" parameterType="String">
+	select t_amount, t_man from totalinfo where r_name=#{r_name}
+</select>
+
+<!--생산량, 자재비용 데이터셋 가져오기  -->
+<select id="getCost" resultType="pro_TotalinfoVO" parameterType="String">
+	select t_amount, t_cost from totalinfo where r_name=#{r_name}
+</select>
+
+<!--생산량, 자재비용 데이터셋 가져오기  -->
+<select id="getTime" resultType="pro_TotalinfoVO" parameterType="String">
+	select t_amount, t_time from totalinfo where r_name=#{r_name}
+</select>
+
+<!--자재 리스트 출력  -->
+<select id="getInventory" resultType="pro_InventoryVO">
+	select * from inventory
+</select>
+
+<!--종합 정보 insert  -->
+<insert id="totalInsert" parameterType="pro_TotalinfoVO">
+	insert into totalinfo values (
+		#{t_num},
+		#{r_num},
+		#{r_name},
+		#{t_amount},
+		#{t_time},
+		#{t_man},
+		#{t_amount}*
+		(
+		  (select wheat from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='wheat' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select potatostarch from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='potatostarch' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select palmoil from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='palmoil' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select driedbeef from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='driedbeef' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select anchovy from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='anchovy' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select garlic from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='garlic' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select onion from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='onion' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select carrot from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='carrot' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select salty from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='salt' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select sugar from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='sugar' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select redpepperpowder from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='redpepperpowder' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select mushroom from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='mushroom' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		+ (select seaweed from recipe where r_num=#{r_num})*(select rmclose from pur_rm_daily_price where rmname='seaweed' and rmdate=to_date(#{buydate}, 'yy/mm/dd'))/1000
+		),
+		to_date(#{startdate}, 'yy/mm/dd'),
+		to_date(#{enddate}, 'yy/mm/dd'),
+		to_date(#{buydate}, 'yy/mm/dd')
+	)
+</insert>
+
+<!--유효성 검사를 위한 구매 날짜 검색  -->
+<select id="countPur" resultType="int" parameterType="pro_TotalinfoVO">
+	select count(*) from pur_rm_daily_price where rmdate=to_date(#{buydate}, 'yy/mm/dd')
+</select>
+
+<!--해당 재료의 현재 재고량을 가져옴  -->
+<select id="materialAmount" resultType="pro_InventoryVO" parameterType="Map">
+	select p_amount from inventory where materialname = #{materialname}
+</select>
+
+<!--사용한 재료량 업데이트  -->
+<update id="updateInven" parameterType="Map">
+	update inventory set p_amount=#{amount} where materialname=#{materialname}
+</update>
 </mapper>

@@ -612,12 +612,12 @@
 
 						<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-laptop"></i> <span>생산 부문</span>
-						</a>
+							</a>
 							<ul class="sub">
-								<li><a href="pro_Fac1">제 1공장 정보</a></li>
-								<li><a href="pro_Fac2">제 2공장 정보</a></li>
+								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
 								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="">생산정보입력</a></li>
+								<li><a href="pro_RegistForm">생산정보입력</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
@@ -910,7 +910,12 @@
 							<div class="row prd-row">
 								<div class="col-md-6">
 									<div class="prd-img" style="width: 260px;">
-										<img src="images/fac1.jpg" alt="">
+									<c:if test="${factory.fac_num == 1}">
+									<img src="images/anyangfactory.jpg" alt="">
+									</c:if>
+									<c:if test="${factory.fac_num ==2 }">
+										<img src="images/ansungfactory.jpg" alt="">
+									</c:if>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -940,7 +945,7 @@
 				<div class="col-lg-6">
 					<section class="panel">
 						<div class="panel-body">
-							<div class="slimScrollDiv" style="overflow: auto; height: 175px">
+							<div class="slimScrollDiv" style="overflow: auto; height: 164px">
 								<table class="table table-hover general-table">
 									<thead>
 										<tr>
@@ -952,10 +957,11 @@
 										</tr>
 									</thead>
 									<tbody>
-
+									<!--1공장인 경우 해당 데이터 출력  -->
+									<c:if test="${f_num == 1}">
 										<c:forEach var="item" items="${ramenList}">
 											<tr>
-												<td style="text-align: center"><a href="#">${item.r_name}</a></td>
+												<td style="text-align: center"><a href="pro_Fac?f_num=${f_num}&r_num=${item.r_num}&f_name=1st Factory&line_num=${item.line_num}">${item.r_name}</a></td>
 												<td class="hidden-phone" style="text-align: center">${item.line_num}</td>
 												<td style="text-align: center">${item.recentAmount}</td>
 												<c:if test="${item.recentAmount/2500*100 >= 90}">
@@ -1000,6 +1006,58 @@
 												</c:if>
 											</tr>
 										</c:forEach>
+										</c:if>
+										
+										<!--2공장인 경우 해당 데이터 출력  -->
+										<c:if test="${f_num == 2}">
+										<c:forEach var="item" items="${ramenList}">
+											<tr>
+												<td style="text-align: center"><a href="pro_Fac?f_num=${f_num}&r_num=${item.r_num}&f_name=2nd Factory&line_num=${item.line_num}">${item.r_name}</a></td>
+												<td class="hidden-phone" style="text-align: center">${item.line_num}</td>
+												<td style="text-align: center">${item.recentAmount}</td>
+												<c:if test="${item.recentAmount/2500*100 >= 90}">
+													<td><span class="label label-success label-mini">Good</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-success"
+																role="progressbar" aria-valuenow="30" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if
+													test="${item.recentAmount/2500*100 < 90 and item.recentAmount/2500*100 >= 85 }">
+													<td><span class="label label-info label-mini">Normal</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-info"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${item.recentAmount/2500*100 < 85}">
+													<td><span class="label label-warning label-mini">Bad</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-warning"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.recentAmount/2500*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+										</c:if>
 									</tbody>
 								</table>
 							</div>
@@ -1040,7 +1098,7 @@
 										</tr>
 										<tr>
 											<td>생산달성률</td>
-											<td>${ramen.recentAmount/5000*100}%</td>
+											<td>${ramen.recentAmount/2500*100}%</td>
 										</tr>
 									</tbody>
 								</table>
@@ -1108,7 +1166,7 @@
 						<div class="mini-stat-info" style="height: 60px;">
 							<span>
 							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
-							<button data-original-title="작업 효율" data-content="작업 효율에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: black; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							<button data-original-title="작업 효율" data-content="작업 효율에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
 							</span>
 							<p style="margin-left: 17px; ">작업효율</p>
 						</div>
@@ -1117,24 +1175,41 @@
 				</div>
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
-						<span class="mini-stat-icon tar"><i class="fa fa-tag"></i></span>
-						<div class="mini-stat-info"><span>${totalrate}%</span> 종합 설비 가동률</div>
+						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
+						<div class="mini-stat-info" style="height: 60px;">
+							<span>
+							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<button data-original-title="종합설비가동률" data-content="종합설비가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${totalrate}%</button>
+							</span>
+							<p style="margin-left: 17px; ">종합설비가동률</p>
+						</div>
+						
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
-						<span class="mini-stat-icon pink"><i class="fa fa-money"></i></span>
-						<div class="mini-stat-info">
-							<span>${timeeff}%</span> 시간 가동률
+						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
+						<div class="mini-stat-info" style="height: 60px;">
+							<span>
+							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<button data-original-title="시간가동률" data-content="시간가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${timeeff}%</button>
+							</span>
+							<p style="margin-left: 17px; ">시간가동률</p>
 						</div>
+						
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="mini-stat clearfix">
-						<span class="mini-stat-icon green"><i class="fa fa-eye"></i></span>
-						<div class="mini-stat-info">
-							<span>${performeff}%</span> 성능 가동률
+						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
+						<div class="mini-stat-info" style="height: 60px;">
+							<span>
+							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<button data-original-title="성능가동률" data-content="성능가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${performeff}%</button>
+							</span>
+							<p style="margin-left: 17px; ">성능가동률</p>
 						</div>
+						
 					</div>
 				</div>
 			</div>
