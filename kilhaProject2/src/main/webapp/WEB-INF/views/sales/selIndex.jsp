@@ -151,10 +151,8 @@
 						offset);
 			} else {
 				icon = new Tmap.IconHtml(
-						'<img alt="" src="images/sales/수주마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'">',
+						'<img alt="" src="images/sales/수주마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'"></a>',
 						size, offset);
-				/* '<button data-type = "marker" data-source="'+shopCodeList[i]+'" class="btn btn-danger" type="button">'
-						+ shopStateList[i] + '</button>', size, offset); */
 			}
 			var marker = new Tmap.Markers(lonlat, icon);
 			markerLayer.addMarker(marker);
@@ -228,7 +226,7 @@
 			productString += resp[i].productReleasePrice;
 			productString += '</td>';
 			productString += '<td>'
-			productString += resp[i].productUnit;
+			productString += resp[i].productSalesPrice;
 			productString += '</td>';
 			productString += '</tr>';
 		}
@@ -380,7 +378,7 @@
 				+ '<div class="panel-body">'
 				+ '<table id = "searchTable" class="table  table-hover general-table">'
 				+ '<thead>' + '<tr>' + '<th>상품코드</th>' + '<th>상품명</th>'
-				+ '<th>입고단가</th>' + '<th>출고단가</th>' + '<th>판매액</th>' + '</tr>'
+				+ '<th>입고단가</th>' + '<th>출고단가</th>' + '<th>소비자가</th>' + '</tr>'
 				+ '</thead>' + '<tbody id = "productTable">'
 				+ productStringFunction(resp);
 		$('div#myModal3 .modal-body').html(productText);
@@ -470,10 +468,12 @@
 			NowEstimateText += '<tr>' + '<td>' + index + '</td>' + '<td>'
 					+ '<h4>' + item.productName + '</h4>' + '<p>단위 : '
 					+ item.productUnit + '</p>' + '</td>'
-					+ '<td class="text-center">' + item.supplyPrice + '</td>'
-					+ '<td class="text-center">' + item.supplyVolume + '</td>'
 					+ '<td class="text-center">' + item.supplyPrice
-					* item.supplyVolume + '</td>' + '</tr>'
+					+ '</td>' + '<td class="text-center">'
+					+ item.supplyVolume + '</td>'
+					+ '<td class="text-center">'
+					+ item.supplyPrice * item.supplyVolume + '</td>'
+					+ '</tr>'
 		});
 		+'</tbody>'
 				+ '</table>'
@@ -562,16 +562,22 @@
 							supplyTableString += '<input class=" form-control productName" name="productName" type="text" value="'+resp[index].productName+'" readonly = "true" style="width: 100px;"/>';
 							supplyTableString += '</td>'
 							supplyTableString += '<td class="hidden-phone">'
-							supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'+resp[index].productUnit+'" style="width: 100px;"/>';
+							supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'
+									+ resp[index].productUnit
+									+ '" style="width: 100px;"/>';
 							supplyTableString += '</td>';
 							supplyTableString += '<td>'
 							supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="" style="width: 100px;"/>';
 							supplyTableString += '</td>';
 							supplyTableString += '<td>'
-							supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'+resp[index].productReleasePrice+'" style="width: 100px;"/>';
+							supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'
+									+ resp[index].productUnitPrice
+									+ '" style="width: 100px;"/>';
 							supplyTableString += '</td>';
 							supplyTableString += '<td>'
-							supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'+resp[index].productUnitPrice+'" style="width: 100px;"/>';
+							supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'
+									+ resp[index].productSalesPrice
+									+ '" style="width: 100px;"/>';
 							supplyTableString += '</td>';
 							supplyTableString += '</tr>';
 							$('#supplyProductTable').append(supplyTableString);
@@ -603,6 +609,13 @@
 		shopStateList.push("${item}");
 		</c:forEach>
 		makeMarker(lonList, latList, shopCodeList, shopStateList);
+	}
+
+	function fnMove(seq) {
+		var offset = $(seq).offset();
+		$('html, body').animate({
+			scrollTop : offset.top
+		}, 400);
 	}
 
 	$(function() {
@@ -645,6 +658,10 @@
 		$(".range_2").ionRangeSlider();
 		$('.mtop10').on('click', kpiSettingFunction);
 		$('#shopSearchFormBtn').on('click', shopSearchFormFunction);
+		/* $('a[href*=#]').on('click', function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+			}); */
 		$('.wdgt-value')
 				.on(
 						'click',
@@ -799,13 +816,16 @@
 			<section class="wrapper">
 				<div class="row" style="margin-bottom: 20px;">
 					<div class="col-sm-11">
-						<input id="searchKeyword" type="text" class="form-control"
-							style="width: 1526px;">
+						<input id="searchKeyword" type="text"
+							placeholder="등록을 원하는 매장을 검색하세요" class="form-control"
+							style="width: 1566;">
 					</div>
 					<div class="col-sm-1">
-						<button id="shopSearchFormBtn" type="button"
-							class="btn btn-danger" style="margin-left: 30px;">Sign
-							in</button>
+						<a href="#shopSearchForm2">
+							<button id="shopSearchFormBtn" type="button"
+								class="btn btn-danger" style="margin-left: 40px;">Sign
+								in</button>
+						</a>
 					</div>
 				</div>
 				<div class="row" id="shopSearchForm2" style="display: none">
@@ -853,7 +873,7 @@
 
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-lg-12">
-						<section class="panel">
+						<section class="panel" id="gihonDataForm">
 							<header class="panel-heading">
 								Dropdowns Button <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-up menuForm"></a>
@@ -1274,7 +1294,7 @@
 											</section>
 										</div>
 									</div>
-									<table class="table  table-hover general-table">
+									<table class="table table-hover general-table">
 										<thead>
 											<tr>
 												<th>상품코드</th>
@@ -1282,7 +1302,7 @@
 												<th>단위</th>
 												<th>수량</th>
 												<th>단가</th>
-												<th>입고액</th>
+												<th>소비자가</th>
 											</tr>
 										</thead>
 										<tbody id="supplyProductTable">
@@ -1338,6 +1358,7 @@
 
 		//setting 클릭시 위쪽 데이터 데이블 생성 함수
 		function processViewFunctionSuccess(resp) {
+			fnMove('.settings');
 			var salAmount = 0;
 			var processLocationText = '<div class="adv-table">'
 					+ '<button type="button" id="processFormAddBtn" class="btn btn-round btn-primary">등록</button>'
@@ -1436,6 +1457,7 @@
 
 		// contacts메뉴 클릭시 이벤트
 		function contactsViewFunction() {
+			$('#processFormDiv').removeAttr('style');
 			shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
 				url : 'contactsViewFunction',
@@ -1498,6 +1520,7 @@
 						$('.job-history').attr('data-shopCode', shopCode);
 						$('.contacts').attr('data-shopCode', shopCode);
 						$('.settings').attr('data-shopCode', shopCode);
+						alert(shopCode);
 						var shopCodeJson = {
 							"shopCode" : shopCode
 						};
@@ -1511,7 +1534,8 @@
 								alert('에러');
 							}
 						});
-						contactsViewFunction()
+						contactsViewFunction();
+						fnMove('#gihonDataForm');
 					});
 		}
 
@@ -1599,7 +1623,7 @@
 											+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
 								}
 								processLocationText += '<td>';
-								processLocationText += salAmount;
+								processLocationText += AddComma(salAmount);
 								processLocationText += '</td>'
 								processLocationText += '<td>';
 								if (resp[i].processState == 0) {
@@ -1622,7 +1646,6 @@
 											function() {
 												var processCode = $(this).attr(
 														'id');
-												alert(processCode);
 												$
 														.ajax({
 															url : 'processTable',
@@ -1676,7 +1699,7 @@
 																									supplyTableString += '<input class=" form-control productUnit" name="productUnit" type="text" value="'+value.productUnit+'" style="width: 100px;"/>';
 																									supplyTableString += '</td>';
 																									supplyTableString += '<td>'
-																									supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="" style="width: 100px;"/>';
+																									supplyTableString += '<input class=" form-control supplyVolume" name="supplyVolume" type="text" value="'+value.supplyVolume+'" style="width: 100px;"/>';
 																									supplyTableString += '</td>';
 																									supplyTableString += '<td>'
 																									supplyTableString += '<input class=" form-control supplyPrice" name="supplyPrice" type="text" value="'+value.productReleasePrice+'" style="width: 100px;"/>';
@@ -1685,6 +1708,11 @@
 																									supplyTableString += '<input class=" form-control productUnitPrice" name="productUnitPrice" type="text" value="'+value.productUnitPrice+'" style="width: 100px;"/>';
 																									supplyTableString += '</td>';
 																									supplyTableString += '</tr>';
+
+																									$(
+																											'#supplyProductTable')
+																											.html(
+																													'');
 																									$(
 																											'#supplyProductTable')
 																											.append(
@@ -1700,6 +1728,7 @@
 											});
 						}
 					});
+			fnMove('#processFormDiv');
 		}
 
 		//process 저장하는 메소드
@@ -1755,6 +1784,15 @@
 				dataType : 'text',
 				success : function(resp) {
 					alert(resp);
+					$('#processFormDiv').css('display', 'none');
+					$('#shopName').val('');
+					$('#staffName').val('');
+					$('#warehouseName').val('');
+					$('#processTerm').val('');
+					$('#processEndDate').val('');
+					$('#supplyProductTable').html('');
+					$('#supplyForm').css('display', 'none');
+					processViewFunction();
 				},
 				error : function() {
 					alert('에러');
@@ -1910,7 +1948,7 @@
 													+ salesPercent
 													+ '% Complete (success)</span>'
 													+ '</div></div></div><div class="col-md-2">'
-													+ earnPercent + '%</div>'
+													+ Math.ceil(salesPercent) + '%</div>'
 
 											$('.salesClass').html(
 													kpisalesPercentBarText);
@@ -1926,7 +1964,7 @@
 													+ earnPercent
 													+ '% Complete (success)</span>'
 													+ '</div></div></div><div class="col-md-2">'
-													+ earnPercent + '%</div>'
+													+ Math.ceil(earnPercent) + '%</div>'
 
 											$('.earnClass').html(
 													kpiEarnPercentBarText);
@@ -1942,21 +1980,24 @@
 													+ allEarnPercent
 													+ '% Complete (success)</span>'
 													+ '</div></div></div><div class="col-md-2">'
-													+ allEarnPercent
+													+ Math.ceil(allEarnPercent)
 													+ '%</div>'
 
 											$('.allEarnClass').html(
 													kpiAllEarnPercentBarText);
 
 											kpiSalesText = '<strong>'
-													+ sumSales + '</strong>';
+													+ AddComma(sumSales)
+													+ '</strong>';
 											$('.salesText').html(kpiSalesText);
 
-											kpiEarnText = '<strong>' + sumEarn
+											kpiEarnText = '<strong>'
+													+ AddComma(sumEarn)
 													+ '</strong>';
 											$('.earnText').html(kpiEarnText);
 											kpiEarnText = '<strong>'
-													+ sumAllEarn + '</strong>';
+													+ AddComma(sumAllEarn)
+													+ '</strong>';
 											$('.allEarnText').html(kpiEarnText);
 										}
 									});
@@ -2003,15 +2044,15 @@
 					$('#allEarnText').html(temp);
 					if (sales != '') {
 						var sales = resp.salse.kpiSet[0].kpiAmount;
-						$('#salesText').html(sales);
+						$('#salesText').html(AddComma(sales));
 					}
 					if (earn != '') {
 						var earn = resp.earn.kpiSet[0].kpiAmount;
-						$('#earnText').html(earn);
+						$('#earnText').html(AddComma(earn));
 					}
 					if (allEarn != '') {
 						var allEarn = resp.allEarn.kpiSet[0].kpiAmount;
-						$('#allEarnText').html(allEarn);
+						$('#allEarnText').html(AddComma(allEarn));
 					}
 				}
 			});
@@ -2021,6 +2062,7 @@
 
 		//overview클릭시 작동하는 함수
 		function overviewIntiFunction() {
+			fnMove('.overview');
 			updateViewFunction();
 			var shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
@@ -2039,6 +2081,7 @@
 
 		//job-history클릭시 작동
 		function updateViewFunction() {
+			fnMove('.job-history');
 			var shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
 				url : "updateViewFunction",
@@ -2162,16 +2205,17 @@
 									.on(
 											'click',
 											function() {
-												var name = $(
-														'#shopSearchTable tr td[data-type="name"]')
+												var name = $(this).find(
+														'td[data-type="name"]')
 														.html();
-												var telNo = $(
-														'#shopSearchTable tr td[data-type="telNo"]')
+												var telNo = $(this)
+														.find(
+																'td[data-type="telNo"]')
 														.html();
-												var address = $(
-														'#shopSearchTable tr td[data-type="address"]')
+												var address = $(this)
+														.find(
+																'td[data-type="address"]')
 														.html();
-												alert(name);
 												var unMarkerClickText = '<div class="col-sm-12"><section class="panel"><div class="panel-body">'
 														+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
 														+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
@@ -2201,6 +2245,7 @@
 
 												$('div#myModal6 .modal-body')
 														.html(unMarkerClickText);
+												$('#button6').unbind('click');
 												$('#button6')
 														.on(
 																'click',
@@ -2248,7 +2293,22 @@
 																				success : function(
 																						resp) {
 																					alert('등록되었습니다.');
-																					initialize();
+																					$(
+																							'#myModal6')
+																							.trigger(
+																									"click");
+																					$(
+																							'#shopSearchForm2')
+																							.css(
+																									"display",
+																									"none");
+
+																					$(
+																							'#searchKeyword')
+																							.val(
+																									'');
+
+																					location.href = "salesMain"
 																				}
 																			});
 																});

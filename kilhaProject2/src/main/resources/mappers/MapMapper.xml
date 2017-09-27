@@ -213,7 +213,7 @@
 		a.address_detail3, a.address_detail4,
 		s.shop_tel, d.product_unit,
 		l.supply_price, l.supply_volume, p.process_term,
-		d.product_code,
+		d.product_code, 
 		p.process_end_date, p.process_insert_date, d.product_name
 		FROM process
 		p INNER JOIN shop s ON

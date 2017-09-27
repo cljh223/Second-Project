@@ -58,6 +58,7 @@ public class SalesController {
 			shopCodeList.add(shopList.get(i).getShopCode());
 			shopStateList.add(shopList.get(i).getShopState());
 		}
+		System.out.println(shopCodeList);
 		model.addAttribute("shopCodeList", shopCodeList);
 		model.addAttribute("addressList", new AddressChange().search(addressList));
 		model.addAttribute("shopStateList", shopStateList);
@@ -87,6 +88,7 @@ public class SalesController {
 	@ResponseBody
 	@RequestMapping(value = "popupProduct", method = { RequestMethod.POST, RequestMethod.GET })
 	public List<Product> popupProduct(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
+		System.out.println(rep.productSelect(searchText));
 		return rep.productSelect(searchText);
 	}
 
@@ -366,7 +368,9 @@ public class SalesController {
 			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
+		System.out.println("date : " + date);
 		codeMap.put("shopCode", shopCode);
+		System.out.println("shopCode : " + shopCode);
 		List<Kpidivision> kpiList = rep.kpiSelect(codeMap);
 		Map resultList = new HashMap<>();
 		for (Kpidivision k : kpiList) {
