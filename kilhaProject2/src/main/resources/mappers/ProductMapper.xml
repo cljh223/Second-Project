@@ -7,7 +7,7 @@
 
 <!--해당 공장 기본  정보 출력  -->
 <select id="Factory_info" resultType="pro_FactoryVO" parameterType="int">
-	select * from factory where fac_num=#{fac_num}
+	select * from factory where f_num=#{f_num}
 </select>
 
 <!--해당 라면 기본 상품 정보 출력  -->

@@ -23,9 +23,9 @@ public class FactoryRepository {
 	@Autowired
 	SqlSession sqlsession;
 
-	public FactoryVO selectFactory(int fac_num) {
+	public FactoryVO selectFactory(int f_num) {
 		FactoryDAO dao = sqlsession.getMapper(FactoryDAO.class);
-		return dao.Factory_info(fac_num);
+		return dao.Factory_info(f_num);
 	}
 
 	public List<RamenVO> factory1_RamenList(String r_factory) {
@@ -150,13 +150,17 @@ public class FactoryRepository {
 	
 	//생산량, 투입인원 데이터 셋 가져오기
 	public double[][] getInputMan(String r_name){
+		
+		System.out.println("라면 : "+ r_name);
 		FactoryDAO dao = sqlsession.getMapper(FactoryDAO.class);
 		List<TotalinfoVO> data = dao.getInputMan(r_name);
+		System.out.println(data);
 		double[][] resultArray = new double[data.size()][2];
 		for (int i = 0; i < data.size(); i++) {
 			resultArray[i][0] = data.get(i).getT_amount();
 			resultArray[i][1] = data.get(i).getT_man();
 		}
+		System.out.println("Repo : " + resultArray[0][0] +", " + resultArray);
 		return resultArray;
 	}
 	

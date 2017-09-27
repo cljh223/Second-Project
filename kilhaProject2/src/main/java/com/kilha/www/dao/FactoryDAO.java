@@ -9,7 +9,7 @@ import com.kilha.www.vo.product.*;
 public interface FactoryDAO {
 	
 	//공장 정보 출력
-	public FactoryVO Factory_info(int a);
+	public FactoryVO Factory_info(int f_num);
 	
 	//전체 라면 상품 정보 출력
 	public List<RamenVO> Ramen_info(String r_factory);

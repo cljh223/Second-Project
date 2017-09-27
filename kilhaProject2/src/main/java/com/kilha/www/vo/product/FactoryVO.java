@@ -1,7 +1,7 @@
 package com.kilha.www.vo.product;
 
 public class FactoryVO {
-	private int fac_num;
+	private int f_num;
 	private String fac_name;
 	private String fac_address;
 	private String fac_tel;
@@ -11,21 +11,21 @@ public class FactoryVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FactoryVO(int fac_num, String fac_name, String fac_address, String fac_tel, int maxamount) {
+	public FactoryVO(int f_num, String fac_name, String fac_address, String fac_tel, int maxamount) {
 		super();
-		this.fac_num = fac_num;
+		this.f_num = f_num;
 		this.fac_name = fac_name;
 		this.fac_address = fac_address;
 		this.fac_tel = fac_tel;
 		this.maxamount = maxamount;
 	}
 
-	public int getFac_num() {
-		return fac_num;
+	public int getF_num() {
+		return f_num;
 	}
 
-	public void setFac_num(int fac_num) {
-		this.fac_num = fac_num;
+	public void setF_num(int f_num) {
+		this.f_num = f_num;
 	}
 
 	public String getFac_name() {
@@ -62,7 +62,10 @@ public class FactoryVO {
 
 	@Override
 	public String toString() {
-		return "FactoryVO [fac_num=" + fac_num + ", fac_name=" + fac_name + ", fac_address=" + fac_address
-				+ ", fac_tel=" + fac_tel + ", maxamount=" + maxamount + "]";
+		return "FactoryVO [f_num=" + f_num + ", fac_name=" + fac_name + ", fac_address=" + fac_address + ", fac_tel="
+				+ fac_tel + ", maxamount=" + maxamount + "]";
 	}
+	
+	
+	
 }

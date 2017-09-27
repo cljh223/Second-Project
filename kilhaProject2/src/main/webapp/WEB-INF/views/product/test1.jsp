@@ -341,8 +341,8 @@
 							<ul class="sub">
 								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
 								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="pro_Regist">생산정보입력</a></li>
+								<li><a href="pro_Gradient">예측 분석</a></li>
+								<li><a href="pro_RegistForm">생산정보입력</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
@@ -701,7 +701,7 @@
 						<c:if test="${message == 'datain'}">
 							<div id="gradient" style="height: 370px;"></div>
 						</c:if>
-						<c:if test="${message == 'aaa'}">
+						<c:if test="${message == 'ok'}">
 						<div style="height: 370px; text-align: center;">
 						<p style= "text-align: center;">선형회귀 분석을 통하여 예상 준문량과 관련된 요소들을 예측합니다.</p>
 								<img src="images/pen.gif" style="height: 300px; text-align: center;">
@@ -867,11 +867,11 @@
 	<script>
 $(function() {
 	var message = '${message}';
-	if(message != 'aaa'){
+	if(message != 'ok' && message !='datain'){
 		alert(message);
 	}
 	
-	if(message == "aaa"){
+	if(message == "ok"){
 	
 	$("#productNum").change(function(){
 		var text = $("#productNum").val();
