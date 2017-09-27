@@ -22,7 +22,8 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String mainPage(){
-		return "index";
+		return "main";
+		//return "index";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

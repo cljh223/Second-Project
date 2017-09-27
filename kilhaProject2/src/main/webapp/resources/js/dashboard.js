@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    $(document).ready(function () {
+    $(document).ready(function () {	
         if ($.fn.plot) {
 
             var d1 = [
@@ -289,34 +289,90 @@
         }
 
         var sourceData = [
-                          {attribute : 'image', stnId : '1', stnNm : '강릉', stnType : 'Factory',		lati : '37.75185',  lngt : '128.87605', status : 'factory'},
-                          {attribute : 'image', stnId : '2', stnNm : '남해', stnType : 'Factory',		lati : '34.83767',  lngt : '127.89242', status : 'factory'},
-                          {attribute : 'image', stnId : '3', stnNm : '영월', stnType : 'Store',		lati : '37.18363',  lngt : '128.46175', status : 'store'},
-                          {attribute : 'image', stnId : '4', stnNm : '인제', stnType : 'Warehouse',	lati : '38.06946',  lngt : '128.17069', status : 'warehouse'},
-                          {attribute : 'image', stnId : '5', stnNm : '태백', stnType : 'Warehouse',	lati : '37.16406',  lngt : '128.98556', status : 'warehouse'},
-                          {attribute : 'image', stnId : '6', stnNm : '안동', stnType : 'Store',		lati : '36.58635',  lngt : '128.72935', status : 'store'},
-                          {attribute : 'image', stnId : '7', stnNm : '통영', stnType : 'Store',		lati : '34.85442',  lngt : '128.43318', status : 'store'}
+                          {stnNm : '강릉', stnType : 'Factory',		lati : '37.75185',  lngt : '128.87605', status : 'factory'},
+                          {stnNm : '남해', stnType : 'Factory',		lati : '34.83767',  lngt : '127.89242', status : 'factory'},
+                          {stnNm : '영월', stnType : 'Store',		lati : '37.18363',  lngt : '128.46175', status : 'store'},
+                          {stnNm : '인제', stnType : 'Warehouse',	lati : '38.06946',  lngt : '128.17069', status : 'warehouse'},
+                          {stnNm : '태백', stnType : 'Warehouse',	lati : '37.16406',  lngt : '128.98556', status : 'warehouse'},
+                          {stnNm : '안동', stnType : 'Store',		lati : '36.58635',  lngt : '128.72935', status : 'store'},
+                          {stnNm : '통영', stnType : 'Store',		lati : '34.85442',  lngt : '128.43318', status : 'store'}
                       ]; 
 
-        var markers = [];
+       var markers = [];
         jQuery.each(sourceData, function(){
             var obj = {};
             var color = '';
             obj.coords = convert(this.lati, this.lngt);
             obj.stnNm = this.stnNm;
-            obj.stnId = this.stnId;
             obj.stnType = this.stnType;
-            obj.image = this.image;
-            obj.style = {};
-            obj.style.fill = color;
-            obj.style.r = 5;
+            obj.status = this.status;
             markers.push(obj);
         });
 
-        
         if ($.fn.vectorMap) {
             $('#world-map').vectorMap({
-                map: 'korea_mill_en',
+            	map: 'korea_mill_en',
+            	zoomStep: 1.6,
+                zoomMin: 1.0,
+                regionStyle: {
+                    initial: {
+                        fill: '#bbbbbb',
+                        "fill-opacity": 1.0,
+                        stroke: '#000000',
+                        "stroke-width": 0.2	,
+                        "stroke-opacity": 0.4
+                    },
+                    hover: {
+                    	fill: '#000000',
+                    	"fill-opacity": 0.7
+                    }
+                },
+                backgroundColor: '#FFFFFF',
+                markers: markers,
+                onMarkerTipShow: function(e, el, idx) {
+                    var msg = el.html();
+                    var source = markers[idx];
+                    msg += "<b>지역명 : " + source.stnNm + "</b><br>";
+                    msg += "<b>지역ID : " + source.stnId + "</b><br>";
+                    msg += "<b>지역Type : " + source.stnType + "</b><br>";
+                    el.html(msg); 
+                },
+                labels: {
+                    markers: {
+                      render: function(index){
+                        return sourceData[index].stnNm;
+                      }
+                    }
+                },
+                series: {
+                  markers: [{
+                    attribute: 'image',
+                    scale: {
+                      'factory': 'images/logo.png',
+                      'warehouse': 'images/logo.png',
+                      'store': 'images/logo.png'
+                    },
+                    values: sourceData.reduce(function(p, c, i){ 
+                    	p[i] = c.status; 
+                    	return p }, {}),
+                	legend: {
+                        horizontal: true,
+                        title: 'Icon status',
+                        labelRender: function(v){
+                          return {
+                        	  factory: 'factory',
+                        	  warehouse: 'warehouse',
+                        	  store: 'store'
+                          }[v];
+                        }
+                      }
+                  }]
+                }
+              });
+            	
+            	
+            	/*
+            	map: 'korea_mill_en',
                 zoomStep: 1.6,
                 zoomMin: 1.0,
                 regionStyle: {
@@ -344,7 +400,7 @@
                       }
                     }
                 },
-                /*markerStyle: {
+                markerStyle: {
                     initial: {
                         fill: '#e68c71',
                         stroke: 'rgba(230,140,110,.8)',
@@ -367,7 +423,6 @@
                     msg += "<b>지역명 : " + source.stnNm + "</b><br>";
                     msg += "<b>지역ID : " + source.stnId + "</b><br>";
                     msg += "<b>지역Type : " + source.stnType + "</b><br>";
-                    msg += "<img src='images/" + source.image + "'>";
                     el.html(msg); 
                 },
                 
@@ -406,9 +461,10 @@
                 		
                 		last(location_before, location_current, location_after);
                 	}
-                }*/
+                }
             });
-        }
+            */
+        };
         
         $(document).on('click', '.event-close', function () {
             $(this).closest("li").remove();

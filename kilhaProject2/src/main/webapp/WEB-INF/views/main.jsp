@@ -18,7 +18,7 @@
     <link href="js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="js/jvector-map/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <link href="js/jvector-map/jquery-jvectormap-2.0.3.css" rel="stylesheet">
     <link href="css/clndr.css" rel="stylesheet">
     <!--clock css-->
     <link href="js/css3clock/css/style.css" rel="stylesheet">
@@ -42,7 +42,6 @@
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-
     <a href="index.html" class="logo">
         <img src="images/logo.png" alt="">
     </a>
@@ -52,7 +51,7 @@
 </div>
 <!--logo end-->
 
-<div class="nav notify-row" id="top_menu">
+<div class="nav notify-row" id="top_menu" style="display: none;">
     <!--  notification start -->
     <ul class="nav top-menu">
         <!-- settings start -->
@@ -125,7 +124,7 @@
         </li>
         <!-- settings end -->
         <!-- inbox dropdown start-->
-        <li id="header_inbox_bar" class="dropdown">
+        <li id="header_inbox_bar" class="dropdown" style="display: none;">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <i class="fa fa-envelope-o"></i>
                 <span class="badge bg-important">4</span>
@@ -189,7 +188,7 @@
         </li>
         <!-- inbox dropdown end -->
         <!-- notification dropdown start-->
-        <li id="header_notification_bar" class="dropdown">
+        <li id="header_notification_bar" class="dropdown" style="display: none;">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                 <i class="fa fa-bell-o"></i>
@@ -240,7 +239,7 @@
 <div class="top-nav clearfix">
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
-        <li>
+        <li style="display: none;">
             <input type="text" class="form-control search" placeholder=" Search">
         </li>
         <!-- user login dropdown start-->
@@ -281,7 +280,7 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-lap	"></i>
                         <span>Layouts</span>
                     </a>
                     <ul class="sub">
@@ -482,8 +481,8 @@
 </div>
 <!--mini statistics end-->
 <div class="row">
-    <div class="col-md-12">
-        <!--earning graph start-->
+    <div class="col-md-6">
+        <!-- graph start-->
         <section class="panel">
             <header class="panel-heading">
                 Earning Graph <span class="tools pull-right">
@@ -506,14 +505,107 @@
                	<div id="before_name" style="float: left; width: 33%"></div>
                	<div id="current_name" style="float: left; width: 33%"></div>
                	<div id="after_name" style="float: left; width: 33%"></div>
-               	
-               	<br>
-               	<br>
-               	<br>
-               	<br>
   	        </div>
         </section>
         <!--earning graph end-->
+    </div>
+    
+    <div class="col-md-6">
+        <!-- graph start-->
+        <section class="panel">
+            <header class="panel-heading">
+                Earning Graph <span class="tools pull-right">
+            <a href="javascript:;" class="fa fa-chevron-down"></a>
+            <a href="javascript:;" class="fa fa-cog"></a>
+            <a href="javascript:;" class="fa fa-times"></a>
+            </span>
+            </header>
+            <div class="panel-body">
+                <div id="graph-area" class="main-chart" style="display:none;">
+                </div>
+         		
+         		<div id="world-map" class="vector-stat" style="height: 500px;">
+         		</div>
+               	
+               	<div id="before_type" style="float: left; width: 33%;"></div>
+               	<div id="current_type" style="float: left; width: 33%;"></div>
+               	<div id="after_type" style="float: left; width: 33%;"></div>
+               	<br><br><br> 
+               	<div id="before_name" style="float: left; width: 33%"></div>
+               	<div id="current_name" style="float: left; width: 33%"></div>
+               	<div id="after_name" style="float: left; width: 33%"></div>
+  	        </div>
+        </section>
+        <!--earning graph end-->
+    </div>
+</div>
+  
+<div class="row">
+    <div class="col-md-12" >
+    <!--notification start-->
+    	<section class="panel">
+            <div class="panel-body">
+                <!--price start-->
+                <div class="text-center price-head">
+                    <h1 class="color-terques"> Check Value Chain Of Our Enterpirse!! </h1>
+                    <p>해당 주문 정보를 선택하면 자세한 기업 가치사슬을 확인할 수 있습니다. </p>
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    <div class="pricing-table" style=" height: 500px;">
+                        <div class="pricing-head" style="background: white;">
+                <img src="images/fac.gif" style="width:300px; height: 170px; z-index: -1;"/>
+                <h1 style="color: gray;"> Step 1: Factory </h1>
+                        </div>
+                        <!-- <div class="pricing-quote" style="widht: 300px; height: 100px;">
+                        </div> -->
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i> 공장 이름</li>
+                            <li><i class="fa fa-check"></i> 공장 주소</li>
+                            <li><i class="fa fa-check"></i> 생산 품목</li>
+                            <li><i class="fa fa-check"></i> 생산 상태</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    <div class="pricing-table" style=" height: 500px;">
+                        <div class="pricing-head" style="background: white;">
+                <img src="images/warehouse.gif" style="width:300px; height: 170px; z-index: -1;"/>
+                         <h1 style="color: gray;"> Step 2 : Warehouse</h1>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i> 물류창고 이름</li>
+                            <li><i class="fa fa-check"></i> 물류창고 주소</li>
+                            <li><i class="fa fa-check"></i> 보관 상품</li>
+                            <li><i class="fa fa-check"></i> 창고 사용율</li>
+                        </ul>
+                    </div>
+                </div>
+
+               <div class="col-lg-4 col-sm-4">
+                    <div class="pricing-table" style=" height: 500px;">
+                        <div class="pricing-head" style="background: white;">
+                <img src="images/salse.gif" style="width:300px; height: 170px; z-index: -1;"/>
+                <h1 style="color: gray;"> Stpe 3 : Market </h1>
+                        </div>
+                        <!-- <div class="pricing-quote" style="widht: 300px; height: 100px;">
+                        </div> -->
+                       <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i> 영업소 이름</li>
+                            <li><i class="fa fa-check"></i> 영업소 주소</li>
+                            <li><i class="fa fa-check"></i> 납품 품목</li>
+                            <li><i class="fa fa-check"></i> 총 매출액</li>
+                        </ul>
+                       <!--  <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i> 24/7 Tech Support</li>
+                            <li><i class="fa fa-check"></i> Advanced Options</li>
+                            <li><i class="fa fa-check"></i> 100GB Storage</li>
+                            <li><i class="fa fa-check"></i> 1GB Bandwidth</li>
+                        </ul> -->
+                    </div>
+                </div>
+                <!--price end-->
+            </div>
+        </section>
     </div>
     <div class="col-md-4" style="display:none;">
         <!--widget graph start-->
@@ -1332,7 +1424,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
 <script src="js/calendar/moment-2.2.1.js"></script>
 <script src="js/evnt.calendar.init.js"></script>
-<script src="js/jvector-map/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="js/jvector-map/jquery-jvectormap-2.0.3.min.js"></script>
 <script src="js/jvector-map/jquery-jvectormap-korea-mill-en.js"></script>
 <script src="js/gauge/gauge.js"></script>
 <!--clock init-->
