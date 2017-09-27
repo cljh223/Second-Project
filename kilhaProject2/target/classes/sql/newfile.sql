@@ -57,7 +57,7 @@ CREATE TABLE dailyproduct
 	-- 해당 라면 상품을 식별하는 고유 번호
 	r_num varchar2(10) NOT NULL,
 	-- 각 공장을 식별할 수 있는 고유 번호
-	fac_num number NOT NULL,
+	f_num number NOT NULL,
 	PRIMARY KEY (product_num)
 );
 
@@ -65,16 +65,16 @@ CREATE TABLE dailyproduct
 CREATE TABLE factory
 (
 	-- 각 공장을 식별할 수 있는 고유 번호
-	fac_num number NOT NULL,
+	f_num number NOT NULL,
 	-- 해당 공장의 이름
 	fac_name varchar2(50) NOT NULL,
 	-- 해당 공장의 주소
-	fac_address urowid(50) NOT NULL,
+	fac_address varchar2(50) NOT NULL,
 	-- 해당 공장의 전화번호
 	fac_tel varchar2(50) NOT NULL,
 	-- 해당 공장이 생산할 수 있는 최대 생산량
 	maxamount number NOT NULL,
-	PRIMARY KEY (fac_num)
+	PRIMARY KEY (f_num)
 );
 
 
@@ -441,9 +441,9 @@ CREATE TABLE totalinfo
 	-- 해당 주문의 생산 시작일
 	startdate date NOT NULL,
 	-- 해당 주문의 생산 종료일
-	enddate number NOT NULL,
+	enddate date NOT NULL,
 	-- 해당 주문에 소모된 재료들의 구매일
-	buydate number NOT NULL,
+	buydate date NOT NULL,
 	PRIMARY KEY (t_num)
 );
 
@@ -475,8 +475,8 @@ CREATE TABLE warehouse
 /* Create Foreign Keys */
 
 ALTER TABLE dailyproduct
-	ADD FOREIGN KEY (fac_num)
-	REFERENCES factory (fac_num)
+	ADD FOREIGN KEY (f_num)
+	REFERENCES factory (f_num)
 ;
 
 
@@ -626,8 +626,8 @@ COMMENT ON COLUMN dailyproduct.line_num IS '해당 라면을 생산한 생산 �
 COMMENT ON COLUMN dailyproduct.product_date IS '생산된 라면 상품의 생산 일자';
 COMMENT ON COLUMN dailyproduct.weight IS '생산된 라면 상품의 중량';
 COMMENT ON COLUMN dailyproduct.r_num IS '해당 라면 상품을 식별하는 고유 번호';
-COMMENT ON COLUMN dailyproduct.fac_num IS '각 공장을 식별할 수 있는 고유 번호';
-COMMENT ON COLUMN factory.fac_num IS '각 공장을 식별할 수 있는 고유 번호';
+COMMENT ON COLUMN dailyproduct.f_num IS '각 공장을 식별할 수 있는 고유 번호';
+COMMENT ON COLUMN factory.f_num IS '각 공장을 식별할 수 있는 고유 번호';
 COMMENT ON COLUMN factory.fac_name IS '해당 공장의 이름';
 COMMENT ON COLUMN factory.fac_address IS '해당 공장의 주소';
 COMMENT ON COLUMN factory.fac_tel IS '해당 공장의 전화번호';

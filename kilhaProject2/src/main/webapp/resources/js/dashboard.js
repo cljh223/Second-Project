@@ -264,43 +264,87 @@
 
 
         //Jquery vector map
+        var jMap = null;
+        // lat : 위도, lon : 경도
+        function convert(latitude, longitude) {
+        	// korea-mill-en.js 지도 크기
+            var width = 792;
+            var height = 612;
+         
+            // 좌우 크게하면 좌로 이동
+            // 상하 크게하면 하로 이동
+            // 같이 늘려주고 같이 줄여줘야 함
+            var eastLong = 131.085044;      // 우측 한계선
+            var westLong = 123.599181;      // 좌측 한계선
+            var northLat = 39.049657;       // 상측 한계선
+            var southLat = 33.274579;       // 하측 한계선
+             
+            var longDiff = eastLong - westLong;
+            var lon = (longitude - westLong) * (width / longDiff);
+             
+            var latDiff = northLat - southLat;
+            var lat = (northLat - latitude) * (height / latDiff);
+             
+            return [lon, lat];
+        }
+
+        var sourceData = [
+                          {attribute : 'image', stnId : '1', stnNm : '강릉', stnType : 'Factory',		lati : '37.75185',  lngt : '128.87605', status : 'factory'},
+                          {attribute : 'image', stnId : '2', stnNm : '남해', stnType : 'Factory',		lati : '34.83767',  lngt : '127.89242', status : 'factory'},
+                          {attribute : 'image', stnId : '3', stnNm : '영월', stnType : 'Store',		lati : '37.18363',  lngt : '128.46175', status : 'store'},
+                          {attribute : 'image', stnId : '4', stnNm : '인제', stnType : 'Warehouse',	lati : '38.06946',  lngt : '128.17069', status : 'warehouse'},
+                          {attribute : 'image', stnId : '5', stnNm : '태백', stnType : 'Warehouse',	lati : '37.16406',  lngt : '128.98556', status : 'warehouse'},
+                          {attribute : 'image', stnId : '6', stnNm : '안동', stnType : 'Store',		lati : '36.58635',  lngt : '128.72935', status : 'store'},
+                          {attribute : 'image', stnId : '7', stnNm : '통영', stnType : 'Store',		lati : '34.85442',  lngt : '128.43318', status : 'store'}
+                      ]; 
+
+        var markers = [];
+        jQuery.each(sourceData, function(){
+            var obj = {};
+            var color = '';
+            obj.coords = convert(this.lati, this.lngt);
+            obj.stnNm = this.stnNm;
+            obj.stnId = this.stnId;
+            obj.stnType = this.stnType;
+            obj.image = this.image;
+            obj.style = {};
+            obj.style.fill = color;
+            obj.style.r = 5;
+            markers.push(obj);
+        });
+
+        
         if ($.fn.vectorMap) {
-            var cityAreaData = [
-                500.70,
-                410.16,
-                210.69,
-                120.17,
-                64.31,
-                150.35,
-                130.22,
-                120.71,
-                300.32
-            ]
             $('#world-map').vectorMap({
-                map: 'us_lcc_en',
-                scaleColors: ['#C8EEFF', '#0071A4'],
-                normalizeFunction: 'polynomial',
-                focusOn: {
-                    x: 5,
-                    y: 1,
-                    scale: 1
-                },
-                zoomOnScroll: false,
-                zoomMin: 0.85,
-                hoverColor: false,
+                map: 'korea_mill_en',
+                zoomStep: 1.6,
+                zoomMin: 1.0,
                 regionStyle: {
                     initial: {
-                        fill: '#ededed',
+                        fill: '#aaaaaa',
                         "fill-opacity": 1,
                         stroke: '#a5ded9',
                         "stroke-width": 0,
                         "stroke-opacity": 0
                     },
                     hover: {
-                        "fill-opacity": 0.8
+                        "fill-opacity": 0.5,
                     }
                 },
+                markers: markers,
                 markerStyle: {
+                  initial: {
+                      image: 'http://jvectormap.com/img/icon-np-2.png',
+                    }
+                },
+                labels: {
+                    markers: {
+                      render: function(index){
+                        return sourceData[index].stnNm;
+                      }
+                    }
+                },
+                /*markerStyle: {
                     initial: {
                         fill: '#e68c71',
                         stroke: 'rgba(230,140,110,.8)',
@@ -311,41 +355,61 @@
                     },
                     hover: {
                         stroke: 'black',
-                        "stroke-width": 2
+                        "stroke-width": 2,
+                        r: 10
                     },
-                    selected: {
-                        fill: 'blue'
-                    },
-                    selectedHover: {}
                 },
                 backgroundColor: '#ffffff',
-                markers: [
-
-                    {
-                        latLng: [35.85, -77.88],
-                        name: 'Rocky Mt,NC'
-                    }, {
-                        latLng: [32.90, -97.03],
-                        name: 'Dallas/FW,TX'
-                    }, {
-                        latLng: [39.37, -75.07],
-                        name: 'Millville,NJ'
-                    }
-
-                ],
-                series: {
-                    markers: [{
-                        attribute: 'r',
-                        scale: [3, 7],
-                        values: cityAreaData
-                    }]
-                }
+                markers: markers,
+                onMarkerLabelShow: function(e, el, idx) {
+                    var msg = el.html();
+                    var source = markers[idx];
+                    msg += "<b>지역명 : " + source.stnNm + "</b><br>";
+                    msg += "<b>지역ID : " + source.stnId + "</b><br>";
+                    msg += "<b>지역Type : " + source.stnType + "</b><br>";
+                    msg += "<img src='images/" + source.image + "'>";
+                    el.html(msg); 
+                },
+                
+                onMarkerClick: function(e, idx) {
+                	// image empty
+                	$("#before_type").empty();
+                	$("#current_type").empty();
+                	$("#after_type").empty();
+                	
+                	// text empty
+                	$("#before_name").empty();
+                	$("#current_name").empty();
+                	$("#after_name").empty();
+                	
+                	var location_before;
+                	var location_current = markers[idx];
+                	var location_after;
+                	
+                	if(location_current.stnId == 1) {
+                		location_before = "";
+                		location_after = markers[parseInt(idx) + 1];
+                		
+                		first(location_before, location_current, location_after);
+                	}
+                	
+                	else if(location_current.stnId != 1 && location_current.stnId != 7) {
+                		location_before = markers[idx - 1];
+                		location_after = markers[parseInt(idx) + 1];
+                		
+                		middle(location_before, location_current, location_after);
+                	}
+                	
+                	else if(location_current.stnId == 7) {
+                		location_before = markers[idx - 1];
+                		location_after = "";
+                		
+                		last(location_before, location_current, location_after);
+                	}
+                }*/
             });
         }
-
-
-
-
+        
         $(document).on('click', '.event-close', function () {
             $(this).closest("li").remove();
             return false;
@@ -443,14 +507,149 @@
                 }
             });
         });
-
-
-
-
     });
-
-
 })(jQuery);
+
+function first(location_before, location_current, location_after){
+	$('#before_type').append('&nbsp;');
+	$('#before_name').append('&nbsp;');
+
+	// current
+	switch(location_current.stnType) {
+	case 'Factory':
+		$('#current_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#current_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#current_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+	}
+	
+	// after
+	switch(location_after.stnType) {
+	case 'Factory':
+		$('#after_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#after_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#after_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+	}
+}
+
+
+function middle(location_before, location_current, location_after){
+	// before
+	switch(location_before.stnType) {
+	case 'Factory':
+		$('#before_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#before_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#before_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+	}
+	
+	// current
+	switch(location_current.stnType) {
+	case 'Factory':
+		$('#current_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#current_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#current_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+	}
+	
+	// after
+	switch(location_after.stnType) {
+	case 'Factory':
+		$('#after_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#after_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#after_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#after_name').append('<h4 style="text-align: center">' + location_after.stnNm + '</h4>');
+		break;
+	}
+}
+
+
+function last(location_before, location_current, location_after){
+	// before
+	switch(location_before.stnType) {
+	case 'Factory':
+		$('#before_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#before_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#before_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#before_name').append('<h4 style="text-align: center">' + location_before.stnNm + '</h4>');
+		break;
+	}
+
+	// current
+	switch(location_current.stnType) {
+	case 'Factory':
+		$('#current_type').append('<img src="images/factory.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Warehouse':
+		$('#current_type').append('<img src="images/warehouse.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+		
+	case 'Store':
+		$('#current_type').append('<img src="images/store.jpg" style="width: 50px; height: 50px; display: block; margin-left: auto; margin-right: auto;">');
+		$('#current_name').append('<h4 style="text-align: center">' + location_current.stnNm + '</h4>');
+		break;
+	}
+	
+	// after
+	$('#after_type').append('&nbsp;');
+	$('#after_name').append('&nbsp;');
+}
 
 
 if (Skycons) {

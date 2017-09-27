@@ -308,15 +308,6 @@ insert into shipping
 values
 (73, '구매부', '제품2', 40, '2017-09-27', 'ordered', 2, 1, '32가1234');
 
-insert into factory values (1, '1st Ramen Factory', '경기도 군포시 당정동', '031-450-5500', 15000);
-insert into factory values (2, '2nd Ramen Factory', '경기도 안양시 동안구 평촌동', '031-421-2122', 15000);
-
-
-insert into ramen values('p01', '안성탕면', '1st factory', 131, 125);
-insert into ramen values('p02', '신라면', '1st factory', 126, 120);
-insert into ramen values('p03', '너구리', '1st factory', 126, 120);
-insert into ramen values('p04', '멸치칼국수라면', '1st factory', 104, 98);
-insert into ramen values('p05', '사리곰탕', '1st factory', 116, 110);
 
 
 /* Insert data */

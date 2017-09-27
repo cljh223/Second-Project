@@ -57,7 +57,7 @@ CREATE TABLE dailyproduct
 	-- ÇØ´ç ¶ó¸é »óÇ°À» ½Äº°ÇÏ´Â °íÀ¯ ¹øÈ£
 	r_num varchar2(10) NOT NULL,
 	-- °¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£
-	fac_num number NOT NULL,
+	f_num number NOT NULL,
 	PRIMARY KEY (product_num)
 );
 
@@ -65,16 +65,16 @@ CREATE TABLE dailyproduct
 CREATE TABLE factory
 (
 	-- °¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£
-	fac_num number NOT NULL,
+	f_num number NOT NULL,
 	-- ÇØ´ç °øÀåÀÇ ÀÌ¸§
 	fac_name varchar2(50) NOT NULL,
 	-- ÇØ´ç °øÀåÀÇ ÁÖ¼Ò
-	fac_address urowid(50) NOT NULL,
+	fac_address varchar2(50) NOT NULL,
 	-- ÇØ´ç °øÀåÀÇ ÀüÈ­¹øÈ£
 	fac_tel varchar2(50) NOT NULL,
 	-- ÇØ´ç °øÀåÀÌ »ı»êÇÒ ¼ö ÀÖ´Â ÃÖ´ë »ı»ê·®
 	maxamount number NOT NULL,
-	PRIMARY KEY (fac_num)
+	PRIMARY KEY (f_num)
 );
 
 
@@ -441,9 +441,9 @@ CREATE TABLE totalinfo
 	-- ÇØ´ç ÁÖ¹®ÀÇ »ı»ê ½ÃÀÛÀÏ
 	startdate date NOT NULL,
 	-- ÇØ´ç ÁÖ¹®ÀÇ »ı»ê Á¾·áÀÏ
-	enddate number NOT NULL,
+	enddate date NOT NULL,
 	-- ÇØ´ç ÁÖ¹®¿¡ ¼Ò¸ğµÈ Àç·áµéÀÇ ±¸¸ÅÀÏ
-	buydate number NOT NULL,
+	buydate date NOT NULL,
 	PRIMARY KEY (t_num)
 );
 
@@ -475,8 +475,8 @@ CREATE TABLE warehouse
 /* Create Foreign Keys */
 
 ALTER TABLE dailyproduct
-	ADD FOREIGN KEY (fac_num)
-	REFERENCES factory (fac_num)
+	ADD FOREIGN KEY (f_num)
+	REFERENCES factory (f_num)
 ;
 
 
@@ -626,8 +626,8 @@ COMMENT ON COLUMN dailyproduct.line_num IS 'ÇØ´ç ¶ó¸éÀ» »ı»êÇÑ »ı»ê ¶óÀÎÀ» ½Äº°Ç
 COMMENT ON COLUMN dailyproduct.product_date IS '»ı»êµÈ ¶ó¸é »óÇ°ÀÇ »ı»ê ÀÏÀÚ';
 COMMENT ON COLUMN dailyproduct.weight IS '»ı»êµÈ ¶ó¸é »óÇ°ÀÇ Áß·®';
 COMMENT ON COLUMN dailyproduct.r_num IS 'ÇØ´ç ¶ó¸é »óÇ°À» ½Äº°ÇÏ´Â °íÀ¯ ¹øÈ£';
-COMMENT ON COLUMN dailyproduct.fac_num IS '°¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£';
-COMMENT ON COLUMN factory.fac_num IS '°¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£';
+COMMENT ON COLUMN dailyproduct.f_num IS '°¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£';
+COMMENT ON COLUMN factory.f_num IS '°¢ °øÀåÀ» ½Äº°ÇÒ ¼ö ÀÖ´Â °íÀ¯ ¹øÈ£';
 COMMENT ON COLUMN factory.fac_name IS 'ÇØ´ç °øÀåÀÇ ÀÌ¸§';
 COMMENT ON COLUMN factory.fac_address IS 'ÇØ´ç °øÀåÀÇ ÁÖ¼Ò';
 COMMENT ON COLUMN factory.fac_tel IS 'ÇØ´ç °øÀåÀÇ ÀüÈ­¹øÈ£';
