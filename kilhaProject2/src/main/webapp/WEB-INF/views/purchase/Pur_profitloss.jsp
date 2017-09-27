@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -238,11 +239,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>
@@ -318,16 +318,43 @@
 										</thead>
 										<tbody>
 										<c:forEach var="traderecords" items="${trList}" varStatus="stat">
+										<fmt:parseNumber var = "nuum" type = "number" value = "${traderecords.profits}" />
+										
+										
 										<tr>
 										<td>${traderecords.dealdate}</td>
 										<td>${traderecords.rmcode}</td>
 										<td>${traderecords.rmname}</td>
-										<td>${traderecords.dealtype}</td>
-										<td>${traderecords.quantity}</td>
-										<td>${traderecords.price}</td>
-										<td>${traderecords.totalprice}</td>
+										<c:if test="${traderecords.dealtype == 'BUY'}">
+										<td style="color: red;">${traderecords.dealtype}</td>
+										</c:if>
+										<c:if test="${traderecords.dealtype == 'SELL'}">
+										<td style="color: blue;">${traderecords.dealtype}</td>
+										</c:if>
+										<c:if test="${traderecords.dealtype == '생산부'}">
+										<td style="color: green;">${traderecords.dealtype}</td>
+										</c:if>
+										<c:if test="${traderecords.dealtype == '영업부'}">
+										<td style="color: orange;">${traderecords.dealtype}</td>
+										</c:if>
+										<c:if test="${traderecords.dealtype == '물류부'}">
+										<td style="color: purple;">${traderecords.dealtype}</td>
+										</c:if>
+										<td><fmt:formatNumber value="${traderecords.quantity}" pattern="#,###" /></td>
+										<td><fmt:formatNumber value="${traderecords.price}" pattern="#,###" /></td>
+										<td><fmt:formatNumber value="${traderecords.totalprice}" pattern="#,###" /></td>
+										<c:if test="${nuum<0}">
+										<td style="color: blue;"><fmt:formatNumber value="${traderecords.profits}" pattern="#,###" /></td>
+										<td style="color: blue;">${traderecords.profitrates}</td>
+										</c:if>
+										<c:if test="${nuum>0}">
+										<td style="color: red;"><fmt:formatNumber value="${traderecords.profits}" pattern="#,###" /></td>
+										<td style="color: red;">${traderecords.profitrates}</td>
+										</c:if>
+										<c:if test="${nuum==0}">
 										<td>${traderecords.profits}</td>
 										<td>${traderecords.profitrates}</td>
+										</c:if>
 										</tr>
 										</c:forEach>
 
@@ -702,29 +729,18 @@
 	<script src="js/dashboard.js"></script>
 	<script src="js/jquery.customSelect.min.js"></script>
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
+	
 
 	<!-- Editable_ -->
 	<!--Core js-->
-	<script src="js/jquery.js"></script>
 	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery-migrate.js"></script>
+	
 
-	<script src="bs3/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
 		src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
-	<script src="js/jquery.nicescroll.js"></script>
 	<!--Easy Pie Chart-->
-	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
-	<script src="js/sparkline/jquery.sparkline.js"></script>
 	<!--jQuery Flot Chart-->
-	<script src="js/flot-chart/jquery.flot.js"></script>
-	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
 
 	<script src="js/ion.rangeSlider-1.8.2/js/ion-rangeSlider/ion.rangeSlider.min.js" type="text/javascript"></script>
 	
@@ -734,26 +750,15 @@
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
 
 	<!--script for this page only-->
 	<script src="js/table-editable.js"></script>
-
-	<script class="include" type="text/javascript"
-		src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
-	<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+	
 	<!--Easy Pie Chart-->
-	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
-	<script src="js/sparkline/jquery.sparkline.js"></script>
 	<!--jQuery Flot Chart-->
-	<script src="js/flot-chart/jquery.flot.js"></script>
-	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
-	<script src="js/flot-chart/jquery.flot.resize.js"></script>
-	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-
+	
 
 
 

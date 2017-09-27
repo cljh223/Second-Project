@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,11 +235,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>
@@ -312,15 +312,33 @@
 										<tbody>
 												
 									<c:forEach items="${rmstoreinform}" var="rmstockinform" varStatus="outerstat">
+									<fmt:parseNumber var = "nuum" type = "number" value = "${rmstockinform[5]}" />
+									
 										<tr>
 											<td class = "text-center">${rmstockinform[0]}</td>
 											<td class = "text-center">${rmstockinform[1]}</td>
-											<td class = "text-center">${rmstockinform[2]}</td>
-											<td class = "text-center">${rmstockinform[3]}</td>
-											<td class = "text-center">${rmstockinform[4]}</td>
-											<td class = "text-center">${rmstockinform[5]}</td>
-											<td class = "text-center">${rmstockinform[6]}%</td>
-											<td class = "text-center">${rmstockinform[7]}</td>
+											
+											<td class = "text-center"><fmt:formatNumber value="${rmstockinform[2]}" pattern="#,###" /> KG</td>
+											<td class = "text-center">￦ <fmt:formatNumber value="${rmstockinform[3]}" pattern="#,###" /></td>
+											<td class = "text-center">￦ <fmt:formatNumber value="${rmstockinform[4]}" pattern="#,###" /></td>
+											
+											
+											<c:if test="${nuum<0}">
+											<td class = "text-center" style="color: blue;">￦ <fmt:formatNumber value="${rmstockinform[5]}" pattern="#,###" /></td>
+											<td class = "text-center" style="color: blue;"> <fmt:formatNumber value="${rmstockinform[6]}" pattern="#,###" /> %</td>
+											</c:if>
+											<c:if test="${nuum>0}">
+											<td class = "text-center" style="color: red;">￦ <fmt:formatNumber value="${rmstockinform[5]}" pattern="#,###" /></td>
+											<td class = "text-center" style="color: red;"> <fmt:formatNumber value="${rmstockinform[6]}" pattern="#,###" /> %</td>
+											</c:if>
+											<c:if test="${nuum==0}">
+											<td class = "text-center">￦ <fmt:formatNumber value="${rmstockinform[5]}" pattern="#,###" /></td>
+											<td class = "text-center"> <fmt:formatNumber value="${rmstockinform[6]}" pattern="#,###" /> %</td>
+											</c:if>
+											
+											
+											
+											<td class = "text-center">￦ <fmt:formatNumber value="${rmstockinform[7]}" pattern="#,###" /></td>
 										</tr>
 									</c:forEach>
 
@@ -644,12 +662,11 @@
 	<script src="js/dashboard.js"></script>
 	<script src="js/jquery.customSelect.min.js"></script>
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
 
 	<!-- Editable_ -->
 	<!--Core js-->
 	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery-migrate.js"></script>
+	
 
 	<script src="bs3/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
@@ -672,7 +689,6 @@
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
 
 	<!--script for this page only-->
 	<script src="js/table-editable.js"></script>
@@ -711,7 +727,7 @@
 <script src="js/chartjs.init.js"></script>
 <!--common script init for all pages-->
 <script src="js/scripts.js"></script>
-
+<script src="js/jquery-migrate.js"></script>
 
 
 	<!-- END JAVASCRIPTS -->

@@ -272,11 +272,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>
@@ -316,7 +315,7 @@
 							<div class="panel-body profile-information">
 								<div class="col-md-3">
 									<div class="profile-pic text-center">
-										<img src="" id="rmImage" alt="" />
+										<img src="images/searchani.gif" id="rmImage" alt="" />
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -324,15 +323,13 @@
 										
 									<a data-toggle="modal" href="#myModal2">
 										<h1 id="rmType">
-											<span id="rmTypeSpan" >재료검색</span> &nbsp;
+											<span id="rmTypeSpan" style="position:relative; top: 75px;">재료검색</span> &nbsp;
 											<img src="images/search.png"
-												id="SearchImg" style="width: 50px; height: 50px;">
+												id="SearchImg" style="width: 70px; height: 70px; position:relative; top: 75px;">
 										</h1>
 									</a>	
 										<br>
-										<p>밀가루는 밀의 낟알을 분쇄하여 만든 가루이다. 영어로 '곡물 가루'를 뜻하는 단어인 flour는
-											보통 특별한 언급이 없으면 밀가루를 뜻한다. 옥수수, 쌀, 콩 등의 밀이 아닌 곡물로 만든 가루도
-											'밀가루'라고 칭할 때가 있다. 다당류 탄수화물로 이루어진 높은 비율의 전분을 함유하고 있다.</p> 
+										<p><br><br></p> 
 										<br>
 									</div>
 								</div>
@@ -787,7 +784,6 @@
 	<script src="js/dashboard.js"></script>
 	<script src="js/jquery.customSelect.min.js"></script>
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
 
 	<!-- Editable_ -->
 	<!--Core js-->
@@ -874,7 +870,6 @@
 
 
 	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
 
 	<script src="js/toggle-init.js"></script>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -271,11 +272,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>
@@ -351,7 +351,7 @@
                                         <h3>TOTAL DUE</h3>
                                     </div>
                                     <div class="col-md-12">
-                                        <h1 class="amnt-value">￦ ${subtotal}</h1>
+                                        <h1 class="amnt-value">￦ <fmt:formatNumber value="${subtotal}" pattern="#,###" /></h1>
                                     </div>
                                 </div>
 
@@ -363,7 +363,7 @@
                             <tr>
                                 <th>#</th>
                                 <th class="text-center">재료명</th>
-                                <th class="text-center">가격(1kg당)</th>
+                                <th class="text-center">가격(1KG당)</th>
                                 <th class="text-center">주문량</th>
                                 <th class="text-center">합계</th>
                             </tr>
@@ -371,13 +371,12 @@
                             <tbody>
                             	<c:forEach items="${orderrmlist}" var="outer" varStatus="outerstat">
 								<tr>
-										<td class = "text-center">
-										<h4>${outerstat.count}</h4>
-										</td>
+										<td class = "text-center"><h4>${outerstat.count}</h4></td>
 										<td class = "text-center">${orderrmlist[outerstat.index][0]}</td>
-										<td class = "text-center">￦ ${orderrmlist[outerstat.index][1]}</td>
-										<td class = "text-center">${orderrmlist[outerstat.index][2]} kg</td>
-										<td class = "text-center">￦ ${orderrmlist[outerstat.index][3]}</td>
+										<td class = "text-center">￦ <fmt:formatNumber value="${orderrmlist[outerstat.index][1]}" pattern="#,###" /></td>
+										<td class = "text-center"><fmt:formatNumber value="${orderrmlist[outerstat.index][2]}" pattern="#,###" /> KG</td>
+										<td class = "text-center">￦ <fmt:formatNumber value="${orderrmlist[outerstat.index][3]}" pattern="#,###" /></td>
+										
 								</tr>
 							</c:forEach>
                             

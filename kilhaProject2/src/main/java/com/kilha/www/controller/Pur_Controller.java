@@ -107,7 +107,7 @@ public class Pur_Controller {
 				temp.add(Spercent);
 			}	
 			//만약 재고수량이 필요주문량보다 적으면
-			if(intrmstock<sum){
+			if(intrmstock<=sum){
 				String warning = "100";
 				temp.add(warning);
 			}
@@ -155,8 +155,6 @@ public class Pur_Controller {
 			chartdata += "['"+chartInform.get(i).getRmdate()+"', "+chartInform.get(i).getRmopen()+", "+chartInform.get(i).getRmhigh()+", "+chartInform.get(i).getRmlow()+", "+chartInform.get(i).getRmclose()+", "+chartInform.get(i).getRmvolume()+"],\n"; 		
 		
 		}
-		
-		
 		chartdata += "['"+chartInform.get(lastdata).getRmdate()+"', "+chartInform.get(lastdata).getRmopen() +", "+chartInform.get(lastdata).getRmhigh()+", "+chartInform.get(lastdata).getRmlow()+", "+chartInform.get(lastdata).getRmclose()+", "+chartInform.get(lastdata).getRmvolume()+"]";
 		chartdata += "\n]";
 		
@@ -168,14 +166,6 @@ public class Pur_Controller {
 		model.addAttribute("latest", latest);
 		model.addAttribute("chartdata",chartdata);
 		model.addAttribute("rmname", rm.getRmname());
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		return "purchase/Pur_chart";
 		
@@ -312,13 +302,13 @@ public class Pur_Controller {
 				temp.add(Sprorate);
 			}
 			
-			//가격정보없을때
+			/*//가격정보없을때
 			if(Davgprice == 0){
 				String Sprofits = "가격정보없음";
 				temp.add(Sprofits);
 				String Sprorate = "가격정보없음";
 				temp.add(Sprorate);
-			}
+			}*/
 			
 			
 			

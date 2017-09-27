@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -269,138 +271,64 @@
 <!--sidebar start-->
 <aside>
     <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active" href="index.html"> <i
+								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a></li>
+						<li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-lap	"></i>
-                        <span>Layouts</span>
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="boxed_page.html">Boxed Page</a></li>
-                        <li><a href="horizontal_menu.html">Horizontal Menu</a></li>
-                        <li><a href="language_switch.html">Language Switch Bar</a></li>
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>UI Elements</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="general.html">General</a></li>
-                        <li><a href="buttons.html">Buttons</a></li>
-<li><a href="typography.html">Typography</a></li>
-                        <li><a href="widget.html">Widget</a></li>
-                        <li><a href="slider.html">Slider</a></li>
-                        <li><a href="tree_view.html">Tree View</a></li>
-                        <li><a href="nestable.html">Nestable</a></li>
-                        <li><a href="grids.html">Grids</a></li>
-                        <li><a href="calendar.html">Calender</a></li>
-                        <li><a href="draggable_portlet.html">Draggable Portlet</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-bullhorn"></i>
-                        <span>Fontawesome </span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-th"></i>
-                        <span>Data Tables</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="basic_table.html">Basic Table</a></li>
-                        <li><a href="responsive_table.html">Responsive Table</a></li>
-                        <li><a href="dynamic_table.html">Dynamic Table</a></li>
-                        <li><a href="editable_table.html">Editable Table</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-tasks"></i>
-                        <span>Form Components</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="form_component.html">Form Elements</a></li>
-                        <li><a href="advanced_form.html">Advanced Components</a></li>
-                        <li><a href="form_wizard.html">Form Wizard</a></li>
-                        <li><a href="form_validation.html">Form Validation</a></li>
-                        <li><a href="file_upload.html">Muliple File Upload</a></li>
 
-                        <li><a href="dropzone.html">Dropzone</a></li>
-                        <li><a href="inline_editor.html">Inline Editor</a></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>생산 부문</span>
+							</a>
+							<ul class="sub">
+								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+								<li><a href="pro_Gradient">예측 분석</a></li>
+								<li><a href="pro_RegistForm">생산정보입력</a></li>
+							</ul></li>
 
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-envelope"></i>
-                        <span>Mail </span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="mail.html">Inbox</a></li>
-                        <li><a href="mail_compose.html">Compose Mail</a></li>
-                        <li><a href="mail_view.html">View Mail</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Charts</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="morris.html">Morris</a></li>
-                        <li><a href="chartjs.html">Chartjs</a></li>
-                        <li><a href="flot_chart.html">Flot Charts</a></li>
-                        <li><a href="c3_chart.html">C3 Chart</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Maps</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="google_map.html">Google Map</a></li>
-                        <li><a href="vector_map.html">Vector Map</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-glass"></i>
-                        <span>Extra</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="blank.html">Blank Page</a></li>
-                        <li><a href="lock_screen.html">Lock Screen</a></li>
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="invoice.html">Invoice</a></li>
-                        <li><a href="pricing_table.html">Pricing Table</a></li>
-                        <li><a href="timeline.html">Timeline</a></li>                    
-<li><a href="gallery.html">Media Gallery</a></li><li><a href="404.html">404 Error</a></li>
-                        <li><a href="500.html">500 Error</a></li>
-                        <li><a href="registration.html">Registration</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
-                    </a>
-                </li>
-            </ul>            </div>
-        <!-- sidebar menu end-->
-    </div>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-truck"></i> <span>물류부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="first">관리자 페이지</a></li>
+								<li><a href="second">물류창고 도면도/도표</a></li>
+								<li><a href="third">트럭별 물류 배송순서</a></li>
+								<li><a href="fourth">선적신청</a></li>
+								<li><a href="fifth">log-06(List)</a></li>
+								<li><a href="sixth">log-06(Timetable)</a></li>
+								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
+								<li><a href="eighth">log-09, 10</a></li>
+								<li><a href="nineth">개인 신청 내역</a></li>
+							</ul></li>
+
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-laptop"></i> <span>영업부서</span>
+						</a>
+							<ul class="sub">
+								<li><a href="salesMain">영업 메인 페이지</a></li>
+								<li><a href="processMain">영업 상황 조회</a></li>
+								<li><a href="language_switch.html">Language Switch Bar</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
 </aside>
 <!--sidebar end-->
 <!--main content start-->
@@ -520,20 +448,30 @@
             <a href="javascript:;" class="fa fa-times"></a>
             </span>
             </header>
-            <div class="panel-body">
-                <div id="graph-area" class="main-chart" style="display:none;">
-                </div>
-         		
-         		<div id="world-map" class="vector-stat" style="height: 500px;">
-         		</div>
-               	
-               	<div id="before_type" style="float: left; width: 33%;"></div>
-               	<div id="current_type" style="float: left; width: 33%;"></div>
-               	<div id="after_type" style="float: left; width: 33%;"></div>
-               	<br><br><br> 
-               	<div id="before_name" style="float: left; width: 33%"></div>
-               	<div id="current_name" style="float: left; width: 33%"></div>
-               	<div id="after_name" style="float: left; width: 33%"></div>
+            <div class="panel-body" style="height: 700px;">
+                <div class="adv-table editable-table ">
+                	<table class="table table-striped table-hover table-bordered"id="editable-sample">
+                		<thead>
+							<tr>
+								<th>영업코드</th>
+								<th>매장명</th>
+								<th>주소</th>
+								<th>총금액</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+						<%-- <c:forEach items="" var="" varStatus=""> --%>
+                			<tr>
+                				<td>영업코드</td>
+                				<td>매장명</td>
+                				<td>주소</td>
+                				<td>총금액</td>
+                			</tr>
+                		<%-- </c:forEach> --%>
+                		</tbody>
+                	</table>
+				</div>
   	        </div>
         </section>
         <!--earning graph end-->

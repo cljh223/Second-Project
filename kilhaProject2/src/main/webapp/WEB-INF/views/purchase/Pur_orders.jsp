@@ -273,11 +273,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>

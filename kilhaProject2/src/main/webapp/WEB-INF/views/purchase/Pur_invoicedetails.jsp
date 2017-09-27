@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -270,11 +271,10 @@
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
+                        <i class="fa fa-credit-card"></i>
                         <span>구매부서</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
                         <li><a href="Pur_inform">원자재 정보</a></li>
                         <li><a href="Pur_chart">원자재 거래</a></li>
                         <li><a href="Pur_orderform1">원자재 주문하기</a></li>
@@ -393,11 +393,11 @@
                                         <h3>TOTAL DUE</h3>
                                     </div>
                                     <div class="col-md-12">
-                                        <h1 class="amnt-value">￦ ${totalprice2}</h1>
+                                        <h1 class="amnt-value">￦ <fmt:formatNumber value="${totalprice2}" pattern="#,###" /></h1>
                                     </div>
                                 </div>
 
-
+								
                             </div>
                         </div>
                         <table class="table table-invoice" >
@@ -412,14 +412,15 @@
                             </thead>
                             <tbody>
                             	<c:forEach items="${tempORD}" var="outer" varStatus="outerstat">
+                            	
 								<tr>
 										<td class = "text-center">
 										<h4>${outerstat.count}</h4>
 										</td>
 										<td class = "text-center">${tempORD[outerstat.index].rmname}</td>
-										<td class = "text-center">￦ ${tempORD[outerstat.index].price}</td>
-										<td class = "text-center">${tempORD[outerstat.index].quantity} kg</td>
-										<td class = "text-center">￦ ${tempORD[outerstat.index].total}</td>
+										<td class = "text-center">￦ <fmt:formatNumber value="${tempORD[outerstat.index].price}" pattern="#,###" /></td>
+										<td class = "text-center"><fmt:formatNumber value="${tempORD[outerstat.index].quantity}" pattern="#,###" /> KG</td>
+										<td class = "text-center">￦ <fmt:formatNumber value="${tempORD[outerstat.index].total}" pattern="#,###" /></td>
 								</tr>
 							</c:forEach>
                             
