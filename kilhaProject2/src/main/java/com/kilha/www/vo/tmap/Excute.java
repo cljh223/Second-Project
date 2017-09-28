@@ -9,6 +9,7 @@ public class Excute
 		Lonlat lonlat = new Lonlat();
 		Permutation permutation = new Permutation();
 		Distance distance = new Distance();
+		DataSet dataset = new DataSet();
 		
 		lonlat.getlonlat(shopAddresslist);
 		
@@ -29,7 +30,7 @@ public class Excute
 		}
 		
 		lonlat.convertlonlat(routeName);
-		String data = lonlat.dataSet(routeName.size());
+		String data = dataset.shortestDataSet(routeName.size());
 		
 		return data;
 	}

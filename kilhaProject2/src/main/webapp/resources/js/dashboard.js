@@ -274,10 +274,10 @@
             // 좌우 크게하면 좌로 이동
             // 상하 크게하면 하로 이동
             // 같이 늘려주고 같이 줄여줘야 함
-            var eastLong = 131.085044;      // 우측 한계선
-            var westLong = 123.599181;      // 좌측 한계선
-            var northLat = 39.049657;       // 상측 한계선
-            var southLat = 33.274579;       // 하측 한계선
+            var eastLong = 131.113044;      // 우측 한계선
+            var westLong = 123.626181;      // 좌측 한계선
+            var northLat = 39.055657;       // 상측 한계선
+            var southLat = 33.280579;       // 하측 한계선
              
             var longDiff = eastLong - westLong;
             var lon = (longitude - westLong) * (width / longDiff);
@@ -288,24 +288,46 @@
             return [lon, lat];
         }
 
-        var sourceData = [
-                          {stnNm : '강릉', stnType : 'Factory',		lati : '37.75185',  lngt : '128.87605', status : 'factory'},
-                          {stnNm : '남해', stnType : 'Factory',		lati : '34.83767',  lngt : '127.89242', status : 'factory'},
-                          {stnNm : '영월', stnType : 'Store',		lati : '37.18363',  lngt : '128.46175', status : 'store'},
-                          {stnNm : '인제', stnType : 'Warehouse',	lati : '38.06946',  lngt : '128.17069', status : 'warehouse'},
-                          {stnNm : '태백', stnType : 'Warehouse',	lati : '37.16406',  lngt : '128.98556', status : 'warehouse'},
-                          {stnNm : '안동', stnType : 'Store',		lati : '36.58635',  lngt : '128.72935', status : 'store'},
-                          {stnNm : '통영', stnType : 'Store',		lati : '34.85442',  lngt : '128.43318', status : 'store'}
-                      ]; 
-
+       /* var sourceData = [
+        	{stnNm : '강릉', lati : '37.75185',  lngt : '128.87605', status : 'factory'},
+            {stnNm : '남해', lati : '34.83767',  lngt : '127.89242', status : 'factory'},
+            {stnNm : '영월', lati : '37.18363',  lngt : '128.46175', status : 'store'},
+            {stnNm : '인제', lati : '38.06946',  lngt : '128.17069', status : 'warehouse'},
+            {stnNm : '태백', lati : '37.16406',  lngt : '128.98556', status : 'warehouse'},
+            {stnNm : '안동', lati : '36.58635',  lngt : '128.72935', status : 'store'},
+            {stnNm : '통영', lati : '34.85442',  lngt : '128.43318', status : 'store'}
+        ];*/
+        
+       var sourceData = [];
+       
+       $.ajax({
+    	   url: "shopData",
+    	   method: "GET",
+    	   async: false,
+    	   success: function(shopData){
+    		   var temp = shopData;
+    		   
+    		   $.each(temp, function(index, item){
+    			  var obj = {};
+    			  obj.stnNm = item.stnNm;
+    			  obj.lati = item.lati;
+    			  obj.lngt = item.lngt;
+    			  obj.shopAddress = item.shopAddress;
+    			  obj.shopTel = item.shopTel;
+    			  obj.status = item.status;
+    			  
+    			  sourceData.push(obj);
+    		   });
+    	   }	
+       });
+       
        var markers = [];
         jQuery.each(sourceData, function(){
             var obj = {};
-            var color = '';
             obj.coords = convert(this.lati, this.lngt);
             obj.stnNm = this.stnNm;
-            obj.stnType = this.stnType;
-            obj.status = this.status;
+            obj.shopAddress = this.shopAddress;
+            obj.shopTel = this.shopTel;
             markers.push(obj);
         });
 
@@ -314,13 +336,14 @@
             	map: 'korea_mill_en',
             	zoomStep: 1.6,
                 zoomMin: 1.0,
+                zoomMax: 100.0,
                 regionStyle: {
                     initial: {
-                        fill: '#bbbbbb',
+                        fill: '#FFFFFF',
                         "fill-opacity": 1.0,
                         stroke: '#000000',
-                        "stroke-width": 0.2	,
-                        "stroke-opacity": 0.4
+                        "stroke-width": 0.2,
+                        "stroke-opacity": 0.8
                     },
                     hover: {
                     	fill: '#000000',
@@ -332,40 +355,43 @@
                 onMarkerTipShow: function(e, el, idx) {
                     var msg = el.html();
                     var source = markers[idx];
-                    msg += "<b>지역명 : " + source.stnNm + "</b><br>";
-                    msg += "<b>지역ID : " + source.stnId + "</b><br>";
-                    msg += "<b>지역Type : " + source.stnType + "</b><br>";
+                    msg += "<b>영업점 : " + source.stnNm + "</b><br>";
+                    msg += "<b>주소 : " + source.shopAddress + "</b><br>";
+                    msg += "<b>전화번호 : " + source.shopTel + "</b><br>";
                     el.html(msg); 
                 },
-                labels: {
+                /*labels: {
                     markers: {
                       render: function(index){
                         return sourceData[index].stnNm;
                       }
                     }
-                },
+                },*/
                 series: {
                   markers: [{
                     attribute: 'image',
                     scale: {
-                      'factory': 'images/logo.png',
-                      'warehouse': 'images/logo.png',
-                      'store': 'images/logo.png'
+                      // factory1~6
+                      // store1~9
+                      // warehouse1~3
+                      'factory': 'images/factory4.png',
+                      'warehouse': 'images/warehouse2.png',
+                      'store': 'images/store8.png'
                     },
                     values: sourceData.reduce(function(p, c, i){ 
                     	p[i] = c.status; 
                     	return p }, {}),
-                	legend: {
+                	/*legend: {
                         horizontal: true,
-                        title: 'Icon status',
+                        title: 'Icon Info',
                         labelRender: function(v){
                           return {
-                        	  factory: 'factory',
-                        	  warehouse: 'warehouse',
-                        	  store: 'store'
+                        	  factory: 'Factory<br>Factory<span>          </span>			',
+                        	  warehouse: 'Warehouse<br>Warehouse	',
+                        	  store: 'Store<br>Store				'
                           }[v];
                         }
-                      }
+                     }*/
                   }]
                 }
               });

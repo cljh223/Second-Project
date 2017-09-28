@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kilha.www.vo.sal.Lonlat;
+import com.kilha.www.vo.tmap.Lonlat;
 
 /**
  * Handles requests for the application home page.

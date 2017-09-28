@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kilha.www.dao.LogisticsRepository;
 import com.kilha.www.dao.MapRep;
+import com.kilha.www.vo.common.MapData;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
 import com.kilha.www.vo.logistics.Warehouse;
+import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.SupplyVo;
+import com.kilha.www.vo.tmap.DataSet;
 
 /**
  * Handles requests for the application home page.
@@ -55,6 +58,18 @@ public class HomeController {
 		model.addAttribute("sumList", sumList);
 		System.out.println(supplyList);
 		return "main";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "shopData", method = RequestMethod.GET)
+	public ArrayList<MapData> shopData(){
+		DataSet dataset = new DataSet();
+		List<Shop> list = repo2.shopDetailSelect2();
+		dataset.shopDataSet(list);
+		
+		ArrayList<MapData> shopData = dataset.shopDataSet(list);
+		
+		return shopData;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
