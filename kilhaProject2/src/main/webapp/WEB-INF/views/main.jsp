@@ -37,6 +37,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style>
+    #loginForm {
+	width: "250px";
+	float: right;
+	}
+    </style>
 </head>
 <body>
 <section id="container">
@@ -239,32 +245,24 @@
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-    <!--search & user info start-->
-    <ul class="nav pull-right top-menu">
-        <li style="display: none;">
-            <input type="text" class="form-control search" placeholder=" Search">
-        </li>
-        <!-- user login dropdown start-->
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="images/avatar1_small.jpg">
-                <span class="username">John Doe</span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
-            </ul>
-        </li>
-        <!-- user login dropdown end -->
-        <li>
-            <div class="toggle-right-box">
-                <div class="fa fa-bars"></div>
-            </div>
-        </li>
-    </ul>
-    <!--search & user info end-->
+<!--search & user info start-->
+				<table id="loginForm">
+					<tr>
+						<td><input type="text" class="form-control search"
+							placeholder=" Search"></td>
+						<td>&nbsp</td>
+						<!-- user login dropdown start-->
+						<td><%@include file="login.jsp"%></td>
+						<!-- user login dropdown end -->
+						<td>&nbsp</td>
+						<td>
+							<div class="toggle-right-box">
+								<div class="fa fa-bars"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<!--search & user info end-->
 </div>
 </header>
 <!--header end-->

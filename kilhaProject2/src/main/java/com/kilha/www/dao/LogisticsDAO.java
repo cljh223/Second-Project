@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Section;
 import com.kilha.www.vo.logistics.Shipping;
 import com.kilha.www.vo.logistics.Truck;
 
@@ -41,5 +42,20 @@ public interface LogisticsDAO {
 	public int updateShipping(Shipping shipping);
 
 	public List<Shipping> truckListSearch(Map<String, String> map);
+	
+	public List<Section> getOriginImg();
+
+	public List<Integer> warehouseUsage(int warehouse_code);
+
+	public List<Integer> ramenStock(Map<String, String> map);
+
+	public List<Integer> getAllQuantity(String warehouse_code);
+
+	public List<Map<String, Object>> sectionInfo(int sec_code);
+
+	public List<Integer> sectionStock(int sec_code);
+	
+	public List<Integer> getSectionP(int sec_code);
+
 
 }

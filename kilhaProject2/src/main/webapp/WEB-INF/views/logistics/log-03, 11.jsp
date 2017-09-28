@@ -8,15 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="ThemeBucket">
+
+<meta http-equiv=”X-UA-Compatible” content=”IE=EmulateIE9”>
+<meta http-equiv=”X-UA-Compatible” content=”IE=9”>
+
 <link rel="shortcut icon" href="images/favicon.png">
-
-<title>Chartjs</title>
-
+<title>BucketAdmin</title>
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
+<link href="js/jquery-ui/jquery-ui-1.10.1.custom.min.css"
+	rel="stylesheet">
 <link href="css/bootstrap-reset.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="js/jvector-map/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+<link href="css/clndr.css" rel="stylesheet">
+<!--clock css-->
+<link href="js/css3clock/css/style.css" rel="stylesheet">
+<!--Morris Chart CSS -->
+<link rel="stylesheet" href="js/morris-chart/morris.css">
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
@@ -29,6 +38,35 @@
 #imgDiv {
 	width: "400px";
 	height: "300px";
+}
+
+.warehouseP {
+	width: 100%;
+}
+
+#myProgress {
+	width: 100%;
+	background-color: #ddd;
+}
+
+#myBar {
+	width: 0%;
+	height: 30px;
+	background-color: #4CAF50;
+	text-align: center;
+	line-height: 30px;
+	color: white;
+}
+
+#wareIcon {
+	width: 25%;
+}
+
+#ramenImg {
+	width: 45%;
+	position: "absolute";
+	top: "30px";
+	left: "30px";
 }
 </style>
 </head>
@@ -271,47 +309,57 @@
 			<section class="wrapper">
 				<div>
 					<center>
-					<button type="button" class="btn btn-primary" id="imgBtn1">
-						<i class="fa fa-building-o "></i> 물류창고 1
-					</button>&nbsp;&nbsp;
-					<button type="button" class="btn btn-success" id="imgBtn2">
-						<i class="fa fa-building-o "></i> 물류창고 2
-					</button>&nbsp;&nbsp;
-					<button type="button" class="btn btn-info" id="imgBtn3">
-						<i class="fa fa-building-o "></i> 물류창고 3
-					</button>&nbsp;&nbsp;
+						<button type="button" class="btn btn-primary" id="imgBtn1">
+							<i class="fa fa-building-o "></i> 물류창고 1
+						</button>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-success" id="imgBtn2">
+							<i class="fa fa-building-o "></i> 물류창고 2
+						</button>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-info" id="imgBtn3">
+							<i class="fa fa-building-o "></i> 물류창고 3
+						</button>
+						&nbsp;&nbsp;
 					</center>
 				</div>
 				<br>
-				<div class="col-lg-8">
-					<section class="panel">
-						<div class="panel-body">
+				<div style="width: 100%;">
+					<div class="col-lg-8" style="width: 70%;">
+						<section class="panel">
+							<div class="panel-body">
+								<div id="imgPart" class="warehouseP" style="position: relative;"></div>
+							</div>
+						</section>
+					</div>
 
-							<div id="imgPart"></div>
-						</div>
-					</section>
-				</div>
-				<div class="col-lg-4">
-					<section class="panel">
-						<div class="panel-body">
-							<div class="col-sm-3">
-								<section class="panel">
-									<header class="panel-heading"> Donut Chart </header>
-									<div class="panel-body">
-										<div id="graph-donut"></div>
-									</div>
-								</section>
+
+					<div id="warehouse_usage" class="col-lg-4"
+						style="width: 30%; float: left;">
+						<section class="panel">
+							<div class="panel-body">
+								<h4 class="widget-h">물류 창고 사용률</h4>
+								<img src="images/logistics/warehouse.JPG" id="wareIcon">
+								<div id="myProgress">
+									<div id="myBar">0%</div>
+								</div>
 							</div>
-							<div class="col-sm-3">
-								<section class="panel">
-									<header class="panel-heading"> Donut Chart </header>
-									<div class="panel-body">
-										<div id="graph-donut"></div>
-									</div>
-								</section>
+						</section>
+					</div>
+					<div id="detailInfo"></div>
+
+					<div class="col-lg-4" id="donutPart"
+						style="width: 30%; float: left; height: 200px;">
+						<section class="panel">
+							<div class="panel-body">
+								<div id="graph-donut" style="height: 300px;"></div>
 							</div>
-						</div>
-					</section>
+						</section>
+						<br>
+					</div>
+					<div id="graphValue1"></div>
+					<div id="graphValue2"></div>
+					<div id="stockGraph"></div>
 				</div>
 			</section>
 
@@ -557,47 +605,489 @@
 		</section>
 		<!--Core js-->
 		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
 		<script src="bs3/js/bootstrap.min.js"></script>
-		<script class="include" type="text/javascript"
-			src="js/jquery.dcjqaccordion.2.7.js"></script>
+		<script src="js/jquery.dcjqaccordion.2.7.js"></script>
 		<script src="js/jquery.scrollTo.min.js"></script>
 		<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 		<script src="js/jquery.nicescroll.js"></script>
 		<script>
+			var originImg;
+			var imgValue;
+			var r_code;
+
+			function getOriginImg() {
+				$.ajax({
+					url : "getOriginImg",
+					method : "GET",
+					success : function(resp) {
+						originImg = resp;
+						$(window).resize(calLocation());
+					}
+				})
+			}
+
+			var color = [];
+
+			function calLocation() {
+				//좌표 계산
+				var rate = $("#img1").width() / 1000;
+
+				var imgPart = $("#imgPart");
+				/* $('#imgPart div').remove(); */
+				// 이미지 좌표를 새롭게 계산하여 둔다
+				$.each(originImg, function(index, item) {
+					if (imgValue == 1 && item.warehouse_code == 1) {
+						var locationX1 = item.locationX1 * rate;
+						var locationX2 = item.locationX2 * rate;
+						var locationY1 = item.locationY1 * rate;
+						var locationY2 = item.locationY2 * rate;
+
+						var div = $('<div></div>');
+						div.attr('id', 'section' + index);
+						div.css('position', 'absolute');
+						div.css('top', locationY1 + 'px');
+						div.css('left', locationX1 + 'px');
+						div.css('z-index', 9);
+						div.width(locationX2 - locationX1);
+						div.height(locationY2 - locationY1);
+						console.log(div);
+
+						var section_name = item.sec_name;
+						div.hover(function() {
+							div.css('background-color', 'red');
+							div.text(section_name);
+						});
+
+						div.mouseleave(function() {
+							div.css('background-color', '');
+							div.text("");
+						});
+						imgPart.append(div);
+
+					}
+					$("#imgBtn1").on('click', function() {
+						if (imgValue == item.warehouse_code) {
+							var locationX1 = item.locationX1 * rate;
+							var locationX2 = item.locationX2 * rate;
+							var locationY1 = item.locationY1 * rate;
+							var locationY2 = item.locationY2 * rate;
+
+							var div = $('<div></div>');
+							div.attr('id', 'section' + index);
+							div.attr('value', index);
+							div.css('position', 'absolute');
+							div.css('top', locationY1 + 'px');
+							div.css('left', locationX1 + 'px');
+							div.width(locationX2 - locationX1);
+							div.height(locationY2 - locationY1);
+							console.log(div);
+							var section_name = item.sec_name
+							div.hover(function() {
+								div.css('background-color', 'red');
+								div.text(section_name);
+							});
+
+							div.mouseleave(function() {
+								div.css('background-color', '');
+								div.text("");
+							});
+							imgPart.append(div);
+						}
+
+						$("#section0").on('click', sectionInfo);
+						$("#section1").on('click', sectionInfo);
+						$("#section2").on('click', sectionInfo);
+						$("#section3").on('click', sectionInfo);
+						$("#section4").on('click', sectionInfo);
+					})
+
+					$("#imgBtn2").on('click', function() {
+						if (imgValue == item.warehouse_code) {
+							var locationX1 = item.locationX1 * rate;
+							var locationX2 = item.locationX2 * rate;
+							var locationY1 = item.locationY1 * rate;
+							var locationY2 = item.locationY2 * rate;
+
+							var div = $('<div></div>');
+							div.attr('id', 'section' + index);
+							div.attr('value', index);
+							div.css('position', 'absolute');
+							div.css('top', locationY1 + 'px');
+							div.css('left', locationX1 + 'px');
+							div.width(locationX2 - locationX1);
+							div.height(locationY2 - locationY1);
+							console.log(div);
+							var section_name = item.sec_name
+							div.hover(function() {
+								div.css('background-color', 'red');
+								div.text(section_name);
+							});
+
+							div.mouseleave(function() {
+								div.css('background-color', '');
+								div.text("");
+							});
+							imgPart.append(div);
+						}
+
+						$("#section5").on('click', sectionInfo);
+						$("#section6").on('click', sectionInfo);
+						$("#section7").on('click', sectionInfo);
+						$("#section8").on('click', sectionInfo);
+						$("#section9").on('click', sectionInfo);
+					})
+
+					$("#imgBtn3").on('click', function() {
+						if (imgValue == item.warehouse_code) {
+							var locationX1 = item.locationX1 * rate;
+							var locationX2 = item.locationX2 * rate;
+							var locationY1 = item.locationY1 * rate;
+							var locationY2 = item.locationY2 * rate;
+
+							var div = $('<div></div>');
+							div.attr('id', 'section' + index);
+							div.attr('value', index);
+							div.css('position', 'absolute');
+							div.css('top', locationY1 + 'px');
+							div.css('left', locationX1 + 'px');
+							div.width(locationX2 - locationX1);
+							div.height(locationY2 - locationY1);
+							console.log(div);
+							var section_name = item.sec_name
+							div.hover(function() {
+								div.css('background-color', 'red');
+								div.text(section_name);
+							});
+
+							div.mouseleave(function() {
+								div.css('background-color', '');
+								div.text("");
+							});
+							imgPart.append(div);
+						}
+
+						$("#section10").on('click', sectionInfo);
+						$("#section11").on('click', sectionInfo);
+						$("#section12").on('click', sectionInfo);
+						$("#section13").on('click', sectionInfo);
+						$("#section14").on('click', sectionInfo);
+					})
+
+					$("#section0").on('click', sectionInfo);
+					$("#section1").on('click', sectionInfo);
+					$("#section2").on('click', sectionInfo);
+					$("#section3").on('click', sectionInfo);
+					$("#section4").on('click', sectionInfo);
+				});
+			}
+
+			function sectionInfo() {
+				var id = $(this).attr('id');
+				var index = 0;
+				if (id.length == 8) {
+					index = id.charAt(7);
+				} else {
+					index = id.substring(7, id.length + 1);
+				}
+
+				$.ajax({
+					url : "sectionInfo",
+					method : "GET",
+					data : {
+						"index" : index
+					},
+					success : detailInfo
+				})
+			}
+
+			function detailInfo(resp) {
+				$("div").remove("#donutPart");
+
+				var temp = '<div class="col-lg-4" style="width: 30%; float: left;">';
+				temp += '<section class="panel">';
+				temp += '<div class="panel-body">';
+				temp += '<center><h4>' + resp.WAREHOUSE_NAME + ' '
+						+ resp.SEC_NAME + '</h4></center>';
+				temp += '<center><img id="ramenImg" src="images/pro0.jpg"></center>';
+				temp += '<p>제품 : ' + resp.R_NAME + '</p>';
+				temp += '<p>총수량 : ' + resp.QUANTITY + ' 박스</p>';
+				temp += '<p>총면적 : ' + resp.TOTALAREA + '㎡</p>';
+				temp += '<p>창고 사용률 :' + resp.USAGE + '%</p>';
+				temp += '<input type="hidden" id="section_code111" value="'+resp.SEC_CODE+'">';
+
+				$("#detailInfo").html(temp);
+				stockGraph();
+			}
+
+			function stockGraph() {
+				$("div").remove("#warehouse_usage");
+				
+				var sec_code = $("#section_code111").val();
+				var option = 1;
+				$.ajax({
+					url : "safeStock",
+					method : "GET",
+					data : {"sec_code": sec_code, "option": option},
+					success : function (resp){
+						 var temp = '<input type="hidden" id="safe_Quantity" value="'+resp.safe_Quantity+'">';
+							temp += '<input type="hidden" id="safe_Rate" value="'+resp.safe_Rate+'">';
+							$("#graphValue1").html(temp); 
+							ssQauntity();
+					}
+				})
+			}
+			
+			function ssQauntity(){
+				var sec_code = $("#section_code111").val();
+				$.ajax({
+					url : "SSQuantity",
+					method : "GET",
+					data : {"sec_code": sec_code}, 
+					success : function(resp){
+						var temp1 = '<input type="hidden" id="real_Quantity" value="'+resp.real_Quantity+'">';
+							temp1 += '<input type="hidden" id="real_Rate" value="'+resp.real_Rate+'">';
+						$("#graphValue2").html(temp1);
+						drawStockGraph();
+					}
+				})
+			}
+			
+
+			function drawStockGraph() {
+				var sq = $("#safe_Quantity").val(); 
+				var sr = $("#safe_Rate").val();
+				var rq = $("#real_Quantity").val(); 
+				var rr = $("#real_Rate").val();
+				
+				var rr2 = (sr-rr)/2;
+				
+				console.log(sq +" / "+ sr +" / "+ rq +" / "+ rr +" / "+ rr2);
+				
+				var temp = '<div class="col-lg-4" style="width: 30%; float: left; height: 200px;">';
+				temp += '<section class="panel">';
+				temp += '<div class="panel-body">';
+				temp += '<div class="container">';
+				temp += '<div class="progress" style="width: 25%; float: left">';
+				/* if (rq <= sq*0.9) {
+					console.log("1");
+					temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">';
+					temp += '양호</div>';
+				} else if (sq*0.9 < rq <= sq*1.1) {
+					console.log("2");
+					temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+(rr-rr2)+'%">';
+					temp += '양호</div>';
+					temp += '<div id="warn11" class="progress-bar progress-bar-warning" role="progressbar" style="width:'+(sr-rr)+'%">';
+					temp += '경고</div>';
+				} else if (rq < sq*0.9) {
+					console.log("3");
+					temp += '<div id="warn11" class="progress-bar progress-bar-danger" role="progressbar" style="width:'+rr+'%">';
+					temp += '경고</div>';
+				} else if (rq > sq*1.1) {
+					console.log("4");
+					temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:40%">';
+					temp += '양호</div>';
+					temp += '<div id="warn11" class="progress-bar progress-bar-warning" role="progressbar" style="width:10%">';
+					temp += '경고</div>';
+					temp += '<div id="danger11" class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">';
+					temp += '위험</div></div></div>';
+				} else if (sq <= rq ) {
+					temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">';
+					temp += '양호</div>';
+				} */
+				temp += '<p>현재 재고량 : </p>';
+				temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">'+rq+'개</p>';
+				temp += '<p>적정재고량 : </p>';
+				temp += '<div id="warn11" class="progress-bar progress-bar-warning" role="progressbar" style="width:'+sr+'%">'+sq+'개</p>';
+				temp += '<p>상태 :</p>';
+ 				temp += '</div></section></div>';
+
+ 
+				$("#stockGraph").html(temp);
+	
+			}
+				
+		
 			$(function() {
-				var temp = '<img src="images/logistics/logWare1.png">';
+				var temp = '<img src="images/logistics/warehouse1.jpg" class="warehouseP" id="img1">';
+				$("#img1").css('z-index', 1);
 				$("#imgPart").html(temp);
+				getOriginImg();
+				imgValue = 1;
+				r_code = {
+					"warehouse_code" : "1",
+					"ramen1" : "p01_1",
+					"ramen2" : "p02_1",
+					"ramen3" : "p03_1",
+					"ramen4" : "p04_1",
+					"ramen5" : "p05_1"
+				};
+				ramenDonut(r_code);
+				warehouseUsage();
 
-				$("#imgBtn1").on('click', function() {
-					var temp = '<img src="images/logistics/noName.jpg">';
-					$("#imgPart").html(temp);
-				})
+				$("#imgBtn1")
+						.on(
+								'click',
+								function() {
+									imgValue = 1;
+									var temp = '<img src="images/logistics/warehouse1.jpg" class="warehouseP" id="img1">';
+									$("#img1").css('z-index', 1);
+									$("#imgPart").html(temp);
+									ramenDonut(r_code);
+									warehouseUsage();
+									r_code = {
+										"warehouse_code" : "1",
+										"ramen1" : "p01_1",
+										"ramen2" : "p02_1",
+										"ramen3" : "p03_1",
+										"ramen4" : "p04_1",
+										"ramen5" : "p05_1"
+									};
+								});
 
-				$("#imgBtn2").on('click', function() {
-					var temp = '<img src="images/logistics/logWare2.png">';
-					$("#imgPart").html(temp);
-				})
+				$("#imgBtn2")
+						.on(
+								'click',
+								function() {
+									imgValue = 2;
+									var temp = '<img src="images/logistics/warehouse2.jpg" class="warehouseP" id="img2">';
+									$("#imgPart").html(temp);
+									ramenDonut(r_code);
+									warehouseUsage();
+									r_code = {
+										"warehouse_code" : "2",
+										"ramen1" : "p01_2",
+										"ramen2" : "p02_2",
+										"ramen3" : "p03_2",
+										"ramen4" : "p04_2",
+										"ramen5" : "p05_2"
+									};
+								});
 
-				$("#imgBtn3").on('click', function() {
-					var temp = '<img src="images/logistics/logWare3.png">';
-					$("#imgPart").html(temp);
-				})
+				$("#imgBtn3")
+						.on(
+								'click',
+								function() {
+									imgValue = 3
+									var temp = '<img src="images/logistics/warehouse3.jpg" class="warehouseP" id="img3">';
+									$("#imgPart").html(temp);
+									ramenDonut(r_code);
+									warehouseUsage();
+									r_code = {
+										"warehouse_code" : "3",
+										"ramen1" : "p01_1",
+										"ramen2" : "p02_1",
+										"ramen3" : "p03_1",
+										"ramen4" : "p04_1",
+										"ramen5" : "p05_1"
+									};
+								});
 
 			})
+
+
+			function ramenDonut(resp) {
+				/* 라면 재고량 도넛차트 */
+				$.ajax({
+					url : "ramenStock",
+					method : "GET",
+					data : r_code,
+					success : printDonut
+				});
+			}
+
+			function printDonut(resp) {
+				Morris.Donut({
+					element : 'graph-donut',
+					data : [ {
+						value : resp.item1,
+						label : '라면 종류별 재고량',
+						formatted : '안성탕면 ' + resp.item1 + '%'
+					}, {
+						value : resp.item2,
+						label : '라면 종류별 재고량',
+						formatted : '신라면 ' + resp.item2 + '%'
+					}, {
+						value : resp.item3,
+						label : '라면 종류별 재고량',
+						formatted : '너구리 ' + resp.item3 + '%'
+					}, {
+						value : resp.item4,
+						label : '라면 종류별 재고량',
+						formatted : '멸치칼국수라면 ' + resp.item4 + '%'
+					}, {
+						value : resp.item5,
+						label : '라면 종류별 재고량',
+						formatted : '사리곰탕 ' + resp.item5 + '%'
+					} ],
+					backgroundColor : '#fff',
+					labelColor : '#1fb5ac',
+					colors : [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+							'RED' ],
+					formatter : function(x, data) {
+						return data.formatted;
+					}
+				});
+			}
+
+			function warehouseUsage() {
+				/* 창고 사용률 */
+				$.ajax({
+					url : "warehouseUsage",
+					method : "GET",
+					data : {
+						"warehouse_code" : imgValue
+					},
+					success : function(resp) {
+						var elem = document.getElementById("myBar");
+						var width = 0;
+						var id = setInterval(frame, 10);
+						function frame() {
+							if (width >= resp) {
+								clearInterval(id);
+							} else {
+								width++;
+								elem.style.width = width + '%';
+								elem.innerHTML = width * 1 + '%';
+							}
+						}
+					}
+				})
+			};
 		</script>
+		<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+		<script src="js/skycons/skycons.js"></script>
+		<script src="js/jquery.scrollTo/jquery.scrollTo.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+		<script src="js/calendar/clndr.js"></script>
+		<script
+			src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+		<script src="js/calendar/moment-2.2.1.js"></script>
+		<script src="js/evnt.calendar.init.js"></script>
+		<script src="js/jvector-map/jquery-jvectormap-1.2.2.min.js"></script>
+		<script src="js/jvector-map/jquery-jvectormap-us-lcc-en.js"></script>
+		<script src="js/gauge/gauge.js"></script>
+		<!--clock init-->
+		<script src="js/css3clock/js/css3clock.js"></script>
 		<!--Easy Pie Chart-->
 		<script src="js/easypiechart/jquery.easypiechart.js"></script>
 		<!--Sparkline Chart-->
 		<script src="js/sparkline/jquery.sparkline.js"></script>
+		<!--Morris Chart-->
+		<script src="js/morris-chart/morris.js"></script>
+		<script src="js/morris-chart/raphael-min.js"></script>
 		<!--jQuery Flot Chart-->
 		<script src="js/flot-chart/jquery.flot.js"></script>
 		<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 		<script src="js/flot-chart/jquery.flot.resize.js"></script>
 		<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-		<!--Chart JS-->
-		<script src="js/chart-js/Chart.js"></script>
-		<script src="js/chartjs.init.js"></script>
+		<script src="js/flot-chart/jquery.flot.animator.min.js"></script>
+		<script src="js/flot-chart/jquery.flot.growraf.js"></script>
+		<script src="js/dashboard.js"></script>
+		<script src="js/jquery.customSelect.min.js"></script>
 		<!--common script init for all pages-->
 		<script src="js/scripts.js"></script>
+		<!--script for this page-->
 </body>
 </html>

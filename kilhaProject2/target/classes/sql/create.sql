@@ -6,7 +6,6 @@ DROP TABLE Pur_orderrecords CASCADE CONSTRAINTS;
 DROP TABLE supply CASCADE CONSTRAINTS;
 DROP TABLE Shipping CASCADE CONSTRAINTS;
 DROP TABLE process CASCADE CONSTRAINTS;
-DROP TABLE Inmotion CASCADE CONSTRAINTS;
 DROP TABLE Truck CASCADE CONSTRAINTS;
 DROP TABLE Stock CASCADE CONSTRAINTS;
 DROP TABLE address CASCADE CONSTRAINTS;
@@ -26,6 +25,7 @@ DROP TABLE totalinfo CASCADE CONSTRAINTS;
 DROP TABLE recipe CASCADE CONSTRAINTS;
 DROP TABLE productinfo CASCADE CONSTRAINTS;
 DROP TABLE ramen CASCADE CONSTRAINTS;
+DROP TABLE section CASCADE CONSTRAINTS;
 
 DROP SEQUENCE shop_code_SEQ;
 DROP SEQUENCE warehouse_code_num_SEQ;
@@ -35,6 +35,8 @@ DROP SEQUENCE seq_shipping_orderNum;
 DROP SEQUENCE seq_truck_code;
 DROP SEQUENCE process_code_seq;
 DROP SEQUENCE kpi_code_seq;
+DROP SEQUENCE seq_sec_code; 
+DROP SEQUENCE stockNum_SEQ;
 
 /* Create Tables */
 
@@ -100,27 +102,15 @@ CREATE TABLE Truck
 );
 
 
-CREATE TABLE Inmotion
-(
-	motion_code number NOT NULL,
-	office varchar2(15) NOT NULL,
-	goods varchar2(15) NOT NULL,
-	quantity number NOT NULL,
-	deliverydate date NOT NULL,
-	status varchar2(15) NOT NULL,
-	truck_code varchar2(30) NOT NULL,
-	PRIMARY KEY (motion_code)
-);
-
 
 CREATE TABLE Stock
 (
 	stockNum number NOT NULL,
-	locNum number NOT NULL,
-	goods varchar2(30) NOT NULL,
+	warehouse_code number NOT NULL,
+	sec_code number NOT NULL,
+	r_num varchar2(10) NOT NULL,
 	quantity number NOT NULL,
 	inputdate date NOT NULL,
-	warehouse_code number NOT NULL,
 	PRIMARY KEY (stockNum)
 );
 
@@ -468,6 +458,19 @@ CREATE TABLE dailyproduct
 	PRIMARY KEY (product_num)
 );
 
+CREATE TABLE section
+(
+	sec_code number NOT NULL,
+	warehouse_code number NOT NULL,
+	sec_name varchar2(30) NOT NULL,
+	-- 해당 라면 상품을 식별하는 고유 번호
+	locationX1 number NOT NULL,
+	locationY1 number NOT NULL,
+	locationX2 number NOT NULL,
+	locationY2 number NOT NULL,
+	PRIMARY KEY (sec_code)
+);
+
 
 
 /* Create Foreign Keys */
@@ -491,12 +494,6 @@ ALTER TABLE Shipping
 
 
 ALTER TABLE Shipping
-	ADD FOREIGN KEY (truck_code)
-	REFERENCES Truck (truck_code)
-;
-
-
-ALTER TABLE Inmotion
 	ADD FOREIGN KEY (truck_code)
 	REFERENCES Truck (truck_code)
 ;
@@ -597,6 +594,29 @@ ALTER TABLE dailyproduct
 	REFERENCES ramen (r_num)
 ;
 
+ALTER TABLE section
+	ADD FOREIGN KEY (warehouse_code)
+	REFERENCES warehouse (warehouse_code)
+;
+
+ALTER TABLE Stock
+	ADD FOREIGN KEY (sec_code)
+	REFERENCES section (sec_code)
+;
+
+
+ALTER TABLE Stock
+	ADD FOREIGN KEY (warehouse_code)
+	REFERENCES warehouse (warehouse_code)
+;
+
+ALTER TABLE Stock
+	ADD FOREIGN KEY (r_num)
+	REFERENCES ramen (r_num)
+;
+
+
+
 
 CREATE SEQUENCE warehouse_code_num_SEQ;
 
@@ -621,4 +641,8 @@ create sequence seq_truck_code;
 CREATE SEQUENCE process_code_seq
 START WITH 50
 INCREMENT BY 1;
+
+create sequence seq_sec_code;
+
+create sequence stockNum_SEQ;
 

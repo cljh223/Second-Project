@@ -182,5 +182,78 @@
 			s.truck_code = #{truck_code}
 	</select>
 	
+	<select id="getOriginImg" resultType="Section">
+		select sec_code, warehouse_code, sec_name, locationX1, locationY1, locationX2, locationY2
+		from
+			Section
+	</select> 
+	
+	<select id="warehouseUsage" parameterType="int" resultType="int">
+		select quantity
+		from 
+			stock
+		where
+			warehouse_code = #{warehouse_code}
+	</select>
+	
+	<select id="ramenStock" parameterType="Map" resultType="int">
+		select quantity
+		from 
+			stock 
+		where
+			warehouse_code = #{warehouse_code}
+		and		
+			r_num = #{r_num}
+	</select>
+	
+	<select id="getAllQuantity" parameterType="String" resultType="int">
+		select quantity
+		from
+			stock
+		where
+			warehouse_code = #{warehouse_code}
+	</select>
+	
+	<select id="sectionInfo" parameterType="int" resultType="map">
+		select s.sec_name
+			, s.sec_code
+			, w.warehouse_code
+			, warehouse_name
+			, st.r_num
+			, r.r_name 
+		from 
+			warehouse w, section s, stock st, ramen r
+		where
+			w.warehouse_code = s.warehouse_code
+		and
+			s.sec_code = st.sec_code
+		and
+			st.r_num = r.r_num
+		and 
+			s.sec_code = #{sec_code}
+	</select>
+	
+	<select id="sectionStock" parameterType="int" resultType="int">
+		select quantity
+		from
+			stock
+		where
+			sec_code = #{sec_code}
+	</select>
+	
+	<select id="getSectionP" parameterType="int" resultType="int">
+		select s.supply_volume
+		from
+			supply s, process p, warehouse w, section se
+		where
+			s.process_code = p.process_code
+		and
+			p.warehouse_code = w.warehouse_code
+		and
+			w.warehouse_code = se.warehouse_code
+		and	
+			se.sec_code = #{sec_code}
+	</select>
+	
 </mapper>
 

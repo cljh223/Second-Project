@@ -131,21 +131,6 @@ INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DET
 VALUES ('16185', '碍盔档', '康岿焙', '康岿谰', '吝居肺 236', 22.0);
 
 
-INSERT INTO warehouse VALUES
-(
-	warehouse_code_num_SEQ.NEXTVAL
-	, '己魂傍厘'
-	, '傍厘'
-);
-
-INSERT INTO warehouse VALUES
-(
-	warehouse_code_num_SEQ.NEXTVAL
-	, '泪角芒绊'
-	, '拱幅芒绊'
-);
-
-
 insert into staff values
 (
 	staff_code_SEQ.NEXTVAL
@@ -358,94 +343,6 @@ insert into Truck
 values
 ('32啊1234', '家', 300, 200, 100);
 
-insert into shipping
-values
-(52, '康诀何', '力前3', 10, '2017-09-30', 'confirmed', 1, 1, '11啊1234');
-
-insert into shipping
-values
-(53, '积魂何', '力前1', 20, '2017-09-15', 'shipped', 1, 1, '12啊1234');
-
-insert into shipping
-values
-(54, '备概何', '力前2', 40, '2017-09-27', 'rejected', 1, 1, '13啊1234');
-
-insert into shipping
-values
-(55, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 1, 1, '14啊1234');
-
-insert into shipping
-values
-(56, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 2, '15啊1234');
-
-insert into shipping
-values
-(57, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 2, '16啊1234');
-
-insert into shipping
-values
-(58, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 2, 2, '17啊1234');
-
-insert into shipping
-values
-(59, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 2, '18啊1234');
-
-insert into shipping
-values
-(60, '备概何', '力前2', 40, '2017-09-27', 'ordered', 3, 3, '19啊1234');
-
-insert into shipping
-values
-(61, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 3, 3, '20啊1234');
-
-insert into shipping
-values
-(62, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 3, 3, '21啊1234');
-
-insert into shipping
-values
-(63, '备概何', '力前2', 40, '2017-09-27', 'ordered', 3, 3, '22啊1234');
-
-insert into shipping
-values
-(64, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 4, 1, '23啊1234');
-
-insert into shipping
-values
-(65, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 4, 2, '24啊1234');
-
-insert into shipping
-values
-(66, '备概何', '力前2', 40, '2017-09-27', 'ordered', 4, 3, '25啊1234');
-
-insert into shipping
-values
-(67, '备概何', '力前2', 40, '2017-09-27', 'ordered', 4, 1, '26啊1234');
-
-insert into shipping
-values
-(68, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 4, 2, '27啊1234');
-
-insert into shipping
-values
-(69, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 4, 3, '28啊1234');
-
-insert into shipping
-values
-(70, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 1, '29啊1234');
-
-insert into shipping
-values
-(71, '康诀何', '力前3', 10, '2017-09-30', 'ordered', 1, 2, '30啊1234');
-
-insert into shipping
-values
-(72, '积魂何', '力前1', 20, '2017-09-15', 'ordered', 2, 3, '31啊1234');
-
-insert into shipping
-values
-(73, '备概何', '力前2', 40, '2017-09-27', 'ordered', 2, 1, '32啊1234');
-
 
 
 /* Insert data */
@@ -516,5 +413,243 @@ insert into Pur_rawmaterials VALUES
 'flake-10', 'sugar', 0,0
 );
 
+insert into warehouse VALUES
+(
+warehouse_code_num_SEQ.nextval, '拱幅芒绊1', 0  
+);
+
+insert into warehouse VALUES
+(
+warehouse_code_num_SEQ.nextval, '拱幅芒绊2', 0  
+);
+
+insert into warehouse VALUES
+(
+warehouse_code_num_SEQ.nextval, '拱幅芒绊3', 0  
+);
 
 
+insert into section VALUES
+(
+seq_sec_code.nextval, 1, 'A备开', 23, 428, 292, 603
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 1, 'B备开', 314, 25, 630, 284
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 1, 'C备开', 311, 325, 630, 601
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 1, 'D备开', 650, 23, 971, 285
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 1, 'E备开', 656, 322, 977, 601
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 2, 'A备开', 35, 32, 363, 304  
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 2, 'B备开', 32, 342, 363, 607
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 2, 'C备开', 404, 32, 735, 197
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 2, 'D备开', 408, 238, 735, 407
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 2, 'E备开', 408, 445, 735, 607
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 3, 'A备开', 42, 34, 527, 228 
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 3, 'B备开', 45, 275, 527, 472
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 3, 'C备开', 42, 519, 527, 593
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 3, 'D备开', 577, 31, 759, 443
+);
+
+insert into section VALUES
+(
+seq_sec_code.nextval, 3, 'E备开', 792, 31, 962, 440
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 1, 'p01_1', 10, '2017-05-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 2, 'p02_1', 30, '2017-08-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 3, 'p03_1', 20, '2017-07-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 4, 'p04_1', 10, '2017-04-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 5, 'p05_1', 20, '2017-03-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 6, 'p01_2', 25, '2017-01-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 7, 'p02_2', 30, '2017-02-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 8, 'p03_2', 45, '2017-06-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 9, 'p04_2', 6, '2017-06-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 10, 'p05_2', 17, '2017-07-08'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 11, 'p01_1', 15, '2017-02-07'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 12, 'p02_1', 20, '2017-08-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 13, 'p03_1', 35, '2017-09-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 14, 'p04_1', 40, '2017-03-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 15, 'p05_1', 6, '2017-03-04'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 1, 'p01_1', 10, '2017-05-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 2, 'p02_1', 30, '2017-08-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 3, 'p03_1', 20, '2017-07-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 4, 'p04_1', 10, '2017-04-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 5, 'p05_1', 20, '2017-03-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 6, 'p01_2', 25, '2017-01-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 7, 'p02_2', 30, '2017-02-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 8, 'p03_2', 45, '2017-06-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 9, 'p04_2', 6, '2017-06-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 10, 'p05_2', 17, '2017-07-08'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 11, 'p01_1', 15, '2017-02-07'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 12, 'p02_1', 20, '2017-08-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 13, 'p03_1', 35, '2017-09-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 14, 'p04_1', 40, '2017-03-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 15, 'p05_1', 6, '2017-03-04'
+);

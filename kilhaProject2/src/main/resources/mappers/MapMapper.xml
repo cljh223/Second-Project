@@ -210,37 +210,39 @@
 
 	<select id="popupNowEstimate" parameterType="Map" resultMap="SupplyVoMap">
 		SELECT s.shop_name, a.address_detail1, a.address_detail2,
-		a.address_detail3, a.address_detail4,
-		s.shop_tel, d.product_unit,
-		l.supply_price, l.supply_volume, p.process_term,
-		d.product_code, 
-		p.process_end_date, p.process_insert_date, d.product_name
-		FROM process
-		p INNER JOIN shop s ON
-		p.process_code = #{processCode}
-		AND p.SHOP_CODE =
-		s.SHOP_CODE
-		INNER JOIN address a ON a.shop_code = s.shop_code
-		INNER JOIN
-		supply l ON
-		l.process_code = p.process_code AND
-		l.process_code =
-		#{processCode}
-		INNER JOIN product d ON d.product_code = l.product_code
-		WHERE
-		p.process_insert_date = (select max(process_insert_date) as
-		process_insert_date from process p INNER JOIN shop s ON
-		p.process_code
-		= #{processCode}
-		AND p.SHOP_CODE = s.SHOP_CODE
-		INNER JOIN address a ON
-		a.shop_code = s.shop_code
-		INNER JOIN supply l ON
-		l.process_code =
-		p.process_code AND
-		l.process_code = #{processCode}
-		INNER JOIN product d
-		ON d.product_code = l.product_code)
+      a.address_detail3, a.address_detail4,
+      s.shop_tel, d.product_unit,
+      l.supply_price, l.supply_volume, p.process_term,
+      d.product_code,
+      p.process_end_date, p.process_insert_date, d.product_name, f.staff_name
+      FROM process
+      p INNER JOIN shop s ON
+      p.process_code = #{processCode}
+      AND p.SHOP_CODE =
+      s.SHOP_CODE
+      INNER JOIN address a ON a.shop_code = s.shop_code
+      INNER JOIN
+      supply l ON
+      l.process_code = p.process_code AND
+      l.process_code =
+      #{processCode}
+      INNER JOIN product d ON d.product_code = l.product_code
+      INNER JOIN staff f
+      ON f.staff_code = p.staff_code
+      WHERE
+      p.process_insert_date = (select max(process_insert_date) as
+      process_insert_date from process p INNER JOIN shop s ON
+      p.process_code
+      = #{processCode}
+      AND p.SHOP_CODE = s.SHOP_CODE
+      INNER JOIN address a ON
+      a.shop_code = s.shop_code
+      INNER JOIN supply l ON
+      l.process_code =
+      p.process_code AND
+      l.process_code = #{processCode}
+      INNER JOIN product d
+      ON d.product_code = l.product_code)
 	</select>
 
 	<select id="popupAllEstimateView" parameterType="Map" resultMap="SupplyVoMap">

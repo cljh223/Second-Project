@@ -5,25 +5,35 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="ThemeBucket">
+<link rel="shortcut icon" href="images/favicon.png">
+
+<title>Flot Chart</title>
 
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/bootstrap-switch.css" />
-<link rel="stylesheet" type="text/css"
-	href="js/bootstrap-datepicker/css/datepicker.css" />
 <link href="css/bootstrap-reset.css" rel="stylesheet">
-
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
-<style>
-#loginForm {
-	width: "250px";
-	float: right;
-}
-</style>
+<link href="css/style-responsive.css" rel="stylesheet" />
+
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+<!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
+
 	<section id="container">
 		<!--header start-->
 		<header class="header fixed-top clearfix">
@@ -176,27 +186,32 @@
 			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<table id="loginForm">
-					<tr>
-						<td><input type="text" class="form-control search"
-							placeholder=" Search"></td>
-						<td>&nbsp</td>
-						<!-- user login dropdown start-->
-						<td><%@include file="login.jsp"%></td>
-						<!-- user login dropdown end -->
-						<td>&nbsp</td>
-						<td>
-							<div class="toggle-right-box">
-								<div class="fa fa-bars"></div>
-							</div>
-						</td>
-					</tr>
-				</table>
+				<ul class="nav pull-right top-menu">
+					<li><input type="text" class="form-control search"
+						placeholder=" Search"></li>
+					<!-- user login dropdown start-->
+					<li class="dropdown"><a data-toggle="dropdown"
+						class="dropdown-toggle" href="#"> <img alt=""
+							src="images/avatar1_small.jpg"> <span class="username">John
+								Doe</span> <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu extended logout">
+							<li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+							<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+							<li><a href="login.html"><i class="fa fa-key"></i> Log
+									Out</a></li>
+						</ul></li>
+					<!-- user login dropdown end -->
+					<li>
+						<div class="toggle-right-box">
+							<div class="fa fa-bars"></div>
+						</div>
+					</li>
+				</ul>
 				<!--search & user info end-->
 			</div>
 		</header>
 		<!--header end-->
-		<!--sidebar start-->
 		<aside>
 			<div id="sidebar" class="nav-collapse">
 				<!-- sidebar menu start-->
@@ -252,172 +267,32 @@
 								<li><a href="language_switch.html">Language Switch Bar</a></li>
 							</ul></li>
 					</ul>
+					<!-- sidebar menu end-->
 				</div>
-				<!-- sidebar menu end-->
-			</div>
 		</aside>
 		<!--sidebar end-->
-
+		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-				<form action="truckMatching" method="GET">
-					<div id="row">
-						<label class="col-lg-1">배송일자</label>
-						<div class="col-lg-2 col-xs-11">
-							<div data-date-viewmode="years" data-date-format="yyyy-mm-dd"
-								data-date="${deliverydate}" class="input-append date dpYears">
-								<input type="text" readonly="" value="12-02-2017" size="16"
-									class="form-control" name="deliveryDate"> <span
-									class="input-group-btn add-on">
-									<button class="btn btn-primary" type="button">
-										<i class="fa fa-calendar"></i>
-									</button>
-								</span>
-							</div>
-						</div>
-						<label class="col-lg-1">배송지</label>
-						<div class="col-lg-2">
-							<select class="form-control m-bot15" name="${placeAbb}" value="${placeAbb}">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-						</div>
-
-						<label class="col-lg-1">배송 수량</label> <input type="text"
-							class="col-lg-2" name="${quantity}">
-					</div>
-				</form>
-				<div class="row">
-					<div class="col-sm-12">
-						<section class="panel">
-							<header class="panel-heading">
-								제목부분임
-								<div class="btn-group">
-									<button id="editable-sample_new" class="btn btn-primary">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-							</header>
-							<div class="panel-body">
-								<table class="table  table-hover general-table">
-									<thead>
-										<tr>
-											<th>Company</th>
-											<th class="hidden-phone">Descrition</th>
-											<th>Profit</th>
-											<th>Status</th>
-											<th>Progress</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><a href="#">Graphics</a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-											<td>1320.00$</td>
-											<td><span class="label label-info label-mini">Due</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 40%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-success">
-														<span class="sr-only">40% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="#"> ThemeBucket </a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo</td>
-											<td>556.00$</td>
-											<td><span class="label label-warning label-mini">Due</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 70%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-danger">
-														<span class="sr-only">70% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="#"> XYZ </a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo</td>
-											<td>13240.00$</td>
-											<td><span class="label label-success label-mini">Paid</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 55%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-warning">
-														<span class="sr-only">55% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="#"> BCSE </a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo</td>
-											<td>3455.50$</td>
-											<td><span class="label label-danger label-mini">Paid</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 90%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-info">
-														<span class="sr-only">90% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="#">AVC Ltd</a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-											<td>110.00$</td>
-											<td><span class="label label-primary label-mini">Due</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 60%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-success">
-														<span class="sr-only">60% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="#"> Themeforest </a></td>
-											<td class="hidden-phone">Lorem Ipsum dorolo</td>
-											<td>456.00$</td>
-											<td><span class="label label-warning label-mini">Due</span></td>
-											<td>
-												<div class="progress progress-striped progress-xs">
-													<div style="width: 40%" aria-valuemax="100"
-														aria-valuemin="0" aria-valuenow="40" role="progressbar"
-														class="progress-bar progress-bar-danger">
-														<span class="sr-only">40% Complete (success)</span>
-													</div>
-												</div>
-											</td>
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
-						</section>
+				<!-- page start-->
+				<div class="container">
+					<h2>Stacked Progress Bars</h2>
+					<p>Create a stacked progress bar by placing multiple bars into
+						the same div with class .progress:</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" role="progressbar"
+							style="width: 40%">Free Space</div>
+						<div class="progress-bar progress-bar-warning" role="progressbar"
+							style="width: 10%">Warning</div>
+						<div class="progress-bar progress-bar-danger" role="progressbar"
+							style="width: 20%">Danger</div>
 					</div>
 				</div>
+
+
 			</section>
 		</section>
-
-
-
-
-
-
+		<!--main content end-->
 		<!--right sidebar start-->
 		<div class="right-sidebar">
 			<div class="search-row">
@@ -652,20 +527,411 @@
 							</li>
 						</ul></li>
 				</ul>
-
 			</div>
-
 		</div>
 		<!--right sidebar end-->
+
 	</section>
+
 	<!-- Placed js at the end of the document so the pages load faster -->
+
 	<!--Core js-->
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap-switch.js"></script>
-	<script type="text/javascript"
-		src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="js/toggle-init.js"></script>
-	<script src="js/advanced-form.js"></script>
-	<!--script for this page-->
+	<script src="bs3/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript"
+		src="js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="js/jquery.scrollTo.min.js"></script>
+	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+	<script>
+		/* var data7_1 = [
+		 [1354586000000, 253],
+		 [1354587000000, 465],
+		 [1354588000000, 498],
+		 [1354589000000, 383],
+		 [1354590000000, 280],
+		 [1354591000000, 108],
+		 [1354592000000, 120],
+		 [1354593000000, 474],
+		 [1354594000000, 623],
+		 [1354595000000, 479],
+		 [1354596000000, 788],
+		 [1354597000000, 836]
+		 ];
+		 var data7_2 = [
+		 [1354586000000, 253],
+		 [1354587000000, 465],
+		 [1354588000000, 498],
+		 [1354589000000, 383],
+		 [1354590000000, 280],
+		 [1354591000000, 108],
+		 [1354592000000, 120],
+		 [1354593000000, 474],
+		 [1354594000000, 623],
+		 [1354595000000, 479],
+		 [1354596000000, 788],
+		 [1354597000000, 836]
+		 ]; */
+		/* $(function() {
+		 $.plot($("#visitors-chart #visitors-container"), [{
+		 data: data7_1,
+		 label: "Page View",
+		 lines: {
+		 fill: true
+		 }
+		 }, {
+		 data: data7_2,
+		 label: "Online User",
+
+		 points: {
+		 show: true
+		 },
+		 lines: {
+		 show: true
+		 },
+		 yaxis: 2
+		 }
+		 ],
+		 {
+		 series: {
+		 lines: {
+		 show: true,
+		 fill: false
+		 },
+		 points: {
+		 show: true,
+		 lineWidth: 2,
+		 fill: true,
+		 fillColor: "#ffffff",
+		 symbol: "circle",
+		 radius: 5
+		 },
+		 shadowSize: 0
+		 },
+		 grid: {
+		 hoverable: true,
+		 clickable: true,
+		 tickColor: "#f9f9f9",
+		 borderWidth: 1,
+		 borderColor: "#eeeeee"
+		 },
+		 colors: ["#79D1CF", "#E67A77"],
+		 tooltip: true,
+		 tooltipOpts: {
+		 defaultTheme: false
+		 },
+		 xaxis: {
+		 mode: "time"
+
+
+		 },
+		 yaxes: [{
+		 /* First y axis */
+		/*             }, {
+		 /* Second y axis */
+		/*                 position: "right" /* left or right */
+		/*             }]
+		 }
+		 );
+		 }); */
+
+		/* $(function() {
+		    var data1 = [];
+		    var totalPoints = 300;
+		    function GetData() {
+		    data1.shift();
+		    while (data1.length < totalPoints) {
+		    var prev = data1.length > 0 ? data1[data1.length - 1] : 50;
+		    var y = prev + Math.random() * 10 - 5;
+		    y = y < 0 ? 0 : (y > 100 ? 100 : y);
+		    data1.push(y);
+		    }
+		var result = [];
+		for (var i = 0; i < data1.length; ++i) {
+		    result.push([i, data1[i]])
+		    }
+		return result;
+		}
+		var updateInterval = 100;
+		var plot = $.plot($("#reatltime-chart #reatltime-chartContainer"), [
+		        GetData()], {
+		        series: {
+		            lines: {
+		                show: true,
+		                fill: true
+		            },
+		            shadowSize: 0
+		        },
+		        yaxis: {
+		            min: 0,
+		            max: 100,
+		            ticks: 10
+		        },
+		        xaxis: {
+		            show: false
+		        },
+		        grid: {
+		            hoverable: true,
+		            clickable: true,
+		            tickColor: "#f9f9f9",
+		            borderWidth: 1,
+		            borderColor: "#eeeeee"
+		        },
+		        colors: ["#79D1CF"],
+		        tooltip: true,
+		        tooltipOpts: {
+		            defaultTheme: false
+		        }
+		    });
+		    function update() {
+		        plot.setData([GetData()]);
+		        plot.draw();
+		        setTimeout(update, updateInterval);
+		    }
+		    update();
+		}); */
+
+		/*     $(function() {
+		 var data = [{
+		 label: "Paid Signup",
+		 data: 60
+		 }, {
+		 label: "Free Signup",
+		 data: 30
+		 }, {
+		 label: "Guest Signup",
+		 data: 10
+		 }];
+		 var options = {
+		 series: {
+		 pie: {
+		 show: true
+		 }
+		 },
+		 legend: {
+		 show: true
+		 },
+		 grid: {
+		 hoverable: true,
+		 clickable: true
+		 },
+		 colors: ["#79D1CF", "#D9DD81", "#E67A77"],
+		 tooltip: true,
+		 tooltipOpts: {
+		 defaultTheme: false
+		 }
+		 };
+		 $.plot($("#pie-chart #pie-chartContainer"), data, options);
+		 }); */
+
+		/*     $(function() {
+		 var data = [{
+		 label: "Premium Member",
+		 data: 40
+		 }, {
+		 label: "Gold Member",
+		 data: 20
+		 }, {
+		 label: "Platinum Member",
+		 data: 10
+		 }, {
+		 label: "Silver Member",
+		 data: 30
+		 }];
+		 var options = {
+		 series: {
+		 pie: {
+		 show: true,
+		 innerRadius: 0.5,
+		 show: true
+		 }
+		 },
+		 legend: {
+		 show: true
+		 },
+		 grid: {
+		 hoverable: true,
+		 clickable: true
+		 },
+		 colors: ["#79D1CF", "#D9DD81", "#E67A77","#9972B5"],
+		 tooltip: true,
+		 tooltipOpts: {
+		 defaultTheme: false
+		 }
+		 };
+		 $.plot($("#pie-chart-donut #pie-donutContainer"), data, options); 
+		 }); */
+
+		$(function() {
+			var data24Hours = [ [ 0, 601 ], [ 1, 520 ], [ 2, 337 ], [ 3, 261 ],
+					[ 4, 157 ], [ 5, 78 ], [ 6, 58 ], [ 7, 48 ], [ 8, 54 ],
+					[ 9, 38 ], [ 10, 88 ], [ 11, 214 ], [ 12, 364 ],
+					[ 13, 449 ], [ 14, 558 ], [ 15, 282 ], [ 16, 379 ],
+					[ 17, 429 ], [ 18, 518 ], [ 19, 470 ], [ 20, 330 ],
+					[ 21, 245 ], [ 22, 358 ], [ 23, 74 ] ];
+			var data48Hours = [ [ 0, 445 ], [ 1, 592 ], [ 2, 738 ], [ 3, 532 ],
+					[ 4, 234 ], [ 5, 143 ], [ 6, 147 ], [ 7, 63 ], [ 8, 64 ],
+					[ 9, 43 ], [ 10, 86 ], [ 11, 201 ], [ 12, 315 ],
+					[ 13, 397 ], [ 14, 512 ], [ 15, 281 ], [ 16, 360 ],
+					[ 17, 479 ], [ 18, 425 ], [ 19, 453 ], [ 20, 422 ],
+					[ 21, 355 ], [ 22, 340 ], [ 23, 801 ] ];
+			var dataDifference = [ [ 23, 727 ], [ 22, 18 ], [ 21, 110 ],
+					[ 20, 92 ], [ 19, 17 ], [ 18, 93 ], [ 17, 50 ], [ 16, 19 ],
+					[ 15, 1 ], [ 14, 46 ], [ 13, 52 ], [ 12, 49 ], [ 11, 13 ],
+					[ 10, 2 ], [ 9, 5 ], [ 8, 10 ], [ 7, 15 ], [ 6, 89 ],
+					[ 5, 65 ], [ 4, 77 ], [ 3, 271 ], [ 2, 401 ], [ 1, 72 ],
+					[ 0, 156 ] ];
+			var ticks = [ [ 0, "22일" ], [ 1, "" ], [ 2, "00h" ], [ 3, "" ],
+					[ 4, "02h" ], [ 5, "" ], [ 6, "04h" ], [ 7, "" ],
+					[ 8, "06h" ], [ 9, "" ], [ 10, "08h" ], [ 11, "" ],
+					[ 12, "10h" ], [ 13, "" ], [ 14, "12h" ], [ 15, "" ],
+					[ 16, "14h" ], [ 17, "" ], [ 18, "16h" ], [ 19, "" ],
+					[ 20, "18h" ], [ 21, "" ], [ 22, "20h" ], [ 23, "" ] ];
+			var data = [ {
+				label : "Last 24 Hours",
+				data : data24Hours,
+				lines : {
+					show : true,
+					fill : true
+				},
+				points : {
+					show : true
+				}
+			}, {
+				label : "Last 48 Hours",
+				data : data48Hours,
+				lines : {
+					show : true
+				},
+				points : {
+					show : true
+				}
+			}, {
+				label : "Difference",
+				data : dataDifference,
+				bars : {
+					show : true
+				}
+			} ];
+			var options = {
+				xaxis : {
+					ticks : ticks
+				},
+				series : {
+					shadowSize : 0
+				},
+				grid : {
+					hoverable : true,
+					clickable : true,
+					tickColor : "#f9f9f9",
+					borderWidth : 1,
+					borderColor : "#eeeeee"
+				},
+				colors : [ "#79D1CF", "#E67A77" ],
+				tooltip : true,
+				tooltipOpts : {
+					defaultTheme : false
+				},
+				legend : {
+					labelBoxBorderColor : "#000000",
+					container : $("#legendcontainer26"),
+					noColumns : 0
+				}
+			};
+			var plot = $.plot($("#combine-chart #combine-chartContainer"),
+					data, options);
+		});
+
+		/* $(function() {
+		    var data1 = GenerateSeries(0);
+		    var data2 = GenerateSeries(100);
+		    var data3 = GenerateSeries(200);
+		    var dataset = [data1, data2, data3];
+		    function GenerateSeries(added) {
+		        var data = [];
+		        var start = 100 + added;
+		        var end = 200 + added;
+		        for (i = 1; i <= 100; i++) {
+		            var d = Math.floor(Math.random() * (end - start + 1) + start);
+		            data.push([i, d]);
+		            start++;
+		            end++;
+		        }
+		        return data;
+		    }
+		    var options = {
+		        series: {
+		            stack: true,
+		            shadowSize: 0
+		        },
+		        grid: {
+		            hoverable: true,
+		            clickable: true,
+		            tickColor: "#f9f9f9",
+		            borderWidth: 1,
+		            borderColor: "#eeeeee"
+		        },
+		        legend: {
+		            position: 'nw',
+		            labelBoxBorderColor: "#000000",
+		container: $("#bar-chart #legendPlaceholder20"),
+		            noColumns: 0
+		        }
+		    };
+		    var plot;
+		    function ToggleSeries() {
+		        var d = [];
+		        $("#toggle-chart input[type='checkbox']").each(function() {
+		    if ($(this).is(":checked")) {
+		    var seqence = $(this).attr("id").replace("cbdata", "");
+		    d.push({
+		    label: "data" + seqence,
+		    data: dataset[seqence - 1]
+		    });
+		}
+		});
+		options.series.lines = {};
+		options.series.bars = {};
+		$("#toggle-chart input[type='radio']").each(function() {
+		    if ($(this).is(":checked")) {
+		    if ($(this).val() == "line") {
+		    options.series.lines = {
+		    fill: true
+		    };
+		} else {
+		    options.series.bars = {
+		        show: true
+		    };
+		}
+		}
+		});
+		$.plot($("#toggle-chart #toggle-chartContainer"), d, options);
+		    }
+		    $("#toggle-chart input").change(function() {
+		        ToggleSeries();
+		    });
+		    ToggleSeries();
+		});
+		 */
+	</script>
+	<!-- Easy Pie Chart-->
+	<script src="js/easypiechart/jquery.easypiechart.js"></script>
+	<!-- Sparkline Chart-->
+	<script src="js/sparkline/jquery.sparkline.js"></script>
+	<!-- jQuery Flot Chart-->
+	<script src="js/flot-chart/jquery.flot.js"></script>
+	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+	<script src="js/flot-chart/jquery.flot.resize.js"></script>
+	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+	<script src="js/flot-chart/jquery.flot.selection.js"></script>
+	<script src="js/flot-chart/jquery.flot.stack.js"></script>
+	<script src="js/flot-chart/jquery.flot.time.js"></script>
+	<script src="js/flot.chart.init.js"></script>
+	<!-- Common script init for all pages-->
+	<script src="js/scripts.js"></script>
+
+
 </body>
 </html>

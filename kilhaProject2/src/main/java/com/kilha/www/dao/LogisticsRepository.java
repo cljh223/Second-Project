@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Section;
 import com.kilha.www.vo.logistics.Shipping;
 import com.kilha.www.vo.logistics.Truck;
 import com.kilha.www.vo.sal.Shop;
@@ -135,6 +136,51 @@ public class LogisticsRepository {
 		map.put("deliverydate", deliverydate);
 		map.put("truck_code", truck_code);
 		List<Shipping>list = dao.truckListSearch(map);
+		return list;
+	}
+	
+	public List<Section> getOriginImg() {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Section>list = dao.getOriginImg();
+		return list;
+	}
+
+	public List<Integer> warehouseUsage(int warehouse_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Integer> result = dao.warehouseUsage(warehouse_code);
+		return result;
+	}
+
+	public List<Integer> ramenStock(String warehouse_code, String r_num) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, String> map = new HashMap<>();
+		map.put("warehouse_code", warehouse_code);
+		map.put("r_num", r_num);
+		List<Integer>list = dao.ramenStock(map);
+		return list;
+	}
+
+	public List<Integer> getAllQuantity(String warehouse_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Integer>list = dao.getAllQuantity(warehouse_code);
+		return list;
+	}
+
+	public List<Map<String, Object>> sectionInfo(int sec_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Map<String, Object>> map = dao.sectionInfo(sec_code);
+		return map;
+	}
+
+	public List<Integer> sectionStock(int sec_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Integer>list = dao.sectionStock(sec_code);
+		return list;
+	}
+	
+	public List<Integer> getSectionP(int sec_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		List<Integer>list = dao.getSectionP(sec_code);
 		return list;
 	}
 

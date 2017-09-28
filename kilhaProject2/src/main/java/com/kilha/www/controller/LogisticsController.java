@@ -1,6 +1,7 @@
 package com.kilha.www.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kilha.www.dao.LogisticsRepository;
 import com.kilha.www.dao.MapRep;
 import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Section;
 import com.kilha.www.vo.logistics.Shipping;
 import com.kilha.www.vo.logistics.Truck;
 import com.kilha.www.vo.sal.Shop;
+import com.kilha.www.vo.sal.SupplyVo;
 import com.kilha.www.vo.tmap.Excute;
 
 
@@ -93,6 +96,35 @@ public class LogisticsController {
 	public String nineth() {
 		return "logistics/log-13";
 	}
+	
+	//준석
+		@RequestMapping(value = "/junseok", method = RequestMethod.GET)
+		public String junseok(Model model) {
+			Map processListMap = new HashMap<>();
+			processListMap.put("searchProcessText", "");
+			List<SupplyVo> supplyList = repo2.processInitialize(processListMap);
+			model.addAttribute("supplyList", supplyList);
+			System.out.println(supplyList);
+			return "logistics/junseok";
+		}
+		
+		//준석
+		@RequestMapping(value = "/junseok2", method = RequestMethod.GET)
+		   public String junseok2(Model model, String processCode) {
+		      Map processListMap = new HashMap<>();
+		      System.out.println(processCode);
+		      processListMap.put("processCode", processCode);
+		      SupplyVo supplyList = repo2.popupNowEstimate(processListMap);
+		      model.addAttribute("supplyList", supplyList);
+		      System.out.println("안녕 : " +supplyList);
+		      String searchText = supplyList.getStaffName();
+		      System.out.println(searchText);
+		      int staffCode = repo2.staffSelect(searchText).get(0).getStaff_code();
+		      List<Shop>shopList = repo2.shopSelect("");
+		      model.addAttribute("staffCode", staffCode);
+		      model.addAttribute("shop_code", shopList.get(0).getShopCode());
+		      return "logistics/junseok2";
+		   }
 	
 	@RequestMapping(value="ordering", method=RequestMethod.GET)
 	public String orderEntroll(String dept, int staff_code, String goods, int quantity, int shop_code, String deliverydate, String truck_code){
@@ -290,5 +322,213 @@ public class LogisticsController {
 		
 		JSONObject obj = new JSONObject(data);
 		return obj.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getOriginImg", method=RequestMethod.GET)
+	public List<Section> fetchOriginImg(){
+		List<Section>list = repo.getOriginImg();
+		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="warehouseUsage", method=RequestMethod.GET)
+	public double warehouseUsage(int warehouse_code){
+		double usage = 0; // 창고 사용률(%)
+		double temp = 0;
+		double quantity = 0; // 창고에서 보관중인 라면의 총 수량
+		double quantityCapa = 0; // 창고에서 보관중인 라면의 총 부피
+		double whCapa = 0; // 창고의 부피
+		int boxCapa1 = 48*38*34; //한상자의 부피 
+		int rack1 = 260*50*200; // 선반 하나의 부피
+		
+		List<Integer> result = repo.warehouseUsage(warehouse_code);
+		for (Integer integer : result) {
+			quantity += integer;
+		}
+		
+		if (warehouse_code == 1) {
+			whCapa = rack1*14; // 선반 14개 가진 창고
+		}else if (warehouse_code == 2) {
+			whCapa = rack1*12; // 선반 12개 가진 창고
+		}else{
+			whCapa = rack1*18; // 선반 18개 가진 창고;
+		}
+		quantityCapa = quantity*boxCapa1;
+		temp = quantityCapa/whCapa;
+		usage = (quantityCapa/whCapa)*100;
+		return usage;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ramenStock", method=RequestMethod.GET)
+	public Map<String, Double> ramenStock(String warehouse_code, String ramen1, String ramen2, String ramen3, String ramen4, String ramen5){
+		List<String>list = new ArrayList<>(); //jsp에서 넘겨받은 라면코드를 담을 리스트
+		List<Integer>rList = null; // mapper에서 얻어온 라면코드별 수량.
+		double totalQ = 0; // 전체 라면 갯수
+		double pct = 0; // 종류별 보관율
+		double pctR = 0;
+		int i = 1;
+		Map<String, Double>map = new HashMap<>();
+			/*List<Map<String, Object>>result = null;*/		
+		list.add(ramen1);
+		list.add(ramen2);
+		list.add(ramen3);
+		list.add(ramen4);
+		list.add(ramen5);
+		
+		List<Integer>aQ = repo.getAllQuantity(warehouse_code);//창고별 총 재고 수
+		for (int aTemp : aQ) {
+			totalQ += aTemp;
+		}
+		
+		for (String ramen_code : list) { // 라면코드를 하나씩 꺼낸다.
+			double rQ = 0; // 종류별 라면 갯수
+			rList = repo.ramenStock(warehouse_code, ramen_code); // 하나씩 넣고 검색한다.
+			for (int temp :rList) { // 검색한 결과값을 뽑는다.
+				rQ += temp;
+			}
+			pct = rQ/totalQ*100;
+			pctR = Math.round(pct);
+			map.put("item"+i, pctR);
+			i++;
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="sectionInfo", method=RequestMethod.GET)
+	public Map<String, Object> sectionInfo(int index){
+		int sec_code = index+1;
+		double whCapa = 0; // 선반의 부피
+		double area = 0; // 선반의 면적
+		int rack1 = 260*50*200; // 선반 하나의 부피
+		int boxCapa1 = 48*38*34; //한상자의 부피 
+		List<Integer>rList = null; // mapper에서 얻어온 라면코드별 수량.
+		double rQ = 0; // 종류별 라면 갯수
+		double usage = 0; //섹션 이용률
+		
+		
+		Map<String, Object>map = new HashMap<>();
+		List<Map<String, Object>>list = repo.sectionInfo(sec_code);
+		String sec_name = (String)list.get(0).get("SEC_NAME");
+		String warehouse_name = (String)list.get(0).get("WAREHOUSE_NAME");
+		String r_name = (String)list.get(0).get("R_NAME");
+		
+		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
+			whCapa = rack1*2; // 선반 2개 가진 창고 구역
+			area = 260*50*2/100;
+		}else if (sec_code == 2 || sec_code == 3 || sec_code == 4 || sec_code == 5 || sec_code == 6 || sec_code == 7) {
+			whCapa = rack1*3; // 선반 3개 가진 창고 구역
+			area = 260*50*2/100;
+		}else{
+			whCapa = rack1*4; // 선반 4개 가진 창고 구역;
+			area = 260*50*4/100;
+		}
+		
+		
+		rList = repo.sectionStock(sec_code);
+		for (int temp :rList) { // 검색한 결과값을 뽑는다.
+			rQ += temp;
+		}
+		usage = Math.round(rQ*boxCapa1/whCapa*100);
+		
+		map.put("SEC_NAME", sec_name);
+		map.put("SEC_CODE", sec_code);
+		map.put("WAREHOUSE_NAME", warehouse_name);
+		map.put("R_NAME", r_name);
+		map.put("TOTALAREA", area); 
+		map.put("QUANTITY", rQ);
+		map.put("USAGE", usage);
+		
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="safeStock", method=RequestMethod.GET)
+	public Map<String, Double> safeStock(int sec_code, int option){
+		//안전재고비율 : 수요표준편차 * 서비스계수(2.33) * 루트 공급 리드타임
+		int length = 1;
+		double safeR = 0.0; // 안전재고비율
+		double service = 2.33; // 서비스계수
+		double supplyLeadT = Math.sqrt(1); // 공급리드타임
+		double totalQ = 0.0; // 출고 요청 수량의 합계
+		double meanValue = 0.0;//수요 평균값
+		double diff = 0.0;//편차
+		double sd = 0.0;//수요표준편차
+		int quantity = 0; // 수량의 합계
+		double sum = 0.0;//편차의 합계
+		double whCapa = 0; // 창고의 부피
+		int rack1 = 260*50*200; // 선반 하나의 부피
+		int boxCapa1 = 48*38*34; //한상자의 부피 
+		double totalBoxQ = 0.0; // 한 섹션 당 보관할 수 있는 상자의 수
+		
+		List<Integer> list = repo.getSectionP(sec_code);
+		for (Integer temp : list) {
+			quantity += temp;
+			length++;
+		}
+		meanValue = Math.round(quantity/length);
+
+		for (Integer temp2 : list) {
+			diff = temp2 - meanValue;
+			sum += diff * diff;
+		}
+		sd = Math.sqrt(sum/(length-option));
+		safeR = sd*2.33*supplyLeadT;
+		
+		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
+			whCapa = rack1*2; // 선반 2개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}else if (sec_code == 2 || sec_code == 3 || sec_code == 4 || sec_code == 5 || sec_code == 6 || sec_code == 7) {
+			whCapa = rack1*3; // 선반 3개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}else{
+			whCapa = rack1*4; // 선반 4개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}
+		
+		double safeQ = Math.round(safeR)*0.01*totalBoxQ;
+		
+		Map<String, Double> map = new HashMap<>();
+		map.put("safe_Rate", (double) Math.round(safeR));// 안전재고 비율
+		map.put("safe_Quantity", (double) Math.round(safeQ));// 안전재고 수량
+		
+		System.out.println(map.toString());
+		return map;
+	}
+	
+	@ResponseBody  
+	@RequestMapping(value="SSQuantity", method=RequestMethod.GET)
+	public Map<String, Double> stockRate(int sec_code){
+		int result = 0;//각 섹션별 재고량 
+		double whCapa = 0; // 창고의 부피
+		int rack1 = 260*50*200; // 선반 하나의 부피
+		int boxCapa1 = 48*38*34; //한상자의 부피 
+		double totalBoxQ = 0.0; // 한 섹션 당 보관할 수 있는 상자의 수
+		Map<String, Double> map = new HashMap<>();
+		List<Integer>list = repo.sectionStock(sec_code);
+		for (Integer temp : list) {
+			result += temp;
+		}
+		
+		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
+			whCapa = rack1*2; // 선반 2개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}else if (sec_code == 2 || sec_code == 3 || sec_code == 4 || sec_code == 5 || sec_code == 6 || sec_code == 7) {
+			whCapa = rack1*3; // 선반 3개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}else{
+			whCapa = rack1*4; // 선반 4개 가진 창고 구역
+			totalBoxQ = whCapa/boxCapa1;
+		}
+		
+		double real_rate = result/totalBoxQ*100;
+		
+		map.put("real_Quantity", (double) result); // 현재 재고 수량
+		map.put("real_Rate", (double) Math.round(real_rate)); // 현재 재고 비율
+		
+		System.out.println(map.toString());
+		return map;
 	}
 }
