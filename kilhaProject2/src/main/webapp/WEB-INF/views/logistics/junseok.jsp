@@ -328,51 +328,60 @@
 		<aside>
 			<div id="sidebar" class="nav-collapse">
 				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="compareMain">영업 비교 페이지</a></li>
-								<li><a href="productMain">상품 비교 페이지</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-wrench"></i> <span>생산 부문</span>
+                     </a>
+                     <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                     </ul></li>
+            
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-truck"></i> <span>물류부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                     </ul></li>
+                     
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-users"></i> <span>영업부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                        <li><a href="productMain">상품 비교 페이지</a></li>
+                     </ul></li>         
+        
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--main content start-->
@@ -388,16 +397,6 @@
 								</span>
 							</header>
 							<div class="panel-body" id="processListForm"></div>
-						</section>
-					</div>
-					<div class="col-sm-12">
-						<section class="panel">
-							<header class="panel-heading">
-								상세보기 <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-up"></a>
-								</span>
-							</header>
-							<div class="panel-body processSearchForm"></div>
 						</section>
 					</div>
 				</div>
@@ -572,10 +571,10 @@
 				processLocationText += resp[i].shopName;
 				processLocationText += '</td>'
 				processLocationText += '<td>'
-				processLocationText += resp[i].processInsertDate;
+				processLocationText += getTimeStamp(resp[i].processInsertDate);
 				processLocationText += '</td>';
 				processLocationText += '<td>';
-				processLocationText += resp[i].processEndDate;
+				processLocationText += getTimeStamp(resp[i].processEndDate);
 				processLocationText += '</td>';
 				for (var j = 0; j < resp[i].supplyList.length; j++) {
 					salAmount = salAmount
@@ -585,7 +584,7 @@
 				processLocationText += salAmount;
 				processLocationText += '</td>'
 				processLocationText += '<td>';
-				processLocationText += '<button type="button" id = "relOkBtn" data-processCode = "'+resp[i].processCode+'" class="btn btn-danger">Danger</button>';
+				processLocationText += '<button type="button" id = "relOkBtn" data-processCode = "'+resp[i].processCode+'" class="btn btn-success BTN111">Click</button>';
 				processLocationText += '</td>';
 				processLocationText += '</tr></a>';
 			}
@@ -597,7 +596,7 @@
 			});
 
 			processCodeClick(resp);
-			$('#relOkBtn').on('click', function(){
+			$('.BTN111').on('click', function(){
 				var btn = $(this).attr('data-processCode');
 				location.href = 'junseok2?processCode='+btn;
 			})
@@ -617,6 +616,33 @@
 				}
 			});
 		}
+	</script>
+
+	<script type="text/javascript">
+
+	document.write(getTimeStamp() + '<br />');
+	
+	function getTimeStamp(resp) {
+	  var d = new Date(resp);
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2);
+	
+	  return s;
+	}
+	
+	function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+	
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+	}
+	
 	</script>
 
 	<!--Core js-->

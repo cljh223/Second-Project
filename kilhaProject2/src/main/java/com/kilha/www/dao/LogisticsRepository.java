@@ -48,9 +48,9 @@ public class LogisticsRepository {
 		return map;
 	}
 
-	public List<Map<String, Object>> resultList(String status) {
+	public List<Map<String, Object>> resultList() {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		List<Map<String, Object>>list = dao.resultList(status);
+		List<Map<String, Object>>list = dao.resultList();
 		return list;
 	}
 
@@ -63,9 +63,9 @@ public class LogisticsRepository {
 		return result;
 	}
 
-	public int deleteList(int orderNum) {
+	public int deleteList(String process_code) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		int result = dao.deleteList(orderNum);
+		int result = dao.deleteList(process_code);
 		return result;
 	}
 
@@ -98,11 +98,10 @@ public class LogisticsRepository {
 		return list;
 	}
 
-	public List<Map<String, Object>> reserveTruckList(String dDate, String office, String truck) {
+	public List<Map<String, Object>> reserveTruckList(String dDate, String truck) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		Map<String, Object> map = new HashMap<>();
 		map.put("dDate", dDate);
-		map.put("office", office);
 		map.put("truck", truck);
 		List<Map<String, Object>>list = dao.reserveTruckList(map);
 		return list;

@@ -26,6 +26,9 @@
 	float: right;
 }
 
+#resultT, th{
+	text-align : center;
+}
 /* #logListHead {
 	border: 1px black solid;
 	width: 350px;
@@ -226,60 +229,60 @@
 		<aside>
 			<div id="sidebar" class="nav-collapse">
 				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>생산 부문</span>
-						</a>
-							<ul class="sub">
-								<li><a href="pro_Fac1">제 1공장 정보</a></li>
-								<li><a href="pro_Fac2">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="">생산정보입력</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>물류부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">관리자 페이지</a></li>
-								<li><a href="second">물류창고 도면도/도표</a></li>
-								<li><a href="third">트럭별 물류 배송순서</a></li>
-								<li><a href="fourth">선적신청</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">개인 신청 내역</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-wrench"></i> <span>생산 부문</span>
+                     </a>
+                     <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                     </ul></li>
+            
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-truck"></i> <span>물류부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                     </ul></li>
+                     
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-users"></i> <span>영업부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                        <li><a href="productMain">상품 비교 페이지</a></li>
+                     </ul></li>         
+        
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--sidebar end-->
@@ -287,9 +290,9 @@
 		<section id="main-content">
 			<section class="wrapper">
 				<div class="col-lg-4">
-					<section class="panel">
+					<section class="panel" style="height: 580px; width: 100%" >
 						<div class="panel-body">
-							<div class="col-sm-5" id="deliveryDate">
+							<div class="col-sm-5" id="deliveryDate" style="position: absolute; left: 4px;">
 								<div data-date-viewmode="years" data-date-format="yyyy-mm-dd"
 									data-date="2017-09-01" class="input-append date dpYears">
 									<input type="text" readonly="" value="2017-09-01" size="16"
@@ -302,22 +305,21 @@
 								</div>
 							</div>
 							<!-- <div class="col-sm-1"></div>  -->
-							<div class="col-sm-5">
+							<div class="col-sm-5" style="position: absolute; left: 190px;">
 								<div id="truckPart"></div>
 							</div>
 							<div class="col-xs-1">
 								<button type="button" id="optionSearchBtn"
-									class="btn btn-primary"><i class="fa fa-search"></i></button>
+									class="btn btn-primary" style="position: absolute; left: 333px;"><i class="fa fa-search"></i></button>
 							</div><br>
 									<div id="resultNoneMsg"></div>
-									<div id="truckListPart"></div>
+									<div id="truckListPart" style="position: absolute; top: 80px; width: 360px; heigth: 200px; "></div>
 							</div>
 							<br>
-							<center>
-								<a href="#"><button type="button" id="shortestBtn" class="btn btn-warning">&nbsp
-										&nbsp &nbsp 최단 배송거리 검색 &nbsp &nbsp &nbsp</button></a>
-							</center><br>
-							<div class="col-lg-6">
+								<button style="position:absolute; top:300px; left:110px;" type="button" id="shortestBtn" class="btn btn-warning">&nbsp
+										&nbsp &nbsp 최단 배송거리 검색 &nbsp &nbsp &nbsp</button>
+							<br>
+							<div class="col-lg-6" style="position:absolute; top:350px; left:10px; z-index:9">
 								<div class="profile-nav alt">
 									<section class="panel text-center">
 										<div class="user-heading alt wdgt-row terques-bg">
@@ -326,14 +328,14 @@
 
 										<div class="panel-body">
 											<div class="wdgt-value">
-												<h1 id="totalDistance" class="count"></h1>
+												<h3 id="totalDistance" class="count"></h3>
 												<p>주행거리</p>
 											</div>
 										</div>
 									</section>
 								</div>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-6" style="position:absolute; top:350px; left:200px; z-index:9">
 								<div class="profile-nav alt">
 									<section class="panel text-center">
 										<div class="user-heading alt wdgt-row red-bg">
@@ -342,7 +344,7 @@
 
 										<div class="panel-body">
 											<div class="wdgt-value">
-												<h1 id="totalTime" class="count"></h1>
+												<h3 id="totalTime" class="count"></h3>
 												<p>주행시간</p>
 											</div>
 										</div>
@@ -636,7 +638,7 @@
 				success : printTruckList
 			})
 
- 			map = new Tmap.Map({div:"map_div", width:'100%', height:'500px'});
+ 			map = new Tmap.Map({div:"map_div", width:'100%', height:'550px'});
 	   
 			markerLayer = new Tmap.Layer.Markers();
 		    map.addLayer(markerLayer);
@@ -667,14 +669,15 @@
 		}
 		
 		function truckListSearch() {
-			var deliverydate = $("#deliveryDate1").val();
+			var date = $("#deliveryDate1").val();
 			var truck_code = $("#truck_code").val();
+			console.log(date+" / "+truck_code);
 
 			$.ajax({
 				url : "truckListSearch",
 				method : "GET",
 				data : {
-					"deliverydate" : deliverydate,
+					"deliverydate" : date,
 					"truck_code" : truck_code
 				},
 				success : printSearchResult
@@ -687,20 +690,23 @@
 				var temp='<br><br><br><center><h3>배차내역이 없습니다.</h3></center>';
 				$("#truckListPart").html(temp);
 			} else if (resp != 0) {
-				var temp ='<table border="1">';
+				var temp ='<table id="resultT" border="1">';
 				temp +='<tr bgcolor="white">';
+				temp +='<col width="35">';
+				temp +='<col width="100">';
+				temp +='<col width="225">';
 				temp +='<th class="num">번호</th>';
-				temp +='<th class="ware">물류창고</th>';
-				temp +='<th class="shop">도착지</th>';
-				temp +='<th class="goods">상품</th>';
-				temp +='<th class="quan">수량</th></tr>';
+				temp +='<th class="shop">배송지</th>';
+				temp +='<th class="address">주소</th></tr>';
 			$.each(resp, function(index, item) {
 				temp += '<tr><td class="num">' + (index + 1) + '</td>';
-				temp += '<td class="ware">#</td>';
 				temp += '<td class="shop">' + item.SHOP_NAME + '</td>';
-				temp += '<td class="goods">' + item.GOODS + '</td>';
-				temp += '<td class="quan">' + item.QUANTITY + '</td><tr>';
-				shopName[index] = item.SHOP_NAME; 
+				if (item.ADDRESS_DETAIL4 == null) {
+					temp += '<td class="address">' + item.ADDRESS_DETAIL1 + item.ADDRESS_DETAIL2 + item.ADDRESS_DETAIL3 + '</td></tr>';
+				} else {
+					temp += '<td class="address">' + item.ADDRESS_DETAIL1 + item.ADDRESS_DETAIL2 + item.ADDRESS_DETAIL3 + item.ADDRESS_DETAIL4 + '</td></tr>';
+				}
+				shopName[index] = item.SHOP_NAME;
 			})
 				temp+='</table>';
 			$("#truckListPart").html(temp);

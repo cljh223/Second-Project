@@ -207,67 +207,67 @@
 		<aside>
 			<div id="sidebar" class="nav-collapse">
 				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>생산 부문</span>
-						</a>
-							<ul class="sub">
-								<li><a href="pro_Fac1">제 1공장 정보</a></li>
-								<li><a href="pro_Fac2">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="">생산정보입력</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>물류부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">관리자 페이지</a></li>
-								<li><a href="second">물류창고 도면도/도표</a></li>
-								<li><a href="third">트럭별 물류 배송순서</a></li>
-								<li><a href="fourth">선적신청</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">개인 신청 내역</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-wrench"></i> <span>생산 부문</span>
+                     </a>
+                     <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                     </ul></li>
+            
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-truck"></i> <span>물류부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                     </ul></li>
+                     
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-users"></i> <span>영업부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                        <li><a href="productMain">상품 비교 페이지</a></li>
+                     </ul></li>         
+        
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--sidebar end-->
 
 		<section id="main-content">
 			<section class="wrapper">
-				<center>
+				<!-- <center>
 				<div class="listBtns">
 					<button type="button" class="btn btn-success" id="AA">
 						<i class="fa fa-plus-square"></i> Ordered
@@ -281,7 +281,7 @@
 					<button type="button" class="btn btn-danger" id="DD">
 						<i class="fa fa-times"></i> Rejected
 					</button>
-				</div></center>
+				</div></center> -->
 				<br />
 
 				<div class="row">
@@ -294,17 +294,6 @@
 										<div class="btn-group">
 												<button id="add" class="btn btn-primary">
 													Add New <i class="fa fa-plus"></i>
-										</div>
-										<div class="btn-group pull-right">
-											<button class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												Tools <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right">
-												<li><a href="#">Print</a></li>
-												<li><a href="#">Save as PDF</a></li>
-												<li><a href="#">Export to Excel</a></li>
-											</ul>
 										</div>
 									</div>
 									<br>
@@ -577,35 +566,30 @@
 			$.ajax({
 				url : "resultList",
 				method : "GET",
-				data : {
-					status : "ordered"
-				},
 				dataType : "json",
 				success : resultList
 			});
 		});
 
-		$(function() {
+		/* $(function() {
 			$("#AA").on('click', orderedList);
 			$("#BB").on('click', confirmedList);
 			$("#CC").on('click', shippedList);
 			$("#DD").on('click', rejectedList);
-		});
+		}); */
 
 		function resultList(resp) {
-			var status1 = "confirmed";
-			var status2 = "rejected";
+			/* var status1 = "confirmed";
+			var status2 = "rejected"; */
 			var temp = '<table class="table table-striped table-hover table-bordered" id="editable-sample">';
 			temp += '<thead>';
 			temp += '<tr>';
 			temp += '<th>번호</th>';
 			temp += '<th>배송일자</th>';
 			temp += '<th>배송지</th>';
-			temp += '<th>물품</th>';
-			temp += '<th>수량</th>';
-			temp += '<th>승인</th>';
-			temp += '<th>거절</th>';
-			temp += '<th>수정</th>';
+			temp += '<th>주소</th>';
+			temp += '<th>배송트럭</th>';
+			temp += '<th>상세보기</th>';
 			temp += '<th>삭제</th>';
 			temp += '</tr>';
 			temp += '</thead>';
@@ -616,28 +600,19 @@
 							resp,
 							function(index, item) {
 								console.log(item);
+								var process_code = item.PROCESS_CODE;
 								temp += '<tr>';
 								temp += '<td>' + (index + 1) + '</td>';
 								temp += '<td>' + item.DELIVERYDATE + '</td>';
 								temp += '<td>' + item.SHOP_NAME + '</td>';
-								temp += '<td>' + item.GOODS + '</td>';
-								temp += '<td>' + item.QUANTITY + '</td>';
-								temp += '<td><a class="confirm" href="updateList?changeStatus='
-										+ status1
-										+ '&orderNum='
-										+ item.ORDERNUM
-										+ '&status='
-										+ item.STATUS
-										+ '"><span class="label label-primary">승인</span></a></td>';
-								temp += '<td><a class="reject" href="updateList?changeStatus='
-										+ status2
-										+ '&orderNum='
-										+ item.ORDERNUM
-										+ '&status='
-										+ item.STATUS
-										+ '"><span class="label label-danger">거절</span></a></td>';
-								temp += '<td><a href="seventh?num='+item.ORDERNUM+'"><span class="label label-info">수정</span></a></td>';
-								temp += '<td><a href="deleteList?orderNum='+item.ORDERNUM+'&status='+ item.STATUS+'"><span class="label label-inverse">삭제</span></a></td>';
+								if (item.ADDRESS_DETAIL4 == null) {
+									temp += '<td>' + item.ADDRESS_DETAIL1+item.ADDRESS_DETAIL2+item.ADDRESS_DETAIL3+'</td>';	
+								} else{
+								temp += '<td>' + item.ADDRESS_DETAIL1+item.ADDRESS_DETAIL2+item.ADDRESS_DETAIL3+item.ADDRESS_DETAIL4+'</td>';}
+								temp += '<td>' + item.TRUCK_CODE + '</td>';
+								temp += '<td><a class="confirm" href="junseok2?processCode='
+										+ process_code +'"><span class="label label-primary">상세보기</span></a></td>';
+								temp += '<td><a href="deleteList?process_code='+process_code+'"><span class="label label-inverse">삭제</span></a></td>';
 								temp += '</tr>';
 							});
 			temp += '</tbody>';
@@ -646,7 +621,7 @@
 			$(".resultList").html(temp);
 		};
 
-		function orderedList() {
+		/* function orderedList() {
 			$.ajax({
 				url : "resultList",
 				method : "GET",
@@ -688,10 +663,10 @@
 				},
 				success : resultList
 			});
-		}
+		} */
 		
 		function addNew(){
-			location.href = 'fourth';
+			location.href = 'salesMain';
 		}
 	</script>
 	<!--jQuery Flot Chart-->

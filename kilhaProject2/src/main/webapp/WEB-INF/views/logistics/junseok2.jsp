@@ -42,21 +42,10 @@ td .num {
    width: "100px";
 }
 
-td .goods {
-   
+.cs{
+	text-align: center;
 }
 
-td .quantity {
-   
-}
-
-td .shop_name {
-   
-}
-
-td .address {
-   
-}
 </style>
 </head>
 <body>
@@ -236,60 +225,60 @@ td .address {
       <aside>
          <div id="sidebar" class="nav-collapse">
             <!-- sidebar menu start-->
-            <div class="leftside-navigation">
-               <ul class="sidebar-menu" id="nav-accordion">
-                  <li><a class="active" href="index.html"> <i
-                        class="fa fa-dashboard"></i> <span>Dashboard</span>
-                  </a></li>
-                  <li class="sub-menu"><a href="javascript:;"> <i
-                        class="fa fa-laptop"></i> <span>구매부서</span>
-                  </a>
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-wrench"></i> <span>생산 부문</span>
+                     </a>
                      <ul class="sub">
-                        <li><a href="Pur_main">구매메인화면</a></li>
-                        <li><a href="Pur_inform">상품디테일</a></li>
-                        <li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-                        <li><a href="Pur_orders">주문내역</a></li>
-                        <li><a href="Pur_orderform1">invoice작성</a></li>
-                        <li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-                        <li><a href="Pur_store">상품재고</a></li>
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
                      </ul></li>
-
-                  <li class="sub-menu"><a href="javascript:;"> <i
-                        class="fa fa-laptop"></i> <span>생산 부문</span>
-                  </a>
-                     <ul class="sub">
-                        <li><a href="pro_Fac1">제 1공장 정보</a></li>
-                        <li><a href="pro_Fac2">제 2공장 정보</a></li>
-                        <li><a href="pro_Gradient">선형회귀분석</a></li>
-                        <li><a href="">생산정보입력</a></li>
-                     </ul></li>
-
-                  <li class="sub-menu"><a href="javascript:;"> <i
+            
+            <li class="sub-menu"><a href="javascript:;"> <i
                         class="fa fa-truck"></i> <span>물류부서</span>
                   </a>
                      <ul class="sub">
-                        <li><a href="first">관리자 페이지</a></li>
-                        <li><a href="second">물류창고 도면도/도표</a></li>
-                        <li><a href="third">트럭별 물류 배송순서</a></li>
-                        <li><a href="fourth">선적신청</a></li>
-                        <li><a href="fifth">log-06(List)</a></li>
-                        <li><a href="sixth">log-06(Timetable)</a></li>
-                        <li><a href="seventh">선적내용 확인,수정페이지</a></li>
-                        <li><a href="eighth">log-09, 10</a></li>
-                        <li><a href="nineth">개인 신청 내역</a></li>
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
                      </ul></li>
-
-                  <li class="sub-menu"><a href="javascript:;"> <i
-                        class="fa fa-laptop"></i> <span>영업부서</span>
+                     
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-users"></i> <span>영업부서</span>
                   </a>
                      <ul class="sub">
                         <li><a href="salesMain">영업 메인 페이지</a></li>
                         <li><a href="processMain">영업 상황 조회</a></li>
-                        <li><a href="language_switch.html">Language Switch Bar</a></li>
-                     </ul></li>
-               </ul>
-            </div>
-            <!-- sidebar menu end-->
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                        <li><a href="productMain">상품 비교 페이지</a></li>
+                     </ul></li>         
+        
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
          </div>
       </aside>
       <!--sidebar end-->
@@ -298,13 +287,14 @@ td .address {
             <div class="row">
                <div class="col-lg-12">
                   <section class="panel">
-                     <header class="panel-heading"> Shipping Form </header>
+                     <header class="panel-heading"> 출하서 </header>
                      <div class="panel-body">
                         <form class="form-horizontal bucket-form">
                            <div class="form-group">
                               <label class="col-sm-3 control-label">요청부서</label>
                               <div class="col-sm-6">
                                  <div id="deptPart">
+                                 	<input type="hidden" id="processCode11" value="${processCode}">
                                     <input type="text" class="form-control" value="영업부" readonly>
                                  </div>
                                  <input type="hidden" id="dept1" value="영업부">
@@ -315,23 +305,23 @@ td .address {
                               <label class="col-sm-3 control-label">직원번호</label>
                               <div class="col-sm-6">
                                  <div id="staff_codePart">
-                                    <input type="text" class="form-control" value="${staffCode }" readonly>
+                                    <input type="text" class="form-control" value="${staffCode}" readonly>
                                  </div>
-                                 <input type="hidden" id="staff_code1" value="${staffCode }">
+                                 <input type="hidden" id="staff_code1" value="${staffCode}">
                               </div>
                            </div>
                            <div class="form-group">
                               <label class="col-sm-3 control-label">배송지</label>
                               <div class="col-sm-6">
-                                 <div id="shop_namePart">${supplyList.shopName }</div>
+                                 <div id="shop_namePart">${supplyList.shopName}</div>
                               </div>
-                              <input type="hidden" id="shop_code" value="${shopCode }">
+                              <input type="hidden" id="shop_code" value="${shopCode}">
                            </div>
                            <div class="form-group">
                               <label class="col-sm-3 control-label">주문요청일</label>
                               <div class="col-md-4" id="deliveryDate">
                                  <div id="deliverydatePart">
-                                 <input type="text" readonly value="${supplyList.processInsertDate }" size="16" class="form-control" name="deliverydate" id="deliveryDate1">
+                                 <input type="text" readonly value="${new_date}" size="16" class="form-control" name="deliverydate" id="deliveryDate1">
                                  </div>
                               </div>
                            </div>
@@ -341,7 +331,7 @@ td .address {
                                  <div class="panel-body">
                                     <div class="col-sm-1" id="truck">
                                        <a class="btn btn-success" data-toggle="modal"
-                                          href="#myModal2" id="truckClick"> 재선택 </a>
+                                          href="#myModal2" id="truckClick"> 선택 </a>
                                     </div>
                                     <div id="truckMsg"></div>
                                     <!-- Modal -->
@@ -381,14 +371,11 @@ td .address {
                                           <th class="hidden-phone">상품명</th>
                                           <th>단위</th>
                                           <th>수량</th>
-                                          <th>단가</th>
-                                          <th>입고액</th>
                                        </tr>
                                     </thead>
                                     <tbody id="supplyProductTable">
                                        <c:forEach var="i" items="${supplyList.supplyList }">
                                           <tr>
-
                                              <td><input class=" form-control productCode"
                                                 name="productCode" type="text" value="${i.productCode }"
                                                 readonly="true" style="width: 100px;" /></td>
@@ -399,30 +386,21 @@ td .address {
                                              <td class="hidden-phone"><input
                                                 class=" form-control productUnit" name="productUnit"
                                                 type="text" value="${i.productUnit }"
-                                                style="width: 100px;" /></td>
-                                             <td><input class=" form-control supplyVolume"
+                                                style="width: 100px;" readonly/></td>
+                                             <td><input class="form-control supplyVolume"
                                                 name="supplyVolume" type="text"
-                                                value="${i.supplyVolume }" style="width: 100px;" />';</td>
-                                             <td><input class=" form-control supplyPrice"
-                                                name="supplyPrice" type="text" value="${i.supplyPrice }"
-                                                style="width: 100px;" /></td>
-                                             <td><input class=" form-control productUnitPrice"
-                                                name="productUnitPrice" type="text"
-                                                value="${i.productUnitPrice }" style="width: 100px;" />';
-                                             </td>
-                                          </tr>';
+                                                value="${i.supplyVolume}" style="width: 100px;" readonly/></td>
+                                          </tr>
                                     </c:forEach>
                                     </tbody>
                                  </table>
                               </div>
                            </div>
                            <center>
-                              <input type="button" id="updateBtn"
-                                 class="btn btn-round btn-primary" value="수정"> <a
-                                 href="${pageContext.request.contextPath}/nineth"> <input
-                                 type="button" id="checkBtn" class="btn btn-round btn-success"
+                              <!-- <input type="button" id="updateBtn"
+                                 class="btn btn-round btn-primary" value="수정">  --><input
+                                 type="button" id="checkBtn" class="btn btn-round btn-primary"
                                  value="확인">
-                              </a>
                            </center>
                            <br>
                         </form>
@@ -696,6 +674,7 @@ td .address {
    <script>
       $(function() {
          $("#truckClick").on('click', printModalList);
+         $("#checkBtn").on('click', updateOrder);
          /* $("#updateBtn").on('click', updateOrder);
          $.ajax({
             url : "selectOne",
@@ -751,12 +730,10 @@ td .address {
       }
 
       function reserveTruckList() {
-         var dDate = $("#deliveryDate1").val();
-         var office = $("#shop_code").val();
+    	  var dDate = $("#deliveryDate1").val();
          var truck = $("#truck_code").val();
          var map = {
             "dDate" : dDate,
-            "office" : office,
             "truck" : truck
          };
 
@@ -772,30 +749,35 @@ td .address {
                      }
 
                      else if (resp.length > 0) {
-                        var temp = '<table id="modalT"><tr>';
-                        temp += '<th class="num">번호</th>';
-                        temp += '<th class="goods">물품</th>';
-                        temp += '<th class="quantity">수량</th>';
-                        temp += '<th class="shop_name">배송지</th>';
-                        temp += '<th class="address">배송지 주소</th></tr>';
-
+                        var temp = '<table id="modalT" border="1"><tr>';
+                        temp += '<col width="40">';
+                        temp += '<col width="100">';
+                        temp += '<col width="350">';
+                        temp += '<th class="cs">번호</th>';
+                        temp += '<th class="cs">배송지</th>';
+                        temp += '<th class="cs">주소</th></tr>';
+						var pc;
                         $.each(resp, function(index, item) {
+                        	console.log(item);
                            temp += '<tr><td class="num">'
                                  + (index + 1) + '</td>';
-                           temp += '<td class="goods">' + item.GOODS
-                                 + '</td>';
-                           temp += '<td class="quantity">'
-                                 + item.QUANTITY + '</td>';
                            temp += '<td class="shop_name">'
                                  + item.SHOP_NAME + '</td>';
+                           if (item.ADDRESS_DETAIL4 == null) {
+                        	   temp += '<td class="address">'
+                                   + item.ADDRESS_DETAIL1
+                                   + item.ADDRESS_DETAIL2
+                                   + item.ADDRESS_DETAIL3 + '</td></tr>';
+						} else{
                            temp += '<td class="address">'
-                                 + item.ADDRESS_POST
                                  + item.ADDRESS_DETAIL1
                                  + item.ADDRESS_DETAIL2
-                                 + item.ADDRESS_DETAIL3
-                                 + item.ADDRESS_DETAIL4 + '</td>';
-                           temp += '</tr></table>';
+                                 + item.ADDRESS_DETAIL3 
+                                 + item.ADDRESS_DETAIL4 + '</td></tr>';
+                           pc = item.PROCESS_CODE;
+                       	}
                         })
+                        temp += '</table><input type="hidden" id="processCode" value="'+pc+'">';
                         $("#truckC").html(temp);
                      }
                   }
@@ -803,20 +785,29 @@ td .address {
       };
 
       function truckReserveConfirm() {
-         var quantity = $("#quantity").val();
-         var truck_code = $("#truck_code").val();
-
+        var truck_code = $("#truck_code").val();
+		var supplyVolume = new Array();
+		$("input[name=supplyVolume]").each(
+				function(idx) {
+					var value = $(this).val();
+					var eqValue = $(
+							"input[name=supplyVolume]:eq(" + idx + ")")
+							.val();
+					supplyVolume.push(eqValue);
+				});
+		console.log(supplyVolume);
          $.ajax({
             url : "truckCapacity",
             method : "GET",
             data : {
-               "quantity" : quantity,
+               "supplyVolume" : supplyVolume,
                "truck_code" : truck_code
             },
             success : function(resp) {
                if (resp == true) {// 배송수량 부피 > 트럭 부피
                   var truck = $("#truck_code").val();
                   var temp = '<p>"' + truck + '"으로 배송</p>';
+                  	temp += '<input type="hidden" id="truckCode11" value="'+truck+'">';
                   $("#truckMsg").html(temp);
                   $("#myModal2").modal('hide');
                } else if (resp == false) {
@@ -827,23 +818,45 @@ td .address {
       }
 
       function updateOrder() {
-         var num = $("#num").val();
-         var goods = $("#goods").val();
-         var quantity = $("#quantity").val();
-         var shop_code = document.getElementById('shop_code').value;
-         var deliverydate = $("#deliveryDate1").val();
-         var truck_code = $("#truck_code1").val();
-
-         var temp = "updateShipping?orderNum=" + num + "&goods=" + goods
-               + "&quantity=" + quantity + "&deliverydate=" + deliverydate
-               + "&shop_code=" + shop_code + "&truck_code=" + truck_code;
+         var process_code = $("#processCode11").val();
+         var truck_code = $("#truckCode11").val();
+         
+         var temp = "updateShipping?process_code=" + process_code + "&truck_code=" + truck_code;
 
          console.log(temp);
 
          location.href = temp;
-
+ 
       }
    </script>
+   
+   
+	<script type="text/javascript">
+
+	document.write(getTimeStamp() + '<br />');
+	
+	function getTimeStamp(resp) {
+	  var d = new Date(resp);
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2);
+	
+	  return s;
+	}
+	
+	function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+	
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+	}
+	
+	</script>
    <script src="js/advanced-form.js"></script>
 </body>
 </html>

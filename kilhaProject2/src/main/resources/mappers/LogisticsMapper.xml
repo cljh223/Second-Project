@@ -63,20 +63,24 @@
 	</select>
 	
 	<select id="resultList" parameterType="String" resultType="map">
-		select 
-			s.orderNum
-			, s.goods
-			, s.quantity
-			, sh.shop_name 
-			, to_char(s.deliverydate, 'YYYY-MM-DD') as deliverydate
-			, s.status
-		from shipping s, shop sh
+		select
+			to_char(p.process_end_date, 'YYYY-MM-DD') as deliverydate
+			, p.process_code
+			, s.shop_name
+			, address_detail1
+			, address_detail2
+			, address_detail3
+			, address_detail4
+			, sh.truck_code 
+			
+		from
+			process p, shop s, shipping sh, address a
 		where
-			s.shop_code = sh.shop_code
+			s.shop_code = p.shop_code
 		and
-			status = #{status}
-		order by
-			deliverydate asc
+			p.process_code = sh.process_code
+		and
+			s.shop_code = a.shop_code
 	</select>
 	
 	<update id="updateList" parameterType="map">
@@ -88,9 +92,9 @@
 	</update>
 	
 	<delete id="deleteList" parameterType="int">
-		delete from shipping
+		delete from process
 		where
-			orderNum = #{orderNum}
+			process_code = #{process_code}
 	</delete>
 	
 	<select id="searchDept" parameterType="Int" resultType="Staff">
@@ -128,16 +132,18 @@
 	</select>
 	
 	<select id="reserveTruckList" parameterType="map" resultType="map">
-		select s.goods, s.quantity, sh.shop_name, a.address_post, 
-			a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4
+		select 
+			p.process_code, sh.shop_name, a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4
 		from
-			shipping s, shop sh, address a
+			shipping s, process p, shop sh, address a
 		where
-			s.shop_code = sh.shop_code
-		and
 			sh.shop_code = a.shop_code
 		and
-			s.deliverydate = #{dDate}
+			sh.shop_code = p.shop_code
+		and
+			p.process_code = s.process_code
+		and
+			p.process_end_date = #{dDate}	
 		and
 			s.truck_code = #{truck}
 	</select>
@@ -151,33 +157,39 @@
 	</select>
 	
 	<select id="originQCapa" parameterType="String" resultType="int">
-		select quantity
+		select su.supply_volume
 		from 
-			shipping
+			truck t, shipping s, process p, supply su
 		where
-			truck_code = #{truck_code}
+			p.process_code = su.process_code
+		and
+			p.process_code = s.process_code
+		and
+			t.truck_code = s.truck_code
+		and
+			t.truck_code = #{truck_code}
 	</select>
 	
-	<update id="updateShipping" parameterType="Shipping" >
-		update shipping
-		set
-			goods = #{goods}
-			, quantity = #{quantity}
-			, deliverydate = #{deliverydate}
-			, shop_code = #{shop_code}
-			, truck_code = #{truck_code}
-		where
-			orderNum = #{orderNum}
-	</update>
+	<insert id="updateShipping" parameterType="Shipping" >
+		insert into shipping
+		values(
+			seq_shipping_orderNum.nextval, #{truck_code}, #{process_code}
+		)
+	</insert>
 	
 	<select id="truckListSearch" parameterType="map" resultType="map">
-		select sh.shop_name, s. goods, s.quantity
-		from 
-			shipping s, shop sh
+		select	
+			sh.shop_name, a.address_detail1, a.address_detail2, a.address_detail3, a.address_detail4
+		from
+			process p, shipping s, shop sh, address a
 		where
-			s.shop_code = sh.shop_code
+			sh.shop_code = a.shop_code
 		and
-			s.deliverydate = #{deliverydate}
+			sh.shop_code = p.shop_code
+		and
+			p.process_code = s.process_code
+		and
+			p.process_end_date = #{deliverydate}
 		and
 			s.truck_code = #{truck_code}
 	</select>

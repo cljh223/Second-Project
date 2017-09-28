@@ -19,11 +19,11 @@ public interface LogisticsDAO {
 
 	public Map<String, Object> selectOne(int orderNum);
 
-	public List<Map<String, Object>> resultList(String status);
+	public List<Map<String, Object>> resultList();
 
 	public int updateList(Map<String, Object> map);
 
-	public int deleteList(int orderNum);
+	public int deleteList(String process_code);
 
 	public Staff searchDept(int userid);
 

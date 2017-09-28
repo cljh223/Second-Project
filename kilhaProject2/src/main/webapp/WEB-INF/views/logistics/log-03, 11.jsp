@@ -247,60 +247,60 @@
 		<aside>
 			<div id="sidebar" class="nav-collapse">
 				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>생산 부문</span>
-						</a>
-							<ul class="sub">
-								<li><a href="pro_Fac1">제 1공장 정보</a></li>
-								<li><a href="pro_Fac2">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">선형회귀분석</a></li>
-								<li><a href="">생산정보입력</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>물류부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">관리자 페이지</a></li>
-								<li><a href="second">물류창고 도면도/도표</a></li>
-								<li><a href="third">트럭별 물류 배송순서</a></li>
-								<li><a href="fourth">선적신청</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">선적내용 확인,수정페이지</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">개인 신청 내역</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-wrench"></i> <span>생산 부문</span>
+                     </a>
+                     <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                     </ul></li>
+            
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-truck"></i> <span>물류부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                     </ul></li>
+                     
+            <li class="sub-menu"><a href="javascript:;"> <i
+                        class="fa fa-users"></i> <span>영업부서</span>
+                  </a>
+                     <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                        <li><a href="productMain">상품 비교 페이지</a></li>
+                     </ul></li>         
+        
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--sidebar end-->
@@ -654,8 +654,10 @@
 						console.log(div);
 
 						var section_name = item.sec_name;
+						var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+							'DARKGRAY' ];
 						div.hover(function() {
-							div.css('background-color', 'red');
+							div.css('background-color', colors[index]);
 							div.text(section_name);
 						});
 
@@ -664,7 +666,7 @@
 							div.text("");
 						});
 						imgPart.append(div);
-
+						
 					}
 					$("#imgBtn1").on('click', function() {
 						if (imgValue == item.warehouse_code) {
@@ -682,9 +684,11 @@
 							div.width(locationX2 - locationX1);
 							div.height(locationY2 - locationY1);
 							console.log(div);
-							var section_name = item.sec_name
+							var section_name = item.sec_name;
+							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+								'DARKGRAY' ];
 							div.hover(function() {
-								div.css('background-color', 'red');
+								div.css('background-color', colors[index]);
 								div.text(section_name);
 							});
 
@@ -718,9 +722,11 @@
 							div.width(locationX2 - locationX1);
 							div.height(locationY2 - locationY1);
 							console.log(div);
-							var section_name = item.sec_name
+							var section_name = item.sec_name;
+							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+								'DARKGRAY' ];
 							div.hover(function() {
-								div.css('background-color', 'red');
+								div.css('background-color', colors[index-5]);
 								div.text(section_name);
 							});
 
@@ -754,9 +760,11 @@
 							div.width(locationX2 - locationX1);
 							div.height(locationY2 - locationY1);
 							console.log(div);
-							var section_name = item.sec_name
+							var section_name = item.sec_name;
+							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+								'DARKGRAY' ];
 							div.hover(function() {
-								div.css('background-color', 'red');
+								div.css('background-color', colors[index-10]);
 								div.text(section_name);
 							});
 
@@ -868,6 +876,10 @@
 				temp += '<section class="panel">';
 				temp += '<div class="panel-body">';
 				temp += '<div class="container">';
+				temp += '<p>현재 재고량 : </p>';
+				temp += '<div class="progress" style="width: 25%; float: left">';
+				temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">'+rq+'개</p>';
+				temp += '<p>적정재고량 : </p>';
 				temp += '<div class="progress" style="width: 25%; float: left">';
 				/* if (rq <= sq*0.9) {
 					console.log("1");
@@ -895,12 +907,13 @@
 					temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">';
 					temp += '양호</div>';
 				} */
-				temp += '<p>현재 재고량 : </p>';
-				temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">'+rq+'개</p>';
-				temp += '<p>적정재고량 : </p>';
-				temp += '<div id="warn11" class="progress-bar progress-bar-warning" role="progressbar" style="width:'+sr+'%">'+sq+'개</p>';
+				
+				
+				
+				
+				/* temp += '<div id="warn11" class="progress-bar progress-bar-warning" role="progressbar" style="width:'+sr+'%">'+sq+'개</p>';
 				temp += '<p>상태 :</p>';
- 				temp += '</div></section></div>';
+ 				temp += '</div></section></div>';  */
 
  
 				$("#stockGraph").html(temp);
@@ -1021,9 +1034,9 @@
 						formatted : '사리곰탕 ' + resp.item5 + '%'
 					} ],
 					backgroundColor : '#fff',
-					labelColor : '#1fb5ac',
+					labelColor : /* '#1fb5ac' */'darkgray',
 					colors : [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-							'RED' ],
+						'‎#FFFFF0' ],
 					formatter : function(x, data) {
 						return data.formatted;
 					}

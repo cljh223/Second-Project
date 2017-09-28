@@ -1,6 +1,9 @@
 package com.kilha.www.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,17 +119,30 @@ public class LogisticsController {
 		      processListMap.put("processCode", processCode);
 		      SupplyVo supplyList = repo2.popupNowEstimate(processListMap);
 		      model.addAttribute("supplyList", supplyList);
-		      System.out.println("안녕 : " +supplyList);
+		      
+		      SimpleDateFormat original = new SimpleDateFormat("yyyy-MM-dd");
+		      SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd");
+		      
+		      Date processInsertDate = null;
+		      String new_date = null;
+		      try {
+				processInsertDate = original.parse(supplyList.getProcessInsertDate());
+				new_date = new_format.format(processInsertDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      model.addAttribute("new_date", new_date);
 		      String searchText = supplyList.getStaffName();
-		      System.out.println(searchText);
 		      int staffCode = repo2.staffSelect(searchText).get(0).getStaff_code();
 		      List<Shop>shopList = repo2.shopSelect("");
+		      model.addAttribute("processCode", processCode);
 		      model.addAttribute("staffCode", staffCode);
 		      model.addAttribute("shop_code", shopList.get(0).getShopCode());
 		      return "logistics/junseok2";
 		   }
 	
-	@RequestMapping(value="ordering", method=RequestMethod.GET)
+	/*@RequestMapping(value="ordering", method=RequestMethod.GET)
 	public String orderEntroll(String dept, int staff_code, String goods, int quantity, int shop_code, String deliverydate, String truck_code){
 		Shipping shipping = new Shipping();
 		shipping.setDept(dept);
@@ -139,7 +155,7 @@ public class LogisticsController {
 		shipping.setTruck_code(truck_code);
 		repo.ordering(shipping);
 		return "redirect:/";
-	}
+	}*/
 	
 	@ResponseBody
 	@RequestMapping(value="myOrderList", method=RequestMethod.GET)
@@ -159,17 +175,17 @@ public class LogisticsController {
 	
 	@ResponseBody
 	@RequestMapping(value="resultList", method=RequestMethod.GET)
-	public List<Map<String, Object>> resultList(String status) {
-		List<Map<String, Object>> list = repo.resultList(status);
+	public List<Map<String, Object>> resultList() {
+		List<Map<String, Object>> list = repo.resultList();
 		return list;
 	}
 	
-	@RequestMapping(value="reUpdateList", method=RequestMethod.GET)
+	/*@RequestMapping(value="reUpdateList", method=RequestMethod.GET)
 	public String resultList(@RequestParam("status") String status, Model model){
 		List<Map<String, Object>> list = repo.resultList(status);
 		model.addAttribute("reUpdateList", list);
 		return "redirect:/first";
-	}
+	}*/
 	
 	@RequestMapping(value="updateList", method=RequestMethod.GET)
 	public String updateList(int orderNum, String changeStatus, String status, RedirectAttributes redirectAttributes){
@@ -179,14 +195,14 @@ public class LogisticsController {
 	}
 	
 	@RequestMapping(value="deleteList", method=RequestMethod.GET)
-	public String deleteList(int orderNum, String status, RedirectAttributes redirectAttributes){
-		System.out.println(orderNum);
-		int result = repo.deleteList(orderNum);
+	public String deleteList(String process_code){
+		System.out.println(process_code);
+		int result = repo.deleteList(process_code);
+		System.out.println(result);
 		if (result == 0) {
-			return "null";
+			return "redirect:/first";
 		}
-		redirectAttributes.addAttribute("status", status);
-		return "redirect:/reUpdateList";
+		return "redirect:/first";
 	}
 	
 	@ResponseBody
@@ -212,19 +228,28 @@ public class LogisticsController {
 	
 	@ResponseBody
 	@RequestMapping(value="reserveTruckList", method=RequestMethod.GET)
-	public List<Map<String, Object>> reserveTruckList(String dDate, String office, String truck){
-		List<Map<String, Object>>list = repo.reserveTruckList(dDate, office, truck);
+	public List<Map<String, Object>> reserveTruckList(String dDate, String truck){
+		System.out.println("날짜 : "+dDate);
+		List<Map<String, Object>>list = repo.reserveTruckList(dDate, truck);
 		return list;
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping(value="truckCapacity", method=RequestMethod.GET)
-	public boolean truckCapacity(int quantity, String truck_code){
-		int truckCapa = 0; // 트럭 부피
-		int boxCapa1 = 48*38*34; // 한상자의 부피
-		int originQCapa = 0; // 원래 실리기로 예정된 수량의 부피
-		int temp = 0;
+	public boolean truckCapacity(@RequestParam(value="supplyVolume[]")List<Integer>supplyVolume, String truck_code){
+		System.out.println("들어옴"+supplyVolume+"/"+truck_code);
+		double truckCapa = 0; // 트럭 부피
+		double truckBoxQ = 0.0; // 트럭에 담을 수 있는 박스의 최대 수
+		double boxCapa1 = 48*38*34; // 한상자의 부피
+		/*double originQCapa = 0;*/ // 원래 실리기로 예정된 수량의 부피
+		double originQ = 0;// 원래 실리기로 예정된 수
+		double supplyQ = 0;//출하요청 제품 수
+		double supplyCapa = 0; // 출하요청 제품의 총 부피
+		
+		for (int i : supplyVolume) {
+			supplyQ += i;
+		}
 		
 		List<Truck> list = repo.truckCapa(truck_code);
 		for (Truck truck : list) {
@@ -234,37 +259,35 @@ public class LogisticsController {
 			truckCapa = width*length*height;
 		}
 		
+		truckBoxQ = Math.round(truckCapa/boxCapa1);
+		supplyCapa = supplyQ*boxCapa1;
 		List<Integer> originQuantity = repo.originQCapa(truck_code);// 특정 트럭에 실리기로 한 물품의 수
 		
 		for (Integer integer : originQuantity) {
-			temp += integer;
+			originQ += integer;
 		}
 		
-		originQCapa = boxCapa1*temp;
+		/*originQCapa = boxCapa1*originQ;*/
 		
-		if (originQCapa > truckCapa) {
-			return false;
+		if (supplyQ <= (truckBoxQ-originQ)) {
+			return true;
 		}
 	
-		return true;
+		return false;
 	}
 	
 	@RequestMapping(value="updateShipping", method=RequestMethod.GET)
-	public String updateShipping(int orderNum, String goods, int quantity, int shop_code, String deliverydate, String truck_code){
+	public String updateShipping(String process_code, String truck_code){
 		System.out.println("업데이트하러 들어옴");
 		Shipping shipping = new Shipping();
-		shipping.setOrderNum(orderNum);
-		shipping.setGoods(goods);
-		shipping.setQuantity(quantity);
-		shipping.setDeliverydate(deliverydate);
-		shipping.setShop_code(shop_code);
 		shipping.setTruck_code(truck_code);
+		shipping.setProcess_code(process_code);
 		System.out.println("컨트롤러 : "+shipping.toString());
 		int result = repo.updateShipping(shipping);
 		System.out.println("컨트롤러 결과 : "+result);
 		if (result == 1) {
 			System.out.println("업데이트하고 나감");
-			return "redirect:/nineth";
+			return "redirect:/first";
 		}
 		return null;
 	}
@@ -448,7 +471,7 @@ public class LogisticsController {
 	@RequestMapping(value="safeStock", method=RequestMethod.GET)
 	public Map<String, Double> safeStock(int sec_code, int option){
 		//안전재고비율 : 수요표준편차 * 서비스계수(2.33) * 루트 공급 리드타임
-		int length = 1;
+		double length = 1;
 		double safeR = 0.0; // 안전재고비율
 		double service = 2.33; // 서비스계수
 		double supplyLeadT = Math.sqrt(1); // 공급리드타임
@@ -456,11 +479,11 @@ public class LogisticsController {
 		double meanValue = 0.0;//수요 평균값
 		double diff = 0.0;//편차
 		double sd = 0.0;//수요표준편차
-		int quantity = 0; // 수량의 합계
+		double quantity = 0; // 수량의 합계
 		double sum = 0.0;//편차의 합계
 		double whCapa = 0; // 창고의 부피
-		int rack1 = 260*50*200; // 선반 하나의 부피
-		int boxCapa1 = 48*38*34; //한상자의 부피 
+		double rack1 = 260*50*200; // 선반 하나의 부피
+		double boxCapa1 = 48*38*34; //한상자의 부피 
 		double totalBoxQ = 0.0; // 한 섹션 당 보관할 수 있는 상자의 수
 		
 		List<Integer> list = repo.getSectionP(sec_code);
@@ -469,13 +492,17 @@ public class LogisticsController {
 			length++;
 		}
 		meanValue = Math.round(quantity/length);
+		System.out.println(meanValue);
 
 		for (Integer temp2 : list) {
 			diff = temp2 - meanValue;
 			sum += diff * diff;
 		}
+		System.out.println(sum+" / "+length+" / "+option);
 		sd = Math.sqrt(sum/(length-option));
+		System.out.println(sd);
 		safeR = sd*2.33*supplyLeadT;
+		System.out.println("안전재고 비율 : "+safeR);
 		
 		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
 			whCapa = rack1*2; // 선반 2개 가진 창고 구역
