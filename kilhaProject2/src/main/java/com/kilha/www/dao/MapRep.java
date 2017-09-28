@@ -207,10 +207,15 @@ public class MapRep {
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.warehouseDetail(warehouseCode);
 	}
-	
+
+	public int updateState() {
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.updateState();
+	}
+
 	public List<Warehouse> warehouseDetailSelect2() {
-		// TODO Auto-generated method stub
 		MapDAO dao = sqlSession.getMapper(MapDAO.class);
 		return dao.warehouseDetailSelect2();
 	}
+	
 }

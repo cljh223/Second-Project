@@ -47,6 +47,6 @@ public interface MapDAO {
 	public List<Supply> supplyTableSetting(String processCode);
 	public List<Shop> shopDetailSelect3(Map<String, String> map);
 	public Warehouse warehouseDetail(int warehouseCode);
+	public int updateState();
 	public List<Warehouse> warehouseDetailSelect2();
-
 }

@@ -147,7 +147,7 @@
 </head>
 <body>
 	<section id="container">
-		<!--header start-->
+	<!--header start-->
 		<header class="header fixed-top clearfix">
 			<!--logo start-->
 			<div class="brand">
@@ -241,6 +241,7 @@
 		</aside>
 		<!--sidebar end-->
 
+
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
@@ -249,7 +250,7 @@
 					<div class="col-sm-12">
 						<section class="panel">
 							<header class="panel-heading">
-								General Table <span class="tools pull-right"> <a
+								전체 리스트 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
@@ -271,7 +272,7 @@
 					<div class="col-sm-6">
 						<section class="panel">
 							<header class="panel-heading">
-								General Table <span class="tools pull-right"> <a
+								전체현황 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
@@ -282,7 +283,7 @@
 						<section class="panel">
 							<header class="panel-heading">
 								상세보기 <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-up"></a>
+									href="javascript:;" class="fa fa-chevron-up invoice"></a>
 								</span>
 							</header>
 							<div class="panel-body processSearchForm"></div>
@@ -333,19 +334,19 @@
 										+ '<div class="invoice-info col-md-9 col-xs-10">'
 										+ '<div class="pull-right">'
 										+ '<div class="col-md-6 col-sm-6 pull-left">'
-										+ '<p>121 King Street, Melbourne <br>'
-										+ 'Victoria 3000 Australia</p>'
+										+ '<p>서울시 성북구 장위1동<br>'
+										+ '장위로 15길</p>'
 										+ '</div>'
 										+ '<div class="col-md-6 col-sm-6 pull-right">'
-										+ '<p>Phone: +61 3 8376 6284 <br>'
-										+ 'Email : info@envato.com</p>'
+										+ '<p>Phone: 010-6634-0223 <br>'
+										+ 'Email : cljh223@naver.com</p>'
 										+ '</div>'
 										+ '</div>'
 										+ '</div>'
 										+ '</div>'
 										+ '<div class="row invoice-to">'
 										+ '<div class="col-md-4 col-sm-4 pull-left">'
-										+ '<h4>Invoice To:</h4>' + '<h2>'
+										+ '<h4>To:</h4>' + '<h2>'
 										+ resp[index].shopName + '</h2><br>'
 										+ '<p>' + resp[index].addressDetail1
 										+ ' ' + resp[index].addressDetail2
@@ -367,14 +368,14 @@
 										+ '<div class="row">'
 										+ '<div class="col-md-4 col-sm-5 inv-label">입력날짜</div>'
 										+ '<div class="col-md-8 col-sm-7">'
-										+ resp[index].processInsertDate
+										+ getTimeStamp(resp[index].processInsertDate)
 										+ '</div>'
 										+ '</div>'
 										+ '<br>'
 										+ '<div class="row">'
 										+ '<div class="col-md-4 col-sm-5 inv-label">마감날짜</div>'
 										+ '<div class="col-md-8 col-sm-7">'
-										+ resp[index].processTerm
+										+ getTimeStamp(resp[index].processTerm)
 										+ '</div>'
 										+ '</div>'
 										+ '<br>'
@@ -384,7 +385,7 @@
 										+ '</div>'
 										+ '<div class="col-md-12">'
 										+ '<h4 class="amnt-value">'
-										+ resp[index].processEndDate
+										+ getTimeStamp(resp[index].processEndDate)
 										+ '</h4>'
 										+ '</div>'
 										+ '</div>'
@@ -396,8 +397,8 @@
 										+ '<th>#</th>'
 										+ '<th>Item Description</th>'
 										+ '<th class="text-center">Unit Cost</th>'
-										+ '<th class="text-center">Total</th>'
 										+ '<th class="text-center">Quantity</th>'
+										+ '<th class="text-center">Total</th>'
 										+ '</tr>' + '</thead>' + '<tbody>';
 								$
 										.each(
@@ -416,14 +417,13 @@
 															+ '</p>'
 															+ '</td>'
 															+ '<td class="text-center">'
-															+ item.supplyPrice
+															+ AddComma(item.supplyPrice)
 															+ '</td>'
 															+ '<td class="text-center">'
-															+ item.supplyVolume
+															+ AddComma(item.supplyVolume)
 															+ '</td>'
 															+ '<td class="text-center">'
-															+ item.supplyPrice
-															* item.supplyVolume
+															+ AddComma(item.supplyPrice * item.supplyVolume)
 															+ '</td>' + '</tr>'
 												});
 								+'</tbody>'
@@ -442,6 +442,16 @@
 										+ '</div>' + '</div>' + '</section>'
 										+ '</div>' + '</div>';
 								$('.processSearchForm').html(processPrintText);
+								var el = $('.panel .tools .invoice').parents(
+										".panel").children(".panel-body");
+								if ($('.panel .tools .invoice').hasClass(
+										"fa-chevron-up")) {
+									$('.panel .tools .invoice').removeClass(
+											"fa-chevron-up").addClass(
+											"fa-chevron-down");
+									el.slideDown(200);
+								}
+
 							});
 		}
 
@@ -463,14 +473,14 @@
 				processLocationText += resp[i].staffName;
 				processLocationText += '</td>';
 				processLocationText += '<td>';
-				processLocationText += resp[i].processTerm
+				processLocationText += getTimeStamp(resp[i].processTerm)
 				processLocationText += '</td>';
 				for (var j = 0; j < resp[i].supplyList.length; j++) {
 					salAmount = salAmount
 							+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
 				}
 				processLocationText += '<td>';
-				processLocationText += salAmount;
+				processLocationText += AddComma(salAmount);
 				processLocationText += '</td>'
 				processLocationText += '<td>';
 				if (resp[i].processState == 0) {
@@ -548,7 +558,6 @@
 					}
 
 					chartData = subChartData
-					alert(subChartData);
 					chart = AmCharts.makeChart("chartdiv", {
 						"type" : "serial",
 						"theme" : "none",
@@ -584,8 +593,8 @@
 							"bullet" : "round",
 							"bulletBorderThickness" : 1,
 							"hideBulletsCount" : 30,
-							"title" : "red line",
-							"valueField" : "earnList",
+							"title" : "판매량",
+							"valueField" : "salesList",
 							"fillAlphas" : 0
 						}, {
 							"valueAxis" : "v2",
@@ -593,8 +602,8 @@
 							"bullet" : "square",
 							"bulletBorderThickness" : 1,
 							"hideBulletsCount" : 30,
-							"title" : "yellow line",
-							"valueField" : "salesList",
+							"title" : "매출액",
+							"valueField" : "earnList",
 							"fillAlphas" : 0
 						}, {
 							"valueAxis" : "v3",
@@ -602,7 +611,7 @@
 							"bullet" : "triangleUp",
 							"bulletBorderThickness" : 1,
 							"hideBulletsCount" : 30,
-							"title" : "green line",
+							"title" : "매출 총 이익",
 							"valueField" : "allEarnSumList",
 							"fillAlphas" : 0
 						} ],
@@ -631,7 +640,32 @@
 			});
 		}
 	</script>
+	<script type="text/javascript">
+		function getTimeStamp(resp) {
+			var d = new Date(resp);
 
+			var s = leadingZeros(d.getFullYear(), 4) + '-'
+					+ leadingZeros(d.getMonth() + 1, 2) + '-'
+					+ leadingZeros(d.getDate(), 2) + ' ';
+
+			return s;
+		}
+
+		function leadingZeros(n, digits) {
+			var zero = '';
+			n = n.toString();
+
+			if (n.length < digits) {
+				for (i = 0; i < digits - n.length; i++)
+					zero += '0';
+			}
+			return zero + n;
+
+		}
+		function AddComma(data_value) {
+			return Number(data_value).toLocaleString('en');
+		}
+	</script>
 	<!--Core js-->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-1.10.2.min.js"></script>

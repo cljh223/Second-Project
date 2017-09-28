@@ -269,7 +269,7 @@ CREATE TABLE shop
 CREATE TABLE kpi
 (
 	kpi_code number(10,0) NOT NULL,
-	kpi_amount number(10,0) NOT NULL,
+	kpi_amount number(19,0) NOT NULL,
 	-- 월간, 분기별, 연간 으로 구분
 	kpi_start_date date NOT NULL,
 	shop_code number(10,0) NOT NULL,

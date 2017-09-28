@@ -284,11 +284,11 @@
 	// 창고테이블 전체를 팝업창에 띄우는 메소드. 검색창에 입력할 때 마다 테이블의 내용을 불러온다.
 	function warehouseBootString(resp) {
 		var warehouseText = '<form><div class="row">'
-				+ '<div class="col-lg-6">'
+				+ '<div class="col-sm-12">'
 				+ '<div class="dataTables_filter" id="editable-sample_filter">'
 				+ '<label>Search: <input type="text" id = "searchText1"'
 				+'aria-controls="editable-sample"'
-				+'class="form-control medium"></label>'
+				+'class="form-control medium" style="width: 256px;"></label>'
 				+ '</div>'
 				+ '</div>'
 				+ '</div><div class="col-sm-12">'
@@ -327,11 +327,11 @@
 	// 직원테이블 전체를 팝업창에 띄우는 메소드. 검색창에 입력할 때 마다 테이블의 내용을 불러온다.
 	function staffBootString(resp) {
 		var staffText = '<form><div class="row">'
-				+ '<div class="col-lg-6">'
+				+ '<div class="col-sm-12">'
 				+ '<div class="dataTables_filter" id="editable-sample_filter">'
 				+ '<label>Search: <input type="text" id = "searchText2"'
 				+'aria-controls="editable-sample"'
-				+'class="form-control medium"></label>'
+				+'class="form-control medium" style="width: 256px;"></label>'
 				+ '</div>'
 				+ '</div>'
 				+ '</div><div class="col-sm-12">'
@@ -369,11 +369,11 @@
 	// 상품테이블 전체를 팝업창에 띄우는 메소드. 검색창에 입력할 때 마다 테이블의 내용을 불러온다.
 	function productBootString(resp) {
 		var productText = '<form><div class="row">'
-				+ '<div class="col-lg-6">'
+				+ '<div class="col-sm-12">'
 				+ '<div class="dataTables_filter" id="editable-sample_filter">'
 				+ '<label>Search: <input type="text" id = "searchText3"'
 				+'aria-controls="editable-sample"'
-				+'class="form-control medium"></label>'
+				+'class="form-control medium" style="width: 256px;"></label>'
 				+ '</div>'
 				+ '</div>'
 				+ '</div><div class="col-sm-12">'
@@ -526,20 +526,19 @@
 	}
 
 	function trStaffFunction() {
-		$('tr').on('click', function() {
+		$('#myModal1 tr').on('click', function() {
 			var staffName = $(this).attr('id');
-			$('#button1').on('click', function() {
-				$('#staffName').val(staffName);
-			});
+			$('#staffName').val(staffName);
+			$('#myModal1').trigger("click");
+
 		});
 	}
 
 	function trWarehouseFunction() {
-		$('tr').on('click', function() {
+		$('#myModal2 tr').on('click', function() {
 			var warehouseName = $(this).attr('id');
-			$('#button2').on('click', function() {
-				$('#warehouseName').val(warehouseName);
-			});
+			$('#warehouseName').val(warehouseName);
+			$('#myModal2').trigger("click");
 		});
 	}
 
@@ -718,7 +717,9 @@
 								})
 							});
 						});
+
 	});
+
 </script>
 </head>
 <body>
@@ -836,7 +837,7 @@
 					<div class="col-md-12">
 						<section class="panel">
 							<header class="panel-heading">
-								Earning Graph <span class="tools pull-right"> <a
+								검색 결과 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
@@ -866,7 +867,7 @@
 					<div class="col-md-8" style="width: 100%; height: 650px";>
 						<section class="panel" style="height: 450px">
 							<header class="panel-heading">
-								Earning Graph <span class="tools pull-right"> <a
+								매장 지도 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-down"></a>
 								</span>
 							</header>
@@ -879,7 +880,7 @@
 					<div class="col-lg-12">
 						<section class="panel" id="gihonDataForm">
 							<header class="panel-heading">
-								Dropdowns Button <span class="tools pull-right"> <a
+								매장 정보 <span class="tools pull-right"> <a
 									href="javascript:;" class="fa fa-chevron-up menuForm"></a>
 								</span>
 							</header>
@@ -918,11 +919,11 @@
 											<header class="panel-heading tab-bg-dark-navy-blue">
 												<ul class="nav nav-tabs nav-justified ">
 													<li class="overview"><a data-toggle="tab"
-														href="#overview"> Overview </a></li>
+														href="#overview"> 목표 달성도 </a></li>
 													<li class="settings"><a data-toggle="tab"
-														href="#settings"> Settings </a></li>
+														href="#settings"> 영업현황 </a></li>
 													<li class="job-history"><a data-toggle="tab"
-														href="#job-history"> Job History </a></li>
+														href="#job-history"> 매장 정보 수정 </a></li>
 												</ul>
 											</header>
 											<div class="panel-body">
@@ -972,7 +973,7 @@
 																			<a data-toggle="modal" href="#myModal5">
 																				<div class="wdgt-value" id="0">
 																					<h1 id="salesText" class="count">등록해주세요</h1>
-																					<p>월 판매 목표량</p>
+																					<p>월 목표 판매량</p>
 																				</div>
 																			</a>
 																		</div>
@@ -990,7 +991,7 @@
 																			<a data-toggle="modal" href="#myModal5">
 																				<div class="wdgt-value" id="1">
 																					<h1 id="earnText" class="count">등록해주세요</h1>
-																					<p>월 매출 목표액</p>
+																					<p>월 목표 매출액</p>
 																				</div>
 																			</a>
 																		</div>
@@ -1008,7 +1009,7 @@
 																			<a data-toggle="modal" href="#myModal5">
 																				<div class="wdgt-value" id="2">
 																					<h1 id="allEarnText" class="count">등록해주세요</h1>
-																					<p>월 매출 총이익 목표액</p>
+																					<p>월 목표 매출 총이익</p>
 																				</div>
 																			</a>
 																		</div>
@@ -1017,15 +1018,16 @@
 															</div>
 														</div>
 														<div class="row">
+
 															<div class="col-md-4">
 																<div class="prf-box prf-kpi">
-																	<h3 class="prf-border-head">work in progress</h3>
+																	<h3 class="prf-border-head">목표 달성율</h3>
 																	<div class=" wk-progress salesClass"></div>
 																	<div class=" wk-progress earnClass"></div>
 																	<div class=" wk-progress allEarnClass"></div>
 																</div>
 																<div class="prf-box">
-																	<h3 class="prf-border-head">performance status</h3>
+																	<h3 class="prf-border-head">월별 데이터</h3>
 																	<div class=" wk-progress pf-status">
 																		<div class="col-md-8 col-xs-8 ">sales</div>
 																		<div class="col-md-4 col-xs-4 salesText"></div>
@@ -1050,8 +1052,7 @@
 														<div class="row">
 															<div class="col-sm-12">
 																<section class="panel">
-																	<header class="panel-heading"> Horizontal
-																		Forms </header>
+																	<header class="panel-heading">매장정보수정 </header>
 																	<div class="panel-body">
 																		<div class="position-center">
 																			<form class="form-horizontal" role="form">
@@ -1187,9 +1188,7 @@
 						<div class="col-sm-12">
 							<section class="panel">
 								<header class="panel-heading">
-									Advanced Form validations <span class="tools pull-right">
-										<a class="fa fa-chevron-up processForm" href="javascript:;"></a>
-									</span>
+									등록메뉴<span class="tools pull-right"> </span>
 								</header>
 								<div class="panel-body">
 									<!-- Modal -->
@@ -1201,13 +1200,12 @@
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal"
 														aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Datepicker in Modal</h4>
+													<h4 class="modal-title">담당자 선택</h4>
 												</div>
 												<div class="modal-body"></div>
 												<div class="modal-footer">
 													<button data-dismiss="modal" class="btn btn-default"
 														type="button">Close</button>
-													<button id="button1" type="button" class="btn btn-primary">OK</button>
 												</div>
 											</div>
 										</div>
@@ -1220,13 +1218,12 @@
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal"
 														aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Datepicker in Modal</h4>
+													<h4 class="modal-title">창고 선택</h4>
 												</div>
 												<div class="modal-body"></div>
 												<div class="modal-footer">
 													<button data-dismiss="modal" class="btn btn-default"
 														type="button">Close</button>
-													<button type="button" id="button2" class="btn btn-primary">OK</button>
 												</div>
 											</div>
 										</div>
@@ -1251,53 +1248,65 @@
 									</div>
 									<!-- modal end -->
 									<div class="form">
-										<div class="col-sm-6">
-											<div class="form-group ">
-												<label for="shopName" class="control-label col-lg-3">거래처</label>
-												<div class="col-lg-6">
-													<input class=" form-control" id="shopName" name="shopName"
-														type="text" readonly="readonly" style="width: 236px;" />
-												</div>
-											</div>
-											<div class="form-group ">
-												<label for="staffName" class="control-label col-lg-3">담당자</label>
-												<div class="col-lg-6">
-													<a data-toggle="modal" href="#myModal1"><input
-														class=" form-control" id="staffName" name="staffName"
-														type="text" readonly="readonly" style="width: 236px;" /></a>
-												</div>
-											</div>
-											<div class="form-group ">
-												<label for="warehouseName" class="control-label col-lg-3">출하창고</label>
-												<div class="col-lg-6">
-													<a data-toggle="modal" href="#myModal2"><input
-														class="form-control " id="warehouseName"
-														name="warehouseName" readonly="readonly" type="text"
-														style="width: 236px;" /></a>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-md-3">유효기간</label>
-												<div class="col-lg-6 col-xs-11">
-													<input id="processTerm" name="processTerm"
-														class="form-control form-control-inline input-medium default-date-picker"
-														size="16" type="text" readonly="readonly" value=""
-														style="width: 236px;" />
-												</div>
-											</div>
-											<div class="form-group ">
-												<label class="control-label col-md-3">납품종료일</label>
-												<div class="col-lg-6 col-xs-11">
-													<input id="processEndDate" name="processEndDate"
-														class="form-control form-control-inline input-medium default-date-picker"
-														size="16" type="text" readonly="readonly" value=""
-														style="width: 236px;" />
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6">
+										<div class="col-sm-12">
 											<section class="panel">
-												<div class="panel-body" id="mae-dynamic-table"></div>
+												<div class="col-sm-6">
+													<header class="panel-heading">
+														기본정보 <span class="tools pull-right">
+														</span>
+													</header>
+													<div class="panel-body">
+
+														<div class="form-group ">
+															<label for="shopName" class="control-label col-lg-3">거래처</label>
+															<div class="col-lg-6">
+																<input class=" form-control" id="shopName"
+																	name="shopName" type="text" readonly="readonly"
+																	style="width: 236px;" />
+															</div>
+														</div>
+														<div class="form-group ">
+															<label for="staffName" class="control-label col-lg-3">담당자</label>
+															<div class="col-lg-6">
+																<a data-toggle="modal" href="#myModal1"><input
+																	class=" form-control" id="staffName" name="staffName"
+																	type="text" readonly="readonly" style="width: 236px;" /></a>
+															</div>
+														</div>
+														<div class="form-group ">
+															<label for="warehouseName" class="control-label col-lg-3">출하창고</label>
+															<div class="col-lg-6">
+																<a data-toggle="modal" href="#myModal2"><input
+																	class="form-control " id="warehouseName"
+																	name="warehouseName" readonly="readonly" type="text"
+																	style="width: 236px;" /></a>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="control-label col-md-3">유효기간</label>
+															<div class="col-lg-6 col-xs-11">
+																<input id="processTerm" name="processTerm"
+																	class="form-control form-control-inline input-medium default-date-picker"
+																	size="16" type="text" readonly="readonly" value=""
+																	style="width: 236px;" />
+															</div>
+														</div>
+														<div class="form-group ">
+															<label class="control-label col-md-3">납품종료일</label>
+															<div class="col-lg-6 col-xs-11">
+																<input id="processEndDate" name="processEndDate"
+																	class="form-control form-control-inline input-medium default-date-picker"
+																	size="16" type="text" readonly="readonly" value=""
+																	style="width: 236px;" />
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<section class="panel">
+														<div class="panel-body" id="mae-dynamic-table"></div>
+													</section>
+												</div>
 											</section>
 										</div>
 									</div>
@@ -1369,11 +1378,10 @@
 			var salAmount = 0;
 			var processLocationText = '<div class="adv-table">'
 					+ '<button type="button" id="processFormAddBtn" class="btn btn-round btn-primary">등록</button>'
-					+ '<table class="dynamic-table display table table-bordered table-striped" id="dynamic-table">'
+					+ '<table class="dynamic-table display table table-bordered table-striped">'
 					+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th>'
 					+ '</tr></thead><tbody>'
 			for (var i = 0; i < resp.length; i++) {
-				alert(getTimeStamp(resp[i].processTerm));
 				if (i % 2 != 0) {
 					processLocationText += '<a data-toggle="modal" href="#myModal4"><tr class = "gradeX odd" id="'+resp[i].processCode+'">';
 				} else {
@@ -1389,14 +1397,14 @@
 				processLocationText += resp[i].staffName;
 				processLocationText += '</td>';
 				processLocationText += '<td>';
-				processLocationText += getTimeStamp(resp[i].processTerm)
+				processLocationText += getTimeStamp(resp[i].processEndDate)
 				processLocationText += '</td>';
 				for (var j = 0; j < resp[i].supplyList.length; j++) {
 					salAmount = salAmount
 							+ (resp[i].supplyList[j].supplyVolume * resp[i].supplyList[j].supplyPrice);
 				}
 				processLocationText += '<td>';
-				processLocationText += salAmount;
+				processLocationText += AddComma(salAmount);
 				processLocationText += '</td>'
 				processLocationText += '<td>';
 				if (resp[i].processState == 0) {
@@ -1465,7 +1473,6 @@
 
 		// contacts메뉴 클릭시 이벤트
 		function contactsViewFunction() {
-			$('#processFormDiv').removeAttr('style');
 			shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
 				url : 'contactsViewFunction',
@@ -1495,11 +1502,11 @@
 					+ '<p>거래기간 : '
 					+ resp[1]
 					+ '일</p></br>'
-					+ '<p>최근거래 : '
-					+ resp[3]
-					+ ' '
-					+ getTimeStamp(resp[2])
-					+ '</p></br>';
+					+ '<p>최근거래 : ' + resp[3] + ' '
+			if (resp[2] != null) {
+				+getTimeStamp(resp[2])
+			}
+			+'</p></br>';
 			$('.profile-desk').html(shopDetailHearderText);
 
 			var shopDetailEarnText = '<h1>' + AddComma(resp[4]) + '</h1>'
@@ -1586,10 +1593,10 @@
 		//등록 버튼 눌렀을 때 메소드
 		function estimateAddFunction() {
 			$('#processFormDiv').removeAttr('style');
-			var el = $('.panel .tools .processForm').parents(".panel")
+			var el = $('.panel .tools .processFormDiv').parents(".panel")
 					.children(".panel-body");
-			if ($('.panel .tools .processForm').hasClass("fa-chevron-up")) {
-				$('.panel .tools .processForm').removeClass("fa-chevron-up")
+			if ($('.panel .tools .processFormDiv').hasClass("fa-chevron-up")) {
+				$('.panel .tools .processFormDiv').removeClass("fa-chevron-up")
 						.addClass("fa-chevron-down");
 				el.slideDown(200);
 			}
@@ -1623,7 +1630,7 @@
 								processLocationText += resp[i].staffName;
 								processLocationText += '</td>';
 								processLocationText += '<td>';
-								processLocationText += resp[i].processTerm
+								processLocationText += getTimeStamp(resp[i].processEndDate)
 								processLocationText += '</td>';
 								for (var j = 0; j < resp[i].supplyList.length; j++) {
 									salAmount = salAmount
@@ -1635,7 +1642,7 @@
 								processLocationText += '<td>';
 								if (resp[i].processState == 0) {
 									processLocationText += '진행중';
-								} else {
+								} else if (resp[i].processState == 1) {
 									processLocationText += '종료';
 								}
 								processLocationText += '</td>';
@@ -1673,11 +1680,11 @@
 																$(
 																		'#processTerm')
 																		.val(
-																				resp.processTerm);
+																				getTimeStamp(resp.processTerm));
 																$(
 																		'#processEndDate')
 																		.val(
-																				resp.processEndDate);
+																				getTimeStamp(resp.processEndDate));
 
 																$
 																		.ajax({
@@ -1879,8 +1886,8 @@
 									"bullet" : "round",
 									"bulletBorderThickness" : 1,
 									"hideBulletsCount" : 30,
-									"title" : "red line",
-									"valueField" : "earnList",
+									"title" : "판매액",
+									"valueField" : "salesList",
 									"fillAlphas" : 0
 								}, {
 									"valueAxis" : "v2",
@@ -1888,8 +1895,8 @@
 									"bullet" : "square",
 									"bulletBorderThickness" : 1,
 									"hideBulletsCount" : 30,
-									"title" : "yellow line",
-									"valueField" : "salesList",
+									"title" : "매출액",
+									"valueField" : "earnList",
 									"fillAlphas" : 0
 								}, {
 									"valueAxis" : "v3",
@@ -1897,7 +1904,7 @@
 									"bullet" : "triangleUp",
 									"bulletBorderThickness" : 1,
 									"hideBulletsCount" : 30,
-									"title" : "green line",
+									"title" : "매출 총 이익",
 									"valueField" : "allEarnSumList",
 									"fillAlphas" : 0
 								} ],
@@ -1942,13 +1949,14 @@
 													* 100;
 											var allEarnPercent = sumAllEarn
 													/ allEarn * 100;
-											kpisalesPercentBarText = '<div class="col-md-5">판매액</div>'
+
+											kpisalesPercentBarText = '<div class="col-md-5">판매량</div>'
 													+ '<div class="col-md-5">'
 													+ '<div class="progress  ">'
 													+ '<div style="width:'
 													+ salesPercent
 													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar-warning">'
+													+ 'role="progressbar" class="progress-bar  progress-bar-danger">'
 													+ '<span class="sr-only">'
 													+ salesPercent
 													+ '% Complete (success)</span>'
@@ -1965,7 +1973,7 @@
 													+ '<div style="width:'
 													+ earnPercent
 													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar progress-bar-danger">'
+													+ 'role="progressbar" class="progress-bar progress-bar progress-bar-warning">'
 													+ '<span class="sr-only">'
 													+ earnPercent
 													+ '% Complete (success)</span>'

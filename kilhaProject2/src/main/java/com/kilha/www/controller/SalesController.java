@@ -62,6 +62,9 @@ public class SalesController {
 		model.addAttribute("shopCodeList", shopCodeList);
 		model.addAttribute("addressList", new AddressChange().search(addressList));
 		model.addAttribute("shopStateList", shopStateList);
+		
+		rep.updateState();
+		
 		return "sales/selIndex";
 	}
 
@@ -75,7 +78,6 @@ public class SalesController {
 	@RequestMapping(value = "popupStaff", method = { RequestMethod.POST, RequestMethod.GET })
 	public List<Staff> popupStaff(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		List<Staff> list = rep.staffSelect(searchText);
-		System.out.println(list);
 		return list;
 	}
 
@@ -88,7 +90,6 @@ public class SalesController {
 	@ResponseBody
 	@RequestMapping(value = "popupProduct", method = { RequestMethod.POST, RequestMethod.GET })
 	public List<Product> popupProduct(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
-		System.out.println(rep.productSelect(searchText));
 		return rep.productSelect(searchText);
 	}
 
@@ -104,7 +105,6 @@ public class SalesController {
 			String processEndDate, String shopCode, String processName, String[] productCode, int[] supplyVolume,
 			int[] supplyPrice) {
 		Map<String, String> processMap = new HashMap<>();
-		System.out.println("shopCode" + shopCode);
 		String message = "";
 		processMap.put("staffName", staffName);
 		processMap.put("warehouseName", warehouseName);
@@ -180,7 +180,6 @@ public class SalesController {
 		processListMap.put("processName", processName);
 		processListMap.put("searchProcessText", searchProcessText);
 		List<SupplyVo> list = rep.processInitialize(processListMap);
-		System.out.println(list);
 		return list;
 	}
 
@@ -191,9 +190,9 @@ public class SalesController {
 		String endDate = "";
 		long shopTerm = 0;
 		String lateProcess = "아직 없습니다.";
-		int sumPrice = 0;
-		int sumSales = 0;
-		int sumUnitPrice = 0;
+		long sumPrice = 0;
+		long sumSales = 0;
+		long sumUnitPrice = 0;
 		String gubun = "yes";
 		int process = rep.processSelect(shopCode);
 		if (process == 0) {
@@ -223,9 +222,9 @@ public class SalesController {
 					lateProcess = "출고";
 
 				for (SupplyVo vo : supplyList) {
-					int sumTemp = 0;
-					int sumSalesTemp = 0;
-					int sumUnitPriceTemp = 0;
+					long sumTemp = 0;
+					long sumSalesTemp = 0;
+					long sumUnitPriceTemp = 0;
 					for (SupplyListVo listVo : vo.getSupplyList()) {
 						sumTemp += listVo.getSupplyPrice() * listVo.getSupplyVolume();
 						sumSalesTemp += listVo.getSupplyVolume();
@@ -235,13 +234,11 @@ public class SalesController {
 					sumSales += sumSalesTemp;
 					sumUnitPrice += sumUnitPriceTemp;
 				}
-				System.out.println(insertDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
 		list.add(supplyList);
 		list.add(shopTerm);
 		list.add(endDate);
@@ -265,7 +262,6 @@ public class SalesController {
 			@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 		Map processListMap = new HashMap<>();
 		processListMap.put("processName", processName);
-		System.out.println("processName : " + processName);
 		processListMap.put("shopCode", shopCode);
 		processListMap.put("searchText", searchText);
 		return rep.processViewFunction(processListMap);
@@ -275,23 +271,22 @@ public class SalesController {
 	@RequestMapping(value = "chartSelect", method = RequestMethod.POST)
 	public Map<String, List> chartSelect(@RequestParam(value = "date", defaultValue = "2017-01") String date,
 			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
-		System.out.println("emfdjddha");
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
 		codeMap.put("shopCode", shopCode);
 		List<Process> processList = rep.chartSelect(codeMap);
 		Map<String, List> map = new HashMap<>();
-		ArrayList<Integer> salesList = new ArrayList<>();
-		ArrayList<Integer> earnList = new ArrayList<>();
-		ArrayList<Integer> allEarnSumList = new ArrayList<>();
+		ArrayList<Long> salesList = new ArrayList<>();
+		ArrayList<Long> earnList = new ArrayList<>();
+		ArrayList<Long> allEarnSumList = new ArrayList<>();
 		ArrayList<String> dateList = new ArrayList<>();
 		for (int j = 0; j < processList.size(); j++) {
 			String end_date = processList.get(j).getProcessEndDate();
 			dateList.add(end_date);
 			for (int i = 0; i < processList.get(j).getSupplySet().size(); i++) {
-				int salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
-				int earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
-				int allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
+				long salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
+				long earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
+				long allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
 				earnList.add(earnSum);
 				salesList.add(salesSum);
 				allEarnSumList.add(allEarnSum);
@@ -308,22 +303,21 @@ public class SalesController {
 	@ResponseBody
 	@RequestMapping(value = "chartSelect2", method = RequestMethod.POST)
 	public Map<String, List> chartSelect2(@RequestParam(value = "processName", defaultValue = "") String processName) {
-		System.out.println("emfdjddha");
 		Map codeMap = new HashMap<>();
 		codeMap.put("processName", processName);
 		List<Process> processList = rep.chartSelect2(codeMap);
 		Map<String, List> map = new HashMap<>();
-		ArrayList<Integer> salesList = new ArrayList<>();
-		ArrayList<Integer> earnList = new ArrayList<>();
-		ArrayList<Integer> allEarnSumList = new ArrayList<>();
+		ArrayList<Long> salesList = new ArrayList<>();
+		ArrayList<Long> earnList = new ArrayList<>();
+		ArrayList<Long> allEarnSumList = new ArrayList<>();
 		ArrayList<String> dateList = new ArrayList<>();
 		for (int j = 0; j < processList.size(); j++) {
 			String end_date = processList.get(j).getProcessEndDate();
 			dateList.add(end_date);
 			for (int i = 0; i < processList.get(j).getSupplySet().size(); i++) {
-				int salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
-				int earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
-				int allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
+				long salesSum = processList.get(j).getSupplySet().get(i).getSupplyVolume();
+				long earnSum = processList.get(j).getSupplySet().get(i).getSupplyPrice();
+				long allEarnSum = processList.get(j).getSupplySet().get(i).getSupplyNum();
 				earnList.add(earnSum);
 				salesList.add(salesSum);
 				allEarnSumList.add(allEarnSum);
@@ -368,9 +362,7 @@ public class SalesController {
 			@RequestParam(value = "shopCode", defaultValue = "1") int shopCode) {
 		Map codeMap = new HashMap<>();
 		codeMap.put("date", date);
-		System.out.println("date : " + date);
 		codeMap.put("shopCode", shopCode);
-		System.out.println("shopCode : " + shopCode);
 		List<Kpidivision> kpiList = rep.kpiSelect(codeMap);
 		Map resultList = new HashMap<>();
 		for (Kpidivision k : kpiList) {
@@ -382,19 +374,19 @@ public class SalesController {
 				resultList.put("allEarn", k);
 		}
 		Map<String, List> list = chartSelect(date, shopCode);
-		List<Integer> salesList = list.get("salesList");
-		List<Integer> earnList = list.get("earnList");
-		List<Integer> allEarnSumList = list.get("allEarnSumList");
+		List<Long> salesList = list.get("salesList");
+		List<Long> earnList = list.get("earnList");
+		List<Long> allEarnSumList = list.get("allEarnSumList");
 		long sumSales = 0;
 		long sumEarn = 0;
 		long sumAllEarn = 0;
-		for (Integer i : salesList) {
+		for (Long i : salesList) {
 			sumSales += i;
 		}
-		for (Integer t : earnList) {
+		for (Long t : earnList) {
 			sumEarn += t;
 		}
-		for (Integer j : allEarnSumList) {
+		for (Long j : allEarnSumList) {
 			sumAllEarn += j;
 		}
 		resultList.put("sumSales", sumSales);
@@ -435,7 +427,6 @@ public class SalesController {
 	@ResponseBody
 	@RequestMapping(value = "processTable", method = { RequestMethod.POST, RequestMethod.GET })
 	public ProcessTableVo processTable(String processCode) {
-		System.out.println("123" + processCode);
 		return rep.processTable(processCode);
 	}
 
@@ -470,7 +461,6 @@ public class SalesController {
 	@ResponseBody
 	@RequestMapping(value = "compareChartDateFunction", method = RequestMethod.POST)
 	public String compareChartDateFunction(int shopCode) {
-		System.out.println(rep.compareChartDateFunction(shopCode));
 		List<SupplyVo> list = rep.compareChartDateFunction(shopCode);
 		String result = null;
 		return result;

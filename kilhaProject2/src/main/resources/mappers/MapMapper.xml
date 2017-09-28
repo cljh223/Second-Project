@@ -81,10 +81,10 @@
 		<result property="processInsertDate" column="process_insert_date" />
 		<result property="processCode" column="process_code" />
 		<result property="staffName" column="staff_name" />
-		<result property="processState" column="proces_state" />
+		<result property="processState" column="process_state" />
 		<result property="shopRep" column="shop_rep" />
 		<result property="addressPost" column="address_post" />
-		<result property="shopEmail" column="shop_eamil" />
+		<result property="shopEmail" column="shop_email" />
 		<result property="shopSNS" column="shop_SNS" />
 		<result property="warehouseCode" column="warehouse_code" />
 		<collection property="supplyList" javaType="java.util.List"
@@ -132,6 +132,12 @@
 		<result property="processTerm" column="process_term" />
 		<result property="processEndDate" column="process_end_date" />
 	</resultMap>
+
+	<update id="updateState">
+		UPDATE process SET 
+		process_state = 1 
+		WHERE SYSDATE >= process_end_date
+	</update>
 
 	<select id="markerSelect" resultMap="ShopMap">
 		select s.shop_code,
@@ -408,7 +414,7 @@
 		a.address_detail3, a.address_detail4,
 		s.shop_tel, d.product_unit,
 		f.staff_name,
-		l.supply_price, l.supply_volume, p.process_term,
+		l.supply_price, l.supply_volume, p.process_end_date,
 		p.process_code,
 		d.product_code,
 		p.process_end_date,
@@ -446,6 +452,7 @@
 		staff f
 		ON
 		p.staff_code = f.staff_code
+		ORDER BY p.process_code
 	</select>
 
 	<select id="chartSelect" parameterType="Map" resultMap="ProcessMap">
@@ -654,7 +661,6 @@
 		WHERE w.warehouse_code = #{warehouseCode}
 		
 	</select>
-	
 	<select id="warehouseDetailSelect2" resultMap="WarehouseList">
 		SELECT w.warehouse_code,
 		w.warehouse_name, a.address_detail1,
