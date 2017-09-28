@@ -389,7 +389,44 @@
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-
+				<div class ="row">
+	<div class="col-lg-12">
+		<!--carousel start-->
+            <section class="panel">
+                <div id="c-slide" class="carousel slide auto panel-body">
+                    <ol class="carousel-indicators out">
+                        <li class="active" data-slide-to="0" data-target="#c-slide"></li>
+                        <li class="" data-slide-to="1" data-target="#c-slide"></li>
+                        <li class="" data-slide-to="2" data-target="#c-slide"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item text-center active">
+                            <h3>Bucket Admin is an Awesome Dashboard</h3>
+                            <p>Awesome admin template</p>
+                            <small class="text-muted">Based on Latest Bootstrap 3.0.3</small>
+                        </div>
+                        <div class="item text-center">
+                            <h3>Well Organized</h3>
+                            <p>Awesome admin template</p>
+                            <small class="text-muted">Huge UI Elements</small>
+                        </div>
+                        <div class="item text-center">
+                            <h3>Well Documentation</h3>
+                            <p>Awesome admin template</p>
+                            <small class="text-muted">Very Easy to Use</small>
+                        </div>
+                    </div>
+                    <a data-slide="prev" href="#c-slide" class="left carousel-control">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a data-slide="next" href="#c-slide" class="right carousel-control">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </section>
+            <!--carousel end-->
+	</div>
+</div>
 				<!--mini statistics start-->
 				<div class="row">
 					<div class="col-md-3" style="display: none;">
@@ -509,7 +546,7 @@
 									href="javascript:;" class="fa fa-times"></a>
 								</span>
 							</header>
-							<div class="panel-body" style="height: 700px;">
+							<div class="panel-body" style="height: 605px;">
 								<div class="adv-table editable-table ">
 									<table class="table table-striped table-hover table-bordered"
 										id="editable-sample">
@@ -1374,7 +1411,7 @@
 	</script>
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
-	<script src="bs3/js/bootstrap.min.js"></script>
+	<script src="bs3/js/bootstrap.js"></script>
 	<script src="js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/jquery.scrollTo.min.js"></script>
 	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
@@ -1414,5 +1451,6 @@
 	<script src="js/scripts.js"></script>
 
 	<!--script for this page-->
+	<script src="js/gritter.js" type="text/javascript"></script>
 </body>
 </html>

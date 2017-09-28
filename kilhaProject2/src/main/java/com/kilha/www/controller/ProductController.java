@@ -283,6 +283,7 @@ public class ProductController {
 	public String test1(Model model){
 		//totalifo 리스트로 가져오기
 		List<TotalinfoVO> totalInfoList = repo.getTotalInfo();
+		System.out.println("여기여기 " + totalInfoList.get(0));
 		model.addAttribute("message", "ok");
 		model.addAttribute("totalinfo", totalInfoList);
 		return "product/test1";
@@ -295,6 +296,7 @@ public class ProductController {
 		System.out.println("야야야야"+searchType);
 		//다이나믹 테이블에 뿌려주기용
 		List<TotalinfoVO> totalInfoList = repo.getTotalInfo();
+		
 		double[][] dataset = null;
 		//타입에 맞게 (생산량, 투입인원) (생산량, 생산 시간) (생산량, 재료 비용)의 데이터 셋을 뽑아 와서 보내준다.
 		int maximum = 0;

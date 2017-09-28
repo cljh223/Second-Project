@@ -102,7 +102,8 @@
 /* OVERWRITE OUR MAIN STYLE */
 .demo-flipper-front.demo-panel-white, body {
   background-color: white;
-}									
+}			
+						
 </style>
 
 <link rel="shortcut icon" href="images/favicon.png">
@@ -406,6 +407,12 @@
 	});
 	
 </script>
+<style type="text/css">
+#loginForm {
+	width: "250px";
+	float: right;
+}
+</style>
 </head>
 <body>
 	<section id="container">
@@ -415,240 +422,105 @@
 			<!--logo start-->
 			<div class="brand">
 
-				<a href="index.html" class="logo"> <img src="images/logo.png"
-					alt="">
-				</a>
+				<img src="images/logobrain_original.png"alt="" style="width:200px; height: 200px; position:absolute; top: -60px; left: 15px;">
+				
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
 			</div>
 			<!--logo end-->
 
-			<div class="nav notify-row" id="top_menu">
-				<!--  notification start -->
-				<ul class="nav top-menu">
-					<!-- settings start -->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <i class="fa fa-tasks"></i>
-							<span class="badge bg-success">8</span>
-					</a>
-						<ul class="dropdown-menu extended tasks-bar">
-							<li>
-								<p class="">You have 8 pending tasks</p>
-							</li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>25% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="45"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Product Delivery</h5>
-											<p>45% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="78"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Payment collection</h5>
-											<p>87% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="60"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>33% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="90"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-
-							<li class="external"><a href="#">See All Tasks</a></li>
-						</ul></li>
-					<!-- settings end -->
-					<!-- inbox dropdown start-->
-					<li id="header_inbox_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-envelope-o"></i> <span class="badge bg-important">4</span>
-					</a>
-						<ul class="dropdown-menu extended inbox">
-							<li>
-								<p class="red">You have 4 Mails</p>
-							</li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Jonathan
-											Smith</span> <span class="time">Just now</span>
-								</span> <span class="message"> Hello, this is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-2.jpg"></span> <span
-									class="subject"> <span class="from">Jane Doe</span> <span
-										class="time">2 min ago</span>
-								</span> <span class="message"> Nice admin template </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-3.jpg"></span> <span
-									class="subject"> <span class="from">Tasi sam</span> <span
-										class="time">2 days ago</span>
-								</span> <span class="message"> This is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Mr. Perfect</span> <span
-										class="time">2 hour ago</span>
-								</span> <span class="message"> Hi there, its a test </span>
-							</a></li>
-							<li><a href="#">See all messages</a></li>
-						</ul></li>
-					<!-- inbox dropdown end -->
-					<!-- notification dropdown start-->
-					<li id="header_notification_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-bell-o"></i> <span class="badge bg-warning">3</span>
-					</a>
-						<ul class="dropdown-menu extended notification">
-							<li>
-								<p>Notifications</p>
-							</li>
-							<li>
-								<div class="alert alert-info clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #1 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-danger clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #2 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-success clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #3 overloaded.</a>
-									</div>
-								</div>
-							</li>
-
-						</ul></li>
-					<!-- notification dropdown end -->
-				</ul>
-				<!--  notification end -->
-			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<ul class="nav pull-right top-menu">
-					<li><input type="text" class="form-control search"
-						placeholder=" Search"></li>
-					<!-- user login dropdown start-->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <img alt=""
-							src="images/avatar1_small.jpg"> <span class="username">John
-								Doe</span> <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu extended logout">
-							<li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-							<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-							<li><a href="login.html"><i class="fa fa-key"></i> Log
-									Out</a></li>
-						</ul></li>
-					<!-- user login dropdown end -->
-					<li>
-						<div class="toggle-right-box">
-							<div class="fa fa-bars"></div>
-						</div>
-					</li>
-				</ul>
-				<!--search & user info end-->
+            <table id="loginForm">
+               <tr>
+                  <td><input type="text" class="form-control search"
+                     placeholder=" Search"></td>
+                  <td>&nbsp</td>
+                  <!-- user login dropdown start-->
+                  <td><%@include file="login.jsp"%></td>
+                  <!-- user login dropdown end -->
+                  <td>&nbsp</td>
+                  <td>
+                     <div class="toggle-right-box">
+                        <div class="fa fa-bars"></div>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+            <!--search & user info end-->
 			</div>
 		</header>
 		<!--header end-->
 
 		<!--sidebar start-->
-		<aside>
-			<div id="sidebar" class="nav-collapse">
-				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>생산 부문</span>
-							</a>
-							<ul class="sub">
-								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
-								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">예측 분석</a></li>
-								<li><a href="pro_RegistForm">생산정보입력</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
-			</div>
-		</aside>
-		<!--sidebar end-->
+      <aside>
+         <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+              <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-wrench"></i>
+                        <span>생산부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                    </ul>
+                </li>
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-truck"></i>
+                        <span>물류부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                    </ul>
+                </li>
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-users"></i>
+                        <span>영업부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                    </ul>
+                </li>
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
+    </div>
+      </aside>
+      <!--sidebar end-->
 
 		<!--right sidebar start-->
 		<div class="right-sidebar">
@@ -911,8 +783,12 @@
 								<div class="col-md-6">
 									<div class="prd-img" style="width: 260px;">
 									<c:if test="${factory.f_num == 1}">
+									<br>
+									<br>
 									<img src="images/anyangfactory.jpg" alt="">
 									</c:if>
+									<br>
+									<br>
 									<c:if test="${factory.f_num ==2 }">
 										<img src="images/ansungfactory.jpg" alt="">
 									</c:if>
@@ -927,12 +803,12 @@
 											<h1>생산 달성률: ${operating}%</h1>
 										</div>
 										<c:if test="${operating >= 90 }">
-											<p class="terques">Total Manufacture status: GOOD</p>
-											<h1>GOOD</h1>
+											<p class="terques">Total Manufacture status: GOOD</p><br>
+											<p class="terques">모든 생산 정보는 어제자 정보를 기준으로 합니다</p>
 										</c:if>
 										<c:if test="${operating <90 }">
 											<p class="terques">Total Manufacture status: NORMAL</p>
-
+											<p class="terques">모든  생산 정보는 어제를 기준으로 합니다</p>
 										</c:if>
 									</div>
 								</div>
@@ -1103,20 +979,37 @@
 									</tbody>
 								</table>
 								<c:if test="${ramen.recentAmount/2500*100 >= 90}">
-									<h3>현재 상태 : Good</h3>
-									<img alt="" src="images/good.png"
-										style="width: 50px; heigh: 30px;">
+									<div class="col-lg-3">
+                           			 <ul class="clearfix location-earning-stats" style="text-align: left; width: 300px;">
+                                		<li class="stat-divider" style="text-align: center;"><span class="first-city">Line Status</span>
+												<img alt="" src="images/sun.png"
+										style="width: 50px; heigh: 30px;">&nbsp;&nbsp;GOOD</li>
+                                		<li><span class="third-city">Comment</span>
+												생산 능력 대비<br>생산량: 최적</li>
+										</ul>
+                       				</div>
 								</c:if>
-								<c:if
-									test="${ramen.recentAmount/2500*100 < 90 and ramen.recentAmount/2500*100 >= 85}">
-									<h3>현재 상태 : Normal</h3>
-									<img alt="" src="images/normal.png"
-										style="width: 50px; heigh: 30px;">
+								<c:if test="${ramen.recentAmount/2500*100 < 90 and ramen.recentAmount/2500*100 >= 85}">
+									<div class="col-lg-3">
+                           			 <ul class="clearfix location-earning-stats" style="text-align: left; width: 300px;">
+                                		<li class="stat-divider" style="text-align: center;"><span class="first-city">Line Status</span>
+												<img alt="" src="images/cloudy-day.png"
+										style="width: 50px; heigh: 30px;">&nbsp;&nbsp;NORMAL</li>
+                                		<li><span class="third-city">Comment</span>
+												생산 능력 대비<br>생산량: 보통</li>
+										</ul>
+                       				</div>
 								</c:if>
 								<c:if test="${ramen.recentAmount/2500*100 < 85}">
-									<h3>현재 상태 : Bad</h3>
-									<img alt="" src="images/bad.png"
-										style="width: 50px; heigh: 30px;">
+									<div class="col-lg-3">
+                           			 <ul class="clearfix location-earning-stats" style="text-align: left; width: 300px;">
+                                		<li class="stat-divider" style="text-align: center;"><span class="first-city">Line Status</span>
+												<img alt="" src="images/rain.png"
+										style="width: 50px; heigh: 30px;">&nbsp;&nbsp;BAD</li>
+                                		<li><span class="third-city">Comment</span>
+												생산 능력 대비<br>생산량: 부족</li>
+										</ul>
+                       				</div>
 								</c:if>
 							</div>
 						</div>
@@ -1165,10 +1058,18 @@
 						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
 						<div class="mini-stat-info" style="height: 60px;">
 							<span>
-							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
-							<button data-original-title="작업 효율" data-content="작업 효율에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							<img src="images/workeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<c:if test="${workeff >= 90 }">
+							<button data-original-title="인원과 설비 투자로 발휘되는 생산성" data-content="현재 작업능률  [우수]: 현재 효율 유지가 중요합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							</c:if>
+							<c:if test="${workeff < 90 && workeff >= 80}">
+							<button data-original-title="인원과 설비 투자로 발휘되는 생산성" data-content="현재 작업능률  [양호]: 인원과 설비계획을 개선한다면 더 높은 효율이 기대됩니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							</c:if>
+							<c:if test="${workeff < 80}">
+							<button data-original-title="인원과 설비 투자로 발휘되는 생산성" data-content="현재 작업능률 [불량]: 인원과 설비계획을 반드시 개선해야합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${workeff}%</button>
+							</c:if>
 							</span>
-							<p style="margin-left: 17px; ">작업효율</p>
+							<p style="margin-left: 20px; ">작업효율</p>
 						</div>
 						
 					</div>
@@ -1178,10 +1079,18 @@
 						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
 						<div class="mini-stat-info" style="height: 60px;">
 							<span>
-							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
-							<button data-original-title="종합설비가동률" data-content="종합설비가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${totalrate}%</button>
+							<img src="images/totaleff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<c:if test="${totalrate >= 85}">
+							<button data-original-title="요구된 생산을 완료하는 수행력 지표" data-content="현재 종합효율 [우수]: 현재 효율 유지가 중요합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${totalrate}%</button>
+							</c:if>
+							<c:if test="${totalrate <85 && totalrate >= 78}">
+							<button data-original-title="요구된 생산을 완료하는 수행력 지표" data-content="현재 종합효율 [양호]: 생산계획 개선 시 양품률 향상이 가능합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${totalrate}%</button>
+							</c:if>
+							<c:if test="${totalrate < 78}">
+							<button data-original-title="요구된 생산을 완료하는 수행력 지표" data-content="현재 종합효율 [불량]: 생산계획을 반드시 개선해야합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${totalrate}%</button>
+							</c:if>
 							</span>
-							<p style="margin-left: 17px; ">종합설비가동률</p>
+							<p style="margin-left: 6px; ">종합설비가동률</p>
 						</div>
 						
 					</div>
@@ -1191,8 +1100,16 @@
 						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
 						<div class="mini-stat-info" style="height: 60px;">
 							<span>
-							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
-							<button data-original-title="시간가동률" data-content="시간가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${timeeff}%</button>
+							<img src="images/timeeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<c:if test="${timeeff >= 90}">
+							<button data-original-title="이상적인 가동시간 대비 실제 가동시간" data-content="현재 시간가동률 [우수]: 설비 실제 가동시간이 최적 상태입니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${timeeff}%</button>
+							</c:if>
+							<c:if test="${timeeff < 90 && timeeff >=85}">
+							<button data-original-title="이상적인 가동시간 대비 실제 가동시간" data-content="현재 시간가동률 [양호]: 공정 가동시간 개선 시 생산성 향상이 가능합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${timeeff}%</button>
+							</c:if>
+							<c:if test="${timeeff < 90}">
+							<button data-original-title="이상적인 가동시간 대비 실제 가동시간" data-content="현재 시간가동률 [뷸량]: 공정 가동시간을 반드시 개선해야합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${timeeff}%</button>
+							</c:if>
 							</span>
 							<p style="margin-left: 17px; ">시간가동률</p>
 						</div>
@@ -1204,8 +1121,16 @@
 						<!-- <span class="mini-stat-icon orange"><i class="fa fa-gavel"></i></span> -->
 						<div class="mini-stat-info" style="height: 60px;">
 							<span>
-							<img src="images/workeff.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
-							<button data-original-title="성능가동률" data-content="성능가동률에 대한 설명이 들어가는 곳이랍니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${performeff}%</button>
+							<img src="images/performeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">
+							<c:if test="${performeff >= 90}">
+							<button data-original-title="주어진 시간에 발휘되는 생산성" data-content="현재 성능가동률 [우수]: 최적의 생산 속도로 생산 중입니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${performeff}%</button>
+							</c:if>
+							<c:if test="${performeff < 90 && performeff >=80}">
+							<button data-original-title="주어진 시간에 발휘되는 생산성" data-content="현재 성능가동률 [양호]: 생산량과 설비 계획 개선 시 생산성 향상이 가능합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${performeff}%</button>
+							</c:if>
+							<c:if test="${performeff < 80}">
+							<button data-original-title="주어진 시간에 발휘되는 생산성" data-content="현재 성능가동률 [불량]: 생산량과 설비 계획을 반드시 개선해야합니다." data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">${performeff}%</button>
+							</c:if>
 							</span>
 							<p style="margin-left: 17px; ">성능가동률</p>
 						</div>

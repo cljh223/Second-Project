@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 <meta http-equiv=”X-UA-Compatible” content=”IE=9”>
 
 <link rel="shortcut icon" href="images/favicon.png">
-<title>BucketAdmin</title>
+<title></title>
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
 <link href="js/jquery-ui/jquery-ui-1.10.1.custom.min.css"
@@ -133,6 +134,12 @@
 });
     
     </script>
+    <style type="text/css">
+#loginForm {
+	width: "250px";
+	float: right;
+}
+</style>
 </head>
 <body>
 	<section id="container">
@@ -141,238 +148,105 @@
 			<!--logo start-->
 			<div class="brand">
 
-				<a href="index.html" class="logo"> <img src="images/logo.png"
-					alt="">
-				</a>
+				<img src="images/logobrain_original.png"alt="" style="width:200px; height: 200px; position:absolute; top: -60px; left: 15px;">
+				
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
 			</div>
 			<!--logo end-->
 
-			<div class="nav notify-row" id="top_menu">
-				<!--  notification start -->
-				<ul class="nav top-menu">
-					<!-- settings start -->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <i class="fa fa-tasks"></i>
-							<span class="badge bg-success">8</span>
-					</a>
-						<ul class="dropdown-menu extended tasks-bar">
-							<li>
-								<p class="">You have 8 pending tasks</p>
-							</li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>25% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="45"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Product Delivery</h5>
-											<p>45% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="78"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Payment collection</h5>
-											<p>87% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="60"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>33% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="90"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-
-							<li class="external"><a href="#">See All Tasks</a></li>
-						</ul></li>
-					<!-- settings end -->
-					<!-- inbox dropdown start-->
-					<li id="header_inbox_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-envelope-o"></i> <span class="badge bg-important">4</span>
-					</a>
-						<ul class="dropdown-menu extended inbox">
-							<li>
-								<p class="red">You have 4 Mails</p>
-							</li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Jonathan
-											Smith</span> <span class="time">Just now</span>
-								</span> <span class="message"> Hello, this is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-2.jpg"></span> <span
-									class="subject"> <span class="from">Jane Doe</span> <span
-										class="time">2 min ago</span>
-								</span> <span class="message"> Nice admin template </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-3.jpg"></span> <span
-									class="subject"> <span class="from">Tasi sam</span> <span
-										class="time">2 days ago</span>
-								</span> <span class="message"> This is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Mr. Perfect</span> <span
-										class="time">2 hour ago</span>
-								</span> <span class="message"> Hi there, its a test </span>
-							</a></li>
-							<li><a href="#">See all messages</a></li>
-						</ul></li>
-					<!-- inbox dropdown end -->
-					<!-- notification dropdown start-->
-					<li id="header_notification_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-bell-o"></i> <span class="badge bg-warning">3</span>
-					</a>
-						<ul class="dropdown-menu extended notification">
-							<li>
-								<p>Notifications</p>
-							</li>
-							<li>
-								<div class="alert alert-info clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #1 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-danger clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #2 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-success clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #3 overloaded.</a>
-									</div>
-								</div>
-							</li>
-
-						</ul></li>
-					<!-- notification dropdown end -->
-				</ul>
-				<!--  notification end -->
-			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<ul class="nav pull-right top-menu">
-					<li><input type="text" class="form-control search"
-						placeholder=" Search"></li>
-					<!-- user login dropdown start-->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <img alt=""
-							src="images/avatar1_small.jpg"> <span class="username">John
-								Doe</span> <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu extended logout">
-							<li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-							<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-							<li><a href="login.html"><i class="fa fa-key"></i> Log
-									Out</a></li>
-						</ul></li>
-					<!-- user login dropdown end -->
-					<li>
-						<div class="toggle-right-box">
-							<div class="fa fa-bars"></div>
-						</div>
-					</li>
-				</ul>
-				<!--search & user info end-->
+            <table id="loginForm">
+               <tr>
+                  <td><input type="text" class="form-control search"
+                     placeholder=" Search"></td>
+                  <td>&nbsp</td>
+                  <!-- user login dropdown start-->
+                  <td><%@include file="login.jsp"%></td>
+                  <!-- user login dropdown end -->
+                  <td>&nbsp</td>
+                  <td>
+                     <div class="toggle-right-box">
+                        <div class="fa fa-bars"></div>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+            <!--search & user info end-->
 			</div>
 		</header>
 		<!--header end-->
 <!--sidebar start-->
-<aside>
-    <div id="sidebar" class="nav-collapse">
-				<!-- sidebar menu start-->
-				<div class="leftside-navigation">
-					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
-						</a></li>
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
-							</ul></li>
-							
-							<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>생산 부문</span>
-							</a>
-							<ul class="sub">
-								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
-								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
-								<li><a href="pro_Gradient">예측 분석</a></li>
-								<li><a href="pro_RegistForm">생산정보입력</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
-						</a>
-							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
-							</ul></li>
-
-						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
-						</a>
-							<ul class="sub">
-								<li><a href="salesMain">영업 메인 페이지</a></li>
-								<li><a href="processMain">영업 상황 조회</a></li>
-								<li><a href="language_switch.html">Language Switch Bar</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<!-- sidebar menu end-->
-			</div>
-</aside>
+<!--sidebar start-->
+      <aside>
+         <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active">
+                        <i class="fa fa-caret-down"></i>
+                        <span>전체메뉴</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>구매부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Pur_inform">원자재 정보</a></li>
+                        <li><a href="Pur_chart">원자재 거래</a></li>
+                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
+                        <li><a href="Pur_orders">원자재 주문내역</a></li>
+                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
+                        <li><a href="Pur_store">원자재재고량</a></li>
+                    </ul>
+                </li>
+              <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-wrench"></i>
+                        <span>생산부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
+                        <li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+                        <li><a href="pro_Gradient">예측 분석</a></li>
+                        <li><a href="pro_RegistForm">생산정보입력</a></li>
+                    </ul>
+                </li>
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-truck"></i>
+                        <span>물류부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="third">배차경로 확인</a></li>
+                    </ul>
+                </li>
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-users"></i>
+                        <span>영업부서</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="salesMain">영업 메인 페이지</a></li>
+                        <li><a href="processMain">영업 상황 조회</a></li>
+                        <li><a href="compareMain">영업 비교 페이지</a></li>
+                    </ul>
+                </li>
+                
+            </ul>            </div>
+        <!-- sidebar menu end-->
+    </div>
+      </aside>
+      <!--sidebar end-->
 <!--sidebar end-->
 
 		<!--right sidebar start-->
@@ -680,7 +554,8 @@
 											</c:if>
 											<c:if test="${searchType=='COST'}">
 											<li><span class="third-city">예측 결과</span>
-												약  ${result} 원</li>
+												약 <fmt:formatNumber value="${result}" pattern="#,###" /> 원</li>
+												
 											</c:if>
 											<c:if test="${searchType=='TIME'}">
 											<li><span class="third-city">예측 결과</span>
@@ -716,7 +591,7 @@
                 <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Advanced Form validations
+                            	주문 단위 생산 정보 등록
                             <span class="tools pull-right">
                                 <a class="fa fa-chevron-down" href="javascript:;"></a>
                                 <a class="fa fa-cog" href="javascript:;"></a>
@@ -802,7 +677,7 @@
             <div class="col-sm-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        DataTables hidden row details example
+                        	주문 단위 생산 누적 정보 현황
                         <span class="tools pull-right">
                             <a href="javascript:;" class="fa fa-chevron-down"></a>
                             <a href="javascript:;" class="fa fa-cog"></a>
@@ -833,12 +708,12 @@
                     	<tr class="gradeA">
                     		<td>${item.r_name}</td>
 	                        <td>${item.startdate}</td>
-	                        <td>${item.t_amount}</td>
-	                        <td>${item.t_cost}</td>
+	                        <td><fmt:formatNumber value="${item.t_amount}" pattern=".00"/>EA</td>
+	                        <td><fmt:formatNumber value="${item.t_cost}" pattern=".00"/>원</td>
 	                        <td>${item.t_man}</td>
 	                        <td style="display:none;">${item.t_num}</td>
 	                        <td style="display:none;">${item.r_num}</td>
-	                        <td style="display:none;">${item.t_amount}</td>
+	                        <td style="display:none;"><fmt:formatNumber value="${item.t_amount}" pattern=".00"/></td>
 	                        <td style="display:none;">${item.startdate}</td>
 	                        <td style="display:none;">${item.enddate}</td>
 	                        <td style="display:none;">${item.buydate}</td>
@@ -855,14 +730,7 @@
 
 		</section>
 	</section>
-	<!--Core js-->
-	<script src="js/jquery.js"></script>
-	<script src="bs3/js/bootstrap.min.js"></script>
-	<script class="include" type="text/javascript"
-		src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
-	<script src="js/jquery.nicescroll.js"></script>
+	
 	
 	<script>
 $(function() {
@@ -911,7 +779,14 @@ $(function() {
 	}
 });
 </script>
-	
+	<!--Core js-->
+	<script src="js/jquery.js"></script>
+	<script src="bs3/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript"
+		src="js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="js/jquery.scrollTo.min.js"></script>
+	<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
 	<!--Easy Pie Chart-->
 	<script src="js/easypiechart/jquery.easypiechart.js"></script>
 	<!--Sparkline Chart-->
@@ -921,12 +796,16 @@ $(function() {
 	<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 	<script src="js/flot-chart/jquery.flot.resize.js"></script>
 	<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-
-	<script src="js/iCheck/jquery.icheck.js"></script>
+	<!--common script init for all pages-->
+	<script src="js/scripts.js"></script>
 	
+	
+	<script src="js/iCheck/jquery.icheck.js"></script>
 	<!--dynamic table-->
 	<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script type="text/javascript" src="js/dynamic_table_init.js?version=20170920"></script>
 	
 	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -934,14 +813,10 @@ $(function() {
 	<script type="text/javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 	
-	<!--common script init for all pages-->
-	<script src="js/scripts.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
 	<script type="text/javascript" src="js/advanced-form.js?version=20170920"></script>
 	<script type="text/javascript" src="js/validation-init.js?version=20170920"></script>
 	<!--icheck init -->
 	<script src="js/icheck-init.js"></script>
-	<!--dynamic table initialization -->
-	<script type="text/javascript" src="js/dynamic_table_init.js?version=20170920"></script> 
+	 
 </body>
 </html>

@@ -2,12 +2,12 @@ function fnFormatDetails ( oTable, nTr )
 {
     var aData = oTable.fnGetData( nTr );
     var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-    sOut += '<tr><td>생산번호:</td><td>'+aData[6]+'</td></tr>';
-    sOut += '<tr><td>상품번호:</td><td>'+aData[7]+'</td></tr>';
-    sOut += '<tr><td>총생산량:</td><td>'+aData[8]+'EA'+'</td></tr>';
-    sOut += '<tr><td>생산시작일:</td><td>'+aData[9]+'</td></tr>';
-    sOut += '<tr><td>생산종료일</td><td>'+aData[10]+'</td></tr>';
-    sOut += '<tr><td>재료구매일</td><td>'+aData[11]+'</td></tr>';
+    sOut += '<tr><td>생산라인:</td><td>'+aData[6]+'</td></tr>';
+    sOut += '<tr><td>투입인원:</td><td>'+aData[7]+'명'+'</td></tr>';
+    sOut += '<tr><td>가동시간:</td><td>'+aData[8]+'분'+'</td></tr>';
+    sOut += '<tr><td>LossTime:</td><td>'+aData[9]+'분'+'</td></tr>';
+    sOut += '<tr><td>Capacity:</td><td>'+aData[10]+'EA'+'</td></tr>';
+    sOut += '<tr><td>불량갯수:</td><td>'+aData[11]+'EA'+'</td></tr>';
     sOut += '</table>';
     
     return sOut;
