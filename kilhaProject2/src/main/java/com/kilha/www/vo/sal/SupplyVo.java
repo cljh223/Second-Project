@@ -21,6 +21,7 @@ public class SupplyVo {
 	private String addressPost;
 	private String shopEmail;
 	private String shopSNS;
+	private int warehouseCode;
 
 	public SupplyVo() {
 		super();
@@ -170,6 +171,14 @@ public class SupplyVo {
 		this.shopSNS = shopSNS;
 	}
 
+	public int getWarehouseCode() {
+		return warehouseCode;
+	}
+
+	public void setWarehouseCode(int warehouseCode) {
+		this.warehouseCode = warehouseCode;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -192,6 +201,7 @@ public class SupplyVo {
 		result = prime * result + ((shopTel == null) ? 0 : shopTel.hashCode());
 		result = prime * result + ((staffName == null) ? 0 : staffName.hashCode());
 		result = prime * result + ((supplyList == null) ? 0 : supplyList.hashCode());
+		result = prime * result + warehouseCode;
 		return result;
 	}
 
@@ -291,6 +301,8 @@ public class SupplyVo {
 				return false;
 		} else if (!supplyList.equals(other.supplyList))
 			return false;
+		if (warehouseCode != other.warehouseCode)
+			return false;
 		return true;
 	}
 
@@ -302,7 +314,8 @@ public class SupplyVo {
 				+ ", processInsertDate=" + processInsertDate + ", processTerm=" + processTerm + ", processEndDate="
 				+ processEndDate + ", processCode=" + processCode + ", staffName=" + staffName + ", processState="
 				+ processState + ", shopRep=" + shopRep + ", addressPost=" + addressPost + ", shopEmail=" + shopEmail
-				+ ", shopSNS=" + shopSNS + "]";
+				+ ", shopSNS=" + shopSNS + ", warehouseCode=" + warehouseCode + "]";
 	}
 
+	
 }

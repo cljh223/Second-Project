@@ -146,7 +146,7 @@ public class SalesController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "popupNowEstimate", method = RequestMethod.POST)
+	@RequestMapping(value = "popupNowEstimate", method = {RequestMethod.GET, RequestMethod.POST})
 	public SupplyVo popupNowEstimate(String processCode) {
 		SupplyVo supplyVo = null;
 		Map estimateMap = new HashMap<>();
@@ -235,7 +235,7 @@ public class SalesController {
 					sumSales += sumSalesTemp;
 					sumUnitPrice += sumUnitPriceTemp;
 				}
-
+				System.out.println(insertDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

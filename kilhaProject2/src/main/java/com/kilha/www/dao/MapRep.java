@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.logistics.Warehouse;
 import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
@@ -199,6 +200,12 @@ public class MapRep {
 		Map<String, String> map = new HashMap<>();
 		map.put("shopName", shopName);
 		return dao.shopDetailSelect3(map);
+	}
+
+	public Warehouse warehouseDetail(int warehouseCode) {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.warehouseDetail(warehouseCode);
 	}
 	
 }

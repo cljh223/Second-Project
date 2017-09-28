@@ -1,4 +1,5 @@
 package com.kilha.www.vo.logistics;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.ibatis.type.IntegerTypeHandler;
+
+import com.kilha.www.vo.sal.Address;
 
 /**
  * â�� ���̺� �� Ŭ����.
@@ -15,121 +18,123 @@ import org.apache.ibatis.type.IntegerTypeHandler;
  */
 public class Warehouse implements Serializable {
 
-   /** serialVersionUID. */
-   private static final long serialVersionUID = 1L;
+	/** serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
-   /** â���ڵ�. */
-   private Integer warehouseCode;
+	/** â���ڵ�. */
+	private Integer warehouseCode;
 
-   /** â���. */
-   private String warehouseName;
+	/** â���. */
+	private String warehouseName;
 
-   /** â������. */
-   private String warehouseType;
+	/** â������. */
+	private String warehouseType;
 
-   /**
-    * ������.
-    */
-   public Warehouse() {
-   }
+	private List<Address> addressSet;
+	
+	private List<Stock> stockSet;
 
-   /**
-    * â���ڵ��� �����մϴ�..
-    * 
-    * @param warehouseCode
-    *            â���ڵ�
-    */
-   public void setWarehouseCode(Integer warehouseCode) {
-      this.warehouseCode = warehouseCode;
-   }
+	/**
+	 * ������.
+	 */
+	public Warehouse() {
+	}
 
-   /**
-    * â���ڵ��� �����ɴϴ�..
-    * 
-    * @return â���ڵ�
-    */
-   public Integer getWarehouseCode() {
-      return this.warehouseCode;
-   }
-
-   /**
-    * â����� �����մϴ�..
-    * 
-    * @param warehouseName
-    *            â���
-    */
-   public void setWarehouseName(String warehouseName) {
-      this.warehouseName = warehouseName;
-   }
-
-   /**
-    * â����� �����ɴϴ�..
-    * 
-    * @return â���
-    */
-   public String getWarehouseName() {
-      return this.warehouseName;
-   }
-
-   /**
-    * â�������� �����մϴ�..
-    * 
-    * @param warehouseType
-    *            â������
-    */
-   public void setWarehouseType(String warehouseType) {
-      this.warehouseType = warehouseType;
-   }
-
-   /**
-    * â�������� �����ɴϴ�..
-    * 
-    * @return â������
-    */
-   public String getWarehouseType() {
-      return this.warehouseType;
-   }
+	
+	public List<Stock> getStockSet() {
+		return stockSet;
+	}
 
 
-   /**
-    * {@inheritDoc}
-    */
-   @Override
-   public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((warehouseCode == null) ? 0 : warehouseCode.hashCode());
-      return result;
-   }
+	public void setStockSet(List<Stock> stockSet) {
+		this.stockSet = stockSet;
+	}
 
-   /**
-    * {@inheritDoc}
-    */
-   @Override
-   public boolean equals(Object obj) {
-      if (this == obj) {
-         return true;
-      }
-      if (obj == null) {
-         return false;
-      }
-      if (getClass() != obj.getClass()) {
-         return false;
-      }
-      Warehouse other = (Warehouse) obj;
-      if (warehouseCode == null) {
-         if (other.warehouseCode != null) {
-            return false;
-         }
-      } else if (!warehouseCode.equals(other.warehouseCode)) {
-         return false;
-      }
-      return true;
-   }
 
-   @Override
-   public String toString() {
-      return "Warehouse [warehouseCode=" + warehouseCode + ", warehouseName=" + warehouseName + ", warehouseType="
-            + warehouseType + "]";
-   }
+	public Integer getWarehouseCode() {
+		return warehouseCode;
+	}
+
+	public void setWarehouseCode(Integer warehouseCode) {
+		this.warehouseCode = warehouseCode;
+	}
+
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
+	}
+
+	public String getWarehouseType() {
+		return warehouseType;
+	}
+
+	public void setWarehouseType(String warehouseType) {
+		this.warehouseType = warehouseType;
+	}
+
+	public List<Address> getAddressSet() {
+		return addressSet;
+	}
+
+	public void setAddressSet(List<Address> addressSet) {
+		this.addressSet = addressSet;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addressSet == null) ? 0 : addressSet.hashCode());
+		result = prime * result + ((warehouseCode == null) ? 0 : warehouseCode.hashCode());
+		result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
+		result = prime * result + ((warehouseType == null) ? 0 : warehouseType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Warehouse other = (Warehouse) obj;
+		if (addressSet == null) {
+			if (other.addressSet != null)
+				return false;
+		} else if (!addressSet.equals(other.addressSet))
+			return false;
+		if (warehouseCode == null) {
+			if (other.warehouseCode != null)
+				return false;
+		} else if (!warehouseCode.equals(other.warehouseCode))
+			return false;
+		if (warehouseName == null) {
+			if (other.warehouseName != null)
+				return false;
+		} else if (!warehouseName.equals(other.warehouseName))
+			return false;
+		if (warehouseType == null) {
+			if (other.warehouseType != null)
+				return false;
+		} else if (!warehouseType.equals(other.warehouseType))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Warehouse [warehouseCode=" + warehouseCode + ", warehouseName=" + warehouseName + ", warehouseType="
+				+ warehouseType + ", addressSet=" + addressSet + ", stockSet=" + stockSet + "]";
+	}
+
+	
 }

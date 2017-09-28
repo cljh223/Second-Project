@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
+import com.kilha.www.vo.logistics.Warehouse;
 import com.kilha.www.vo.sal.Kpi;
 import com.kilha.www.vo.sal.Kpidivision;
 import com.kilha.www.vo.sal.Process;
@@ -45,4 +46,5 @@ public interface MapDAO {
 	public int insertNewAddress(Map map);
 	public List<Supply> supplyTableSetting(String processCode);
 	public List<Shop> shopDetailSelect3(Map<String, String> map);
+	public Warehouse warehouseDetail(int warehouseCode);
 }

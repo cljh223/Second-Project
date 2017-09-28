@@ -152,150 +152,15 @@
 			<!--logo start-->
 			<div class="brand">
 
-				<a href="index.html" class="logo"> <img src="images/logo.png"
-					alt="">
-				</a>
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
+
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
 			</div>
 			<!--logo end-->
 
-			<div class="nav notify-row" id="top_menu">
-				<!--  notification start -->
-				<ul class="nav top-menu">
-					<!-- settings start -->
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#"> <i class="fa fa-tasks"></i>
-							<span class="badge bg-success">8</span>
-					</a>
-						<ul class="dropdown-menu extended tasks-bar">
-							<li>
-								<p class="">You have 8 pending tasks</p>
-							</li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>25% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="45"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Product Delivery</h5>
-											<p>45% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="78"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Payment collection</h5>
-											<p>87% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="60"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-							<li><a href="#">
-									<div class="task-info clearfix">
-										<div class="desc pull-left">
-											<h5>Target Sell</h5>
-											<p>33% , Deadline 12 June’13</p>
-										</div>
-										<span class="notification-pie-chart pull-right"
-											data-percent="90"> <span class="percent"></span>
-										</span>
-									</div>
-							</a></li>
-
-							<li class="external"><a href="#">See All Tasks</a></li>
-						</ul></li>
-					<!-- settings end -->
-					<!-- inbox dropdown start-->
-					<li id="header_inbox_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-envelope-o"></i> <span class="badge bg-important">4</span>
-					</a>
-						<ul class="dropdown-menu extended inbox">
-							<li>
-								<p class="red">You have 4 Mails</p>
-							</li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Jonathan
-											Smith</span> <span class="time">Just now</span>
-								</span> <span class="message"> Hello, this is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-2.jpg"></span> <span
-									class="subject"> <span class="from">Jane Doe</span> <span
-										class="time">2 min ago</span>
-								</span> <span class="message"> Nice admin template </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini-3.jpg"></span> <span
-									class="subject"> <span class="from">Tasi sam</span> <span
-										class="time">2 days ago</span>
-								</span> <span class="message"> This is an example msg. </span>
-							</a></li>
-							<li><a href="#"> <span class="photo"><img
-										alt="avatar" src="images/avatar-mini.jpg"></span> <span
-									class="subject"> <span class="from">Mr. Perfect</span> <span
-										class="time">2 hour ago</span>
-								</span> <span class="message"> Hi there, its a test </span>
-							</a></li>
-							<li><a href="#">See all messages</a></li>
-						</ul></li>
-					<!-- inbox dropdown end -->
-					<!-- notification dropdown start-->
-					<li id="header_notification_bar" class="dropdown"><a
-						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-							class="fa fa-bell-o"></i> <span class="badge bg-warning">3</span>
-					</a>
-						<ul class="dropdown-menu extended notification">
-							<li>
-								<p>Notifications</p>
-							</li>
-							<li>
-								<div class="alert alert-info clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #1 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-danger clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #2 overloaded.</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="alert alert-success clearfix">
-									<span class="alert-icon"><i class="fa fa-bolt"></i></span>
-									<div class="noti-info">
-										<a href="#"> Server #3 overloaded.</a>
-									</div>
-								</div>
-							</li>
-
-						</ul></li>
-					<!-- notification dropdown end -->
-				</ul>
-				<!--  notification end -->
-			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
 				<ul class="nav pull-right top-menu">
@@ -330,51 +195,58 @@
 				<!-- sidebar menu start-->
 				<div class="leftside-navigation">
 					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						<li><a class="active"> <i class="fa fa-caret-down"></i> <span>전체메뉴</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
+								class="fa fa-credit-card"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
+								<li><a href="Pur_inform">원자재 정보</a></li>
+								<li><a href="Pur_chart">원자재 거래</a></li>
+								<li><a href="Pur_orderform1">원자재 주문하기</a></li>
+								<li><a href="Pur_orders">원자재 주문내역</a></li>
+								<li><a href="Pur_profitloss">원자재 거래내역</a></li>
+								<li><a href="Pur_store">원자재재고량</a></li>
+							</ul></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-wrench"></i> <span>생산부서</span>
+						</a>
+							<ul class="sub">
+								<li><a
+									href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제
+										1공장 정보</a></li>
+								<li><a
+									href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제
+										2공장 정보</a></li>
+								<li><a href="pro_Gradient">예측 분석</a></li>
+								<li><a href="pro_RegistForm">생산정보입력</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-truck"></i> <span>물류부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="second">물류창고 현황</a></li>
+								<li><a href="junseok">출고서 확인</a></li>
+								<li><a href="third">배차경로 확인</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
+								class="fa fa-users"></i> <span>영업부서</span>
 						</a>
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
 								<li><a href="compareMain">영업 비교 페이지</a></li>
-								<li><a href="productMain">상품 비교 페이지</a></li>
 							</ul></li>
+
 					</ul>
 				</div>
 				<!-- sidebar menu end-->
 			</div>
 		</aside>
+		<!--sidebar end-->
+
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">

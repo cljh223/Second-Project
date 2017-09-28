@@ -14,6 +14,15 @@
 		<result property="shopCode" column="shop_code" />
 	</resultMap>
 
+	<resultMap type="Stock" id="stockMap">
+		<result property="stockNum" column="stockNum" />
+		<result property="lockNum" column="lockNum" />
+		<result property="quantity" column="quantity" />
+		<result property="goods" column="goods" />
+		<result property="inputdate" column="inputdate" />
+		<result property="warehouse_code" column="warehouse_code" />
+	</resultMap>
+
 	<resultMap type="Shop" id="ShopMap">
 		<id property="shopCode" column="shop_code" />
 		<result property="shopName" column="shop_name" />
@@ -77,6 +86,7 @@
 		<result property="addressPost" column="address_post" />
 		<result property="shopEmail" column="shop_eamil" />
 		<result property="shopSNS" column="shop_SNS" />
+		<result property="warehouseCode" column="warehouse_code" />
 		<collection property="supplyList" javaType="java.util.List"
 			resultMap="SupplyListVoMap" />
 	</resultMap>
@@ -85,6 +95,10 @@
 		<id property="warehouseCode" column="warehouse_code" />
 		<result property="warehouseName" column="warehouse_name" />
 		<result property="warehouseType" column="warehouse_type" />
+		<collection property="addressSet" javaType="java.util.List"
+			resultMap="AddressMap" />
+		<collection property="stockSet" javaType="java.util.List"
+			resultMap="stockMap" />
 	</resultMap>
 
 	<resultMap type="Product" id="ProductList">
@@ -210,39 +224,54 @@
 
 	<select id="popupNowEstimate" parameterType="Map" resultMap="SupplyVoMap">
 		SELECT s.shop_name, a.address_detail1, a.address_detail2,
-      a.address_detail3, a.address_detail4,
-      s.shop_tel, d.product_unit,
-      l.supply_price, l.supply_volume, p.process_term,
-      d.product_code,
-      p.process_end_date, p.process_insert_date, d.product_name, f.staff_name
-      FROM process
-      p INNER JOIN shop s ON
-      p.process_code = #{processCode}
-      AND p.SHOP_CODE =
-      s.SHOP_CODE
-      INNER JOIN address a ON a.shop_code = s.shop_code
-      INNER JOIN
-      supply l ON
-      l.process_code = p.process_code AND
-      l.process_code =
-      #{processCode}
-      INNER JOIN product d ON d.product_code = l.product_code
-      INNER JOIN staff f
-      ON f.staff_code = p.staff_code
-      WHERE
-      p.process_insert_date = (select max(process_insert_date) as
-      process_insert_date from process p INNER JOIN shop s ON
-      p.process_code
-      = #{processCode}
-      AND p.SHOP_CODE = s.SHOP_CODE
-      INNER JOIN address a ON
-      a.shop_code = s.shop_code
-      INNER JOIN supply l ON
-      l.process_code =
-      p.process_code AND
-      l.process_code = #{processCode}
-      INNER JOIN product d
-      ON d.product_code = l.product_code)
+		a.address_detail3, a.address_detail4,
+		s.shop_tel, d.product_unit,
+		l.supply_price, l.supply_volume, p.process_term,
+		d.product_code,	p.process_end_date, p.process_insert_date, d.product_name,
+		w.warehouse_code, f.staff_name
+		FROM process
+		p INNER JOIN shop s ON
+		p.process_code =
+		#{processCode}
+		AND p.SHOP_CODE =
+		s.SHOP_CODE
+		INNER JOIN
+		address a ON
+		a.shop_code = s.shop_code
+		INNER JOIN
+		supply l ON
+		l.process_code =
+		p.process_code AND
+		l.process_code =
+		#{processCode}
+		INNER
+		JOIN product d
+		ON d.product_code = l.product_code
+		INNER JOIN staff f
+		ON
+		f.staff_code =
+		p.staff_code
+		INNER JOIN warehouse w
+		ON w.warehouse_code = p.warehouse_code
+		WHERE
+		p.process_insert_date = (select
+		max(process_insert_date) as
+		process_insert_date from process p INNER
+		JOIN shop s ON
+		p.process_code
+		= #{processCode}
+		AND p.SHOP_CODE =
+		s.SHOP_CODE
+		INNER JOIN address a ON
+		a.shop_code = s.shop_code
+		INNER JOIN
+		supply l ON
+		l.process_code =
+		p.process_code AND
+		l.process_code =
+		#{processCode}
+		INNER JOIN product d
+		ON d.product_code = l.product_code)
 	</select>
 
 	<select id="popupAllEstimateView" parameterType="Map" resultMap="SupplyVoMap">
@@ -594,19 +623,35 @@
 
 	<select id="supplyTableSetting" parameterType="String"
 		resultMap="SupplyMap">
-		select d.PRODUCT_CODE, d.product_name, d.product_unit, d.product_unit_price, d.product_release_price, s.*
-		from supply s INNER JOIN product d ON
+		select d.PRODUCT_CODE, d.product_name, d.product_unit,
+		d.product_unit_price, d.product_release_price, s.*
+		from supply s INNER
+		JOIN product d ON
 		d.PRODUCT_CODE = s.PRODUCT_CODE
-		where PROCESS_CODE = #{process_code}
+		where PROCESS_CODE =
+		#{process_code}
 	</select>
-	
+
 	<select id="shopDetailSelect3" parameterType="Map" resultMap="ShopMap">
-		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel, a.address_detail1,
-		a.address_detail2, a.address_detail3, a.address_detail4
+		SELECT s.shop_code, s.shop_name, s.shop_rep, s.shop_tel,
+		a.address_detail1,
+		a.address_detail2, a.address_detail3,
+		a.address_detail4
 		FROM shop s INNER JOIN address a
-		ON s.shop_code = a.shop_code
+		ON s.shop_code =
+		a.shop_code
 		<if test="shopName != null">
 			AND s.shop_name = #{shopName}
 		</if>
+	</select>
+
+	<select id="warehouseDetail" parameterType="int" resultMap="WarehouseList">
+		SELECT w.*, a.*, s.* FROM warehouse w
+		INNER JOIN address a
+		ON a.warehouse_code = w.warehouse_code
+		INNER JOIN stock s
+		ON s.warehouse_code = w.warehouse_code
+		WHERE w.warehouse_code = #{warehouseCode}
+		
 	</select>
 </mapper>

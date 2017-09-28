@@ -14,7 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 
-<title>Blank page</title>
+<title>영업 메인 페이지</title>
 
 <!--Core CSS -->
 <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
@@ -99,6 +99,9 @@
 	height: 500px;
 }
 </style>
+
+
+
 <!-- Resources -->
 
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
@@ -147,11 +150,11 @@
 			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
 			if (shopCodeList[i] == 0) {
 				icon = new Tmap.IconHtml(
-						'<img alt="" src="images/sales/견적마커.png">', size,
+						'<img alt="" src="images/sales/출고마커.png">', size,
 						offset);
 			} else {
 				icon = new Tmap.IconHtml(
-						'<img alt="" src="images/sales/수주마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'"></a>',
+						'<img alt="" src="images/sales/출고마커.png" data-type = "marker" data-source="'+shopCodeList[i]+'" style="width: 25px;height: 34px;position: relative;"></a>',
 						size, offset);
 			}
 			var marker = new Tmap.Markers(lonlat, icon);
@@ -449,15 +452,16 @@
 				+ '<div class="col-md-8 col-sm-7"></div>' + '</div>'
 				+ '<div class="row">'
 				+ '<div class="col-md-4 col-sm-5 inv-label">입력날짜</div>'
-				+ '<div class="col-md-8 col-sm-7">' + resp.processInsertDate
-				+ '</div>' + '</div>' + '<br>' + '<div class="row">'
+				+ '<div class="col-md-8 col-sm-7">'
+				+ getTimeStamp(resp.processInsertDate) + '</div>' + '</div>'
+				+ '<br>' + '<div class="row">'
 				+ '<div class="col-md-4 col-sm-5 inv-label">마감날짜</div>'
-				+ '<div class="col-md-8 col-sm-7">' + resp.processTerm
-				+ '</div>' + '</div>' + '<br>' + '<div class="row">'
-				+ '<div class="col-md-12 inv-label">' + '<h3>납품종료일 #</h3>'
-				+ '</div>' + '<div class="col-md-12">'
-				+ '<h4 class="amnt-value">' + resp.processEndDate + '</h4>'
-				+ '</div>' + '</div>' + '</div>' + '</div>'
+				+ '<div class="col-md-8 col-sm-7">'
+				+ getTimeStamp(resp.processTerm) + '</div>' + '</div>' + '<br>'
+				+ '<div class="row">' + '<div class="col-md-12 inv-label">'
+				+ '<h3>납품종료일 #</h3>' + '</div>' + '<div class="col-md-12">'
+				+ '<h4 class="amnt-value">' + getTimeStamp(resp.processEndDate)
+				+ '</h4>' + '</div>' + '</div>' + '</div>' + '</div>'
 				+ '<table class="table table-invoice" >' + '<thead>' + '<tr>'
 				+ '<th>#</th>' + '<th>Item Description</th>'
 				+ '<th class="text-center">Unit Cost</th>'
@@ -468,12 +472,10 @@
 			NowEstimateText += '<tr>' + '<td>' + index + '</td>' + '<td>'
 					+ '<h4>' + item.productName + '</h4>' + '<p>단위 : '
 					+ item.productUnit + '</p>' + '</td>'
+					+ '<td class="text-center">' + item.supplyPrice + '</td>'
+					+ '<td class="text-center">' + item.supplyVolume + '</td>'
 					+ '<td class="text-center">' + item.supplyPrice
-					+ '</td>' + '<td class="text-center">'
-					+ item.supplyVolume + '</td>'
-					+ '<td class="text-center">'
-					+ item.supplyPrice * item.supplyVolume + '</td>'
-					+ '</tr>'
+					* item.supplyVolume + '</td>' + '</tr>'
 		});
 		+'</tbody>'
 				+ '</table>'
@@ -510,10 +512,10 @@
 									+ item.shopName
 									+ '</h4></td>'
 									+ '<td class="text-center">'
-									+ item.processInsertDate
+									+ getTimeStamp(item.processInsertDate)
 									+ '</td>'
 									+ '<td class="text-center">'
-									+ item.processEndDate
+									+ getTimeStamp(item.processEndDate)
 									+ '</td>'
 									+ '<td class="text-center">'
 									+ item.processState + '</td>' + '</tr></a>'
@@ -658,10 +660,6 @@
 		$(".range_2").ionRangeSlider();
 		$('.mtop10').on('click', kpiSettingFunction);
 		$('#shopSearchFormBtn').on('click', shopSearchFormFunction);
-		/* $('a[href*=#]').on('click', function(event){
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
-			}); */
 		$('.wdgt-value')
 				.on(
 						'click',
@@ -680,7 +678,7 @@
 							}
 
 							var kpiSettingText = '<div class="col-sm-12"><section class="panel"><div class="panel-body">'
-									+ '<div class="position-center"><form class="form-horizontal" role="form"><div class="form-group">'
+									+ '<div class="position-center" style="idth: 500px;width: 500px;"><form class="form-horizontal" role="form"><div class="form-group">'
 									+ '<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">매장명</label>'
 									+ '<div class="col-lg-10"><input type="text" class="form-control" id="unShopNameUpdate" value="'+shopName+'" placeholder="매장명">'
 									+ '</div></div><div class="form-group">'
@@ -730,9 +728,9 @@
 			<!--logo start-->
 			<div class="brand">
 
-				<a href="index.html" class="logo"> <img src="images/logo.png"
-					alt="">
-				</a>
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
+
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
@@ -766,45 +764,51 @@
 				<!-- sidebar menu start-->
 				<div class="leftside-navigation">
 					<ul class="sidebar-menu" id="nav-accordion">
-						<li><a class="active" href="index.html"> <i
-								class="fa fa-dashboard"></i> <span>Dashboard</span>
+						<li><a class="active"> <i class="fa fa-caret-down"></i> <span>전체메뉴</span>
 						</a></li>
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>구매부서</span>
+								class="fa fa-credit-card"></i> <span>구매부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="Pur_main">구매메인화면</a></li>
-								<li><a href="Pur_inform">상품디테일</a></li>
-								<li><a href="Pur_chart">상품구매(구매부직원만)</a></li>
-								<li><a href="Pur_orders">주문내역</a></li>
-								<li><a href="Pur_orderform1">invoice작성</a></li>
-								<li><a href="Pur_profitloss">구매부 실적(거래내역)</a></li>
-								<li><a href="Pur_store">상품재고</a></li>
+								<li><a href="Pur_inform">원자재 정보</a></li>
+								<li><a href="Pur_chart">원자재 거래</a></li>
+								<li><a href="Pur_orderform1">원자재 주문하기</a></li>
+								<li><a href="Pur_orders">원자재 주문내역</a></li>
+								<li><a href="Pur_profitloss">원자재 거래내역</a></li>
+								<li><a href="Pur_store">원자재재고량</a></li>
+							</ul></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-wrench"></i> <span>생산부서</span>
+						</a>
+							<ul class="sub">
+								<li><a
+									href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제
+										1공장 정보</a></li>
+								<li><a
+									href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제
+										2공장 정보</a></li>
+								<li><a href="pro_Gradient">예측 분석</a></li>
+								<li><a href="pro_RegistForm">생산정보입력</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-truck"></i> <span>Logistics</span>
+								class="fa fa-truck"></i> <span>물류부서</span>
 						</a>
 							<ul class="sub">
-								<li><a href="first">log-01, 02, 07</a></li>
-								<li><a href="second">log-03, 11</a></li>
-								<li><a href="third">log-04</a></li>
-								<li><a href="fourth">log-05, 12</a></li>
-								<li><a href="fifth">log-06(List)</a></li>
-								<li><a href="sixth">log-06(Timetable)</a></li>
-								<li><a href="seventh">log-08,13</a></li>
-								<li><a href="eighth">log-09, 10</a></li>
-								<li><a href="nineth">log-13</a></li>
+								<li><a href="second">물류창고 현황</a></li>
+								<li><a href="junseok">출고서 확인</a></li>
+								<li><a href="third">배차경로 확인</a></li>
 							</ul></li>
 
 						<li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-laptop"></i> <span>영업부서</span>
+								class="fa fa-users"></i> <span>영업부서</span>
 						</a>
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
 								<li><a href="compareMain">영업 비교 페이지</a></li>
 							</ul></li>
+
 					</ul>
 				</div>
 				<!-- sidebar menu end-->
@@ -818,7 +822,7 @@
 					<div class="col-sm-11">
 						<input id="searchKeyword" type="text"
 							placeholder="등록을 원하는 매장을 검색하세요" class="form-control"
-							style="width: 1566;">
+							style="width: 1566; width: 1576px;">
 					</div>
 					<div class="col-sm-1">
 						<a href="#shopSearchForm2">
@@ -1140,6 +1144,28 @@
 															</div>
 														</div>
 														<div class="row">
+															<!-- modal -->
+															<div class="modal fade" id="myModal4" tabindex="-1"
+																role="dialog" aria-labelledby="myModalLabel"
+																aria-hidden="true">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-hidden="true">&times;</button>
+																			<h4 class="modal-title">Datepicker in Modal</h4>
+																		</div>
+																		<div class="modal-body"></div>
+																		<div class="modal-footer">
+																			<button data-dismiss="modal" class="btn btn-default"
+																				type="button">Close</button>
+																			<button type="button" id="button3"
+																				class="btn btn-primary">OK</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<!-- modal end -->
 															<div class="col-sm-12">
 																<section class="panel">
 																	<div class="panel-body" id="processListForm"></div>
@@ -1223,26 +1249,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="modal fade" id="myModal4" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Datepicker in Modal</h4>
-												</div>
-												<div class="modal-body"></div>
-												<div class="modal-footer">
-													<button data-dismiss="modal" class="btn btn-default"
-														type="button">Close</button>
-													<button type="button" id="button3" class="btn btn-primary">OK</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- modal -->
+									<!-- modal end -->
 									<div class="form">
 										<div class="col-sm-6">
 											<div class="form-group ">
@@ -1366,6 +1373,7 @@
 					+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th>'
 					+ '</tr></thead><tbody>'
 			for (var i = 0; i < resp.length; i++) {
+				alert(getTimeStamp(resp[i].processTerm));
 				if (i % 2 != 0) {
 					processLocationText += '<a data-toggle="modal" href="#myModal4"><tr class = "gradeX odd" id="'+resp[i].processCode+'">';
 				} else {
@@ -1381,7 +1389,7 @@
 				processLocationText += resp[i].staffName;
 				processLocationText += '</td>';
 				processLocationText += '<td>';
-				processLocationText += resp[i].processTerm
+				processLocationText += getTimeStamp(resp[i].processTerm)
 				processLocationText += '</td>';
 				for (var j = 0; j < resp[i].supplyList.length; j++) {
 					salAmount = salAmount
@@ -1439,9 +1447,9 @@
 
 		function contactsViewFunctionSuccess(resp) {
 			var contactsLocationText = '<p>Postal Address<br>'
-					+ resp.addressPost + '</p>' + '<p>' + resp.addressDetail1
-					+ ' ' + resp.addressDetail2 + ' ' + ' '
-					+ resp.addressDetail3;
+					+ resp.addressPost + '</p>' + '<p>Address<br>'
+					+ resp.addressDetail1 + ' ' + resp.addressDetail2 + ' '
+					+ '<br> ' + resp.addressDetail3 + ' ';
 			if (resp.addressDetail4 != '') {
 				contactsLocationText += resp.addressDetail4;
 			}
@@ -1449,9 +1457,9 @@
 
 			$('.location-info').html(contactsLocationText);
 
-			var contactsContactText = '<p>Phone : <br>' + resp.shopTel
-					+ '<br></p>' + '<p>Email :' + resp.shopEmail + '</br></p>'
-					+ '<p>SNS : ' + resp.shopSNS + '</p>'
+			var contactsContactText = '<p>Phone  <br>' + resp.shopTel
+					+ '<br></p>' + '<p>Email <br>' + resp.shopEmail
+					+ '</br></p>' + '<p>SNS <br>' + resp.shopSNS + '</p>'
 			$('.contact-info').html(contactsContactText);
 		}
 
@@ -1482,15 +1490,16 @@
 					+ resp[0][0].shopRep
 					+ '</p></br>'
 					+ '<p>거래상황 : '
-					+ resp[0][0].processState
+					+ '계약중'
 					+ '</p></br>'
 					+ '<p>거래기간 : '
 					+ resp[1]
-					+ '</p></br>'
+					+ '일</p></br>'
 					+ '<p>최근거래 : '
 					+ resp[3]
 					+ ' '
-					+ resp[2] + '</p></br>';
+					+ getTimeStamp(resp[2])
+					+ '</p></br>';
 			$('.profile-desk').html(shopDetailHearderText);
 
 			var shopDetailEarnText = '<h1>' + AddComma(resp[4]) + '</h1>'
@@ -1520,7 +1529,6 @@
 						$('.job-history').attr('data-shopCode', shopCode);
 						$('.contacts').attr('data-shopCode', shopCode);
 						$('.settings').attr('data-shopCode', shopCode);
-						alert(shopCode);
 						var shopCodeJson = {
 							"shopCode" : shopCode
 						};
@@ -1542,7 +1550,6 @@
 		// 디비에서 견적서 프로세스 문서 정보를 가져오는 메소드
 		function nowEstimateSearchFunction() {
 			var processCode = $(this).attr('id');
-			alert(processCode);
 			var estimateJson = {
 				"processCode" : processCode
 			};
@@ -1783,7 +1790,6 @@
 				data : processDate,
 				dataType : 'text',
 				success : function(resp) {
-					alert(resp);
 					$('#processFormDiv').css('display', 'none');
 					$('#shopName').val('');
 					$('#staffName').val('');
@@ -1838,7 +1844,6 @@
 							}
 
 							chartData = subChartData
-							alert(subChartData);
 							chart = AmCharts.makeChart("chartdiv", {
 								"type" : "serial",
 								"theme" : "none",
@@ -1943,12 +1948,13 @@
 													+ '<div style="width:'
 													+ salesPercent
 													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ 'role="progressbar" class="progress-bar progress-bar-warning">'
 													+ '<span class="sr-only">'
 													+ salesPercent
 													+ '% Complete (success)</span>'
 													+ '</div></div></div><div class="col-md-2">'
-													+ Math.ceil(salesPercent) + '%</div>'
+													+ Math.ceil(salesPercent)
+													+ '%</div>'
 
 											$('.salesClass').html(
 													kpisalesPercentBarText);
@@ -1959,12 +1965,13 @@
 													+ '<div style="width:'
 													+ earnPercent
 													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ 'role="progressbar" class="progress-bar progress-bar progress-bar-danger">'
 													+ '<span class="sr-only">'
 													+ earnPercent
 													+ '% Complete (success)</span>'
 													+ '</div></div></div><div class="col-md-2">'
-													+ Math.ceil(earnPercent) + '%</div>'
+													+ Math.ceil(earnPercent)
+													+ '%</div>'
 
 											$('.earnClass').html(
 													kpiEarnPercentBarText);
@@ -1975,7 +1982,7 @@
 													+ '<div style="width:'
 													+ allEarnPercent
 													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar-danger">'
+													+ 'role="progressbar" class="progress-bar progress-bar-success">'
 													+ '<span class="sr-only">'
 													+ allEarnPercent
 													+ '% Complete (success)</span>'
@@ -2036,8 +2043,6 @@
 				},
 				dataType : 'json',
 				success : function(resp) {
-					alert(shopCode);
-					alert(date);
 					var temp = '등록해주세요';
 					$('#salesText').html(temp);
 					$('#earnText').html(temp);
@@ -2058,11 +2063,11 @@
 			});
 			kpiSettingFunction2();
 			$('.m-bot16').on('click', kpiSettingFunction2);
+			fnMove('.overview');
 		}
 
 		//overview클릭시 작동하는 함수
 		function overviewIntiFunction() {
-			fnMove('.overview');
 			updateViewFunction();
 			var shopCode = $('.settings').attr('data-shopCode');
 			$.ajax({
@@ -2337,6 +2342,27 @@
 							alert('유정이 바보');
 						}
 					});
+		}
+
+		function getTimeStamp(resp) {
+			var d = new Date(resp);
+
+			var s = leadingZeros(d.getFullYear(), 4) + '-'
+					+ leadingZeros(d.getMonth() + 1, 2) + '-'
+					+ leadingZeros(d.getDate(), 2) + ' ';
+
+			return s;
+		}
+
+		function leadingZeros(n, digits) {
+			var zero = '';
+			n = n.toString();
+
+			if (n.length < digits) {
+				for (i = 0; i < digits - n.length; i++)
+					zero += '0';
+			}
+			return zero + n;
 		}
 	</script>
 	<!--Core js-->
