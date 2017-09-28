@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -201,7 +202,19 @@
 										<td>${orderrmlists[outerstat.index][2]}</td>
 										<td>${orderrmlists[outerstat.index][3]}</td>
 										<td>${orderrmlists[outerstat.index][4]}</td>
-										<td>${orderrmlists[outerstat.index][5]}</td>
+										
+										<c:if test="${orderrmlists[outerstat.index][5] == '대기중'}">
+										<td style="color: red">${orderrmlists[outerstat.index][5]}</td>
+										</c:if>
+										<c:if test="${orderrmlists[outerstat.index][5] == '처리중'}">
+										<td style="color: blue">${orderrmlists[outerstat.index][5]}</td>
+										</c:if>
+										<c:if test="${orderrmlists[outerstat.index][5] == '처리완료'}">
+										<td style="color: green">${orderrmlists[outerstat.index][5]}</td>
+										</c:if>
+										
+										
+										
 										<td><a href="invoicedetails?taskcode=${orderrmlists[outerstat.index][0]}">상세보기</a></td>
 								</tr>
 							</c:forEach>

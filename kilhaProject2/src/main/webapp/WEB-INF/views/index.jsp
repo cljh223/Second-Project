@@ -193,23 +193,23 @@
 			</div>
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<table id="loginForm">
-					<tr>
-						<td><input type="text" class="form-control search"
-							placeholder=" Search"></td>
-						<td>&nbsp</td>
-						<!-- user login dropdown start-->
-						<td><%@include file="login.jsp"%></td>
-						<!-- user login dropdown end -->
-						<td>&nbsp</td>
-						<td>
-							<div class="toggle-right-box">
-								<div class="fa fa-bars"></div>
-							</div>
-						</td>
-					</tr>
-				</table>
-				<!--search & user info end-->
+            <table id="loginForm">
+               <tr>
+                  <td><input type="text" class="form-control search"
+                     placeholder=" Search"></td>
+                  <td>&nbsp;</td>
+                  <!-- user login dropdown start-->
+                  <td><%@include file="login.jsp"%></td>
+                  <!-- user login dropdown end -->
+                  <td>&nbsp;</td>
+                  <td>
+                     <div class="toggle-right-box">
+                        <div class="fa fa-bars"></div>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+            <!--search & user info end-->
 			</div>
 		</header>
 		<!--header end-->
