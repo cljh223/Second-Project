@@ -130,6 +130,16 @@ VALUES ('16184', '경상남도', '양산시', '신기강변 1길 11', '양산우방아이유셀', 21
 INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, SHOP_CODE) 
 VALUES ('16185', '강원도', '영월군', '영월읍', '중앙로 236', 22.0);
 
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('376-50', '경기도', '하남시', '감일남로 36-15', '', 1);
+
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('415-816', '경기도', '김포시', '아라육로 20', '', 2);
+
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('376-50', '경기도', '용인시', '처인구 양지면', '주북로 130', 3);
+
+
 
 insert into staff values
 (
@@ -257,91 +267,91 @@ insert into product VALUES
 
 insert into Truck 
 values
-('11가1234', '대', 300, 200, 100);
+('11가1234', '대', 500, 700, 600);
 
 insert into Truck 
 values
-('12가1234', '대', 300, 200, 100);
+('12가1234', '대', 500, 700, 600);
 
 insert into Truck 
 values
-('13가1234', '대', 300, 200, 100);
+('13가1234', '대', 500, 700, 600);
 
 insert into Truck 
 values
-('14가1234', '중', 300, 200, 100);
+('14가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('15가1234', '중', 300, 200, 100);
+('15가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('16가1234', '중', 300, 200, 100);
+('16가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('17가1234', '중', 300, 200, 100);
+('17가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('18가1234', '중', 300, 200, 100);
+('18가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('19가1234', '중', 300, 200, 100);
+('19가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('20가1234', '중', 300, 200, 100);
+('20가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('21가1234', '중', 300, 200, 100);
+('21가1234', '중', 500, 700, 600);
 
 insert into Truck 
 values
-('22가1234', '소', 300, 200, 100);
+('22가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('23가1234', '소', 300, 200, 100);
+('23가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('24가1234', '소', 300, 200, 100);
+('24가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('25가1234', '소', 300, 200, 100);
+('25가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('26가1234', '소', 300, 200, 100);
+('26가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('27가1234', '소', 300, 200, 100);
+('27가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('28가1234', '소', 300, 200, 100);
+('28가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('29가1234', '소', 300, 200, 100);
+('29가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('30가1234', '소', 300, 200, 100);
+('30가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('31가1234', '소', 300, 200, 100);
+('31가1234', '소', 500, 700, 600);
 
 insert into Truck 
 values
-('32가1234', '소', 300, 200, 100);
+('32가1234', '소', 500, 700, 600);
 
 
 
