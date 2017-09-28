@@ -312,8 +312,8 @@
     			  obj.stnNm = item.stnNm;
     			  obj.lati = item.lati;
     			  obj.lngt = item.lngt;
-    			  obj.shopAddress = item.shopAddress;
-    			  obj.shopTel = item.shopTel;
+    			  obj.shopAddress = item.address;
+    			  obj.shopTel = item.tel;
     			  obj.status = item.status;
     			  
     			  sourceData.push(obj);
@@ -321,16 +321,79 @@
     	   }	
        });
        
-       var markers = [];
+       $.ajax({
+    	   url: "warehouseData",
+    	   method: "GET",
+    	   async: false,
+    	   success: function(warehouseData){
+    		   var temp = warehouseData;
+    		   
+    		   $.each(temp, function(index, item){
+    			  var obj = {};
+    			  obj.stnNm = item.stnNm;
+    			  obj.lati = item.lati;
+    			  obj.lngt = item.lngt;
+    			  obj.warehouseAddress = item.address;
+    			  obj.warehouseTel = item.tel;
+    			  obj.status = item.status;
+    			  
+    			  sourceData.push(obj);
+    		   });
+    	   }	
+       });
+       
+       $.ajax({
+    	   url: "factoryData",
+    	   method: "GET",
+    	   async: false,
+    	   success: function(factoryData){
+    		   var temp = factoryData;
+    		   
+    		   $.each(temp, function(index, item){
+    			  var obj = {};
+    			  obj.stnNm = item.stnNm;
+    			  obj.lati = item.lati;
+    			  obj.lngt = item.lngt;
+    			  obj.factoryAddress = item.address;
+    			  obj.factoryTel = item.tel;
+    			  obj.status = item.status;
+    			  
+    			  sourceData.push(obj);
+    		   });
+    	   }	
+       });
+       
+        var markers = [];
         jQuery.each(sourceData, function(){
-            var obj = {};
-            obj.coords = convert(this.lati, this.lngt);
-            obj.stnNm = this.stnNm;
-            obj.shopAddress = this.shopAddress;
-            obj.shopTel = this.shopTel;
-            markers.push(obj);
+        	if(this.status == 'store') {
+	            var obj = {};
+	            obj.coords = convert(this.lati, this.lngt);
+	            obj.stnNm = this.stnNm;
+	            obj.shopAddress = this.shopAddress;
+	            obj.shopTel = this.shopTel;
+	            obj.status = this.status;
+	            markers.push(obj);
+        	}
+        	else if(this.status == 'warehouse') {
+        		var obj = {};
+                obj.coords = convert(this.lati, this.lngt);
+                obj.stnNm = this.stnNm;
+                obj.warehouseAddress = this.warehouseAddress;
+                obj.warehouseTel = this.warehouseTel;
+                obj.status = this.status;
+                markers.push(obj);
+        	}
+        	else if(this.status == 'factory') {
+        		var obj = {};
+                obj.coords = convert(this.lati, this.lngt);
+                obj.stnNm = this.stnNm;
+                obj.factoryAddress = this.factoryAddress;
+                obj.factoryTel = this.factoryTel;
+                obj.status = this.status;
+                markers.push(obj);
+        	}
         });
-
+        
         if ($.fn.vectorMap) {
             $('#world-map').vectorMap({
             	map: 'korea_mill_en',
@@ -355,10 +418,27 @@
                 onMarkerTipShow: function(e, el, idx) {
                     var msg = el.html();
                     var source = markers[idx];
-                    msg += "<b>영업점 : " + source.stnNm + "</b><br>";
-                    msg += "<b>주소 : " + source.shopAddress + "</b><br>";
-                    msg += "<b>전화번호 : " + source.shopTel + "</b><br>";
-                    el.html(msg); 
+                    
+                    console.log(source);
+                    
+                    if(source.status == 'store') {
+	                    msg += "<b>영업점 : " + source.stnNm + "</b><br>";
+	                    msg += "<b>주소 : " + source.shopAddress + "</b><br>";
+	                    msg += "<b>전화번호 : " + source.shopTel + "</b><br>";
+	                    el.html(msg); 
+                    }
+                    else if(source.status == 'warehouse') {
+	                    msg += "<b>물류창고 : " + source.stnNm + "</b><br>";
+	                    msg += "<b>주소 : " + source.warehouseAddress + "</b><br>";
+	                    msg += "<b>전화번호 : " + source.warehouseTel + "</b><br>";
+	                    el.html(msg); 
+                    }
+                    else if(source.status == 'factory') {
+	                    msg += "<b>생산공장 : " + source.stnNm + "</b><br>";
+	                    msg += "<b>주소 : " + source.factoryAddress + "</b><br>";
+	                    msg += "<b>전화번호 : " + source.factoryTel + "</b><br>";
+	                    el.html(msg); 
+                    }
                 },
                 /*labels: {
                     markers: {

@@ -186,4 +186,9 @@ from totalinfo where startdate =to_date(#{startdate}, 'yy/mm/dd') and r_name=#{r
 <update id="updateInven" parameterType="Map">
    update inventory set p_amount=#{amount} where materialname=#{materialname}
 </update>
+
+<select id="factoryDetail" resultType="pro_FactoryVO">
+	select * from factory
+</select>
+
 </mapper>

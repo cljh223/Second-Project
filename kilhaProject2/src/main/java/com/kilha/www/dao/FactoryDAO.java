@@ -75,4 +75,7 @@ public interface FactoryDAO {
 	
 	//사용한 재료량 업데이트
 	public int updateInven(Map map);
+	
+	public List<FactoryVO> factoryDetail();
+
 }

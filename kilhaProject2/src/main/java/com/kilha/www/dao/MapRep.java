@@ -208,4 +208,9 @@ public class MapRep {
 		return dao.warehouseDetail(warehouseCode);
 	}
 	
+	public List<Warehouse> warehouseDetailSelect2() {
+		// TODO Auto-generated method stub
+		MapDAO dao = sqlSession.getMapper(MapDAO.class);
+		return dao.warehouseDetailSelect2();
+	}
 }

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kilha.www.dao.FactoryRepository;
 import com.kilha.www.dao.LogisticsRepository;
 import com.kilha.www.dao.MapRep;
 import com.kilha.www.vo.common.MapData;
 import com.kilha.www.vo.common.Staff;
 import com.kilha.www.vo.logistics.Stock;
 import com.kilha.www.vo.logistics.Warehouse;
+import com.kilha.www.vo.product.FactoryVO;
 import com.kilha.www.vo.sal.Shop;
 import com.kilha.www.vo.sal.SupplyVo;
 import com.kilha.www.vo.tmap.DataSet;
@@ -36,6 +38,9 @@ public class HomeController {
 	
 	@Autowired
 	MapRep repo2;
+	
+	@Autowired
+	FactoryRepository repo3;
 	
 	@RequestMapping("/")
 	public String mainPage(Model model){
@@ -70,6 +75,26 @@ public class HomeController {
 		ArrayList<MapData> shopData = dataset.shopDataSet(list);
 		
 		return shopData;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "warehouseData", method = RequestMethod.GET)
+	public ArrayList<MapData> warehouseData(){
+		DataSet dataset = new DataSet();
+		List<Warehouse> list = repo2.warehouseDetailSelect2();
+		ArrayList<MapData> warehouseData = dataset.warehouseDataSet(list);
+		
+		return warehouseData;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "factoryData", method = RequestMethod.GET)
+	public ArrayList<MapData> factoryData(){
+		DataSet dataset = new DataSet();
+		List<FactoryVO> list = repo3.factoryDetail();
+		ArrayList<MapData> factoryData = dataset.factoryDataSet(list);
+		
+		return factoryData;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

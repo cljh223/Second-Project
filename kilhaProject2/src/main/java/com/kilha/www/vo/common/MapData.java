@@ -5,8 +5,8 @@ public class MapData
 	private String stnNm;
 	private float lati;
 	private float lngt;
-	private String shopAddress;
-	private String shopTel;
+	private String address;
+	private String tel;
 	private String status;
 	public String getStnNm() {
 		return stnNm;
@@ -26,17 +26,17 @@ public class MapData
 	public void setLngt(float lngt) {
 		this.lngt = lngt;
 	}
-	public String getShopAddress() {
-		return shopAddress;
+	public String getAddress() {
+		return address;
 	}
-	public void setShopAddress(String shopAddress) {
-		this.shopAddress = shopAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getShopTel() {
-		return shopTel;
+	public String getTel() {
+		return tel;
 	}
-	public void setShopTel(String shopTel) {
-		this.shopTel = shopTel;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public String getStatus() {
 		return status;
@@ -46,8 +46,8 @@ public class MapData
 	}
 	@Override
 	public String toString() {
-		return "MapData [stnNm=" + stnNm + ", lati=" + lati + ", lngt=" + lngt + ", shopAddress=" + shopAddress
-				+ ", shopTel=" + shopTel + ", status=" + status + "]";
+		return "MapData [stnNm=" + stnNm + ", lati=" + lati + ", lngt=" + lngt + ", address=" + address + ", tel=" + tel
+				+ ", status=" + status + "]";
 	}
 	
 	

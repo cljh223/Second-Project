@@ -607,6 +607,7 @@
 			}
 			 
 			function onSuccess( data ) {
+			   console.log("success!!!!");
 			   console.log( data ) // 응답 데이터 구조를 보시려면 주석을 푸시면 됩니다.
 			   
 			   // 운행 경로
@@ -655,9 +656,16 @@
 			   var size = new Tmap.Size(24,38);
 			   var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
 			   var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
+			   var label = new Tmap.Label("<h5>서울특별시 강남구 영동대로 563길</h5>");
+			   var markers = new Tmap.Markers(lonlat, icon, label);
+			   markerLayer.addMarker(markers);
+			   markers.popup.show();;
+			   /* var size = new Tmap.Size(24,38);
+			   var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
+			   var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
 			        
 			   var marker = new Tmap.Marker(lonlat, icon);
-			   markerLayer.addMarker(marker);
+			   markerLayer.addMarker(marker); */
 			}
 			
 			function drawLine( arrPoint ) {

@@ -234,4 +234,10 @@ public class FactoryRepository {
 		map.put("amount", amount);
 		return dao.updateInven(map);
 	}
+	
+	public List<FactoryVO> factoryDetail() {
+		FactoryDAO dao = sqlsession.getMapper(FactoryDAO.class);
+		return dao.factoryDetail();
+	}
+
 }

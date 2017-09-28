@@ -12,6 +12,7 @@
 		<typeAlias type="com.kilha.www.vo.logistics.Stock" alias="Stock" />
 		<typeAlias type="com.kilha.www.vo.common.Staff" alias="Staff" />
 		<typeAlias type="com.kilha.www.vo.common.Product" alias="Product" />
+		<typeAlias type="com.kilha.www.vo.common.MapData" alias="MapData" />
 		<typeAlias type="com.kilha.www.vo.sal.Supply" alias="Supply" />
 		<typeAlias type="com.kilha.www.vo.sal.Process" alias="Process" />
 		<typeAlias type="com.kilha.www.vo.sal.SupplyVo" alias="SupplyVo" />
