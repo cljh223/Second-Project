@@ -4702,7 +4702,7 @@
 		 */
 		function _fnLog( oSettings, iLevel, sMesg )
 		{
-			var sAlert = (oSettings===null) ?
+			/*var sAlert = (oSettings===null) ?
 				"DataTables warning: "+sMesg :
 				"DataTables warning (table id = '"+oSettings.sTableId+"'): "+sMesg;
 			
@@ -4721,7 +4721,7 @@
 			else if ( window.console && console.log )
 			{
 				console.log( sAlert );
-			}
+			}*/
 		}
 		
 		
@@ -8752,10 +8752,10 @@
 				"cache": false,
 				"type": oSettings.sServerMethod,
 				"error": function (xhr, error, thrown) {
-					if ( error == "parsererror" ) {
+					/*if ( error == "parsererror" ) {
 						oSettings.oApi._fnLog( oSettings, 0, "DataTables warning: JSON data from "+
 							"server could not be parsed. This is caused by a JSON formatting error." );
-					}
+					}*/
 				}
 			} );
 		},

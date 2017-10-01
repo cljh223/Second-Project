@@ -187,6 +187,7 @@ td .num {
                               <div class="col-md-4" id="deliveryDate">
                                  <div id="deliverydatePart">
                                  <input type="text" readonly value="${new_date}" size="16" class="form-control" name="deliverydate" id="deliveryDate1">
+                                 <input type="hidden" value="${end_date}" id="endDate">
                                  </div>
                               </div>
                            </div>
@@ -535,6 +536,15 @@ td .num {
       src="js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
    <script type="text/javascript"
       src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
+     
+     
+     <script src="js/scripts.js"></script>
+     <script class="include" type="text/javascript"
+		src="js/jquery.dcjqaccordion.2.7.js"></script> 
+      <script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+
+	<script src="js/bootstrap-switch.js"></script> 
    <!-- 코어 끝 -->
    <script>
       $(function() {
@@ -595,7 +605,7 @@ td .num {
       }
 
       function reserveTruckList() {
-    	  var dDate = $("#deliveryDate1").val();
+    	  var dDate = $("#endDate").val();
          var truck = $("#truck_code").val();
          var map = {
             "dDate" : dDate,

@@ -32,17 +32,27 @@ import com.kilha.www.vo.tmap.DataSet;
  */
 @Controller
 public class HomeController {
-	
+	   
 	@Autowired
-	LogisticsRepository repo;
-	
-	@Autowired
-	MapRep repo2;
-	
-	@Autowired
-	FactoryRepository repo3;
+	   LogisticsRepository repo;
+	   
+	   @Autowired
+	   MapRep repo2;
+	   
+	   @Autowired
+	   FactoryRepository repo3;
+
 	
 	@RequestMapping("/")
+	public String home(Model model){
+		return "slide";
+	}
+	
+	
+	
+	/*@ResponseBody*/
+	
+	@RequestMapping(value="main", method = RequestMethod.GET)
 	public String mainPage(Model model){
 		Map map = new HashMap<>();
 		map.put("searchProcessText", "");
@@ -59,45 +69,16 @@ public class HomeController {
 			String sum = df.format(sumTemp);
 			sumList.add(sum);
 		}
+		
+		System.out.println("??"+supplyList);
 		model.addAttribute("supplyList", supplyList);
 		model.addAttribute("sumList", sumList);
 		System.out.println(supplyList);
 		return "main";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "shopData", method = RequestMethod.GET)
-	public ArrayList<MapData> shopData(){
-		DataSet dataset = new DataSet();
-		List<Shop> list = repo2.shopDetailSelect2();
-		dataset.shopDataSet(list);
-		
-		ArrayList<MapData> shopData = dataset.shopDataSet(list);
-		
-		return shopData;
-	}
 	
-	@ResponseBody
-	@RequestMapping(value = "warehouseData", method = RequestMethod.GET)
-	public ArrayList<MapData> warehouseData(){
-		DataSet dataset = new DataSet();
-		List<Warehouse> list = repo2.warehouseDetailSelect2();
-		ArrayList<MapData> warehouseData = dataset.warehouseDataSet(list);
-		
-		return warehouseData;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "factoryData", method = RequestMethod.GET)
-	public ArrayList<MapData> factoryData(){
-		DataSet dataset = new DataSet();
-		List<FactoryVO> list = repo3.factoryDetail();
-		ArrayList<MapData> factoryData = dataset.factoryDataSet(list);
-		
-		return factoryData;
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
 	public String login() {
 		return "logistics/loginPage";
 	}
@@ -106,12 +87,14 @@ public class HomeController {
 	public String login(int staff_code, String staff_password, HttpSession session){
 		Staff staff = repo.loginCheck(staff_code, staff_password);
 		if (staff != null) {
+			System.out.println("로그인들어옴");
 			session.setAttribute("userid", staff.getStaff_code());
 			session.setAttribute("userpw", staff.getStaff_password());
 			session.setAttribute("username", staff.getStaff_name());
-			return "redirect:/";
+			return "redirect:main";
 		}
-		return "redirect:/login";
+		System.out.println("로그인안들어옴");
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="logout", method=RequestMethod.GET)
@@ -121,7 +104,7 @@ public class HomeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "warehouseDetail", method = RequestMethod.POST)
+	@RequestMapping(value = "warehouseDetail", method = {RequestMethod.POST, RequestMethod.GET})
 	public Map warehouseDetail(int warehouseCode) {
 		Map warehouseMap = new HashMap<>();
 		
@@ -156,4 +139,39 @@ public class HomeController {
 		
 		return warehouseMap;
 	}
+	
+	
+	  @ResponseBody
+	   @RequestMapping(value = "shopData", method = RequestMethod.GET)
+	   public ArrayList<MapData> shopData(){
+	      DataSet dataset = new DataSet();
+	      List<Shop> list = repo2.shopDetailSelect2();
+	      dataset.shopDataSet(list);
+	      
+	      ArrayList<MapData> shopData = dataset.shopDataSet(list);
+	      
+	      return shopData;
+	   }
+	   
+	   @ResponseBody
+	   @RequestMapping(value = "warehouseData", method = RequestMethod.GET)
+	   public ArrayList<MapData> warehouseData(){
+	      DataSet dataset = new DataSet();
+	      List<Warehouse> list = repo2.warehouseDetailSelect2();
+	      ArrayList<MapData> warehouseData = dataset.warehouseDataSet(list);
+	      
+	      return warehouseData;
+	   }
+	   
+	   @ResponseBody
+	   @RequestMapping(value = "factoryData", method = RequestMethod.GET)
+	   public ArrayList<MapData> factoryData(){
+	      DataSet dataset = new DataSet();
+	      List<FactoryVO> list = repo3.factoryDetail();
+	      ArrayList<MapData> factoryData = dataset.factoryDataSet(list);
+	      
+	      return factoryData;
+	   }
+	
+	
 }

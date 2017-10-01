@@ -112,35 +112,41 @@ public class LogisticsController {
 		}
 		
 		//준석
-		@RequestMapping(value = "/junseok2", method = RequestMethod.GET)
-		   public String junseok2(Model model, String processCode) {
-		      Map processListMap = new HashMap<>();
-		      System.out.println(processCode);
-		      processListMap.put("processCode", processCode);
-		      SupplyVo supplyList = repo2.popupNowEstimate(processListMap);
-		      model.addAttribute("supplyList", supplyList);
-		      
-		      SimpleDateFormat original = new SimpleDateFormat("yyyy-MM-dd");
-		      SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd");
-		      
-		      Date processInsertDate = null;
-		      String new_date = null;
-		      try {
-				processInsertDate = original.parse(supplyList.getProcessInsertDate());
-				new_date = new_format.format(processInsertDate);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		      model.addAttribute("new_date", new_date);
-		      String searchText = supplyList.getStaffName();
-		      int staffCode = repo2.staffSelect(searchText).get(0).getStaff_code();
-		      List<Shop>shopList = repo2.shopSelect("");
-		      model.addAttribute("processCode", processCode);
-		      model.addAttribute("staffCode", staffCode);
-		      model.addAttribute("shop_code", shopList.get(0).getShopCode());
-		      return "logistics/junseok2";
-		   }
+	      @RequestMapping(value = "/junseok2", method = RequestMethod.GET)
+	         public String junseok2(Model model, String processCode) {
+	            Map processListMap = new HashMap<>();
+	            System.out.println(processCode);
+	            processListMap.put("processCode", processCode);
+	            SupplyVo supplyList = repo2.popupNowEstimate(processListMap);
+	            model.addAttribute("supplyList", supplyList);
+	            System.out.println(supplyList.toString());
+	            
+	            SimpleDateFormat original = new SimpleDateFormat("yyyy-MM-dd");
+	            SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd");
+	            
+	            Date processInsertDate = null;
+	            Date processEndDate = null;
+	            String new_date = null;
+	            String end_date = null;
+	            try {
+	            processInsertDate = original.parse(supplyList.getProcessInsertDate());
+	            new_date = new_format.format(processInsertDate);
+	            processEndDate = original.parse(supplyList.getProcessEndDate());
+	            end_date = new_format.format(processEndDate);
+	         } catch (ParseException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	         }
+	            model.addAttribute("new_date", new_date);
+	            model.addAttribute("end_date", end_date);
+	            String searchText = supplyList.getStaffName();
+	            int staffCode = repo2.staffSelect(searchText).get(0).getStaff_code();
+	            List<Shop>shopList = repo2.shopSelect("");
+	            model.addAttribute("processCode", processCode);
+	            model.addAttribute("staffCode", staffCode);
+	            model.addAttribute("shop_code", shopList.get(0).getShopCode());
+	      	            return "logistics/junseok2";
+	      }
 	
 	/*@RequestMapping(value="ordering", method=RequestMethod.GET)
 	public String orderEntroll(String dept, int staff_code, String goods, int quantity, int shop_code, String deliverydate, String truck_code){

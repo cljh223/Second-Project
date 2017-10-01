@@ -146,7 +146,7 @@
 		var icon;
 		for (var i = 0; i < lonList.length; i++) {
 			var lonlat = new Tmap.LonLat(lonList[i], latList[i]);
-			var size = new Tmap.Size(12, 19);
+			var size = new Tmap.Size(28, 40);
 			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
 			if (shopCodeList[i] == 0) {
 				icon = new Tmap.IconHtml(
@@ -719,7 +719,6 @@
 						});
 
 	});
-
 </script>
 </head>
 <body>
@@ -823,12 +822,12 @@
 					<div class="col-sm-11">
 						<input id="searchKeyword" type="text"
 							placeholder="등록을 원하는 매장을 검색하세요" class="form-control"
-							style="width: 1566; width: 1576px;">
+							style="width: 1566;width: 1226px;">
 					</div>
 					<div class="col-sm-1">
 						<a href="#shopSearchForm2">
 							<button id="shopSearchFormBtn" type="button"
-								class="btn btn-danger" style="margin-left: 40px;">Sign
+								class="btn btn-danger" style="margin-left: 0px;">Sign
 								in</button>
 						</a>
 					</div>
@@ -1252,8 +1251,7 @@
 											<section class="panel">
 												<div class="col-sm-6">
 													<header class="panel-heading">
-														기본정보 <span class="tools pull-right">
-														</span>
+														기본정보 <span class="tools pull-right"> </span>
 													</header>
 													<div class="panel-body">
 
@@ -1325,11 +1323,13 @@
 										</tbody>
 									</table>
 									<div class="form-group">
-										<div class="col-lg-offset-3 col-lg-6">
-											<button id="processSaveBtn" type="button"
-												class="btn btn-info popovers">Save</button>
-											<button class="btn btn-default" type="button">Cancel</button>
-											<div class="dataTables_filter" id="editable-sample_filter">
+										<div class="col-lg-offset-3 col-lg-6"
+											>
+											<div class="dataTables_filter" id="editable-sample_filter" style="position:absolute; top: 20px; left: 100px;">
+												<button id="processSaveBtn" type="button"
+													class="btn btn-info popovers" data-original-title=""
+													title="">Save</button>
+												<button class="btn btn-default" type="button">Cancel</button>
 												<a data-toggle="modal" href="#myModal3"><button
 														type="button" id="productSelectbutton"
 														class="btn btn-info ">
@@ -1500,7 +1500,7 @@
 					+ '계약중'
 					+ '</p></br>'
 					+ '<p>거래기간 : '
-					+ resp[1]
+					+ 35
 					+ '일</p></br>'
 					+ '<p>최근거래 : ' + resp[3] + ' '
 			if (resp[2] != null) {
@@ -2448,5 +2448,7 @@
 
 	<!--dynamic table initialization -->
 	<script src="js/dynamic_table_init.js?version=1"></script>
+	
+	
 </body>
 </html>

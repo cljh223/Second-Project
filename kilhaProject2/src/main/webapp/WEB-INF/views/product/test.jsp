@@ -821,7 +821,7 @@
 				<div class="col-lg-6">
 					<section class="panel">
 						<div class="panel-body">
-							<div class="slimScrollDiv" style="overflow: auto; height: 164px">
+							<div class="slimScrollDiv" style="overflow: auto; height: 182px;">
 								<table class="table table-hover general-table">
 									<thead>
 										<tr>

@@ -86,7 +86,6 @@
 											$('#salesList').html(text);
 
 											var warehouseCode = resp.warehouseCode;
-
 											$
 													.ajax({
 														url : 'warehouseDetail',
@@ -128,6 +127,8 @@
 
 														}
 													});
+											$('#processForm').removeAttr(
+													'style');
 											fnMove('#processForm');
 										}
 									});
@@ -148,73 +149,72 @@
 			<!--logo start-->
 			<div class="brand">
 
-				<img src="images/logobrain_original.png"alt="" style="width:200px; height: 200px; position:absolute; top: -60px; left: 15px;">
-				
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
+
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
 			</div>
 			<!--logo end-->
 
-			
+
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-            <table id="loginForm">
-               <tr>
-                  <td><input type="text" class="form-control search"
-                     placeholder=" Search"></td>
-                  <td>&nbsp</td>
-                  <!-- user login dropdown start-->
-                  <td><%@include file="login.jsp"%></td>
-                  <!-- user login dropdown end -->
-                  <td>&nbsp</td>
-                  <td>
-                     <div class="toggle-right-box">
-                        <div class="fa fa-bars"></div>
-                     </div>
-                  </td>
-               </tr>
-            </table>
-            <!--search & user info end-->
+				<table id="loginForm">
+					<tr>
+						<td><input type="text" class="form-control search"
+							placeholder=" Search"></td>
+						<td>&nbsp</td>
+						<!-- user login dropdown start-->
+						<td><%@include file="login.jsp"%></td>
+						<!-- user login dropdown end -->
+						<td>&nbsp</td>
+						<td>
+							<div class="toggle-right-box">
+								<div class="fa fa-bars"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<!--search & user info end-->
 			</div>
 		</header>
 		<!--header end-->
 		<!--sidebar start-->
 		<aside>
 			<div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li><a class="active">
-                        <i class="fa fa-caret-down"></i>
-                        <span>전체메뉴</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-credit-card"></i>
-                        <span>구매부서</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="Pur_inform">원자재 정보</a></li>
-                        <li><a href="Pur_chart">원자재 거래</a></li>
-                        <li><a href="Pur_orderform1">원자재 주문하기</a></li>
-                        <li><a href="Pur_orders">원자재 주문내역</a></li>
-                        <li><a href="Pur_profitloss">원자재 거래내역</a></li>
-                        <li><a href="Pur_store">원자재재고량</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu"><a href="javascript:;"> <i
-								class="fa fa-wrench"></i> <span>생산 부문</span>
-							</a>
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li><a class="active"> <i class="fa fa-caret-down"></i> <span>전체메뉴</span>
+						</a></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-credit-card"></i> <span>구매부서</span>
+						</a>
 							<ul class="sub">
-								<li><a href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제 1공장 정보</a></li>
-								<li><a href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제 2공장 정보</a></li>
+								<li><a href="Pur_inform">원자재 정보</a></li>
+								<li><a href="Pur_chart">원자재 거래</a></li>
+								<li><a href="Pur_orderform1">원자재 주문하기</a></li>
+								<li><a href="Pur_orders">원자재 주문내역</a></li>
+								<li><a href="Pur_profitloss">원자재 거래내역</a></li>
+								<li><a href="Pur_store">원자재재고량</a></li>
+							</ul></li>
+						<li class="sub-menu"><a href="javascript:;"> <i
+								class="fa fa-wrench"></i> <span>생산 부문</span>
+						</a>
+							<ul class="sub">
+								<li><a
+									href="pro_Fac?f_num=1&r_num=p01_1&line_num=A1&f_name=1st Factory">제
+										1공장 정보</a></li>
+								<li><a
+									href="pro_Fac?f_num=2&r_num=p04_1&line_num=D1&f_name=2nd Factory">제
+										2공장 정보</a></li>
 								<li><a href="pro_Gradient">예측 분석</a></li>
 								<li><a href="pro_RegistForm">생산정보입력</a></li>
 							</ul></li>
-				
-				<li class="sub-menu"><a href="javascript:;"> <i
+
+						<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-truck"></i> <span>물류부서</span>
 						</a>
 							<ul class="sub">
@@ -222,63 +222,26 @@
 								<li><a href="junseok">출고서 확인</a></li>
 								<li><a href="third">배차경로 확인</a></li>
 							</ul></li>
-							
-				<li class="sub-menu"><a href="javascript:;"> <i
+
+						<li class="sub-menu"><a href="javascript:;"> <i
 								class="fa fa-users"></i> <span>영업부서</span>
 						</a>
 							<ul class="sub">
 								<li><a href="salesMain">영업 메인 페이지</a></li>
 								<li><a href="processMain">영업 상황 조회</a></li>
 								<li><a href="compareMain">영업 비교 페이지</a></li>
-							</ul></li>			
-        
-                
-            </ul>            </div>
-        <!-- sidebar menu end-->
-    </div>
+							</ul></li>
+
+
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
 		</aside>
 		<!--sidebar end-->
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper">
-				<div class ="row">
-	<div class="col-lg-12">
-		<!--carousel start-->
-            <section class="panel">
-                <div id="c-slide" class="carousel slide auto panel-body">
-                    <ol class="carousel-indicators out">
-                        <li class="active" data-slide-to="0" data-target="#c-slide"></li>
-                        <li class="" data-slide-to="1" data-target="#c-slide"></li>
-                        <li class="" data-slide-to="2" data-target="#c-slide"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="item text-center active">
-                            <h3>Bucket Admin is an Awesome Dashboard</h3>
-                            <p>Awesome admin template</p>
-                            <small class="text-muted">Based on Latest Bootstrap 3.0.3</small>
-                        </div>
-                        <div class="item text-center">
-                            <h3>Well Organized</h3>
-                            <p>Awesome admin template</p>
-                            <small class="text-muted">Huge UI Elements</small>
-                        </div>
-                        <div class="item text-center">
-                            <h3>Well Documentation</h3>
-                            <p>Awesome admin template</p>
-                            <small class="text-muted">Very Easy to Use</small>
-                        </div>
-                    </div>
-                    <a data-slide="prev" href="#c-slide" class="left carousel-control">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a data-slide="next" href="#c-slide" class="right carousel-control">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-            </section>
-            <!--carousel end-->
-	</div>
-</div>
 				<!--mini statistics start-->
 				<div class="row">
 					<div class="col-md-3" style="display: none;">
@@ -362,13 +325,10 @@
 					<div class="col-md-6">
 						<!-- graph start-->
 						<section class="panel">
-							<header class="panel-heading">
-								Earning Graph <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> <a
-									href="javascript:;" class="fa fa-cog"></a> <a
-									href="javascript:;" class="fa fa-times"></a>
-								</span>
-							</header>
+							<div class="text-center price-head" style="padding-bottom: 0px;">
+								<h1 class="color-terques">Location of each department</h1>
+								<p>가치 사슬의 핵심 부문의 분포를 지도로 쉽게 확인할 수 있습니다.</p>
+							</div>
 							<div class="panel-body">
 								<div id="graph-area" class="main-chart" style="display: none;">
 								</div>
@@ -391,45 +351,43 @@
 					<div class="col-md-6">
 						<!-- graph start-->
 						<section class="panel">
-							<header class="panel-heading">
-								Earning Graph <span class="tools pull-right"> <a
-									href="javascript:;" class="fa fa-chevron-down"></a> <a
-									href="javascript:;" class="fa fa-cog"></a> <a
-									href="javascript:;" class="fa fa-times"></a>
-								</span>
-							</header>
+							<div class="text-center price-head" style="padding-bottom: 0px;">
+								<h1 class="color-terques">Orders currently in progress</h1>
+								<p>진행 중인 견적 내용을 클릭하여 업무 흐름을 파악하세요</p>
+							</div>
 							<div class="panel-body" style="height: 605px;">
-								<div class="adv-table editable-table ">
-									<table class="table table-striped table-hover table-bordered"
-										id="editable-sample">
-										<thead>
-											<tr>
-												<th>영업코드</th>
-												<th>매장명</th>
-												<th>주소</th>
-												<th>총금액</th>
-											</tr>
-										</thead>
+								<div class="panel-body" style="height: 605px;">
+									<div class="adv-table editable-table ">
+										<table class="table table-striped table-hover table-bordered"
+											id="editable-sample">
+											<thead>
+												<tr>
+													<th>영업코드</th>
+													<th>매장명</th>
+													<th>주소</th>
+													<th>총금액</th>
+												</tr>
+											</thead>
 
-										<tbody>
-											<c:forEach items="${supplyList }" var="supplyList"
-												varStatus="status">
-												<tr id="${supplyList.processCode }">
-													<td>${supplyList.processCode }</td>
-													<td>${supplyList.shopName }</td>
-													<td>${supplyList.addressDetail1 }
-														${supplyList.addressDetail2 } ${supplyList.addressDetail3 }
-														<c:if test="${supplyList.addressDetail4 != null}">
+											<tbody>
+												<c:forEach items="${supplyList}" var="supplyList"
+													varStatus="status">
+													<tr id="${supplyList.processCode }">
+														<td>${supplyList.processCode }</td>
+														<td>${supplyList.shopName }</td>
+														<td>${supplyList.addressDetail1 }
+															${supplyList.addressDetail2 } ${supplyList.addressDetail3 }
+															<c:if test="${supplyList.addressDetail4 != null}">
                 					 ${supplyList.addressDetail4 }
                 				</c:if>
-													</td>
-													<td>${sumList[status.index] }</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
+														</td>
+														<td>${sumList[status.index] }</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
 						</section>
 						<!--earning graph end-->
 					</div>
@@ -439,7 +397,7 @@
 					<div class="col-md-12">
 						<!--notification start-->
 						<section class="panel">
-							<div class="panel-body" id="processForm">
+							<div class="panel-body" id="processForm" style="display: none;">
 								<!--price start-->
 								<div class="text-center price-head">
 									<h1 class="color-terques">Check Value Chain Of Our
@@ -447,7 +405,7 @@
 									<p>해당 주문 정보를 선택하면 자세한 기업 가치사슬을 확인할 수 있습니다.</p>
 								</div>
 								<div class="col-lg-4 col-sm-4">
-									<div class="pricing-table" style="height: 500px;">
+									<div class="pricing-table" style="height: 520px;">
 										<div class="pricing-head" style="background: white;">
 											<img src="images/fac.gif"
 												style="width: 300px; height: 170px; z-index: -1;" />
@@ -469,7 +427,7 @@
 									</div>
 								</div>
 								<div class="col-lg-4 col-sm-4">
-									<div class="pricing-table" style="height: 500px;">
+									<div class="pricing-table" style="height: 520px;">
 										<div class="pricing-head" style="background: white;">
 											<img src="images/warehouse.gif"
 												style="width: 300px; height: 170px; z-index: -1;" />
@@ -482,7 +440,7 @@
 								</div>
 
 								<div class="col-lg-4 col-sm-4">
-									<div class="pricing-table" style="height: 500px;">
+									<div class="pricing-table" style="height: 520px;">
 										<div class="pricing-head" style="background: white;">
 											<img src="images/sales.gif"
 												style="width: 300px; height: 170px; z-index: -1;" />
@@ -1299,10 +1257,36 @@
 	<script src="js/flot-chart/jquery.flot.growraf.js"></script>
 	<script src="js/dashboard.js?version=2017"></script>
 	<script src="js/jquery.customSelect.min.js"></script>
+	<!-- 	<script type="text/javascript"
+		src="js/data-tables/jquery.dataTables.js"></script> -->
+	<!-- <script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script> -->
+
 	<!--common script init for all pages-->
 	<script src="js/scripts.js"></script>
 
 	<!--script for this page-->
 	<script src="js/gritter.js" type="text/javascript"></script>
+
+	<script src="js/jquery-migrate.js"></script>
+
+
+	<!--script for this page only-->
+	<script src="js/table-editable.js"></script>
+	<script src="js/jquery-migrate.js"></script>
+
+	<script type="text/javascript"
+		src="js/data-tables/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+
+
+	<!--script for this page only-->
+	<script src="js/table-editable.js"></script>
+
+	<!-- END JAVASCRIPTS -->
+	<script>
+		jQuery(document).ready(function() {
+			EditableTable.init();
+		});
+	</script>
 </body>
 </html>

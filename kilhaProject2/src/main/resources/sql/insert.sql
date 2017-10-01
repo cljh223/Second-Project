@@ -438,80 +438,89 @@ insert into warehouse VALUES
 warehouse_code_num_SEQ.nextval, '拱幅芒绊3', 0  
 );
 
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('376-50', '版扁档', '窍巢矫', '皑老巢肺 36-15', '', 1);
+
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('415-816', '版扁档', '辫器矫', '酒扼腊肺 20', '', 2);
+
+INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 
+VALUES ('376-50', '版扁档', '侩牢矫', '贸牢备 剧瘤搁', '林合肺 130', 3);
+
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 1, 'A备开', 23, 428, 292, 603
+seq_sec_code.nextval, 1, 'A备开', 22, 427, 297, 607
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 1, 'B备开', 314, 25, 630, 284
+seq_sec_code.nextval, 1, 'B备开', 310, 21, 636, 289
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 1, 'C备开', 311, 325, 630, 601
+seq_sec_code.nextval, 1, 'C备开', 312, 321, 638, 606
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 1, 'D备开', 650, 23, 971, 285
+seq_sec_code.nextval, 1, 'D备开', 650, 23, 980, 291
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 1, 'E备开', 656, 322, 977, 601
+seq_sec_code.nextval, 1, 'E备开', 653, 321, 980, 607
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 2, 'A备开', 35, 32, 363, 304  
+seq_sec_code.nextval, 2, 'A备开', 32, 30, 366, 309  
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 2, 'B备开', 32, 342, 363, 607
+seq_sec_code.nextval, 2, 'B备开', 32, 341, 368, 615
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 2, 'C备开', 404, 32, 735, 197
+seq_sec_code.nextval, 2, 'C备开', 400, 24, 739, 204
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 2, 'D备开', 408, 238, 735, 407
+seq_sec_code.nextval, 2, 'D备开', 408, 238, 740, 413
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 2, 'E备开', 408, 445, 735, 607
+seq_sec_code.nextval, 2, 'E备开', 408, 445, 740, 616
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 3, 'A备开', 42, 34, 527, 228 
+seq_sec_code.nextval, 3, 'A备开', 42, 34, 532, 231 
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 3, 'B备开', 45, 275, 527, 472
+seq_sec_code.nextval, 3, 'B备开', 43, 276, 532, 476
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 3, 'C备开', 42, 519, 527, 593
+seq_sec_code.nextval, 3, 'C备开', 42, 519, 534, 596
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 3, 'D备开', 577, 31, 759, 443
+seq_sec_code.nextval, 3, 'D备开', 577, 31, 762, 450
 );
 
 insert into section VALUES
 (
-seq_sec_code.nextval, 3, 'E备开', 792, 31, 962, 440
+seq_sec_code.nextval, 3, 'E备开', 792, 31, 966, 444
 );
 
 insert into stock VALUES
