@@ -331,9 +331,11 @@
 		<header class="header fixed-top clearfix">
 			<!--logo start-->
 			<div class="brand">
+				
+				<a href="main">
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
 
-				<a href="index.html" class="logo"> <img src="images/logo.png"
-					alt="">
 				</a>
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>

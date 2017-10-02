@@ -50,10 +50,14 @@
 <!--header start-->
 <header class="header fixed-top clearfix">
 <!--logo start-->
+			<!--logo start-->
 			<div class="brand">
-
-				<img src="images/logobrain_original.png"alt="" style="width:200px; height: 200px; position:absolute; top: -60px; left: 15px;">
 				
+				<a href="main">
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
+
+				</a>
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>

@@ -89,10 +89,14 @@
 		<!--header start-->
 		<header class="header fixed-top clearfix">
 			<!--logo start-->
+			<!--logo start-->
 			<div class="brand">
-
-				<img src="images/logobrain_original.png"alt="" style="width:200px; height: 200px; position:absolute; top: -60px; left: 15px;">
 				
+				<a href="main">
+				<img src="images/logobrain_original.png" alt=""
+					style="width: 200px; height: 200px; position: absolute; top: -60px; left: 15px;">
+
+				</a>
 				<div class="sidebar-toggle-box">
 					<div class="fa fa-bars"></div>
 				</div>
@@ -237,7 +241,7 @@
 							<!--earning graph start-->
 
 
-							<div class="panel-body">
+							<div class="panel-body" style="height: 422px;">
 								<div class="adv-table editable-table ">
 									<div class="clearfix">
 
@@ -306,7 +310,7 @@
 									href="javascript:;" class="fa fa-times"></a>
 								</span>
 							</header>
-
+						<div class="slimScrollDiv" style="overflow: auto; height: 663px;">
 							<div class="prf-box">
 								<h3 class="prf-border-head"></h3>
 							
@@ -365,6 +369,7 @@
            	
                             	
                             </c:forEach>
+							</div>
 							</div>
 							
 						</section>
