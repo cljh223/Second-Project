@@ -93,11 +93,6 @@
 	width: 100%;
 	height: 500px;
 }
-
-#chartdiv1 {
-	width: 100%;
-	height: 500px;
-}
 </style>
 
 
@@ -130,6 +125,32 @@
 <script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 <script src="js/flot-chart/jquery.flot.resize.js"></script>
 <script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+<style type="text/css">
+#load {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.8;
+   background: white;
+   z-index: 99;
+   text-align: center;
+}
+
+#load > img {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   z-index: 100;
+}
+</style>
+<script type="text/javascript">
+$(window).load(function() {
+   $('#load').hide();
+});
+</script>
 <script type="text/javascript">
 	var map, markerLayer;
 
@@ -722,6 +743,9 @@
 </script>
 </head>
 <body>
+   <div id="load">
+      <img src="images/giphy.gif" alt="loading">
+   </div>
 	<section id="container">
 		<!--header start-->
 		<header class="header fixed-top clearfix">
@@ -822,9 +846,9 @@
 					<div class="col-sm-11">
 						<input id="searchKeyword" type="text"
 							placeholder="등록을 원하는 매장을 검색하세요" class="form-control"
-							style="width: 1566;width: 1226px;">
+							style="width: 1566; width: 1176px;">
 					</div>
-					<div class="col-sm-1">
+					<div class="col-sm-1" style="padding-left: 22px;">
 						<a href="#shopSearchForm2">
 							<button id="shopSearchFormBtn" type="button"
 								class="btn btn-danger" style="margin-left: 0px;">Sign
@@ -1122,7 +1146,8 @@
 																						</p>
 																					</div>
 																				</div>
-																				<button type="submit" class="btn btn-info">Submit</button>
+																				<button type="submit" class="btn btn-info"
+																					style="margin-left: 583px;">Submit</button>
 																				<button type="reset" class="btn btn-info">reset</button>
 																			</form>
 																		</div>
@@ -1302,7 +1327,9 @@
 												</div>
 												<div class="col-sm-6">
 													<section class="panel">
-														<div class="panel-body" id="mae-dynamic-table"></div>
+														<div id="mae-dynamic-table" class="slimScrollDiv"
+															style="overflow: auto; height: 300px;"></div>
+														<!-- <div class="panel-body" id="mae-dynamic-table"></div> -->
 													</section>
 												</div>
 											</section>
@@ -1324,8 +1351,8 @@
 									</table>
 									<div class="form-group">
 										<div class="col-lg-offset-3 col-lg-6"
-											>
-											<div class="dataTables_filter" id="editable-sample_filter" style="position:absolute; top: 20px; left: 100px;">
+											style="height: 50px; left: 120px; margin-left: 0px;">
+											<div class="dataTables_filter" id="editable-sample_filter">
 												<button id="processSaveBtn" type="button"
 													class="btn btn-info popovers" data-original-title=""
 													title="">Save</button>
@@ -1614,10 +1641,10 @@
 						dataType : 'json',
 						success : function(resp) {
 							var salAmount = 0;
-							var processLocationText = '<div class="adv-table">'
-									+ '<table class="dynamic-table display table table-bordered table-striped">'
+							var processLocationText = '<table class="table table-hover general-table">'
 									+ '<thead><tr><th>주문번호</th><th>거래처명</th><th>담당자</th><th>납입기한</th><th>금액</th><th>종결여부</th></tr>	</thead>'
 									+ '<tbody>';
+
 							for (var i = 0; i < resp.length; i++) {
 								processLocationText += '<a data-toggle="modal" href="#myModal4"><tr id="'+resp[i].processCode+'">';
 								processLocationText += '<td>'
@@ -1651,6 +1678,7 @@
 							processLocationText += '</tbody></table></div>';
 
 							$('#mae-dynamic-table').html(processLocationText);
+
 							$('.dynamic-table').dataTable({
 								"aaSorting" : [ [ 4, "desc" ] ]
 							});
@@ -1822,7 +1850,7 @@
 		}
 
 		function kpiSettingFunction2() {
-			var date = $('.m-bot16').val();
+			var date = $('.m-bot16 option:selected').val();
 			var shopCode = $('.settings').attr('data-shopCode');
 			$
 					.ajax({
@@ -1850,81 +1878,88 @@
 								});
 							}
 
-							chartData = subChartData
-							chart = AmCharts.makeChart("chartdiv", {
-								"type" : "serial",
-								"theme" : "none",
-								"legend" : {
-									"useGraphSettings" : true
-								},
-								"dataProvider" : chartData,
-								"synchronizeGrid" : true,
-								"valueAxes" : [ {
-									"id" : "v1",
-									"axisColor" : "#FF6600",
-									"axisThickness" : 2,
-									"axisAlpha" : 1,
-									"position" : "left"
-								}, {
-									"id" : "v2",
-									"axisColor" : "#FCD202",
-									"axisThickness" : 2,
-									"axisAlpha" : 1,
-									"position" : "right"
-								}, {
-									"id" : "v3",
-									"axisColor" : "#B0DE09",
-									"axisThickness" : 2,
-									"gridAlpha" : 0,
-									"offset" : 50,
-									"axisAlpha" : 1,
-									"position" : "left"
-								} ],
-								"graphs" : [ {
-									"valueAxis" : "v1",
-									"lineColor" : "#FF6600",
-									"bullet" : "round",
-									"bulletBorderThickness" : 1,
-									"hideBulletsCount" : 30,
-									"title" : "판매액",
-									"valueField" : "salesList",
-									"fillAlphas" : 0
-								}, {
-									"valueAxis" : "v2",
-									"lineColor" : "#FCD202",
-									"bullet" : "square",
-									"bulletBorderThickness" : 1,
-									"hideBulletsCount" : 30,
-									"title" : "매출액",
-									"valueField" : "earnList",
-									"fillAlphas" : 0
-								}, {
-									"valueAxis" : "v3",
-									"lineColor" : "#B0DE09",
-									"bullet" : "triangleUp",
-									"bulletBorderThickness" : 1,
-									"hideBulletsCount" : 30,
-									"title" : "매출 총 이익",
-									"valueField" : "allEarnSumList",
-									"fillAlphas" : 0
-								} ],
-								"chartScrollbar" : {},
-								"chartCursor" : {
-									"cursorPosition" : "mouse"
-								},
-								"categoryField" : "date",
-								"categoryAxis" : {
-									"parseDates" : true,
-									"axisColor" : "#DADADA",
-									"minorGridEnabled" : true
-								},
-								"export" : {
-									"enabled" : true,
-									"position" : "bottom-right"
-								}
-							});
-							chart.addListener("dataUpdated", zoomChart);
-							zoomChart();
+							chartData = subChartData;
+							if (chartData == '') {
+								var chartEmpty = '<h3 class="prf-border-head"><p style= "text-align: center;">이번 달 판매량이 없습니다.</p></h3>'
+										+ '<img src="images/pen.gif" style="height: 600px; text-align: center;">';
+								$('#chartdiv').html(chartEmpty);
+							} else {
+								chart = AmCharts.makeChart("chartdiv", {
+									"type" : "serial",
+									"theme" : "none",
+									"legend" : {
+										"useGraphSettings" : true
+									},
+									"dataProvider" : chartData,
+									"synchronizeGrid" : true,
+									"valueAxes" : [ {
+										"id" : "v1",
+										"axisColor" : "#FF6600",
+										"axisThickness" : 2,
+										"axisAlpha" : 1,
+										"position" : "left"
+									}, {
+										"id" : "v2",
+										"axisColor" : "#FCD202",
+										"axisThickness" : 2,
+										"axisAlpha" : 1,
+										"position" : "right"
+									}, {
+										"id" : "v3",
+										"axisColor" : "#B0DE09",
+										"axisThickness" : 2,
+										"gridAlpha" : 0,
+										"offset" : 50,
+										"axisAlpha" : 1,
+										"position" : "left"
+									} ],
+									"graphs" : [ {
+										"valueAxis" : "v1",
+										"lineColor" : "#FF6600",
+										"bullet" : "round",
+										"bulletBorderThickness" : 1,
+										"hideBulletsCount" : 30,
+										"title" : "판매액",
+										"valueField" : "salesList",
+										"fillAlphas" : 0
+									}, {
+										"valueAxis" : "v2",
+										"lineColor" : "#FCD202",
+										"bullet" : "square",
+										"bulletBorderThickness" : 1,
+										"hideBulletsCount" : 30,
+										"title" : "매출액",
+										"valueField" : "earnList",
+										"fillAlphas" : 0
+									}, {
+										"valueAxis" : "v3",
+										"lineColor" : "#B0DE09",
+										"bullet" : "triangleUp",
+										"bulletBorderThickness" : 1,
+										"hideBulletsCount" : 30,
+										"title" : "매출 총 이익",
+										"valueField" : "allEarnSumList",
+										"fillAlphas" : 0
+									} ],
+									"chartScrollbar" : {},
+									"chartCursor" : {
+										"cursorPosition" : "mouse"
+									},
+									"categoryField" : "date",
+									"categoryAxis" : {
+										"parseDates" : true,
+										"axisColor" : "#DADADA",
+										"minorGridEnabled" : true
+									},
+									"export" : {
+										"enabled" : true,
+										"position" : "bottom-right"
+									}
+								});
+								chart.addListener("dataUpdated", zoomChart);
+								zoomChart();
+
+							}
 
 							$
 									.ajax({
@@ -1937,69 +1972,127 @@
 										},
 										dataType : 'json',
 										success : function(respp) {
-											var sales = respp.salse.kpiSet[0].kpiAmount;
-											var earn = respp.earn.kpiSet[0].kpiAmount;
-											var allEarn = respp.allEarn.kpiSet[0].kpiAmount;
+											var sales = 0;
+											var earn = 0;
+											var allEarn = 0;
 											var sumSales = respp.sumSales;
 											var sumEarn = respp.sumEarn;
 											var sumAllEarn = respp.sumAllEarn;
-											var salesPercent = sumSales / sales
-													* 100;
-											var earnPercent = sumEarn / earn
-													* 100;
-											var allEarnPercent = sumAllEarn
-													/ allEarn * 100;
+											var salesPercent = 0;
+											var earnPercent = 0;
+											var allEarnPercent = 0;
+											if (respp.salse == null) {
+												kpisalesPercentBarText = '<div class="col-md-5">판매량</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ '0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar  progress-bar-danger">'
+														+ '<span class="sr-only">'
+														+ '0% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ '0%</div>'
 
-											kpisalesPercentBarText = '<div class="col-md-5">판매량</div>'
-													+ '<div class="col-md-5">'
-													+ '<div class="progress  ">'
-													+ '<div style="width:'
-													+ salesPercent
-													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar  progress-bar-danger">'
-													+ '<span class="sr-only">'
-													+ salesPercent
-													+ '% Complete (success)</span>'
-													+ '</div></div></div><div class="col-md-2">'
-													+ Math.ceil(salesPercent)
-													+ '%</div>'
+												$('.salesClass').html(
+														kpisalesPercentBarText);
+											} else {
+												sales = respp.salse.kpiSet[0].kpiAmount;
+												salesPercent = sumSales / sales
+														* 100;
+												kpisalesPercentBarText = '<div class="col-md-5">판매량</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ salesPercent
+														+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar  progress-bar-danger">'
+														+ '<span class="sr-only">'
+														+ salesPercent
+														+ '% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ Math
+																.ceil(salesPercent)
+														+ '%</div>'
 
-											$('.salesClass').html(
-													kpisalesPercentBarText);
+												$('.salesClass').html(
+														kpisalesPercentBarText);
+											}
 
-											kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
-													+ '<div class="col-md-5">'
-													+ '<div class="progress  ">'
-													+ '<div style="width:'
-													+ earnPercent
-													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar progress-bar-warning">'
-													+ '<span class="sr-only">'
-													+ earnPercent
-													+ '% Complete (success)</span>'
-													+ '</div></div></div><div class="col-md-2">'
-													+ Math.ceil(earnPercent)
-													+ '%</div>'
+											if (respp.earn == null) {
+												kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ '0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar progress-bar progress-bar-warning">'
+														+ '<span class="sr-only">'
+														+ '0% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ '0%</div>'
 
-											$('.earnClass').html(
-													kpiEarnPercentBarText);
+												$('.earnClass').html(
+														kpiEarnPercentBarText);
+											} else {
+												earn = respp.earn.kpiSet[0].kpiAmount;
+												earnPercent = sumEarn / earn
+														* 100;
+												kpiEarnPercentBarText = '<div class="col-md-5">매출액</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ earnPercent
+														+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar progress-bar progress-bar-warning">'
+														+ '<span class="sr-only">'
+														+ earnPercent
+														+ '% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ Math
+																.ceil(earnPercent)
+														+ '%</div>'
 
-											kpiAllEarnPercentBarText = '<div class="col-md-5">매출 총 이익</div>'
-													+ '<div class="col-md-5">'
-													+ '<div class="progress  ">'
-													+ '<div style="width:'
-													+ allEarnPercent
-													+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
-													+ 'role="progressbar" class="progress-bar progress-bar-success">'
-													+ '<span class="sr-only">'
-													+ allEarnPercent
-													+ '% Complete (success)</span>'
-													+ '</div></div></div><div class="col-md-2">'
-													+ Math.ceil(allEarnPercent)
-													+ '%</div>'
+												$('.earnClass').html(
+														kpiEarnPercentBarText);
+											}
 
-											$('.allEarnClass').html(
-													kpiAllEarnPercentBarText);
+											if (respp.allEarn == null) {
+												kpiAllEarnPercentBarText = '<div class="col-md-5">매출 총 이익</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ '0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar progress-bar-success">'
+														+ '<span class="sr-only">'
+														+ '0% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ '0%</div>'
+
+												$('.allEarnClass')
+														.html(
+																kpiAllEarnPercentBarText);
+											} else {
+												allEarn = respp.allEarn.kpiSet[0].kpiAmount;
+												allEarnPercent = sumAllEarn
+														/ allEarn * 100;
+												kpiAllEarnPercentBarText = '<div class="col-md-5">매출 총 이익</div>'
+														+ '<div class="col-md-5">'
+														+ '<div class="progress  ">'
+														+ '<div style="width:'
+														+ allEarnPercent
+														+ '%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40"'
+														+ 'role="progressbar" class="progress-bar progress-bar-success">'
+														+ '<span class="sr-only">'
+														+ allEarnPercent
+														+ '% Complete (success)</span>'
+														+ '</div></div></div><div class="col-md-2">'
+														+ Math
+																.ceil(allEarnPercent)
+														+ '%</div>'
+
+												$('.allEarnClass')
+														.html(
+																kpiAllEarnPercentBarText);
+											}
 
 											kpiSalesText = '<strong>'
 													+ AddComma(sumSales)
@@ -2041,7 +2134,14 @@
 			}
 
 			$('.m-bot16').html(yearBtn);
+			kpiTextFunction();
 
+			$('.m-bot16').on('click', kpiTextFunction);
+			fnMove('.overview');
+		}
+
+		function kpiTextFunction() {
+			var date = $('.m-bot16 option:selected').html();
 			$.ajax({
 				url : 'kpiSelect',
 				method : 'post',
@@ -2052,26 +2152,27 @@
 				dataType : 'json',
 				success : function(resp) {
 					var temp = '등록해주세요';
-					$('#salesText').html(temp);
-					$('#earnText').html(temp);
-					$('#allEarnText').html(temp);
-					if (sales != '') {
+					if (resp.salse == null) {
+						$('#salesText').html(temp);
+					} else {
 						var sales = resp.salse.kpiSet[0].kpiAmount;
 						$('#salesText').html(AddComma(sales));
 					}
-					if (earn != '') {
+					if (resp.earn == null) {
+						$('#earnText').html(temp);
+					} else {
 						var earn = resp.earn.kpiSet[0].kpiAmount;
 						$('#earnText').html(AddComma(earn));
 					}
-					if (allEarn != '') {
+					if (resp.allEarn == null) {
+						$('#allEarnText').html(temp);
+					} else {
 						var allEarn = resp.allEarn.kpiSet[0].kpiAmount;
 						$('#allEarnText').html(AddComma(allEarn));
 					}
+					kpiSettingFunction2();
 				}
 			});
-			kpiSettingFunction2();
-			$('.m-bot16').on('click', kpiSettingFunction2);
-			fnMove('.overview');
 		}
 
 		//overview클릭시 작동하는 함수
@@ -2448,7 +2549,7 @@
 
 	<!--dynamic table initialization -->
 	<script src="js/dynamic_table_init.js?version=1"></script>
-	
-	
+
+
 </body>
 </html>

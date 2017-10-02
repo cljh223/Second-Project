@@ -143,7 +143,7 @@ VALUES ('376-50', '경기도', '용인시', '처인구 양지면', '주북로 130', 3);
 
 insert into staff values
 (
-	staff_code_SEQ.NEXTVAL
+	60100578
 	, '정우석'
 	, '생산부'
 	, '2222'
@@ -153,7 +153,7 @@ insert into staff values
 
 insert into staff values
 (
-	staff_code_SEQ.NEXTVAL
+	60100579
 	, '조준석'
 	, '영업부'
 	, '4444'
@@ -163,7 +163,7 @@ insert into staff values
 
 insert into staff values
 (
-	staff_code_SEQ.NEXTVAL
+	60100580
 	, '송은지'
 	, '물류부'
 	, '3333'
@@ -173,7 +173,7 @@ insert into staff values
 
 insert into staff values
 (
-	staff_code_SEQ.NEXTVAL
+	60100581
 	, '이재준'
 	, '구매부'
 	, '1111'
@@ -183,7 +183,7 @@ insert into staff values
 
 insert into staff values
 (
-	staff_code_SEQ.NEXTVAL
+	60100582
 	, '홍은기'
 	, '기술부'
 	, '0000'

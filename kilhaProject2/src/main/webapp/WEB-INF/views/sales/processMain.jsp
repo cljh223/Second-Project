@@ -116,6 +116,32 @@
 <script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
 <script src="js/flot-chart/jquery.flot.resize.js"></script>
 <script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+<style type="text/css">
+#load {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.8;
+   background: white;
+   z-index: 99;
+   text-align: center;
+}
+
+#load > img {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   z-index: 100;
+}
+</style>
+<script type="text/javascript">
+$(window).load(function() {
+   $('#load').hide();
+});
+</script>
 <script type="text/javascript">
 	$(function() {
 		processInitialize();
@@ -146,6 +172,9 @@
 
 </head>
 <body>
+<div id="load">
+      <img src="images/giphy.gif" alt="loading">
+   </div>
 	<section id="container">
 	<!--header start-->
 		<header class="header fixed-top clearfix">

@@ -604,7 +604,7 @@
 		, #{shopRep}
 		,
 		#{shopTel}
-		, '미계약'
+		, '0'
 		, #{shopEmail}
 		, #{shopSNS}
 		, #{shopDivision}
@@ -623,8 +623,9 @@
 		</if>
 		<if test="addressDetail4 == ''">
 			, ''
-		</if>
+		</if>  
 		, (SELECT MAX(shop_code) FROM shop)
+		, ''
 		)
 	</insert>
 

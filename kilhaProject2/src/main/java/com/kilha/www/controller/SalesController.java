@@ -21,6 +21,7 @@ import com.kilha.www.dao.MapRep;
 import com.kilha.www.util.AddressChange;
 import com.kilha.www.vo.common.Product;
 import com.kilha.www.vo.common.Staff;
+import com.kilha.www.vo.logistics.Shipping;
 import com.kilha.www.vo.logistics.Stock;
 import com.kilha.www.vo.sal.Address;
 import com.kilha.www.vo.sal.Kpi;
@@ -57,8 +58,7 @@ public class SalesController {
 			addressList.add(shopList.get(i).getAddressSet());
 			shopCodeList.add(shopList.get(i).getShopCode());
 			shopStateList.add(shopList.get(i).getShopState());
-		}
-		System.out.println(shopCodeList);
+		} 
 		model.addAttribute("shopCodeList", shopCodeList);
 		model.addAttribute("addressList", new AddressChange().search(addressList));
 		model.addAttribute("shopStateList", shopStateList);
@@ -202,7 +202,6 @@ public class SalesController {
 		map.put("shopCode", shopCode);
 		map.put("gubun", gubun);
 		List<SupplyVo> supplyList = rep.shopDetailSelect(map);
-		System.out.println(supplyList);
 		List list = new ArrayList<>();
 		if (gubun.equals("yes")) {
 			endDate = supplyList.get(supplyList.size() - 1).getProcessEndDate();
@@ -366,13 +365,13 @@ public class SalesController {
 		List<Kpidivision> kpiList = rep.kpiSelect(codeMap);
 		Map resultList = new HashMap<>();
 		for (Kpidivision k : kpiList) {
-			if (k.getKpidivisionCode() == 0)
-				resultList.put("salse", k);
+			if (k.getKpidivisionCode() == 0){
+				resultList.put("salse", k);}
 			else if (k.getKpidivisionCode() == 1)
 				resultList.put("earn", k);
 			else if (k.getKpidivisionCode() == 2)
 				resultList.put("allEarn", k);
-		}
+		} 
 		Map<String, List> list = chartSelect(date, shopCode);
 		List<Long> salesList = list.get("salesList");
 		List<Long> earnList = list.get("earnList");

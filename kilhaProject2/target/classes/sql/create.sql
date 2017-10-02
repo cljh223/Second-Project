@@ -173,7 +173,7 @@ CREATE TABLE Pur_rawmaterials
 
 CREATE TABLE Staff
 (
-	staff_code number(5,0) NOT NULL,
+	staff_code number(10,0) NOT NULL,
 	staff_name varchar2(15) NOT NULL,
 	staff_department varchar2(50) NOT NULL,
 	staff_password varchar2(15) NOT NULL,
@@ -258,7 +258,7 @@ CREATE TABLE shop
 	shop_number varchar2(15) NOT NULL UNIQUE,
 	shop_rep varchar2(15) NOT NULL,
 	shop_tel varchar2(15) NOT NULL,
-	shop_state varchar2(6) NOT NULL,
+	shop_state varchar2(12) NOT NULL,
 	shop_email varchar2(50),
 	shop_SNS varchar2(50),
 	shop_division varchar2(50),
