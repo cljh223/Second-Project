@@ -123,6 +123,7 @@ CREATE TABLE warehouse
 	-- 1 : 공장
 	-- 2 : 외주공장
 	warehouse_type varchar2(15) NOT NULL,
+	warehouse_tel varchar2(30) NOT NULL,
 	PRIMARY KEY (warehouse_code)
 );
 

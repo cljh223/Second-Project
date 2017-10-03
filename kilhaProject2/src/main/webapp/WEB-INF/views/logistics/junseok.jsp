@@ -229,7 +229,9 @@
                         class="fa fa-truck"></i> <span>물류부서</span>
                   </a>
                      <ul class="sub">
-                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="w_status?w_num=1">제 1물류창고 정보</a></li>
+                        <li><a href="w_status?w_num=2">제 2물류창고 정보</a></li>
+                        <li><a href="w_status?w_num=3">제 3물류창고 정보</a></li>
                         <li><a href="junseok">출고서 확인</a></li>
                         <li><a href="third">배차경로 확인</a></li>
                      </ul></li>

@@ -425,17 +425,17 @@ insert into Pur_rawmaterials VALUES
 
 insert into warehouse VALUES
 (
-warehouse_code_num_SEQ.nextval, '물류창고1', 0  
+warehouse_code_num_SEQ.nextval, '제 1물류창고', 0, '031-523-2893'  
 );
 
 insert into warehouse VALUES
 (
-warehouse_code_num_SEQ.nextval, '물류창고2', 0  
+warehouse_code_num_SEQ.nextval, '제 2물류창고', 0, '031-974-3564'  
 );
 
 insert into warehouse VALUES
 (
-warehouse_code_num_SEQ.nextval, '물류창고3', 0  
+warehouse_code_num_SEQ.nextval, '제 3물류창고', 0, '031-576-3468'  
 );
 
 INSERT INTO ADDRESS (ADDRESS_POST, ADDRESS_DETAIL1, ADDRESS_DETAIL2, ADDRESS_DETAIL3, ADDRESS_DETAIL4, WAREHOUSE_CODE) 

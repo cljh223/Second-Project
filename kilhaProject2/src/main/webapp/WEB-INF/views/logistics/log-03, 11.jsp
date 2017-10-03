@@ -88,7 +88,7 @@
 			
 			<div class="top-nav clearfix">
 				<!--search & user info start-->
-				<table id="loginForm">
+				<table id="loginForm" >
 					<tr>
 						<td><input type="text" class="form-control search"
 							placeholder=" Search"></td>
@@ -148,7 +148,9 @@
                         class="fa fa-truck"></i> <span>물류부서</span>
                   </a>
                      <ul class="sub">
-                        <li><a href="second">물류창고 현황</a></li>
+                        <li><a href="w_status?w_num=1">제 1물류창고 정보</a></li>
+                        <li><a href="w_status?w_num=2">제 2물류창고 정보</a></li>
+                        <li><a href="w_status?w_num=3">제 3물류창고 정보</a></li>
                         <li><a href="junseok">출고서 확인</a></li>
                         <li><a href="third">배차경로 확인</a></li>
                      </ul></li>
@@ -172,62 +174,274 @@
 
 		<section id="main-content">
 			<section class="wrapper">
-				<div>
-					<center>
-						<button type="button" class="btn btn-primary" id="imgBtn1">
-							<i class="fa fa-building-o "></i> 물류창고 1
-						</button>
-						&nbsp;&nbsp;
-						<button type="button" class="btn btn-success" id="imgBtn2">
-							<i class="fa fa-building-o "></i> 물류창고 2
-						</button>
-						&nbsp;&nbsp;
-						<button type="button" class="btn btn-info" id="imgBtn3">
-							<i class="fa fa-building-o "></i> 물류창고 3
-						</button>
-						&nbsp;&nbsp;
-					</center>
-				</div>
-				<br>
-				<div style="width: 100%;">
-					<div class="col-lg-8" style="width: 70%;">
-						<section class="panel">
-							<div class="panel-body">
-								<div id="imgPart" class="warehouseP" style="position: relative;"></div>
-							</div>
-						</section>
-					</div>
-
-
-					<div id="warehouse_usage" class="col-lg-4"
-						style="width: 30%; float: left;">
-						<section class="panel">
-							<div class="panel-body">
-								<h4 class="widget-h">물류 창고 사용률</h4>
-								<center>
-								<img src="images/logistics/warehouse.JPG" id="wareIcon"><center>
-								<div id="myProgress">
-									<div id="myBar">0%</div>
+				<div class="row">
+				<div class="col-sm-6">
+					<section class="panel">
+						<!--   <header class="panel-heading">
+                        Factory Information
+                        <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                    </header> -->
+						<div class="panel-body">
+							<div class="row prd-row">
+								<div class="col-md-6" style="height: 182px;">
+									<div class="prd-img" style="width: 260px;">
+									<c:if test="${w_num == 1}">
+									<br>
+									<br>
+									<img src="images/logistics/wp1.jpg" alt="">
+									</c:if>
+									<br>
+									<br>
+									<c:if test="${w_num == 2}">
+										<img src="images/logistics/wp2.jpg" alt="">
+									</c:if>
+									<br>
+									<br>
+									<c:if test="${w_num == 3}">
+										<img src="images/logistics/wp3.jpg" alt="">
+									</c:if>
+									</div>
 								</div>
-							</div>
-						</section>
-					</div>
-					<div id="detailInfo"></div>
+								<div class="col-md-6">
+									<h1>${w_name}</h1>
+									<input type="hidden" class="w_num" value= "${w_num}">
+									<p class="normal">${w_address}</p>
+									<p>TEL : ${w_tel}</p>
+									<div class="price">
+										<div>
+											<h1>적정재고 달성율: ${rate}%</h1>
+										</div>
+										<c:if test="${rate >= 90 }">
+											<p class="terques">Total Warehouse status: GOOD</p><br>
+											<p class="terques">모든 재고 정보는 어제를 기준으로 합니다</p>
+										</c:if>
+										<c:if test="${rate <90 }">
+											<p class="terques">Total Warehouse status: NORMAL</p>
+											<p class="terques">모든  재고 정보는 어제를 기준으로 합니다</p>
+										</c:if>
+									</div>
+								</div>
 
-					<div class="col-lg-4" id="donutPart"
-						style="width: 30%; float: left; height: 200px;">
-						<section class="panel">
-							<div class="panel-body">
-								<div id="graph-donut" style="height: 300px;"></div>
+
 							</div>
-						</section>
-						<br>
-					</div>
-					<div id="graphValue1"></div>
-					<div id="graphValue2"></div>
-					<div id="stockGraph"></div>
+						</div>
+					</section>
 				</div>
+				<div class="col-lg-6">
+					<section class="panel">
+						<div class="panel-body">
+							<div class="slimScrollDiv" style="overflow: auto; height: 182px;">
+								<table class="table table-hover general-table">
+									<thead>
+										<tr>
+											<th style="text-align: center">상품명</th>
+											<th class="hidden-phone" style="text-align: center">적재구역</th>
+											<th style="text-align: center">총 재고량</th>
+											<th style="text-align: center">상태</th>
+											<th style="text-align: center">적정재고 달성률</th>
+										</tr>
+									</thead>
+									<tbody>
+									<!--1공장인 경우 해당 데이터 출력  -->
+									<c:if test="${w_num == 1}">
+										<c:forEach var="item" items="${ramenList}">
+											<tr>
+												<td style="text-align: center"><a href="w_status?w_num=${w_num}&r_num=${item.r_name}&f_name=1st Factory&line_num=${item.line_num}">${item.r_name}</a></td>
+												<td class="hidden-phone" style="text-align: center">${item.sec_name}</td>
+												<td style="text-align: center">${item.quantity}</td>
+												<c:if test="${item.quantity /410*100 > 85}">
+													<td><span class="label label-success label-mini">Good</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-success"
+																role="progressbar" aria-valuenow="30" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/410*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if
+													test="${item.quantity /410*100 <= 85 && item.quantity /410*100 >= 50}">
+													<td><span class="label label-info label-mini">Normal</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-info"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/410*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${item.quantity /410*100 < 50}">
+													<td><span class="label label-warning label-mini">Bad</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-warning"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/410*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+										</c:if>
+										
+										<!--2물류창고인 경우 해당 데이터 출력  -->
+										<c:if test="${w_num == 2}">
+										<c:forEach var="item" items="${ramenList}">
+											<tr>
+												<td style="text-align: center"><a href="pro_Fac?f_num=${f_num}&r_num=${item.r_num}&f_name=2nd Factory&line_num=${item.line_num}">${item.r_name}</a></td>
+												<td class="hidden-phone" style="text-align: center">${item.line_num}</td>
+												<td style="text-align: center">${item.recentAmount}</td>
+												<c:if test="${item.quantity /352*100 > 85}">
+													<td><span class="label label-success label-mini">Good</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-success"
+																role="progressbar" aria-valuenow="30" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/352*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if
+													test="${item.quantity /352*100 <= 85 && item.quantity /352*100 >= 50}">
+													<td><span class="label label-info label-mini">Normal</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-info"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/352*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${item.quantity /352*100 < 50}">
+													<td><span class="label label-warning label-mini">Bad</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-warning"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/352*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+										</c:if>
+										
+										<!--3물류창고인 경우 해당 데이터 출력  -->
+										<c:if test="${w_num == 3}">
+											<c:forEach var="item" items="${ramenList}">
+												<tr>
+													<td style="text-align: center"><a href="pro_Fac?f_num=${f_num}&r_num=${item.r_num}&f_name=1st Factory&line_num=${item.line_num}">${item.r_name}</a></td>
+													<td class="hidden-phone" style="text-align: center">${item.line_num}</td>
+													<td style="text-align: center">${item.recentAmount}</td>
+													<c:if test="${item.quantity /527*100 > 85}">
+													<td><span class="label label-success label-mini">Good</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-success"
+																role="progressbar" aria-valuenow="30" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/527*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if
+													test="${item.quantity /527*100 <= 85 && item.quantity /527*100 >= 50}">
+													<td><span class="label label-info label-mini">Normal</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-info"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/527*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${item.quantity /527*100 < 50}">
+													<td><span class="label label-warning label-mini">Bad</span></td>
+													<td>
+														<div class="progress progress-striped active progress-sm">
+															<div class="progress-bar progress-bar-warning"
+																role="progressbar" aria-valuenow="80" aria-valuemin="0"
+																aria-valuemax="100"
+																style="width: ${item.quantity/527*100}%">
+																<span class="sr-only"> 50%Complete</span>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												</tr>
+											</c:forEach>
+											</c:if>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="row" style="width: 100%;">
+				<div id="PPart"></div>
+			</div>
+			
+			<div class="row" style="width: 100%;">
+				<div class="col-lg-8" style="width: 70%;">
+					<section class="panel">
+						<div class="panel-body">
+						<c:if test="${w_num == 1}">
+							<div id="imgPart" class="warehouseP" style="position: relative;">
+								<img src="images/logistics/warehouse1.jpg" class="warehouseP" id="img1">
+							</div>
+						</c:if>
+						
+						<c:if test="${w_num == 2}">
+							<div id="imgPart" class="warehouseP" style="position: relative;">
+								<img src="images/logistics/warehouse2.jpg" class="warehouseP" id="img1">
+							</div>
+						</c:if>
+						
+						<c:if test="${w_num == 3}">
+							<div id="imgPart" class="warehouseP" style="position: relative;">
+								<img src="images/logistics/warehouse3.jpg" class="warehouseP" id="img1">
+							</div>
+						</c:if>
+						</div>
+					</section>
+				</div>
+				<div class="col-lg-2" style="width: 30%;">
+					<section class="panel" style="height: 560px;">
+						<div class="panel-body">
+						<div id="detailPart"></div>
+						</div>
+					</section>
+			</div>
 			</section>
+		</section>
 
 			<!--right sidebar start-->
 			<div class="right-sidebar">
@@ -478,438 +692,285 @@
 		<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
 		<script src="js/jquery.nicescroll.js"></script>
 		<script>
-			var originImg;
-			var imgValue;
-			var r_code;
-
-			function getOriginImg() {
-				$.ajax({
-					url : "getOriginImg",
-					method : "GET",
-					success : function(resp) {
-						originImg = resp;
-						$(window).resize(calLocation());
-					}
-				})
-			}
-
-			var color = [];
-
-			function calLocation() {
-				//좌표 계산
-				var rate = $("#img1").width() / 1000;
-
-				var imgPart = $("#imgPart");
-				/* $('#imgPart div').remove(); */
-				// 이미지 좌표를 새롭게 계산하여 둔다
-				$.each(originImg, function(index, item) {
-					if (imgValue == 1 && item.warehouse_code == 1) {
-						var locationX1 = item.locationX1 * rate;
-						var locationX2 = item.locationX2 * rate;
-						var locationY1 = item.locationY1 * rate;
-						var locationY2 = item.locationY2 * rate;
-
-						var div = $('<div></div>');
-						div.attr('id', 'section' + index);
-						div.css('position', 'absolute');
-						div.css('top', locationY1 + 'px');
-						div.css('left', locationX1 + 'px');
-						div.css('z-index', 9);
-						div.width(locationX2 - locationX1);
-						div.height(locationY2 - locationY1);
-						console.log(div);
-
-						var section_name = item.sec_name;
-						var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-							'DARKGRAY' ];
-						div.hover(function() {
-							div.css('background-color', colors[index]);
-							div.text(section_name);
-						});
-
-						div.mouseleave(function() {
-							div.css('background-color', '');
-							div.text("");
-						});
-						imgPart.append(div);
-						
-					}
-					$("#imgBtn1").on('click', function() {
-						if (imgValue == item.warehouse_code) {
-							var locationX1 = item.locationX1 * rate;
-							var locationX2 = item.locationX2 * rate;
-							var locationY1 = item.locationY1 * rate;
-							var locationY2 = item.locationY2 * rate;
-
-							var div = $('<div></div>');
-							div.attr('id', 'section' + index);
-							div.attr('value', index);
-							div.css('position', 'absolute');
-							div.css('top', locationY1 + 'px');
-							div.css('left', locationX1 + 'px');
-							div.width(locationX2 - locationX1);
-							div.height(locationY2 - locationY1);
-							console.log(div);
-							var section_name = item.sec_name;
-							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-								'DARKGRAY' ];
-							div.hover(function() {
-								div.css('background-color', colors[index]);
-								div.text(section_name);
-							});
-
-							div.mouseleave(function() {
-								div.css('background-color', '');
-								div.text("");
-							});
-							imgPart.append(div);
-						}
-
-						$("#section0").on('click', sectionInfo);
-						$("#section1").on('click', sectionInfo);
-						$("#section2").on('click', sectionInfo);
-						$("#section3").on('click', sectionInfo);
-						$("#section4").on('click', sectionInfo);
-					})
-
-					$("#imgBtn2").on('click', function() {
-						if (imgValue == item.warehouse_code) {
-							var locationX1 = item.locationX1 * rate;
-							var locationX2 = item.locationX2 * rate;
-							var locationY1 = item.locationY1 * rate;
-							var locationY2 = item.locationY2 * rate;
-
-							var div = $('<div></div>');
-							div.attr('id', 'section' + index);
-							div.attr('value', index);
-							div.css('position', 'absolute');
-							div.css('top', locationY1 + 'px');
-							div.css('left', locationX1 + 'px');
-							div.width(locationX2 - locationX1);
-							div.height(locationY2 - locationY1);
-							console.log(div);
-							var section_name = item.sec_name;
-							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-								'DARKGRAY' ];
-							div.hover(function() {
-								div.css('background-color', colors[index-5]);
-								div.text(section_name);
-							});
-
-							div.mouseleave(function() {
-								div.css('background-color', '');
-								div.text("");
-							});
-							imgPart.append(div);
-						}
-
-						$("#section5").on('click', sectionInfo);
-						$("#section6").on('click', sectionInfo);
-						$("#section7").on('click', sectionInfo);
-						$("#section8").on('click', sectionInfo);
-						$("#section9").on('click', sectionInfo);
-					})
-
-					$("#imgBtn3").on('click', function() {
-						if (imgValue == item.warehouse_code) {
-							var locationX1 = item.locationX1 * rate;
-							var locationX2 = item.locationX2 * rate;
-							var locationY1 = item.locationY1 * rate;
-							var locationY2 = item.locationY2 * rate;
-
-							var div = $('<div></div>');
-							div.attr('id', 'section' + index);
-							div.attr('value', index);
-							div.css('position', 'absolute');
-							div.css('top', locationY1 + 'px');
-							div.css('left', locationX1 + 'px');
-							div.width(locationX2 - locationX1);
-							div.height(locationY2 - locationY1);
-							console.log(div);
-							var section_name = item.sec_name;
-							var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-								'DARKGRAY' ];
-							div.hover(function() {
-								div.css('background-color', colors[index-10]);
-								div.text(section_name);
-							});
-
-							div.mouseleave(function() {
-								div.css('background-color', '');
-								div.text("");
-							});
-							imgPart.append(div);
-						}
-
-						$("#section10").on('click', sectionInfo);
-						$("#section11").on('click', sectionInfo);
-						$("#section12").on('click', sectionInfo);
-						$("#section13").on('click', sectionInfo);
-						$("#section14").on('click', sectionInfo);
-					})
-
-					$("#section0").on('click', sectionInfo);
-					$("#section1").on('click', sectionInfo);
-					$("#section2").on('click', sectionInfo);
-					$("#section3").on('click', sectionInfo);
-					$("#section4").on('click', sectionInfo);
-				});
-			}
-
-			function sectionInfo() {
-				var id = $(this).attr('id');
-				var index = 0;
-				if (id.length == 8) {
-					index = id.charAt(7);
-				} else {
-					index = id.substring(7, id.length + 1);
-				}
-
-				$.ajax({
-					url : "sectionInfo",
-					method : "GET",
-					data : {
-						"index" : index
-					},
-					success : detailInfo
-				})
-			}
-
-			function detailInfo(resp) {
-				$("div").remove("#donutPart");
-
-				var temp = '<div class="col-lg-4" style="width: 30%; float: left;">';
-				temp += '<section class="panel">';
-				temp += '<div class="panel-body">';
-				temp += '<center><h4>' + resp.WAREHOUSE_NAME + ' '
-						+ resp.SEC_NAME + '</h4></center>';
-				if (resp.R_NAME == '사리곰탕') {
-		               temp += '<center><img id="ramenImg" src="images/sari_ramen.jpg"></center>';
-		            } else if (resp.R_NAME == '신라면') {
-		               temp += '<center><img id="ramenImg" src="images/sin_ramen.jpg"></center>';
-		            } else if (resp.R_NAME == '안성탕면') {
-		               temp += '<center><img id="ramenImg" src="images/ansung_ramen.jpg"></center>';
-		            } else if (resp.R_NAME == '너구리') {
-		               temp += '<center><img id="ramenImg" src="images/nugool_ramen.jpg"></center>';
-		            } else {
-		               temp += '<center><img id="ramenImg" src="images/anchovy_ramen.jpg"></center>';
-		            }
-				temp += '<p>제품 : ' + resp.R_NAME + '</p>';
-				temp += '<p>총수량 : ' + resp.QUANTITY + ' 박스</p>';
-				temp += '<p>총면적 : ' + resp.TOTALAREA + '㎡</p>';
-				temp += '<p>창고 사용률 :' + resp.USAGE + '%</p>';
-				temp += '<input type="hidden" id="section_code111" value="'+resp.SEC_CODE+'">';
-
-				$("#detailInfo").html(temp);
-				stockGraph();
-			}
-
-			function stockGraph() {
-				$("div").remove("#warehouse_usage");
-				
-				var sec_code = $("#section_code111").val();
-				var option = 1;
-				$.ajax({
-					url : "safeStock",
-					method : "GET",
-					data : {"sec_code": sec_code, "option": option},
-					success : function (resp){
-						 var temp = '<input type="hidden" id="safe_Quantity" value="'+resp.safe_Quantity+'">';
-							temp += '<input type="hidden" id="safe_Rate" value="'+resp.safe_Rate+'">';
-							$("#graphValue1").html(temp); 
-							ssQauntity();
-					}
-				})
-			}
-			
-			function ssQauntity(){
-				var sec_code = $("#section_code111").val();
-				$.ajax({
-					url : "SSQuantity",
-					method : "GET",
-					data : {"sec_code": sec_code}, 
-					success : function(resp){
-						var temp1 = '<input type="hidden" id="real_Quantity" value="'+resp.real_Quantity+'">';
-							temp1 += '<input type="hidden" id="real_Rate" value="'+resp.real_Rate+'">';
-						$("#graphValue2").html(temp1);
-						drawStockGraph();
-					}
-				})
-			}
-			
-
-			function drawStockGraph() {
-				var sq = $("#safe_Quantity").val(); 
-				var sr = $("#safe_Rate").val();
-				var rq = $("#real_Quantity").val(); 
-				var rr = $("#real_Rate").val();
-				
-				var rr2 = (sr-rr)/2;
-				
-				console.log(sq +" / "+ sr +" / "+ rq +" / "+ rr +" / "+ rr2);
-				
-				var temp = '<div class="col-lg-4" style="width: 30%; float: left; height: 200px;">';
-				temp += '<section class="panel">';
-				temp += '<div class="panel-body">';
-				temp += '<div class="container">';
-				temp += '<p>적정 재고량 : '+rq+'개</p>';
-	            temp += '<div class="progress" style="width: 25%; float: left">';
-	            temp += '<div id="safe11" class="progress-bar progress-bar-success" role="progressbar" style="width:'+rr+'%">양호</p></div>';
-	            temp += '</div><br>';
-	            temp += '<img src="images/sun.png" style="position: relative; top:17px; left: -200px; width: 10%;"><br><br>';
-	            temp += '</div></div></section><div>';
- 
-				$("#stockGraph").html(temp);
-	
-			}
-				
+		var originImg;
+		var w_num = $(".w_num").val();
+		var r_code;
 		
-			$(function() {
-				var temp = '<img src="images/logistics/warehouse1.jpg" class="warehouseP" id="img1">';
-				$("#img1").css('z-index', 1);
-				$("#imgPart").html(temp);
-				getOriginImg();
-				imgValue = 1;
-				r_code = {
-					"warehouse_code" : "1",
-					"ramen1" : "p01_1",
-					"ramen2" : "p02_1",
-					"ramen3" : "p03_1",
-					"ramen4" : "p04_1",
-					"ramen5" : "p05_1"
-				};
-				ramenDonut(r_code);
-				warehouseUsage();
-
-				$("#imgBtn1")
-						.on(
-								'click',
-								function() {
-									imgValue = 1;
-									var temp = '<img src="images/logistics/warehouse1.jpg" class="warehouseP" id="img1">';
-									$("#img1").css('z-index', 1);
-									$("#imgPart").html(temp);
-									ramenDonut(r_code);
-									warehouseUsage();
-									r_code = {
-										"warehouse_code" : "1",
-										"ramen1" : "p01_1",
-										"ramen2" : "p02_1",
-										"ramen3" : "p03_1",
-										"ramen4" : "p04_1",
-										"ramen5" : "p05_1"
-									};
-								});
-
-				$("#imgBtn2")
-						.on(
-								'click',
-								function() {
-									imgValue = 2;
-									var temp = '<img src="images/logistics/warehouse2.jpg" class="warehouseP" id="img2">';
-									$("#imgPart").html(temp);
-									ramenDonut(r_code);
-									warehouseUsage();
-									r_code = {
-										"warehouse_code" : "2",
-										"ramen1" : "p01_2",
-										"ramen2" : "p02_2",
-										"ramen3" : "p03_2",
-										"ramen4" : "p04_2",
-										"ramen5" : "p05_2"
-									};
-								});
-
-				$("#imgBtn3")
-						.on(
-								'click',
-								function() {
-									imgValue = 3
-									var temp = '<img src="images/logistics/warehouse3.jpg" class="warehouseP" id="img3">';
-									$("#imgPart").html(temp);
-									ramenDonut(r_code);
-									warehouseUsage();
-									r_code = {
-										"warehouse_code" : "3",
-										"ramen1" : "p01_1",
-										"ramen2" : "p02_1",
-										"ramen3" : "p03_1",
-										"ramen4" : "p04_1",
-										"ramen5" : "p05_1"
-									};
-								});
-
-			})
-
-
-			function ramenDonut(resp) {
-				/* 라면 재고량 도넛차트 */
+		$(function(){
+			$(".warehouseP").css('z-index', 1);
+			getOriginImg();
+			firstSecionInfo();
+			ramenStock();
+		})		
+		
+		function ramenStock(){
+			if (w_num == 1) {
+				var section1 = "1";
+				var section2 = "2";
+				var section3 = "3";
+				var section4 = "4";
+				var section5 = "5";
+				
 				$.ajax({
-					url : "ramenStock",
+					url : "sectionP",
 					method : "GET",
-					data : r_code,
-					success : printDonut
-				});
-			}
-
-			function printDonut(resp) {
-				Morris.Donut({
-					element : 'graph-donut',
-					data : [ {
-						value : resp.item1,
-						label : '라면 종류별 재고량',
-						formatted : '안성탕면 ' + resp.item1 + '%'
-					}, {
-						value : resp.item2,
-						label : '라면 종류별 재고량',
-						formatted : '신라면 ' + resp.item2 + '%'
-					}, {
-						value : resp.item3,
-						label : '라면 종류별 재고량',
-						formatted : '너구리 ' + resp.item3 + '%'
-					}, {
-						value : resp.item4,
-						label : '라면 종류별 재고량',
-						formatted : '멸치칼국수라면 ' + resp.item4 + '%'
-					}, {
-						value : resp.item5,
-						label : '라면 종류별 재고량',
-						formatted : '사리곰탕 ' + resp.item5 + '%'
-					} ],
-					backgroundColor : '#fff',
-					labelColor : /* '#1fb5ac' */'darkgray',
-					colors : [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-						'‎#FFFFF0' ],
-					formatter : function(x, data) {
-						return data.formatted;
-					}
-				});
-			}
-
-			function warehouseUsage() {
-				/* 창고 사용률 */
-				$.ajax({
-					url : "warehouseUsage",
-					method : "GET",
-					data : {
-						"warehouse_code" : imgValue
-					},
-					success : function(resp) {
-						var elem = document.getElementById("myBar");
-						var width = 0;
-						var id = setInterval(frame, 10);
-						function frame() {
-							if (width >= resp) {
-								clearInterval(id);
-							} else {
-								width++;
-								elem.style.width = width + '%';
-								elem.innerHTML = width * 1 + '%';
-							}
-						}
-					}
+					data : {"w_num": w_num, "section1": section1, "section2": section2, "section3": section3, "section4": section4, "section5": section5},
+					success : printRamenStock
 				})
-			};
+			} else if (w_num == 2) {
+				var section1 = "6";
+				var section2 = "7";
+				var section3 = "8";
+				var section4 = "9";
+				var section5 = "10";
+				
+				$.ajax({
+					url : "sectionP",
+					method : "GET",
+					data : {"w_num": w_num, "section1": section1, "section2": section2, "section3": section3, "section4": section4, "section5": section5},
+					success : printRamenStock
+				})	
+			} else if (w_num == 3) {
+				var section1 = "11";
+				var section2 = "12";
+				var section3 = "13";
+				var section4 = "14";
+				var section5 = "15";
+				
+				$.ajax({
+					url : "sectionP",
+					method : "GET",
+					data : {"w_num": w_num, "section1": section1, "section2": section2, "section3": section3, "section4": section4, "section5": section5},
+					success : printRamenStock
+				})
+			}
+		}
+		
+		function printRamenStock(resp){
+			var temp = '<div class="col-md-2"><div class="mini-stat clearfix">';
+				temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+			$.each(resp, function(index, item){
+					console.log(resp);
+					console.log(index+" / "+ item);
+					console.log(item.section1);
+					
+					/* section1 */
+					if (index == 0) {
+					console.log("들어옴");
+					temp += '<img src="images/workeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
+					 if (item.section1 >= 90) {
+						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
+						} else if (75<= item.section1 < 90) {
+						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
+						} else if (item.section1 < 75) {
+						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
+						} 
+						temp += '</span><p style="margin-left: 20px; ">A구역</p></div></div></div>';  
+					} 
+					
+					/* section2 */
+					else if (index == 1) {
+					temp += '<img src="images/totaleff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					if (item.section2 >= 90) {
+						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
+						} else if (75<=item.section2 < 90) {
+						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
+						} else if (item.section2 < 75) {
+						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
+						} 
+						temp += '</span><p style="margin-left: 20px; ">B구역</p></div></div></div>';
+					} 
+					
+					/* section3 */
+					else if (index == 2) {
+					temp += '<img src="images/timeeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
+					if (item.section3 >= 90) {
+						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						} else if (75<=item.section1 < 90) {
+						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						} else if (item.section1 < 75) {
+						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						} 
+						temp += '</span><p style="margin-left: 20px; ">C구역</p></div></div></div>';
+					} 
+					
+					/* section4 */
+					else if (index == 3) {
+					temp += '<img src="images/performeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					if (item.section4 >= 90) {
+						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
+						} else if (75<=item.section4 < 90) {
+						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
+						} else if (item.section4 < 75) {
+						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
+						} 
+						temp += '</span><p style="margin-left: 20px; ">D구역</p></div></div></div>';
+					} 
+					
+					/* section5 */
+					else if (index == 4) {
+					temp += '<img src="images/performeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					if (90 <= item.section5 <100 ) {
+						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
+						} else if (75<=item.section5 < 90) {
+						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
+						} else if (item.section5 < 75) {
+						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
+						} 
+						temp += '</span><p style="margin-left: 20px; ">E구역</p></div></div></div>';
+					}   
+			})
+			
+			$("#PPart").html(temp); 
+		}
+		
+		function firstSecionInfo(){
+			var index = 0;
+			if (w_num == 2) {
+				index = 6;
+			} else if (w_num == 3) {
+				index = 13;
+			}  
+			
+			$.ajax({
+				url : "sectionInfo",
+				method : "GET",
+				data : {"index" : index},
+				success : detailInfo
+			})
+		}
+		
+		function getOriginImg() {
+			$.ajax({
+				url : "getOriginImg",
+				method : "GET",
+				data : {"w_num": w_num},
+				success : function(resp) {
+					originImg = resp;
+					$(window).resize(calLocation());
+				}
+			})
+		}
+		
+		function calLocation() {
+			//좌표 계산
+			var rate = $(".warehouseP").width() / 1000;
+
+			var imgPart = $("#imgPart");
+			// 이미지 좌표를 새롭게 계산하여 둔다
+			$.each(originImg, function(index, item) {
+				var locationX1 = item.locationX1 * rate;
+				var locationX2 = item.locationX2 * rate;
+				var locationY1 = item.locationY1 * rate;
+				var locationY2 = item.locationY2 * rate;
+
+				var div = $('<div></div>');
+				div.attr('id', 'section' + index);
+				div.css('position', 'absolute');
+				div.css('top', locationY1 + 'px');
+				div.css('left', locationX1 + 'px');
+				div.css('z-index', 9);
+				div.width(locationX2 - locationX1);
+				div.height(locationY2 - locationY1);
+
+				var section_name = item.sec_name;
+				var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
+					'DARKGRAY' ];
+				div.hover(function() {
+					div.css('background-color', colors[index]);
+					div.text(section_name);
+				});
+
+				div.mouseleave(function() {
+					div.css('background-color', '');
+					div.text("");
+				});
+				imgPart.append(div);
+			})
+			if (w_num == 1) {
+				$("#section0").on('click', sectionInfo);
+				$("#section1").on('click', sectionInfo);
+				$("#section2").on('click', sectionInfo);
+				$("#section3").on('click', sectionInfo);
+				$("#section4").on('click', sectionInfo);
+			} else if (w_num == 2) {
+				$("#section5").on('click', sectionInfo);
+				$("#section6").on('click', sectionInfo);
+				$("#section7").on('click', sectionInfo);
+				$("#section8").on('click', sectionInfo);
+				$("#section9").on('click', sectionInfo);
+			} else{
+				$("#section10").on('click', sectionInfo);
+				$("#section11").on('click', sectionInfo);
+				$("#section12").on('click', sectionInfo);
+				$("#section13").on('click', sectionInfo);
+				$("#section14").on('click', sectionInfo);
+			}
+		}
+		
+		function sectionInfo() {
+			var id = $(this).attr('id');
+			var index = 0;
+			if (id.length == 8) {
+				index = id.charAt(7);
+			} else {
+				index = id.substring(7, id.length + 1);
+			}
+
+			$.ajax({
+				url : "sectionInfo",
+				method : "GET",
+				data : {"index" : index},
+				success : detailInfo
+			})
+		}
+		
+		function detailInfo(resp) {
+			var temp = '<div class="carousel-inner"><div style="text-align: center">';
+				temp += '<h5>Product Information</h5>';
+				temp += '<img src="'+resp.IMG+'" style="width: 200px; height: 200px;"></div>';
+				temp += '<table class="table table-striped"><thead><tr><th>Factor</th>';
+				temp += '<th>Detail</th></tr></thead><tbody><tr>';
+				temp += '<td>상품 이름</td><td>'+resp.R_NAME+'</td></tr>';
+				temp += '<tr><td>적재구역</td><td>'+resp.SEC_NAME+' / '+resp.TOTALAREA+'㎢</td></tr>';
+				temp += '<tr><td>창고 이용률</td><td>'+resp.USAGE+'%</td></tr>';
+				temp += '<tr><td>재고 수량</td><td>'+resp.QUANTITY+'개</td></tr></tbody></table>';
+				temp += '<div class="col-lg-3">';
+				temp += '<ul class="clearfix location-earning-stats" style="text-align: left; width: 300px;">';
+				temp += '<li class="stat-divider" style="text-align: center;"><span class="first-city">Stock Status</span>';
+				if ((resp.QUANTITY/resp.TOTALQ*0.7) > 85) {
+				temp += '<img alt="" src="images/sun.png" style="width: 50px; heigh: 30px;">&nbsp;&nbsp;GOOD</li>'; 
+				temp += '<li><span class="third-city">Comment</span>출하 수요 대비<br>재고적재량: 최적</li></ul></div>';
+				} else if (50 <=(resp.QUANTITY/resp.TOTALQ*0.7) <= 85) {
+					temp += '<img alt="" src="images/cloudy-day.png" style="width: 50px; heigh: 30px;">&nbsp;&nbsp;NORMAL</li>';
+					temp += '<li><span class="third-city">Comment</span>출하 수요 대비<br>재고적재량: 보통</li></ul></div>';
+				} else if((resp.QUANTITY/resp.TOTALQ*0.7) < 50) {
+					temp += '<img alt="" src="images/rain.png" style="width: 50px; heigh: 30px;">&nbsp;&nbsp;BAD</li>';
+					temp += '<li><span class="third-city">Comment</span>출하 수요 대비<br>재고적재량: 부족</li></ul></div>';
+				}
+				
+				temp += '</div>';
+				
+				$("#detailPart").html(temp);	
+							
+		}
+		
+		
 		</script>
 		<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 		<script src="js/skycons/skycons.js"></script>

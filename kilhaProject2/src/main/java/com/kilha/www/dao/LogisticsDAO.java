@@ -43,19 +43,25 @@ public interface LogisticsDAO {
 
 	public List<Shipping> truckListSearch(Map<String, String> map);
 	
-	public List<Section> getOriginImg();
+	public List<Section> getOriginImg(int w_num);
 
 	public List<Integer> warehouseUsage(int warehouse_code);
 
-	public List<Integer> ramenStock(Map<String, String> map);
+	public List<Integer> ramenStock(Map<String, Object> map);
 
-	public List<Integer> getAllQuantity(String warehouse_code);
+	public List<Integer> getAllQuantity(int warehouse_code);
 
 	public List<Map<String, Object>> sectionInfo(int sec_code);
 
 	public List<Integer> sectionStock(int sec_code);
 	
 	public List<Integer> getSectionP(int sec_code);
+
+	public Map<String, Object> wDetail(int w_num);
+
+	public List<Map<String, Object>> getRamenList(Map<String, Object> map);
+
+	public List<Integer> sectionP(Map<String, Integer> map);
 
 
 }

@@ -76,12 +76,12 @@ public class LogisticsRepository {
 	}
 
 	public List<Map<String, Object>> selectTruck(int shop_code, String deliverydate) {
-		System.out.println("들어옴 : "+shop_code+"/"+deliverydate);
+		/*System.out.println("들어옴 : "+shop_code+"/"+deliverydate);*/
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		Map<String, Object> map = new HashMap<>();
 		map.put("shop_code", shop_code);
 		map.put("deliverydate", deliverydate);
-		System.out.println("잘 들어갔니? : "+map.toString());
+		/*System.out.println("잘 들어갔니? : "+map.toString());*/
 		List<Map<String, Object>>list = dao.selectTruck(map);
 		return list;
 	}
@@ -120,12 +120,12 @@ public class LogisticsRepository {
 	}
 
 	public int updateShipping(Shipping shipping) {
-		System.out.println("repo들어옴");
+		/*System.out.println("repo들어옴");*/
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		System.out.println("repo : "+shipping.toString());
 		int result = dao.updateShipping(shipping);
-		System.out.println("repo 결과 : "+result);
-		System.out.println("repo나감");
+		/*System.out.println("repo 결과 : "+result);*/
+		/*System.out.println("repo나감");*/
 		return result;
 	}
 
@@ -138,9 +138,9 @@ public class LogisticsRepository {
 		return list;
 	}
 	
-	public List<Section> getOriginImg() {
+	public List<Section> getOriginImg(int w_num) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		List<Section>list = dao.getOriginImg();
+		List<Section>list = dao.getOriginImg(w_num);
 		return list;
 	}
 
@@ -150,16 +150,16 @@ public class LogisticsRepository {
 		return result;
 	}
 
-	public List<Integer> ramenStock(String warehouse_code, String r_num) {
+	public List<Integer> ramenStock(int warehouse_code, String ramen_code) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("warehouse_code", warehouse_code);
-		map.put("r_num", r_num);
+		map.put("r_num", ramen_code);
 		List<Integer>list = dao.ramenStock(map);
 		return list;
 	}
 
-	public List<Integer> getAllQuantity(String warehouse_code) {
+	public List<Integer> getAllQuantity(int warehouse_code) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		List<Integer>list = dao.getAllQuantity(warehouse_code);
 		return list;
@@ -180,6 +180,30 @@ public class LogisticsRepository {
 	public List<Integer> getSectionP(int sec_code) {
 		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
 		List<Integer>list = dao.getSectionP(sec_code);
+		return list;
+	}
+
+	public Map<String, Object> wDetail(int w_num) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, Object>wDetail = dao.wDetail(w_num);
+		return wDetail;
+	}
+
+	public List<Map<String, Object>> getRamenList(int w_num, String r_num) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, Object>map = new HashMap<>();
+		map.put("w_num", w_num);
+		map.put("r_num", r_num);
+		List<Map<String, Object>> ramenList = dao.getRamenList(map);
+		return ramenList;
+	}
+
+	public List<Integer> sectionP(int w_num, int sec_code) {
+		LogisticsDAO dao = sqlSession.getMapper(LogisticsDAO.class);
+		Map<String, Integer>map = new HashMap<>();
+		map.put("w_num", w_num);
+		map.put("sec_code", sec_code);
+		List<Integer>list = dao.sectionP(map);
 		return list;
 	}
 

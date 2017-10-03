@@ -71,7 +71,6 @@ public class LogisticsController {
 	
 	@RequestMapping(value = "/fifth", method = RequestMethod.GET)
 	public String fifth(String deliverydate, String quan, Model model) {
-		System.out.println("들어옴");
 		System.out.println(deliverydate+"/"+quan);
 		int quantity = Integer.parseInt(quan);
 		model.addAttribute("deliverydate", deliverydate);
@@ -284,15 +283,11 @@ public class LogisticsController {
 	
 	@RequestMapping(value="updateShipping", method=RequestMethod.GET)
 	public String updateShipping(String process_code, String truck_code){
-		System.out.println("업데이트하러 들어옴");
 		Shipping shipping = new Shipping();
 		shipping.setTruck_code(truck_code);
 		shipping.setProcess_code(process_code);
-		System.out.println("컨트롤러 : "+shipping.toString());
 		int result = repo.updateShipping(shipping);
-		System.out.println("컨트롤러 결과 : "+result);
 		if (result == 1) {
-			System.out.println("업데이트하고 나감");
 			return "redirect:/first";
 		}
 		return null;
@@ -355,8 +350,8 @@ public class LogisticsController {
 	
 	@ResponseBody
 	@RequestMapping(value="getOriginImg", method=RequestMethod.GET)
-	public List<Section> fetchOriginImg(){
-		List<Section>list = repo.getOriginImg();
+	public List<Section> fetchOriginImg(int w_num){
+		List<Section>list = repo.getOriginImg(w_num);
 		return list;
 	}
 	
@@ -391,7 +386,7 @@ public class LogisticsController {
 	
 	@ResponseBody
 	@RequestMapping(value="ramenStock", method=RequestMethod.GET)
-	public Map<String, Double> ramenStock(String warehouse_code, String ramen1, String ramen2, String ramen3, String ramen4, String ramen5){
+	public Map<String, Double> ramenStock(int warehouse_code, String ramen1, String ramen2, String ramen3, String ramen4, String ramen5){
 		List<String>list = new ArrayList<>(); //jsp에서 넘겨받은 라면코드를 담을 리스트
 		List<Integer>rList = null; // mapper에서 얻어온 라면코드별 수량.
 		double totalQ = 0; // 전체 라면 갯수
@@ -436,6 +431,7 @@ public class LogisticsController {
 		List<Integer>rList = null; // mapper에서 얻어온 라면코드별 수량.
 		double rQ = 0; // 종류별 라면 갯수
 		double usage = 0; //섹션 이용률
+		double totalQ = 0;
 		
 		
 		Map<String, Object>map = new HashMap<>();
@@ -447,12 +443,15 @@ public class LogisticsController {
 		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
 			whCapa = rack1*2; // 선반 2개 가진 창고 구역
 			area = 260*50*2/100;
+			totalQ = Math.round(whCapa/boxCapa1);
 		}else if (sec_code == 2 || sec_code == 3 || sec_code == 4 || sec_code == 5 || sec_code == 6 || sec_code == 7) {
 			whCapa = rack1*3; // 선반 3개 가진 창고 구역
 			area = 260*50*2/100;
+			totalQ = Math.round(whCapa/boxCapa1);
 		}else{
 			whCapa = rack1*4; // 선반 4개 가진 창고 구역;
 			area = 260*50*4/100;
+			totalQ = Math.round(whCapa/boxCapa1);
 		}
 		
 		
@@ -461,7 +460,23 @@ public class LogisticsController {
 			rQ += temp;
 		}
 		usage = Math.round(rQ*boxCapa1/whCapa*100);
-		
+		if (r_name.equals("안성탕면")) {
+			String src = "images/ansung_ramen.jpg";
+			map.put("IMG", src);
+		} else if (r_name.equals("신라면")) {
+			String src = "images/sin_ramen.jpg";
+			map.put("IMG", src);
+		} else if (r_name.equals("너구리")) {
+			String src = "images/nugool_ramen.jpg";
+			map.put("IMG", src);
+		} else if (r_name.equals("사리곰탕")) {
+			String src = "images/sari_ramen.jpg";
+			map.put("IMG", src);
+		}else if (r_name.equals("멸치칼국수라면")) {
+			String src = "images/anchovy_ramen.jpg";
+			map.put("IMG", src);
+		}
+		map.put("TOTALQ", totalQ);
 		map.put("SEC_NAME", sec_name);
 		map.put("SEC_CODE", sec_code);
 		map.put("WAREHOUSE_NAME", warehouse_name);
@@ -469,7 +484,6 @@ public class LogisticsController {
 		map.put("TOTALAREA", area); 
 		map.put("QUANTITY", rQ);
 		map.put("USAGE", usage);
-		
 		return map;
 	}
 	
@@ -498,17 +512,13 @@ public class LogisticsController {
 			length++;
 		}
 		meanValue = Math.round(quantity/length);
-		System.out.println(meanValue);
 
 		for (Integer temp2 : list) {
 			diff = temp2 - meanValue;
 			sum += diff * diff;
 		}
-		System.out.println(sum+" / "+length+" / "+option);
 		sd = Math.sqrt(sum/(length-option));
-		System.out.println(sd);
 		safeR = sd*2.33*supplyLeadT;
-		System.out.println("안전재고 비율 : "+safeR);
 		
 		if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
 			whCapa = rack1*2; // 선반 2개 가진 창고 구역
@@ -527,7 +537,6 @@ public class LogisticsController {
 		map.put("safe_Rate", (double) Math.round(safeR));// 안전재고 비율
 		map.put("safe_Quantity", (double) Math.round(safeQ));// 안전재고 수량
 		
-		System.out.println(map.toString());
 		return map;
 	}
 	
@@ -561,7 +570,148 @@ public class LogisticsController {
 		map.put("real_Quantity", (double) result); // 현재 재고 수량
 		map.put("real_Rate", (double) Math.round(real_rate)); // 현재 재고 비율
 		
-		System.out.println(map.toString());
 		return map;
+	}
+	
+	@RequestMapping(value="w_status", method=RequestMethod.GET)
+	public String warehouseStatus(Model model, int w_num){
+		double totalQ = 0;
+		List<Object> ramenList = new ArrayList<>();
+		Map<String, Object>ramenMap = null;
+		Map<String, Object>wDetail = repo.wDetail(w_num);
+		String a1 = (String)wDetail.get("ADDRESS_DETAIL1");
+		String a2 = (String)wDetail.get("ADDRESS_DETAIL2");
+		String a3 = (String)wDetail.get("ADDRESS_DETAIL3");
+		String a4 = (String)wDetail.get("ADDRESS_DETAILl4");
+		
+		if (w_num == 1) {
+			for (int i = 1; i < 6; i++) {
+				int quantity = 0;
+				int minus = 1;
+				int index = i-minus;
+				ramenMap  = new HashMap<>();
+				String r_num = "p0"+i+"_1";
+				List<Map<String, Object>> list = repo.getRamenList(w_num, r_num);
+				List<Integer>q = repo.ramenStock(w_num, r_num);
+				for (Integer r : q) {
+					quantity += r;
+					totalQ += quantity;
+				}
+				ramenMap.put("r_name", list.get(0).get("R_NAME"));
+				ramenMap.put("sec_name", list.get(0).get("SEC_NAME"));
+				ramenMap.put("quantity", quantity);
+				ramenList.add(index, ramenMap);
+			}
+			model.addAttribute("rate", Math.round(totalQ/410*100));
+			model.addAttribute("ramenList", ramenList);
+		} else if (w_num == 2) {
+			for (int i = 1; i < 6; i++) {
+				int quantity = 0;
+				int minus = 1;
+				int index = i-minus;
+				ramenMap  = new HashMap<>();
+				String r_num = "p0"+i+"_2";
+				List<Map<String, Object>> list = repo.getRamenList(w_num, r_num);
+				List<Integer>q = repo.ramenStock(w_num, r_num);
+				for (Integer r : q) {
+					quantity += r;
+					totalQ += quantity;
+				}
+				ramenMap.put("r_name", list.get(0).get("R_NAME"));
+				ramenMap.put("sec_name", list.get(0).get("SEC_NAME"));
+				ramenMap.put("quantity", quantity);
+				ramenList.add(index, ramenMap);
+			}
+			model.addAttribute("rate", Math.round(totalQ/410*100));
+			model.addAttribute("ramenList", ramenList);
+		} else{
+			for (int i = 1; i < 6; i++) {
+				int quantity = 0;
+				int minus = 1;
+				int index = i-minus;
+				ramenMap  = new HashMap<>();
+				String r_num = "p0"+i+"_1";
+				List<Map<String, Object>> list = repo.getRamenList(w_num, r_num);
+				List<Integer>q = repo.ramenStock(w_num, r_num);
+				for (Integer r : q) {
+					quantity += r;
+					totalQ += quantity;
+				}
+				ramenMap.put("r_name", list.get(0).get("R_NAME"));
+				ramenMap.put("sec_name", list.get(0).get("SEC_NAME"));
+				ramenMap.put("quantity", quantity);
+				ramenList.add(index, ramenMap);
+			}
+			model.addAttribute("rate", Math.round(totalQ/410*100));
+			model.addAttribute("ramenList", ramenList);
+		}
+		
+		model.addAttribute("w_num", w_num);
+		model.addAttribute("w_name", wDetail.get("WAREHOUSE_NAME"));
+		if (a4 != null) {
+			model.addAttribute("w_address", a1+a2+a3+a4);
+		} else{
+			model.addAttribute("w_address", a1+a2+a3);
+		}
+		model.addAttribute("w_tel", wDetail.get("WAREHOUSE_TEL"));
+		
+		//total_operating
+		//operating
+		return "logistics/log-03, 11";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="sectionP", method=RequestMethod.GET)
+	public List<Map<String, Double>> sectionStock(int w_num, int section1, int section2, int section3, int section4, int section5){
+		int index = 1;
+		int quantity = 0;
+		double sPercent;
+		double whCapa = 0; // 창고의 부피
+		double rack1 = 260*50*200; // 선반 하나의 부피
+		double boxCapa1 = 48*38*34; //한상자의 부피 
+		double totalBoxQ = 0.0; // 한 섹션 당 보관할 수 있는 상자의 수
+		List<Integer>list = new ArrayList<>();
+		List<Map<String, Double>>mapList = new ArrayList<>();;
+		Map<String, Double>map = null;
+		list.add(section1);
+		list.add(section2);
+		list.add(section3);
+		list.add(section4);
+		list.add(section5);
+		
+		for (int sec_code : list) {
+			List<Integer>QList = repo.sectionP(w_num, sec_code);
+			for (int q : QList) {
+				quantity += q;
+			}
+			System.out.println(sec_code+" / "+quantity);
+			if (sec_code == 1 || sec_code == 8 || sec_code == 9 || sec_code == 10 || sec_code == 13 ) {
+				whCapa = rack1*2; // 선반 2개 가진 창고 구역
+				totalBoxQ = whCapa/boxCapa1;
+				sPercent = Math.round(quantity/totalBoxQ*100);
+				map = new HashMap<>();
+				map.put("section"+index, sPercent);
+				mapList.add(index-1, map);
+				System.out.println(mapList.toString());
+			}else if (sec_code == 2 || sec_code == 3 || sec_code == 4 || sec_code == 5 || sec_code == 6 || sec_code == 7) {
+				whCapa = rack1*3; // 선반 3개 가진 창고 구역
+				totalBoxQ = whCapa/boxCapa1;
+				sPercent = Math.round(quantity/totalBoxQ*100);
+				map = new HashMap<>();
+				map.put("section"+index, sPercent);
+				mapList.add(index-1, map);
+				System.out.println(mapList.toString());
+			}else{
+				whCapa = rack1*4; // 선반 4개 가진 창고 구역
+				totalBoxQ = whCapa/boxCapa1;
+				sPercent = Math.round(quantity/totalBoxQ*100);
+				map = new HashMap<>();
+				map.put("section"+index, sPercent);
+				mapList.add(index-1, map);
+				System.out.println(mapList.toString());
+			}
+			index++;
+		}
+		return mapList;
 	}
 }
