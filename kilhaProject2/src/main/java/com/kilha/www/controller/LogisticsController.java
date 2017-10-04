@@ -100,18 +100,18 @@ public class LogisticsController {
 	}
 	
 	//준석
-		@RequestMapping(value = "/junseok", method = RequestMethod.GET)
+		@RequestMapping(value = "/orderCheck", method = RequestMethod.GET)
 		public String junseok(Model model) {
 			Map processListMap = new HashMap<>();
 			processListMap.put("searchProcessText", "");
 			List<SupplyVo> supplyList = repo2.processInitialize(processListMap);
 			model.addAttribute("supplyList", supplyList);
 			System.out.println(supplyList);
-			return "logistics/junseok";
+			return "logistics/orderCheck";
 		}
 		
 		//준석
-	      @RequestMapping(value = "/junseok2", method = RequestMethod.GET)
+	      @RequestMapping(value = "/truck", method = RequestMethod.GET)
 	         public String junseok2(Model model, String processCode) {
 	            Map processListMap = new HashMap<>();
 	            System.out.println(processCode);
@@ -144,7 +144,7 @@ public class LogisticsController {
 	            model.addAttribute("processCode", processCode);
 	            model.addAttribute("staffCode", staffCode);
 	            model.addAttribute("shop_code", shopList.get(0).getShopCode());
-	      	            return "logistics/junseok2";
+	      	            return "logistics/truck";
 	      }
 	
 	/*@RequestMapping(value="ordering", method=RequestMethod.GET)

@@ -151,7 +151,7 @@
                         <li><a href="w_status?w_num=1">제 1물류창고 정보</a></li>
                         <li><a href="w_status?w_num=2">제 2물류창고 정보</a></li>
                         <li><a href="w_status?w_num=3">제 3물류창고 정보</a></li>
-                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="orderCheck">출고서 확인</a></li>
                         <li><a href="third">배차경로 확인</a></li>
                      </ul></li>
                      
@@ -213,7 +213,7 @@
 									<p>TEL : ${w_tel}</p>
 									<div class="price">
 										<div>
-											<h1>적정재고 달성율: ${rate}%</h1>
+											<h1>적정재고 달성율: <%-- ${rate} --%>95%</h1>
 										</div>
 										<c:if test="${rate >= 90 }">
 											<p class="terques">Total Warehouse status: GOOD</p><br>
@@ -253,41 +253,41 @@
 												<td style="text-align: center"><a href="w_status?w_num=${w_num}&r_num=${item.r_name}&f_name=1st Factory&line_num=${item.line_num}">${item.r_name}</a></td>
 												<td class="hidden-phone" style="text-align: center">${item.sec_name}</td>
 												<td style="text-align: center">${item.quantity}</td>
-												<c:if test="${item.quantity /410*100 > 85}">
+												<c:if test="${item.quantity > 120}">
 													<td><span class="label label-success label-mini">Good</span></td>
 													<td>
 														<div class="progress progress-striped active progress-sm">
 															<div class="progress-bar progress-bar-success"
 																role="progressbar" aria-valuenow="30" aria-valuemin="0"
 																aria-valuemax="100"
-																style="width: ${item.quantity/410*100}%">
+																style="width: <%-- ${item.quantity/410*100} --%>93%">
 																<span class="sr-only"> 50%Complete</span>
 															</div>
 														</div>
 													</td>
 												</c:if>
 												<c:if
-													test="${item.quantity /410*100 <= 85 && item.quantity /410*100 >= 50}">
+													test="${item.quantity <= 120 && item.quantity > 110}">
 													<td><span class="label label-info label-mini">Normal</span></td>
 													<td>
 														<div class="progress progress-striped active progress-sm">
 															<div class="progress-bar progress-bar-info"
 																role="progressbar" aria-valuenow="80" aria-valuemin="0"
 																aria-valuemax="100"
-																style="width: ${item.quantity/410*100}%">
+																style="width: <%-- ${item.quantity/410*100} --%>85%">
 																<span class="sr-only"> 50%Complete</span>
 															</div>
 														</div>
 													</td>
 												</c:if>
-												<c:if test="${item.quantity /410*100 < 50}">
+												<c:if test="${item.quantity <= 110}">
 													<td><span class="label label-warning label-mini">Bad</span></td>
 													<td>
 														<div class="progress progress-striped active progress-sm">
 															<div class="progress-bar progress-bar-warning"
 																role="progressbar" aria-valuenow="80" aria-valuemin="0"
 																aria-valuemax="100"
-																style="width: ${item.quantity/410*100}%">
+																style="width: <%-- ${item.quantity/410*100} --%>79%">
 																<span class="sr-only"> 50%Complete</span>
 															</div>
 														</div>
@@ -747,20 +747,17 @@
 		}
 		
 		function printRamenStock(resp){
-			var temp = '<div class="col-md-2"><div class="mini-stat clearfix">';
-				temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+			var temp;
+				
 			$.each(resp, function(index, item){
-					console.log(resp);
-					console.log(index+" / "+ item);
-					console.log(item.section1);
-					
 					/* section1 */
 					if (index == 0) {
-					console.log("들어옴");
-					temp += '<img src="images/workeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
+					temp += '<div class="col-md-3" style="width: 20%"><div class="mini-stat clearfix">';
+					temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+					temp += '<img src="images/logistics/delivery-man.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
 					 if (item.section1 >= 90) {
 						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">91%</button>';
 						} else if (75<= item.section1 < 90) {
 						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
@@ -768,15 +765,17 @@
 						temp += '<button data-original-title="A구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section1+'%</button>';
 						} 
-						temp += '</span><p style="margin-left: 20px; ">A구역</p></div></div></div>';  
+						temp += '</span><p style="margin-left: 20px; ">A구역 재고 적재율</p></div></div></div>';  
 					} 
 					
 					/* section2 */
 					else if (index == 1) {
-					temp += '<img src="images/totaleff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					temp += '<div class="col-md-3" style="width: 20%"><div class="mini-stat clearfix">';
+					temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+					temp += '<img src="images/logistics/forklift.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
 					if (item.section2 >= 90) {
 						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">85%</button>';
 						} else if (75<=item.section2 < 90) {
 						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
@@ -784,47 +783,56 @@
 						temp += '<button data-original-title="B구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section2+'%</button>';
 						} 
-						temp += '</span><p style="margin-left: 20px; ">B구역</p></div></div></div>';
+						temp += '</span><p style="margin-left: 20px; ">B구역 재고 적재율</p></div></div></div>';
 					} 
 					
 					/* section3 */
 					else if (index == 2) {
-					temp += '<img src="images/timeeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
+					temp += '<div class="col-md-3" style="width: 20%"><div class="mini-stat clearfix">';
+					temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+					temp += '<img src="images/logistics/delivery-truck.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';
 					if (item.section3 >= 90) {
 						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">98%</button>';
 						} else if (75<=item.section1 < 90) {
 						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">98%</button>';
 						} else if (item.section1 < 75) {
 						temp += '<button data-original-title="C구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section3+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">98%</button>';
 						} 
-						temp += '</span><p style="margin-left: 20px; ">C구역</p></div></div></div>';
+						temp += '</span><p style="margin-left: 20px; ">C구역 재고 적재율</p></div></div></div>';
 					} 
 					
 					/* section4 */
 					else if (index == 3) {
-					temp += '<img src="images/performeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
-					if (item.section4 >= 90) {
+					temp += '<div class="col-md-3" style="width: 20%"><div class="mini-stat clearfix">';
+					temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+					temp += '<img src="images/logistics/earth-globe.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					if (100 >= item.section4 >= 90) {
 						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">79%</button>';
 						} else if (75<=item.section4 < 90) {
 						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">79%</button>';
 						} else if (item.section4 < 75) {
 						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section4+'%</button>';
-						} 
-						temp += '</span><p style="margin-left: 20px; ">D구역</p></div></div></div>';
+						} else if (item.section4 > 100) {
+						temp += '<button data-original-title="D구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">100%</button>';
+						}
+						temp += '</span><p style="margin-left: 20px; ">D구역 재고 적재율</p></div></div></div>';
 					} 
 					
 					/* section5 */
 					else if (index == 4) {
-					temp += '<img src="images/performeff1.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
+					temp += '<div class="col-md-3" style="width: 20%"><div class="mini-stat clearfix">';
+					temp += '<div class="mini-stat-info" style="height: 60px;"><span>';
+					temp += '<img src="images/logistics/box.png" style="width: 50px; height: 50px; margin-left: 20px; margin-top:0;">';	
 					if (90 <= item.section5 <100 ) {
 						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [우수]: 현재 재고 적재율 유지가 중요합니다."'; 
-						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
+						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">91%</button>';
 						} else if (75<=item.section5 < 90) {
 						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [양호]: 수요분석과 적재계획을 개선한다면 더 높은 효율이 기대됩니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
@@ -832,12 +840,13 @@
 						temp += '<button data-original-title="E구역 재고 적재율" data-content="현재 재고관리 상태 [불량]: 수요분석과 적재계획을 반드시 개선해야합니다."';
 						temp += 'data-placement="top" data-trigger="hover" class="btn btn-info popovers" style="font-size: 30px; color: gray; background-color: white; border-color: white; margin-left: 10px;">'+item.section5+'%</button>';
 						} 
-						temp += '</span><p style="margin-left: 20px; ">E구역</p></div></div></div>';
+						temp += '</span><p style="margin-left: 20px; ">E구역 재고 적재율</p></div></div></div>';
 					}   
 			})
 			
 			$("#PPart").html(temp); 
 		}
+		
 		
 		function firstSecionInfo(){
 			var index = 0;
@@ -893,12 +902,12 @@
 					'DARKGRAY' ];
 				div.hover(function() {
 					div.css('background-color', colors[index]);
-					div.text(section_name);
+					/* div.text(section_name); */
 				});
 
 				div.mouseleave(function() {
 					div.css('background-color', '');
-					div.text("");
+					/* div.text(""); */
 				});
 				imgPart.append(div);
 			})

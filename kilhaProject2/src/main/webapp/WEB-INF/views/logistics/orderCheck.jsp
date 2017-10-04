@@ -232,7 +232,7 @@
                         <li><a href="w_status?w_num=1">제 1물류창고 정보</a></li>
                         <li><a href="w_status?w_num=2">제 2물류창고 정보</a></li>
                         <li><a href="w_status?w_num=3">제 3물류창고 정보</a></li>
-                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="orderCheck">출고서 확인</a></li>
                         <li><a href="third">배차경로 확인</a></li>
                      </ul></li>
                      
@@ -465,7 +465,7 @@
 			processCodeClick(resp);
 			$('.BTN111').on('click', function(){
 				var btn = $(this).attr('data-processCode');
-				location.href = 'junseok2?processCode='+btn;
+				location.href = 'truck?processCode='+btn;
 			})
 		}
 

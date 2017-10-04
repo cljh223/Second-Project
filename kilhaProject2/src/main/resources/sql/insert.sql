@@ -672,3 +672,157 @@ insert into stock VALUES
 (
 stockNum_SEQ.nextval, 3, 15, 'p05_1', 6, '2017-03-04'
 );
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 1, 'p01_1', 30, '2017-05-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 2, 'p02_1', 20, '2017-08-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 3, 'p03_1', 40, '2017-07-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 4, 'p04_1', 30, '2017-04-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 5, 'p05_1', 30, '2017-03-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 6, 'p01_2', 25, '2017-01-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 7, 'p02_2', 10, '2017-02-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 8, 'p03_2', 55, '2017-06-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 9, 'p04_2', 60, '2017-06-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 10, 'p05_2', 20, '2017-07-08'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 11, 'p01_1', 20, '2017-02-07'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 12, 'p02_1', 25, '2017-08-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 13, 'p03_1', 15, '2017-09-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 14, 'p04_1', 10, '2017-03-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 15, 'p05_1', 35, '2017-03-04'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 1, 'p01_1', 30, '2017-05-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 2, 'p02_1', 20, '2017-08-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 3, 'p03_1', 40, '2017-07-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 4, 'p04_1', 30, '2017-04-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 1, 5, 'p05_1', 30, '2017-03-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 6, 'p01_2', 25, '2017-01-05'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 7, 'p02_2', 10, '2017-02-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 8, 'p03_2', 55, '2017-06-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 9, 'p04_2', 60, '2017-06-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 2, 10, 'p05_2', 20, '2017-07-08'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 11, 'p01_1', 20, '2017-02-07'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 12, 'p02_1', 25, '2017-08-11'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 13, 'p03_1', 15, '2017-09-10'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 14, 'p04_1', 10, '2017-03-15'
+);
+
+insert into stock VALUES
+(
+stockNum_SEQ.nextval, 3, 15, 'p05_1', 35, '2017-03-04'
+);
+
+
+
+

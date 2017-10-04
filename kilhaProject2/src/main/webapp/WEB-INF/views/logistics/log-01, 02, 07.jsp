@@ -111,7 +111,7 @@
                         <li><a href="w_status?w_num=1">제 1물류창고 정보</a></li>
                         <li><a href="w_status?w_num=2">제 2물류창고 정보</a></li>
                         <li><a href="w_status?w_num=3">제 3물류창고 정보</a></li>
-                        <li><a href="junseok">출고서 확인</a></li>
+                        <li><a href="orderCheck">출고서 확인</a></li>
                         <li><a href="third">배차경로 확인</a></li>
                      </ul></li>
                      
@@ -472,7 +472,7 @@
 								} else{
 								temp += '<td>' + item.ADDRESS_DETAIL1+item.ADDRESS_DETAIL2+item.ADDRESS_DETAIL3+item.ADDRESS_DETAIL4+'</td>';}
 								temp += '<td>' + item.TRUCK_CODE + '</td>';
-								temp += '<td><a class="confirm" href="junseok2?processCode='
+								temp += '<td><a class="confirm" href="truck?processCode='
 										+ process_code +'"><span class="label label-primary">상세보기</span></a></td>';
 								temp += '<td><a href="deleteList?process_code='+process_code+'"><span class="label label-inverse">삭제</span></a></td>';
 								temp += '</tr>';
