@@ -626,7 +626,7 @@ td .num {
                      }
 
                      else if (resp.length > 0) {
-                        var temp = '<table id="modalT" border="1"><tr>';
+                        var temp = '<table id="modalT" class="table general-table"><tr>';
                         temp += '<col width="40">';
                         temp += '<col width="100">';
                         temp += '<col width="350">';

@@ -556,9 +556,9 @@
 				var temp='<br><br><br><center><h3>배차내역이 없습니다.</h3></center>';
 				$("#truckListPart").html(temp);
 			} else if (resp != 0) {
-				var temp ='<table id="resultT" border="1">';
+				var temp ='<table id="resultT" class="table general-table">';
 				temp +='<tr bgcolor="white">';
-				temp +='<col width="35">';
+				temp +='<col width="50">';
 				temp +='<col width="100">';
 				temp +='<col width="225">';
 				temp +='<th class="num">번호</th>';
