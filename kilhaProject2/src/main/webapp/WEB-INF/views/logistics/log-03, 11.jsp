@@ -234,7 +234,7 @@
 				<div class="col-lg-6">
 					<section class="panel">
 						<div class="panel-body">
-							<div class="slimScrollDiv" style="overflow: auto; height: 182px;">
+							<div class="slimScrollDiv" style="overflow: auto; height: 200px;">
 								<table class="table table-hover general-table">
 									<thead>
 										<tr>
@@ -747,7 +747,7 @@
 		}
 		
 		function printRamenStock(resp){
-			var temp;
+			var temp = "";
 				
 			$.each(resp, function(index, item){
 					/* section1 */
@@ -898,16 +898,28 @@
 				div.height(locationY2 - locationY1);
 
 				var section_name = item.sec_name;
-				var colors = [ '#E67A77', '#D9DD81', '#79D1CF', '#95D7BB',
-					'DARKGRAY' ];
+				var colors = [ 'ORANGERED', 'GOLD', 'MediumSeaGreen', 'MEDIUMBLUE', 'NAVY' ];
+				
 				div.hover(function() {
 					div.css('background-color', colors[index]);
-					/* div.text(section_name); */
+					div.text(section_name); 
+					div.css('border', '5px double WHITE');
+					div.css('font-size', '50px');
+					div.css('text-align', 'center');
+					div.css('line-height', '4em');
+					div.css('color', 'WHITE');
+					$("#section0").css('font-size', '50px');
+					$("#section0").css('line-height', '2.7em');
 				});
 
 				div.mouseleave(function() {
 					div.css('background-color', '');
-					/* div.text(""); */
+					div.text("");
+					div.css('border', '');
+					div.css('font-size', '0px');
+					div.css('text-align', '');
+					div.css('line-height', '');
+					div.css('color', '');
 				});
 				imgPart.append(div);
 			})
